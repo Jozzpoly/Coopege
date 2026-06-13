@@ -1,0 +1,7 @@
+{
+  "name": "@coopege/runtime-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Atomowy host snapshotu projektu dla Coopege Runtime"
+}

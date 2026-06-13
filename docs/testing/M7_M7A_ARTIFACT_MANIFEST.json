@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-06-13T14:22:53Z",
+  "workspace": "coopege@0.7.1-m7a",
+  "milestones": [
+    "M7 — authored spawns i runtime world parity",
+    "M7A — Asset Vault"
+  ],
+  "testSummary": {
+    "npmTestExitCode": 0,
+    "typescript": "PASS",
+    "node": {
+      "passed": 70,
+      "failed": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "chromium": {
+      "passed": 9,
+      "failed": 0
+    },
+    "legacyIntegrity": {
+      "passed": 4,
+      "failed": 0
+    },
+    "gameplayGateAutomated": "PASS_AUTOMATED",
+    "assetVaultZipIntegrity": "PASS"
+  },
+  "worldSummary": {
+    "authoredSpawnDefinitions": 338,
+    "runtimeSpawnInstances": 338,
+    "activeMonsterCap": 48,
+    "saveSchemaVersion": 3
+  },
+  "assetVaultSummary": {
+    "pngAssets": 45,
+    "categories": 5,
+    "packFormat": "coopege-asset-pack/v1",
+    "contactSheet": "HTML"
+  },
+  "openGates": [
+    "Ręczny Gameplay Gate 0.1: 15 min solo + 15 min coop C0 przez właściciela.",
+    "Prawdziwy coop LAN na dwóch urządzeniach jest zakresem M8 i nie został rozpoczęty."
+  ],
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 760747,
+      "sha256": "0b82a730cb4cd0fe33f1ebd8986d513f5836a5ccd23b5b0345103a947e69f7db"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1352515,
+      "sha256": "f34d6ad081d79740b0571f269ca65b9fda9769141ab09d26c62fd0029182b441"
+    },
+    {
+      "path": "dist/Coopege_M7_Runtime.html",
+      "bytes": 231173,
+      "sha256": "5dadba2fe0fc439001802f95dc18166ed3373bb5f3b99958ad268336ec888ea6"
+    },
+    {
+      "path": "dist/Coopege_M7_Legacy_Runtime.html",
+      "bytes": 760747,
+      "sha256": "0b82a730cb4cd0fe33f1ebd8986d513f5836a5ccd23b5b0345103a947e69f7db"
+    },
+    {
+      "path": "dist/Coopege_M7_Studio.html",
+      "bytes": 1352515,
+      "sha256": "f34d6ad081d79740b0571f269ca65b9fda9769141ab09d26c62fd0029182b441"
+    },
+    {
+      "path": "dist/Coopege_M7A_Studio.html",
+      "bytes": 1352515,
+      "sha256": "f34d6ad081d79740b0571f269ca65b9fda9769141ab09d26c62fd0029182b441"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault.zip",
+      "bytes": 249563,
+      "sha256": "0ca08110c12966239e4f9b3d066ad0e62d0ebb18eff546ea300c7e7c6930572c"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault/manifest.json",
+      "bytes": 17578,
+      "sha256": "4951664b1a22151168a91e1e9682c02a27d6e563b17f4d180f09d5f869c1c841"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault/contact-sheet.html",
+      "bytes": 9658,
+      "sha256": "a57de960def62e3e590a1965005664c3e90921f157b1ee4c2840d77c2db3e9c5"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault/README.txt",
+      "bytes": 243,
+      "sha256": "a3fd457e72a3f8c312e0b1659d3d4ad07896003b43c340ffa9307da86024a1cc"
+    },
+    {
+      "path": "project/migration/legacy-v14.1/coopege.project.json",
+      "bytes": 478933,
+      "sha256": "24830321b73a9eee38f451fb673c48b8a42f77c9aa2f17385b7393817a47f10f"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1667,
+      "sha256": "c0bda480b21922ba3ed0f8275f29ee156fe60d1e09e4677dfbfa2d42105397c3"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 4259,
+      "sha256": "ed7628634692e8ddec9b230acfb477942084757437a18d54b2c3e72b9ce4c05f"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 9069,
+      "sha256": "4331dbf242198b213497c23de4914f7319cb938fd051601fb6ed5eb56a801173"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4863,
+      "sha256": "a44da8ef7557dccedccb81a7980f8373441962209345acf9e7e95cbdfe1ccef2"
+    },
+    {
+      "path": "docs/product/COOPEGE_ROADMAP.md",
+      "bytes": 3354,
+      "sha256": "0598fe4726cc7b841c3089effd2e102f3b8b4a5857312f05219feedeba78ed4b"
+    },
+    {
+      "path": "docs/process/NEXT_AGENT_BRIEF.md",
+      "bytes": 5478,
+      "sha256": "dc6e1d1fae767f4085c9a67446ced34819b39a6a593f0a656192bd67fc0ee734"
+    },
+    {
+      "path": "docs/process/PLAYTEST_LOG.md",
+      "bytes": 2449,
+      "sha256": "6002b8a8f6350d24edb863a27b47445bd6f7cecaf90d4ac41f39196f8fa02574"
+    },
+    {
+      "path": "docs/process/TRAJECTORY_UPDATE_2026-06-13.md",
+      "bytes": 3245,
+      "sha256": "5a316482e2df4c1cac6e1aac69e284400fb169e38bd58cddb8aa4f63d44ef92e"
+    },
+    {
+      "path": "docs/decisions/0013-authored-spawn-lifecycle-and-save-v3.md",
+      "bytes": 3202,
+      "sha256": "759df867801e6f791f3a91fb855db8a37e80ed226b2c63758a67f08c18d66d8d"
+    },
+    {
+      "path": "docs/decisions/0014-asset-vault-pack-format.md",
+      "bytes": 2262,
+      "sha256": "2f02cbed85302b2133c5bb87f147e4096e1a7b7b864f35b6e88fc9689140cf79"
+    },
+    {
+      "path": "docs/testing/M7_M7A_TEST_REPORT.md",
+      "bytes": 3848,
+      "sha256": "378a71e10c69f1e1cb528034028c0e9bacabcd7c9716ca59af9c97a7f912756e"
+    },
+    {
+      "path": "docs/testing/M7_GAMEPLAY_GATE_0.1.json",
+      "bytes": 2012,
+      "sha256": "e7d06e50404584b7e29b4dd25f18bfc84b6f9b8db8c611c5a9f01472e82e77da"
+    },
+    {
+      "path": "docs/testing/screenshots/M7_Authored_Spawns.png",
+      "bytes": 525224,
+      "sha256": "4f92a8942a9731fe7e2a68337e5481c98e38fbf6ba7d8e2d283b14aa0858fbd7"
+    },
+    {
+      "path": "docs/testing/screenshots/M7_Coop_Combat.png",
+      "bytes": 293611,
+      "sha256": "8df6c107f4c4da56a815201d7209b6b8812875c510e0146573073b56cce84178"
+    },
+    {
+      "path": "docs/testing/screenshots/M7A_Asset_Vault.png",
+      "bytes": 190792,
+      "sha256": "b6efa27d3b220b60fcdba5fe9dfc5d3f6220792c4ab11f65ecf30e9e3b14c878"
+    },
+    {
+      "path": ".npmrc",
+      "bytes": 60,
+      "sha256": "6e55aa84f7394184d4e5b26e38bbc5dcb099de321e5ceca2ddad0474a2a66ec5"
+    },
+    {
+      "path": "repair-npm-registry.ps1",
+      "bytes": 1861,
+      "sha256": "4d2a9d6742186ef684c7c9a68fea70370416089614bc0883a72cb01a1afed3f0"
+    },
+    {
+      "path": "INSTALL_WINDOWS.md",
+      "bytes": 1717,
+      "sha256": "362a80fb724e3eb10bd38f5112718a7798594997cd16f3019b9e3946d71611ca"
+    },
+    {
+      "path": "docs/testing/NPM_REGISTRY_DISTRIBUTION_FIX.md",
+      "bytes": 1518,
+      "sha256": "a361051bc71161284359328b1390411ac65be8e234c317ab11ecac2d6cbeb657"
+    }
+  ],
+  "distributionHotfix": {
+    "id": "npm-public-registry-2026-06-13",
+    "status": "APPLIED",
+    "sourceCodeChanged": false,
+    "details": "Wewnętrzne URL-e registry OpenAI zastąpiono publicznym registry npm; dodano projektowy .npmrc i skrypt naprawczy Windows.",
+    "localInstallVerification": "OPEN_OWNER_MACHINE"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-06-13T18:30:00Z",
+  "workspace": "coopege@0.7.3-m7-validation-candidate",
+  "status": "TECH_VERIFIED_NOT_SUCCESSOR_REVIEWED_NOT_OWNER_ACCEPTED",
+  "activeMilestone": "M7_FINAL_OWNER_VALIDATION",
+  "files": [
+    {
+      "path": "PROJECT_STATE.json",
+      "bytes": 1289,
+      "sha256": "2f02dc0fdc5acfb3f3e3f2d9b75a10f645684faec4c9f7003fbabf3f02ef7e5c"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 3842,
+      "sha256": "1e7cbc49260bade223bf297099decaff0f0fed3abd671d6477935dcdaa938058"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2178,
+      "sha256": "a229e184dfc9641391d6541cf4130239d42fc2524172f9fe1314dbbcace1eec8"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 1189,
+      "sha256": "9e0ecb9ff81120a9405d5b76ac07a407ac925d5b5cf41175d8724ac89e039aa1"
+    },
+    {
+      "path": "docs/product/COOPEGE_SOUL.md",
+      "bytes": 8437,
+      "sha256": "ba852c6393d227d646883abbf8b9ea4413b7708c64bb4abfbd88259499e483c6"
+    },
+    {
+      "path": "docs/product/AGENT_SOUL.md",
+      "bytes": 8357,
+      "sha256": "62439b5fe07f3af58b72ceb3adf0abdf6bb1be11bf86b8aaf89a396b3c6a871f"
+    },
+    {
+      "path": "docs/product/PANTHEON.md",
+      "bytes": 4623,
+      "sha256": "5f5cdc42852b10e8da651a7e710f21eb51288a41ae926ca31db22fe3494d84e2"
+    },
+    {
+      "path": "docs/product/COOPEGE_ROADMAP.md",
+      "bytes": 3919,
+      "sha256": "63be82ff1fe916a960d1f9284ee43ea9db3a75ded7256fed0734301ddea2ec4a"
+    },
+    {
+      "path": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
+      "bytes": 3532,
+      "sha256": "d4122bc8e1ea67e6c9f28f7ae23bcc05dd4bb5f32c0a274881dce9f0cb04ea95"
+    },
+    {
+      "path": "docs/process/AGENT_WORKFLOW.md",
+      "bytes": 2450,
+      "sha256": "1cf71200fbc0541df01743282621c5c92d28b44e2576611943132e66153ae679"
+    },
+    {
+      "path": "docs/process/CURRENT_MILESTONE.md",
+      "bytes": 1633,
+      "sha256": "07d8c148ff8a7d9b0379da916ce088314635a3e08fedefc9e369f8b20448ab90"
+    },
+    {
+      "path": "docs/process/LAST_HANDOFF.md",
+      "bytes": 1947,
+      "sha256": "b7ee632596717cbe8066d8f300728d4d7133ae86e29563b575b0d3e36156f757"
+    },
+    {
+      "path": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
+      "bytes": 930,
+      "sha256": "f9a16ffea8108835d7a620590444cc36e0aa89a6bd38565645f85dcd43264b2d"
+    },
+    {
+      "path": "docs/process/NEXT_AGENT_BRIEF.md",
+      "bytes": 295,
+      "sha256": "7a27f48418bc2f5d4c4ddca539dd3dff105e0897992f7e4a0ebeaf58a5ed6545"
+    },
+    {
+      "path": "docs/process/PLAYTEST_LOG.md",
+      "bytes": 5289,
+      "sha256": "cca8b09b76d1ade111e4d98d755be8f95305cdb56d273223772eba8b5c95c47d"
+    },
+    {
+      "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
+      "bytes": 2394,
+      "sha256": "7e54e8ed3efc29d606dfdd827c51ced667c760754f98d954a057edc101096e97"
+    },
+    {
+      "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
+      "bytes": 8849,
+      "sha256": "8e29e06dce8e55f9f79f81cc4ee898458957996f7b10bc03686b2337af3cf7c9"
+    },
+    {
+      "path": "docs/testing/M7_FINALIZATION_RELEASE_REVIEW.md",
+      "bytes": 777,
+      "sha256": "7906b52a3ed14e177cdf9f401b736b2427f7559da2aba32a04b11f5b005c1295"
+    },
+    {
+      "path": "docs/decisions/0013-authored-spawn-lifecycle-and-save-v3.md",
+      "bytes": 3202,
+      "sha256": "759df867801e6f791f3a91fb855db8a37e80ed226b2c63758a67f08c18d66d8d"
+    },
+    {
+      "path": "docs/decisions/0014-asset-vault-pack-format.md",
+      "bytes": 2262,
+      "sha256": "2f02cbed85302b2133c5bb87f147e4096e1a7b7b864f35b6e88fc9689140cf79"
+    },
+    {
+      "path": "docs/decisions/0015-owner-gated-playtest-transitions-and-texture-layouts.md",
+      "bytes": 2711,
+      "sha256": "4fa8568330e38579bfc556cd5166b37d4ff00e100e8b5b82ca5722b87f6820af"
+    }
+  ]
+}

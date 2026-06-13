@@ -1,0 +1,16 @@
+# Repository text policy: canonical LF for source and documentation.
+* text=auto eol=lf
+
+# Windows launchers must keep CRLF on every platform.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets and archives must never be line-ending normalized.
+*.png binary
+*.zip binary
+*.sha256 text eol=lf
+
+# Release and legacy artifacts are verified byte-for-byte by SHA-256.
+dist/** -text
+legacy/reference/*.html -text
+project/migration/legacy-v14.1/raw/** -text

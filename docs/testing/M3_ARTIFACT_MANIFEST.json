@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-06-12T21:25:44+00:00",
+  "workspaceVersion": "0.3.0-m3",
+  "milestone": "M3",
+  "testSummary": {
+    "typecheck": "PASS",
+    "node": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "chromiumScenarios": {
+      "passed": 5,
+      "failed": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 623688,
+      "sha256": "555ccdc183a49417e94583185cca4728ba6ded37cb75d72fbac03f1300cf82b8"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 917402,
+      "sha256": "a97c0591535fe85b8fdfc57095637c87cb89fbd880bb70cd431e7e317f482341"
+    },
+    {
+      "path": "dist/Coopege_M3_Runtime.html",
+      "bytes": 111904,
+      "sha256": "fffac2ec3d952060feba61a6a9b57b713395e14d0312b9745f67e26f8437f812"
+    },
+    {
+      "path": "dist/Coopege_M3_Legacy_Runtime.html",
+      "bytes": 623688,
+      "sha256": "555ccdc183a49417e94583185cca4728ba6ded37cb75d72fbac03f1300cf82b8"
+    },
+    {
+      "path": "dist/Coopege_M3_Studio.html",
+      "bytes": 917402,
+      "sha256": "a97c0591535fe85b8fdfc57095637c87cb89fbd880bb70cd431e7e317f482341"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 31252,
+      "sha256": "1b1084e6d3024efbc6ab6c9c4178fb4e666a486467ff90d9535a0baffb4e3255"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3589,
+      "sha256": "2b8545796e1adb5e45eeb4b15d8c9dd3d46373efcd648f0f248e14630562e450"
+    },
+    {
+      "path": "docs/decisions/0009-shared-assets-map-deltas-and-checkpoints.md",
+      "bytes": 2394,
+      "sha256": "e60b43598e2b78cd6f0c03701e0d382bbf52a8a563fe16d900b06d4a8c1f659f"
+    },
+    {
+      "path": "docs/testing/M3_AUTHORING_PARITY_TEST_REPORT.md",
+      "bytes": 4583,
+      "sha256": "d1367763c06fe80d723277c4321e26325767d06647541afeef34c4e54e4a1109"
+    },
+    {
+      "path": "docs/testing/screenshots/M3_Silver_Gate_Assets.png",
+      "bytes": 157390,
+      "sha256": "433754f50be6ca7c6589bd646425039067df903f790c8a29960f29e8afa1e924"
+    },
+    {
+      "path": "docs/testing/screenshots/M3_Studio_Map_Editor.png",
+      "bytes": 61823,
+      "sha256": "084eda0d7310f6f58b519d010ea15bbd623f5472aada3b68a3cc15b8becef3f3"
+    },
+    {
+      "path": "docs/testing/screenshots/M3_Studio_Asset_Browser.png",
+      "bytes": 67449,
+      "sha256": "e0f08e3117532e2e60f618929a43749965fcea7e02a47130f5e4da244441a859"
+    },
+    {
+      "path": "docs/testing/screenshots/M3_Studio_Authoring.png",
+      "bytes": 72490,
+      "sha256": "4d45ef629e29cb07e31076e5d2e4e0df2fe4df94b49ffe7d887eb4e356804c0f"
+    }
+  ]
+}

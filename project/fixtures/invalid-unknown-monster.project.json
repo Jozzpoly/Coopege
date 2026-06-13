@@ -1,0 +1,250 @@
+{
+  "format": "coopege-project",
+  "schemaVersion": 1,
+  "manifest": {
+    "projectId": "coopege.foundation",
+    "name": "Coopege Foundation Fixture",
+    "projectVersion": "0.0.1",
+    "createdAt": "2026-06-12T00:00:00.000Z",
+    "updatedAt": "2026-06-12T00:00:00.000Z",
+    "defaultLocale": "pl-PL",
+    "entryFloorId": "floor.surface",
+    "playerStart": {
+      "floorId": "floor.surface",
+      "x": 3,
+      "y": 3
+    }
+  },
+  "world": {
+    "tileSize": 32,
+    "tiles": [
+      {
+        "id": "tile.floor",
+        "name": "Kamienna posadzka",
+        "walkable": true,
+        "blocksProjectiles": false,
+        "assetId": "texture.tile.floor"
+      },
+      {
+        "id": "tile.wall",
+        "name": "Kamienna ściana",
+        "walkable": false,
+        "blocksProjectiles": true,
+        "assetId": "texture.tile.wall"
+      },
+      {
+        "id": "tile.grass",
+        "name": "Trawa",
+        "walkable": true,
+        "blocksProjectiles": false,
+        "assetId": "texture.tile.grass"
+      }
+    ],
+    "floors": [
+      {
+        "id": "floor.surface",
+        "name": "Plac testowy",
+        "width": 12,
+        "height": 8,
+        "encoding": "rle-v1",
+        "tiles": [
+          [
+            "tile.wall",
+            12
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            10
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            10
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            12
+          ]
+        ]
+      }
+    ]
+  },
+  "content": {
+    "classes": [
+      {
+        "id": "class.vanguard",
+        "name": "Strażnik",
+        "maxHp": 120,
+        "moveSpeedTilesPerSecond": 4,
+        "abilityIds": [
+          "ability.basic_strike"
+        ],
+        "assetId": "texture.actor.vanguard"
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ability.basic_strike",
+        "name": "Podstawowe uderzenie",
+        "kind": "melee",
+        "cooldownTicks": 18,
+        "rangeTiles": 1.4,
+        "power": 15,
+        "assetId": "texture.effect.strike"
+      }
+    ],
+    "monsters": [
+      {
+        "id": "monster.training_slime",
+        "name": "Treningowy szlam",
+        "maxHp": 35,
+        "moveSpeedTilesPerSecond": 2,
+        "abilityIds": [
+          "ability.basic_strike"
+        ],
+        "assetId": "texture.monster.slime"
+      }
+    ],
+    "spawns": [
+      {
+        "id": "spawn.training_slime.1",
+        "floorId": "floor.surface",
+        "monsterId": "monster.ghost",
+        "x": 8,
+        "y": 4,
+        "count": 1,
+        "respawnTicks": 180
+      }
+    ]
+  },
+  "assets": {
+    "schemaVersion": 1,
+    "entries": [
+      {
+        "id": "texture.tile.floor",
+        "kind": "texture",
+        "source": "procedural://tile/floor"
+      },
+      {
+        "id": "texture.tile.wall",
+        "kind": "texture",
+        "source": "procedural://tile/wall"
+      },
+      {
+        "id": "texture.tile.grass",
+        "kind": "texture",
+        "source": "procedural://tile/grass"
+      },
+      {
+        "id": "texture.actor.vanguard",
+        "kind": "texture",
+        "source": "procedural://actor/vanguard"
+      },
+      {
+        "id": "texture.effect.strike",
+        "kind": "texture",
+        "source": "procedural://effect/strike"
+      },
+      {
+        "id": "texture.monster.slime",
+        "kind": "texture",
+        "source": "procedural://monster/slime"
+      }
+    ]
+  }
+}

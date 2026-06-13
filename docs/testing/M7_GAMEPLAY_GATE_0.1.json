@@ -1,0 +1,79 @@
+{
+  "format": "coopege-gameplay-gate-0.1",
+  "generatedAt": "2026-06-13T13:40:40.109Z",
+  "startedAt": "2026-06-13T13:40:28.802Z",
+  "projectChecksum": "fnv1a64:dd2f7b5cdfcd618c",
+  "gateKind": "automated deterministic soak; not a substitute for owner human playtest",
+  "result": "PASS_AUTOMATED",
+  "solo": {
+    "mode": "solo",
+    "ticks": 27000,
+    "simulatedMinutes": 15,
+    "maximumActiveActors": 14,
+    "maximumCapped": 0,
+    "floorTransitions": 2,
+    "saveLoadChecks": 6,
+    "deaths": 253,
+    "rewards": 51,
+    "gameplayFailures": 0,
+    "finalChecksum": "fnv1a64:4893f47ce1ed80d1",
+    "finalFloorId": "floor.legacy.z_2",
+    "playerSummary": [
+      {
+        "playerId": "player.local.1",
+        "entityId": "entity.player.000001",
+        "slotId": "slot.keyboard-mouse.1",
+        "hp": 0,
+        "maxHp": 120,
+        "alive": false,
+        "xp": 1530,
+        "gold": 153,
+        "lootCount": 51,
+        "kills": 51,
+        "questKillCredits": 51
+      }
+    ]
+  },
+  "coop": {
+    "mode": "coop-c0",
+    "ticks": 27000,
+    "simulatedMinutes": 15,
+    "maximumActiveActors": 15,
+    "maximumCapped": 0,
+    "floorTransitions": 2,
+    "saveLoadChecks": 6,
+    "deaths": 298,
+    "rewards": 77,
+    "gameplayFailures": 0,
+    "finalChecksum": "fnv1a64:bb2a5319540f6304",
+    "finalFloorId": "floor.legacy.z_2",
+    "playerSummary": [
+      {
+        "playerId": "player.local.1",
+        "entityId": "entity.player.000001",
+        "slotId": "slot.keyboard-mouse.1",
+        "hp": 0,
+        "maxHp": 120,
+        "alive": false,
+        "xp": 3366,
+        "gold": 363,
+        "lootCount": 43,
+        "kills": 43,
+        "questKillCredits": 77
+      },
+      {
+        "playerId": "player.local.2",
+        "entityId": "entity.player.000002",
+        "slotId": "slot.gamepad.1",
+        "hp": 0,
+        "maxHp": 120,
+        "alive": false,
+        "xp": 3396,
+        "gold": 357,
+        "lootCount": 34,
+        "kills": 34,
+        "questKillCredits": 77
+      }
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-06-12T00:00:00+02:00",
+  "artifacts": {
+    "engine": {
+      "filename": "Tibia_Enhanced_v14_1_DevAPI.html",
+      "bytes": 338570,
+      "sha256": "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c"
+    },
+    "studio": {
+      "filename": "Tibia_Developer_Studio_v3_1.html",
+      "bytes": 102846,
+      "sha256": "b512be2b139862392853b0689cef9c42304b7e869944471a53b150edafff6adb"
+    }
+  },
+  "environment": {
+    "browser": "Chromium headless",
+    "syntaxChecker": "Node.js --check"
+  },
+  "summary": {
+    "passed": 15,
+    "failed": 0,
+    "knownLimitations": 7
+  },
+  "tests": [
+    {
+      "id": "syntax-engine",
+      "status": "PASS",
+      "result": "JavaScript accepted by node --check"
+    },
+    {
+      "id": "syntax-studio",
+      "status": "PASS",
+      "result": "JavaScript accepted by node --check"
+    },
+    {
+      "id": "api-bootstrap",
+      "status": "PASS",
+      "result": "Asset, Map, Content and Project APIs detected; engine 14.1.0"
+    },
+    {
+      "id": "new-monster",
+      "status": "PASS",
+      "result": "Runtime definition and procedural asset slot created"
+    },
+    {
+      "id": "map-object-history",
+      "status": "PASS",
+      "result": "NPC count 133→134→133→134"
+    },
+    {
+      "id": "start-position",
+      "status": "PASS",
+      "result": "88,84,Z0→90,86,Z0; undo restored original"
+    },
+    {
+      "id": "cross-floor-link",
+      "status": "PASS",
+      "result": "Same-floor rejected; underA/underB and terrain restored by undo"
+    },
+    {
+      "id": "rename-with-png",
+      "status": "PASS",
+      "result": "PNG moved to new monster asset ID"
+    },
+    {
+      "id": "cascade-delete",
+      "status": "PASS",
+      "result": "Monster, dependent quest and spawn removed"
+    },
+    {
+      "id": "atomic-project-undo-redo",
+      "status": "PASS",
+      "result": "Content, map references and custom PNG restored/removed together"
+    },
+    {
+      "id": "world-validation",
+      "status": "PASS",
+      "result": "Five floors reachable; gates and spawn progression pass"
+    },
+    {
+      "id": "transaction-rollback",
+      "status": "PASS",
+      "result": "Unknown ghost spawn rejected without mutation"
+    },
+    {
+      "id": "asset-security",
+      "status": "PASS",
+      "result": "Remote URL and invalid package rejected"
+    },
+    {
+      "id": "exports",
+      "status": "PASS",
+      "result": "ZIP 45 PNG + manifest; project and standalone build reload correctly"
+    },
+    {
+      "id": "checkpoint",
+      "status": "PASS",
+      "result": "Memory fallback restores state when IndexedDB is unavailable"
+    }
+  ],
+  "knownLimitations": [
+    "New classes are not data-driven.",
+    "New active skill mechanics require a registered executor.",
+    "New talent identifiers do not automatically gain engine behavior.",
+    "Quest support is currently focused on simple kill-count quests.",
+    "Items, equipment and NPC dialogue are not exposed through Content API.",
+    "The application remains a large single-file architecture.",
+    "The iframe must only load trusted game HTML because allow-scripts + allow-same-origin is not a security boundary."
+  ]
+}

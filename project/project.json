@@ -1,0 +1,498 @@
+{
+  "format": "coopege-project",
+  "schemaVersion": 2,
+  "manifest": {
+    "projectId": "coopege.foundation",
+    "name": "Coopege Foundation Fixture",
+    "projectVersion": "0.0.1",
+    "createdAt": "2026-06-12T00:00:00.000Z",
+    "updatedAt": "2026-06-12T00:00:00.000Z",
+    "defaultLocale": "pl-PL",
+    "entryFloorId": "floor.surface",
+    "playerStart": {
+      "floorId": "floor.surface",
+      "x": 3,
+      "y": 3
+    }
+  },
+  "world": {
+    "tileSize": 32,
+    "tiles": [
+      {
+        "id": "tile.floor",
+        "name": "Kamienna posadzka",
+        "walkable": true,
+        "blocksProjectiles": false,
+        "assetId": "texture.tile.floor"
+      },
+      {
+        "id": "tile.wall",
+        "name": "Kamienna ściana",
+        "walkable": false,
+        "blocksProjectiles": true,
+        "assetId": "texture.tile.wall"
+      },
+      {
+        "id": "tile.grass",
+        "name": "Trawa",
+        "walkable": true,
+        "blocksProjectiles": false,
+        "assetId": "texture.tile.grass"
+      }
+    ],
+    "floors": [
+      {
+        "id": "floor.surface",
+        "name": "Plac testowy",
+        "width": 12,
+        "height": 8,
+        "encoding": "rle-v1",
+        "tiles": [
+          [
+            "tile.wall",
+            12
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            10
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.floor",
+            6
+          ],
+          [
+            "tile.grass",
+            2
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.grass",
+            10
+          ],
+          [
+            "tile.wall",
+            1
+          ],
+          [
+            "tile.wall",
+            12
+          ]
+        ]
+      }
+    ]
+  },
+  "content": {
+    "classes": [
+      {
+        "id": "class.vanguard",
+        "name": "Strażnik",
+        "maxHp": 120,
+        "moveSpeedTilesPerSecond": 4,
+        "abilityIds": [
+          "ability.basic_strike"
+        ],
+        "assetId": "texture.actor.vanguard"
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ability.basic_strike",
+        "name": "Podstawowe uderzenie",
+        "kind": "melee",
+        "cooldownTicks": 18,
+        "rangeTiles": 1.4,
+        "power": 15,
+        "assetId": "texture.effect.strike",
+        "graphId": "graph.ability.basic_strike"
+      }
+    ],
+    "monsters": [
+      {
+        "id": "monster.training_slime",
+        "name": "Treningowy szlam",
+        "maxHp": 35,
+        "moveSpeedTilesPerSecond": 2,
+        "abilityIds": [
+          "ability.basic_strike"
+        ],
+        "assetId": "texture.monster.slime"
+      }
+    ],
+    "spawns": [
+      {
+        "id": "spawn.training_slime.1",
+        "floorId": "floor.surface",
+        "monsterId": "monster.training_slime",
+        "x": 8,
+        "y": 4,
+        "count": 1,
+        "respawnTicks": 180
+      }
+    ]
+  },
+  "assets": {
+    "schemaVersion": 1,
+    "entries": [
+      {
+        "id": "texture.tile.floor",
+        "kind": "texture",
+        "source": "procedural://tile/floor"
+      },
+      {
+        "id": "texture.tile.wall",
+        "kind": "texture",
+        "source": "procedural://tile/wall"
+      },
+      {
+        "id": "texture.tile.grass",
+        "kind": "texture",
+        "source": "procedural://tile/grass"
+      },
+      {
+        "id": "texture.actor.vanguard",
+        "kind": "texture",
+        "source": "procedural://actor/vanguard"
+      },
+      {
+        "id": "texture.effect.strike",
+        "kind": "texture",
+        "source": "procedural://effect/strike"
+      },
+      {
+        "id": "texture.monster.slime",
+        "kind": "texture",
+        "source": "procedural://monster/slime"
+      }
+    ]
+  },
+  "gameplay": {
+    "schemaVersion": 1,
+    "executionBudget": 64,
+    "graphs": [
+      {
+        "id": "graph.ability.basic_strike",
+        "name": "Podstawowe uderzenie — migracja v1",
+        "entryNodeId": "node.source-alive",
+        "nodes": [
+          {
+            "id": "node.source-alive",
+            "kind": "condition",
+            "conditionId": "condition.source-alive",
+            "onTrue": "node.cooldown-ready",
+            "onFalse": "node.end"
+          },
+          {
+            "id": "node.cooldown-ready",
+            "kind": "condition",
+            "conditionId": "condition.cooldown-ready",
+            "onTrue": "node.targets",
+            "onFalse": "node.end"
+          },
+          {
+            "id": "node.targets",
+            "kind": "target-query",
+            "queryId": "query.nearest-hostile-in-range",
+            "next": "node.has-target"
+          },
+          {
+            "id": "node.has-target",
+            "kind": "condition",
+            "conditionId": "condition.targets-present",
+            "onTrue": "node.cooldown",
+            "onFalse": "node.miss-cooldown"
+          },
+          {
+            "id": "node.cooldown",
+            "kind": "action",
+            "actionId": "action.start-ability-cooldown",
+            "next": "node.emit"
+          },
+          {
+            "id": "node.emit",
+            "kind": "action",
+            "actionId": "action.emit-ability-used",
+            "next": "node.damage"
+          },
+          {
+            "id": "node.damage",
+            "kind": "effect",
+            "effectId": "effect.damage-from-ability",
+            "next": "node.end"
+          },
+          {
+            "id": "node.miss-cooldown",
+            "kind": "action",
+            "actionId": "action.start-miss-cooldown",
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      },
+      {
+        "id": "graph.item.healing-tonic",
+        "name": "Efekt przedmiotu: mikstura treningowa",
+        "entryNodeId": "node.source",
+        "nodes": [
+          {
+            "id": "node.source",
+            "kind": "target-query",
+            "queryId": "query.source",
+            "next": "node.heal"
+          },
+          {
+            "id": "node.heal",
+            "kind": "effect",
+            "effectId": "effect.heal-fixed",
+            "parameters": {
+              "amount": 10
+            },
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      },
+      {
+        "id": "graph.talent.guardian-focus",
+        "name": "Modyfikator talentu: skupienie strażnika",
+        "entryNodeId": "node.source",
+        "nodes": [
+          {
+            "id": "node.source",
+            "kind": "target-query",
+            "queryId": "query.source",
+            "next": "node.heal"
+          },
+          {
+            "id": "node.heal",
+            "kind": "effect",
+            "effectId": "effect.heal-fixed",
+            "parameters": {
+              "amount": 3
+            },
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      },
+      {
+        "id": "graph.ai.training-attack",
+        "name": "Akcja AI: kontrolowany atak",
+        "entryNodeId": "node.target",
+        "nodes": [
+          {
+            "id": "node.target",
+            "kind": "target-query",
+            "queryId": "query.provided-target",
+            "next": "node.has-target"
+          },
+          {
+            "id": "node.has-target",
+            "kind": "condition",
+            "conditionId": "condition.targets-present",
+            "onTrue": "node.damage",
+            "onFalse": "node.end"
+          },
+          {
+            "id": "node.damage",
+            "kind": "effect",
+            "effectId": "effect.damage-fixed",
+            "parameters": {
+              "amount": 5
+            },
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      },
+      {
+        "id": "graph.quest.monster-kill-credit",
+        "name": "Reakcja questa: zalicz pokonanego potwora",
+        "entryNodeId": "node.monster",
+        "nodes": [
+          {
+            "id": "node.monster",
+            "kind": "condition",
+            "conditionId": "condition.provided-target-is-monster",
+            "onTrue": "node.credit",
+            "onFalse": "node.end"
+          },
+          {
+            "id": "node.credit",
+            "kind": "action",
+            "actionId": "action.increment-quest-credit",
+            "parameters": {
+              "amount": 1
+            },
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      },
+      {
+        "id": "graph.map.healing-sigil",
+        "name": "Trigger mapy: leczniczy znak",
+        "entryNodeId": "node.source",
+        "nodes": [
+          {
+            "id": "node.source",
+            "kind": "target-query",
+            "queryId": "query.source",
+            "next": "node.heal"
+          },
+          {
+            "id": "node.heal",
+            "kind": "effect",
+            "effectId": "effect.heal-fixed",
+            "parameters": {
+              "amount": 8
+            },
+            "next": "node.end"
+          },
+          {
+            "id": "node.end",
+            "kind": "end"
+          }
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "id": "binding.ability.basic_strike",
+        "domain": "ability",
+        "graphId": "graph.ability.basic_strike"
+      },
+      {
+        "id": "binding.item.healing-tonic",
+        "domain": "item-effect",
+        "graphId": "graph.item.healing-tonic"
+      },
+      {
+        "id": "binding.talent.guardian-focus",
+        "domain": "talent-modifier",
+        "graphId": "graph.talent.guardian-focus"
+      },
+      {
+        "id": "binding.ai.training-attack",
+        "domain": "ai-action",
+        "graphId": "graph.ai.training-attack"
+      },
+      {
+        "id": "binding.quest.monster-kill-credit",
+        "domain": "quest-reaction",
+        "graphId": "graph.quest.monster-kill-credit"
+      },
+      {
+        "id": "binding.map.healing-sigil",
+        "domain": "map-trigger",
+        "graphId": "graph.map.healing-sigil"
+      }
+    ],
+    "triggers": [
+      {
+        "id": "trigger.quest.actor-died",
+        "domain": "quest-reaction",
+        "event": "actor.died",
+        "graphId": "graph.quest.monster-kill-credit",
+        "enabled": true
+      }
+    ]
+  }
+}

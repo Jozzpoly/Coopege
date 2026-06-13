@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-06-12T00:00:00.000Z",
+  "milestone": "M1",
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 231489,
+      "sha256": "982dce97d70bac129e9778aeab02130227d34801022cfeff8412f9914d689860"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 291907,
+      "sha256": "8c6394afff8bfe73e07c338b95da76e6bba3c07703f2d7f1114bd540469debc2"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 28646,
+      "sha256": "e4d6d04013424d8be82859fc3a1a3afe26db9f316f65ef49311a2677b2306b63"
+    },
+    {
+      "path": "docs/testing/M1_TOOLCHAIN_TEST_REPORT.md",
+      "bytes": 2545,
+      "sha256": "c78d0130aa2065f79515ff9e9b935fcca915d767ac468f8e187b62da6e9110e6"
+    }
+  ]
+}

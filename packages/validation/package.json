@@ -1,0 +1,7 @@
+{
+  "name": "@coopege/validation",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Wspólny walidator projektu Coopege"
+}

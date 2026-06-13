@@ -1,0 +1,82 @@
+{
+  "manifestVersion": 1,
+  "generatedAt": "2026-06-12T22:00:00+02:00",
+  "milestone": "M2",
+  "workspaceVersion": "0.2.0-m2",
+  "verification": {
+    "nodeTests": {
+      "passed": 27,
+      "failed": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "browserScenarios": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 280276,
+      "sha256": "f0d01cc4122c04709ed696569afba27d7f005e4132bd3148a93eca12665212b0"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 374126,
+      "sha256": "2d8ff36a7939aa34e14cc3493690ecd3cea7ea246b90fd6289483ab6b58c5ff5"
+    },
+    {
+      "path": "dist/Coopege_M2_Runtime.html",
+      "bytes": 98248,
+      "sha256": "49fff1bc6d87f8f8b33a7a0313aef03ed2852dfe56cda04ff555223ae2db696f"
+    },
+    {
+      "path": "dist/Coopege_M2_Legacy_Runtime.html",
+      "bytes": 280276,
+      "sha256": "f0d01cc4122c04709ed696569afba27d7f005e4132bd3148a93eca12665212b0"
+    },
+    {
+      "path": "dist/Coopege_M2_Studio.html",
+      "bytes": 374126,
+      "sha256": "2d8ff36a7939aa34e14cc3493690ecd3cea7ea246b90fd6289483ab6b58c5ff5"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 29109,
+      "sha256": "1d7b297cfb0a6575cc9ffd06749c97c904357be015ce227f58181b72aa000599"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2652,
+      "sha256": "83931417a35db45d820526e2a5b07433e76fce6782461d7e097f7484f2264bf2"
+    },
+    {
+      "path": "docs/decisions/0008-runtime-entity-ids-replay-and-save.md",
+      "bytes": 1766,
+      "sha256": "192537a02f23839b5d01d9c0f19525d617c5fadf2e3590fe2799ab3a3f736052"
+    },
+    {
+      "path": "docs/testing/M2_VERTICAL_SLICE_TEST_REPORT.md",
+      "bytes": 2636,
+      "sha256": "d5a513cbe20ebea680e929c48a6fb89be0c64b00113d752a19ae8e5a47b1544c"
+    },
+    {
+      "path": "docs/testing/screenshots/M2_Minimal_Runtime.png",
+      "bytes": 70699,
+      "sha256": "54676f8e3ab2fe3b6f20b183767290c1450849fe666ce3df8219a4937962399e"
+    },
+    {
+      "path": "docs/testing/screenshots/M2_Silver_Gate_Runtime.png",
+      "bytes": 127441,
+      "sha256": "aef3400f812b094cc1b8f51306df2d1ca265ef267d5a22eddf8f5e1c7f24d3e8"
+    },
+    {
+      "path": "docs/testing/screenshots/M2_Studio_Preview.png",
+      "bytes": 128944,
+      "sha256": "f66e8524ff46ffef53dcde383f0cd33b59e5f21218cc5141146b030db2f5931a"
+    }
+  ]
+}

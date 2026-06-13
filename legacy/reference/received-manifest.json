@@ -1,0 +1,26 @@
+{
+  "manifestVersion": 1,
+  "capturedAt": "2026-06-12",
+  "artifacts": [
+    {
+      "path": "legacy/reference/Tibia_Enhanced_v14_1_DevAPI.html",
+      "bytes": 338570,
+      "sha256": "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c"
+    },
+    {
+      "path": "legacy/reference/Tibia_Developer_Studio_v3_1.html",
+      "bytes": 102849,
+      "sha256": "1364ee817bcbb73c0403d0d9e6006a7a63e324642b892560b15edc2288a12c47"
+    },
+    {
+      "path": "legacy/reference/legacy_test_report.json",
+      "bytes": 3196,
+      "sha256": "e07af4b542acd1d2e4008d4bf89c8c3d0d07b9dbad1b0e88496e3b5b8353a41d"
+    },
+    {
+      "path": "legacy/reference/legacy_code_review.md",
+      "bytes": 20957,
+      "sha256": "5fb3b695921ff409dc4000e1bbfcae00f91d53f6992ce98d77c4c7fcb2756b4f"
+    }
+  ]
+}

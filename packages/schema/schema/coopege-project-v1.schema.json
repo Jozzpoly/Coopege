@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coopege.local/schema/coopege-project-v1.schema.json",
+  "title": "Coopege Project v1",
+  "type": "object",
+  "required": [
+    "format",
+    "schemaVersion",
+    "manifest",
+    "world",
+    "content",
+    "assets"
+  ],
+  "properties": {
+    "format": {
+      "const": "coopege-project"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "manifest": {
+      "type": "object",
+      "required": [
+        "projectId",
+        "name",
+        "projectVersion",
+        "entryFloorId",
+        "playerStart"
+      ]
+    },
+    "world": {
+      "type": "object",
+      "required": [
+        "tileSize",
+        "tiles",
+        "floors"
+      ]
+    },
+    "content": {
+      "type": "object",
+      "required": [
+        "classes",
+        "abilities",
+        "monsters",
+        "spawns"
+      ]
+    },
+    "assets": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "entries"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "description": "Normatywną walidację referencji i RLE wykonuje packages/validation. Ten plik opisuje zewnętrzną powierzchnię formatu."
+}

@@ -1,0 +1,278 @@
+{
+  "generatedAt": "2026-06-13T15:59:05Z",
+  "workspace": "coopege@0.7.2-m7-final-candidate",
+  "status": "PLAYTEST_CANDIDATE_NOT_OWNER_ACCEPTED",
+  "releaseGate": {
+    "command": "npm run release:verify",
+    "exitCode": 0,
+    "typescript": "PASS",
+    "nodeTests": "87/87 PASS",
+    "goldenMigration": "52/52 PASS",
+    "legacyIntegrity": "4/4 PASS",
+    "chromium": "9/9 PASS",
+    "abilityComposerBrowserSmoke": "PASS",
+    "gameplayGate": "PASS_AUTOMATED",
+    "portability": "21 PASS / 0 WARN / 0 FAIL",
+    "cleanPackageGate": "PASS"
+  },
+  "artifacts": [
+    {
+      "path": "package.json",
+      "bytes": 2619,
+      "sha256": "49a973aa428053d9f1dfd907a6366d878d15c869621a86a17eee1850e8dadd85",
+      "role": "workspace metadata and scripts"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 4289,
+      "sha256": "54434083f43d5383eeafabb3b3b319e02991c1cc6c6b3d9e56903837afd6fa4e",
+      "role": "public reproducible dependency lock"
+    },
+    {
+      "path": ".npmrc",
+      "bytes": 60,
+      "sha256": "6e55aa84f7394184d4e5b26e38bbc5dcb099de321e5ceca2ddad0474a2a66ec5",
+      "role": "project-scoped public npm registry"
+    },
+    {
+      "path": "PLAY_COOPEGE.bat",
+      "bytes": 498,
+      "sha256": "a7991f26133c647f6be07f6e22160c9d30a02444b05ee7e5da589b371b782270",
+      "role": "prebuilt Windows runtime launcher"
+    },
+    {
+      "path": "START_STUDIO.bat",
+      "bytes": 462,
+      "sha256": "c431a2fcf6418b76d86775a6ef6c2d3b4c4a670eaaf73c0fe7b7f1e7157d6c73",
+      "role": "prebuilt Windows Studio launcher"
+    },
+    {
+      "path": "REBUILD_AND_PLAY.bat",
+      "bytes": 689,
+      "sha256": "27f80edc21ae1b6dc84601490d501f6e1746a4d52850c9e703094263dba5c31b",
+      "role": "explicit developer rebuild launcher"
+    },
+    {
+      "path": "COLLECT_DIAGNOSTICS.bat",
+      "bytes": 295,
+      "sha256": "c6474a359cd82082bd7a42ed27f3ff98f85f1685355c5cda79543ac3f4c736a1",
+      "role": "owner diagnostics collector"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 5470,
+      "sha256": "a59ea9fa28fa0d6ee436f2a9864ef6d0cbe891fb082d78e0e9210bea663ad495",
+      "role": "current concise project memory"
+    },
+    {
+      "path": "docs/process/CURRENT_MILESTONE.md",
+      "bytes": 2927,
+      "sha256": "fb42e7c005fda834393619e8f2b4d9871844f2f9261429856959ce30a4408e62",
+      "role": "normative active owner gate"
+    },
+    {
+      "path": "docs/process/AGENT_WORKFLOW.md",
+      "bytes": 10230,
+      "sha256": "5b2f2fa2c44184daf759f41dec086a80763354c64b2c5e0ec2e8b8590313c469",
+      "role": "normative workflow"
+    },
+    {
+      "path": "docs/process/PLAYTEST_LOG.md",
+      "bytes": 4605,
+      "sha256": "103cc958ba4e3c6cfcc0b426488052267a22d05efbc580b40b74dcc356c773e0",
+      "role": "human playtest record"
+    },
+    {
+      "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
+      "bytes": 4386,
+      "sha256": "bb14508f92584b41a6e13d16b2e37c171abc29dd36b404b25abf953edddcdaa1",
+      "role": "current handoff documentation hashes"
+    },
+    {
+      "path": "docs/product/COOPEGE_ROADMAP.md",
+      "bytes": 3919,
+      "sha256": "63be82ff1fe916a960d1f9284ee43ea9db3a75ded7256fed0734301ddea2ec4a",
+      "role": "roadmap with M8 gated"
+    },
+    {
+      "path": "docs/decisions/0015-owner-gated-playtest-transitions-and-texture-layouts.md",
+      "bytes": 2711,
+      "sha256": "4fa8568330e38579bfc556cd5166b37d4ff00e100e8b5b82ca5722b87f6820af",
+      "role": "owner gate, transition and texture layout ADR"
+    },
+    {
+      "path": "docs/testing/M7_FINAL_PLAYTEST_CANDIDATE_REPORT.md",
+      "bytes": 9092,
+      "sha256": "bb9a22e95b8878532d4e30b8ba3fb28d5dbd0616da93da8f6f5fd95fc62ccf44",
+      "role": "critical review and verification report"
+    },
+    {
+      "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
+      "bytes": 5022,
+      "sha256": "0b88b32162908ea2b7b684baba8281a9460ad424566ae4f83f558c4ca5100b63",
+      "role": "manual owner acceptance checklist"
+    },
+    {
+      "path": "docs/testing/M7_GAMEPLAY_GATE_0.1.json",
+      "bytes": 2012,
+      "sha256": "e7d06e50404584b7e29b4dd25f18bfc84b6f9b8db8c611c5a9f01472e82e77da",
+      "role": "automated gameplay soak evidence"
+    },
+    {
+      "path": "docs/testing/screenshots/M7_Final_Real_Controls_Stairs.png",
+      "bytes": 703905,
+      "sha256": "9676cd681990c39c4712f550221740f98919c1659fcbccf5bf72a72db34b2dbd",
+      "role": "native keyboard and real stair browser evidence"
+    },
+    {
+      "path": "project/migration/legacy-v14.1/coopege.project.v2.json",
+      "bytes": 539366,
+      "sha256": "7797cfc14911ed528f85c1a8fa4aa968822fba78a91621e0d85bd84bf9c9bdbf",
+      "role": "canonical migrated project with layouts/transitions"
+    },
+    {
+      "path": "project/migration/legacy-v14.1/golden-manifest.json",
+      "bytes": 10170,
+      "sha256": "66d33ab70aa4a02ba8ad0f4d199fccae00f724accbb23c0b5bedb90d12e3d2f6",
+      "role": "migration golden fixture manifest"
+    },
+    {
+      "path": "packages/schema/src/types.ts",
+      "bytes": 6164,
+      "sha256": "6c8fa9116cca444b4536f71edb5110fa46f19b554c47b2f4d69e22936e7061d0",
+      "role": "canonical texture layout and transition schema"
+    },
+    {
+      "path": "packages/validation/src/validate-project.ts",
+      "bytes": 21572,
+      "sha256": "1c62786387829c3a61681dc17e76ab055a652c3fd0435a76fd8468a1e180d57f",
+      "role": "project validation"
+    },
+    {
+      "path": "packages/gameplay/src/game-world.ts",
+      "bytes": 78042,
+      "sha256": "a52d2388805f6a016a09639d405cb30d07a234f49bb8023a0e734d74fc1032e1",
+      "role": "deterministic runtime, transitions and save loading"
+    },
+    {
+      "path": "apps/runtime/src/input-adapter.ts",
+      "bytes": 7955,
+      "sha256": "6ac55a310c35dd14322251fa1219eee69344f8788da20c1f3cb18f1ee3430f2b",
+      "role": "P1/P2 keyboard and gamepad routing"
+    },
+    {
+      "path": "apps/runtime/src/sprite-layout.ts",
+      "bytes": 5887,
+      "sha256": "f816442110f6fd6e0afbdc2ff6ceb69967855d69727a50a8e3e7bff3b7cdfd46",
+      "role": "stable authored sprite frame geometry"
+    },
+    {
+      "path": "apps/runtime/src/renderer.ts",
+      "bytes": 15382,
+      "sha256": "0b2f0e3b16ef2adec37fea3c3ce5a0ba2429c3ff1e87702712eab32bf7d5908d",
+      "role": "runtime rendering and transition markers"
+    },
+    {
+      "path": "apps/runtime/src/main.ts",
+      "bytes": 23968,
+      "sha256": "d60bbbaafb19be3f053038d0c374b3e9f94dd418febc8d444dc314a7515809f3",
+      "role": "runtime UI and save diagnostics"
+    },
+    {
+      "path": "apps/studio/src/map-editor.ts",
+      "bytes": 26558,
+      "sha256": "e8ae69234d3004524dee33d5420c56ad19595de4274049a1bd488e230f2bf01e",
+      "role": "transition-aware map authoring view"
+    },
+    {
+      "path": "packages/asset-system/src/index.ts",
+      "bytes": 5575,
+      "sha256": "cb0889eaa0abe3217f0a9458c21887c79c491130982c17c4b2af2a91643907ff",
+      "role": "asset layout compatibility checks"
+    },
+    {
+      "path": "tools/build/build.mjs",
+      "bytes": 8280,
+      "sha256": "ebda119fbc94413e406d2fc0e9329c1132b9d8b1c31a8fd5ad8e946405f5caf6",
+      "role": "portable atomic build"
+    },
+    {
+      "path": "tools/dev-server.mjs",
+      "bytes": 3290,
+      "sha256": "d14e171575207f654ef269216e3f536fca90b654da83e3d50398f7478fd1d5f2",
+      "role": "safe prebuilt development server"
+    },
+    {
+      "path": "tools/verify/doctor.mjs",
+      "bytes": 4740,
+      "sha256": "eb3dfee144524fb6cf629c5276629f824738737de8c17ca7cb935c115eb85aaf",
+      "role": "environment doctor"
+    },
+    {
+      "path": "tools/verify/portability.mjs",
+      "bytes": 4797,
+      "sha256": "f4068bd92725646218806449d3b1c1fb61dd6505fd2e17a5cbc44206897fe3a8",
+      "role": "release portability gate"
+    },
+    {
+      "path": "tools/test/browser-smoke.mjs",
+      "bytes": 17732,
+      "sha256": "8abc5b462d7937fae19ded2e4e87121df8ee347dd168eca6ba84b27efec33778",
+      "role": "real user-path Chromium smoke suite"
+    },
+    {
+      "path": "tests/gameplay-world.test.ts",
+      "bytes": 6289,
+      "sha256": "9337150fd74764e33c914621c82a1ed60f3abaa7abf93234581853fba014951f",
+      "role": "runtime regression coverage"
+    },
+    {
+      "path": "tests/world-transitions.test.ts",
+      "bytes": 12460,
+      "sha256": "1bea574253603c1f556cb761ead04dcd394183099a461180ea68aa4751ab4a02",
+      "role": "real transition regression coverage"
+    },
+    {
+      "path": "tests/sprite-layout.test.ts",
+      "bytes": 2049,
+      "sha256": "4b55fec25ed4e672a51fff578ae16fb7887c2d0ab4461257eaf4877127f8db2c",
+      "role": "sprite geometry regression coverage"
+    },
+    {
+      "path": "tests/input-adapter.test.ts",
+      "bytes": 841,
+      "sha256": "bc2943ef0d4ae27e4181a92e855bd32f7db748f9e1de5b805f8b901c2cc34350",
+      "role": "input/device regression coverage"
+    },
+    {
+      "path": "tests/asset-vault.test.ts",
+      "bytes": 5977,
+      "sha256": "dfc1b8b7752a75eaea22dde5e40b5ebe3fe3e77282870e3e987103cd71effc42",
+      "role": "asset dimensions and pack regression coverage"
+    },
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 806442,
+      "sha256": "490891d1bed467ddbdf0cf493299309cd879790e91f1660533b04b91edd11fc2",
+      "role": "playable M7 owner-candidate runtime"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1465826,
+      "sha256": "4c67bc00f3209ddd9491c91d272b2145bba77c093b9cda4dfaa8bb128a0db662",
+      "role": "M7 owner-candidate Studio"
+    },
+    {
+      "path": "dist/Coopege_M7_Runtime.html",
+      "bytes": 264234,
+      "sha256": "600a67beb9d95d8f60a2843f96edd96bd76a55829b5634fb78218fe6faca3276",
+      "role": "minimal runtime artifact"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault.zip",
+      "bytes": 296513,
+      "sha256": "c2414129b441aa4e0eb42bd7c43119c68e53a62849094f4cebb0bb7599288dd5",
+      "role": "independent 45-PNG Asset Vault"
+    }
+  ]
+}

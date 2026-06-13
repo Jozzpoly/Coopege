@@ -1,0 +1,893 @@
+{
+  "environment.bones": {
+    "bytes": 1332,
+    "file": "assets/environment__bones.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.bones",
+      "label": "Otoczenie: bones",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "0d6e14af734e83805f4043613b0fc82f3c6b2fd141c3b1665c71489b20f63ef9",
+    "targetId": "texture.legacy.environment.bones"
+  },
+  "environment.bush": {
+    "bytes": 894,
+    "file": "assets/environment__bush.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.bush",
+      "label": "Otoczenie: bush",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "a589833a3a6170dfc113a64c156cffbb0ec56ef07fab6ed609ffc2bdce8da3ef",
+    "targetId": "texture.legacy.environment.bush"
+  },
+  "environment.dead_tree": {
+    "bytes": 1313,
+    "file": "assets/environment__dead_tree.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.dead_tree",
+      "label": "Otoczenie: dead_tree",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "6372ae0e39e9b5f4a863a206a4a8f9d2185e022bfea808d7a17d619be0408c35",
+    "targetId": "texture.legacy.environment.dead_tree"
+  },
+  "environment.desert_shrub": {
+    "bytes": 1250,
+    "file": "assets/environment__desert_shrub.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.desert_shrub",
+      "label": "Otoczenie: desert_shrub",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "54817994332fae843aee4b0b4f520794d846cb119bfdbf39ac93195c5231104b",
+    "targetId": "texture.legacy.environment.desert_shrub"
+  },
+  "environment.flower": {
+    "bytes": 1358,
+    "file": "assets/environment__flower.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.flower",
+      "label": "Otoczenie: flower",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "1a0503f8fa032e041b51eed50732e3ae638fe3b8de69e605ba20e05782b990f5",
+    "targetId": "texture.legacy.environment.flower"
+  },
+  "environment.grass_tuft": {
+    "bytes": 1288,
+    "file": "assets/environment__grass_tuft.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.grass_tuft",
+      "label": "Otoczenie: grass_tuft",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "ba5fcdab302bd5b7d57b14d397cdd57cb9ff045c459c432f77a51fd592ae00bb",
+    "targetId": "texture.legacy.environment.grass_tuft"
+  },
+  "environment.reeds": {
+    "bytes": 1292,
+    "file": "assets/environment__reeds.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.reeds",
+      "label": "Otoczenie: reeds",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "3580d9a35530330d2cf0e6cd572620c68c649b035c45182c4bbd6854ab00f821",
+    "targetId": "texture.legacy.environment.reeds"
+  },
+  "environment.rock": {
+    "bytes": 971,
+    "file": "assets/environment__rock.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.rock",
+      "label": "Otoczenie: rock",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "ac26a82524983f1e3e398223c67ea69de4b1f8950e4d7d14eedf12bc4c796544",
+    "targetId": "texture.legacy.environment.rock"
+  },
+  "environment.snow_pine": {
+    "bytes": 1612,
+    "file": "assets/environment__snow_pine.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.snow_pine",
+      "label": "Otoczenie: snow_pine",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "cd62b02013bde1032cd8682b74e8e1f31ac97ac10711b70cb1dd3d39bfd0a1c9",
+    "targetId": "texture.legacy.environment.snow_pine"
+  },
+  "environment.tombstone": {
+    "bytes": 704,
+    "file": "assets/environment__tombstone.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.tombstone",
+      "label": "Otoczenie: tombstone",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "d0aac15eb7be1757acb169991b9bb66223d66d406bdf3669b51afd46cf53008a",
+    "targetId": "texture.legacy.environment.tombstone"
+  },
+  "environment.torch": {
+    "bytes": 4633,
+    "file": "assets/environment__torch.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 4,
+      "id": "environment.torch",
+      "label": "Otoczenie: torch",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "6d2f7f4a4b2d3a11a6f043463d684a786579d20277d4cc42b7400fdedc47db11",
+    "targetId": "texture.legacy.environment.torch"
+  },
+  "environment.tree_oak": {
+    "bytes": 2058,
+    "file": "assets/environment__tree_oak.png",
+    "meta": {
+      "category": "environment",
+      "directions": 1,
+      "frameHeight": 64,
+      "frameWidth": 48,
+      "frames": 1,
+      "id": "environment.tree_oak",
+      "label": "Otoczenie: tree_oak",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "078733feef9654c145b36fa7551b3adc45cd4a0eeaaeac9681f48bf31bcfbda6",
+    "targetId": "texture.legacy.environment.tree_oak"
+  },
+  "item.armor": {
+    "bytes": 5699,
+    "file": "assets/item__armor.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.armor",
+      "label": "Przedmiot: armor",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "6ac5ee5d35ab2384a7d6abc3e1568abf6ac0d14927ea609001ddeda8d5f8d683",
+    "targetId": "texture.legacy.item.armor"
+  },
+  "item.corpse": {
+    "bytes": 1021,
+    "file": "assets/item__corpse.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.corpse",
+      "label": "Przedmiot: corpse",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "812a1427d7ef907c8349d5e115453d876391f603384601d7065ff66e220b2b59",
+    "targetId": "texture.legacy.item.corpse"
+  },
+  "item.gold": {
+    "bytes": 7701,
+    "file": "assets/item__gold.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.gold",
+      "label": "Przedmiot: gold",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "99ea26028476117320eb957809dbf60750b910d4fc51a236a4e3a835ddd93b7f",
+    "targetId": "texture.legacy.item.gold"
+  },
+  "item.hpot": {
+    "bytes": 6376,
+    "file": "assets/item__hpot.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.hpot",
+      "label": "Przedmiot: hpot",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "70123f215a37038be45b226a8de7a857dbdcdb8e5eee6930985f18809fac365d",
+    "targetId": "texture.legacy.item.hpot"
+  },
+  "item.mpot": {
+    "bytes": 6324,
+    "file": "assets/item__mpot.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.mpot",
+      "label": "Przedmiot: mpot",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "c4a78241c00ab877164cfa041bca0845e8b33b0a89e81e7dc3ccde6455e8b9d4",
+    "targetId": "texture.legacy.item.mpot"
+  },
+  "item.weapon": {
+    "bytes": 8216,
+    "file": "assets/item__weapon.png",
+    "meta": {
+      "category": "item",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "item.weapon",
+      "label": "Przedmiot: weapon",
+      "layout": "horizontal-frames"
+    },
+    "sha256": "bda32fbb492d80f7bb2caea1c139dd1a5300a6c0367cfc2f6fdd6b408b214955",
+    "targetId": "texture.legacy.item.weapon"
+  },
+  "monster.dragon": {
+    "bytes": 30700,
+    "file": "assets/monster__dragon.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.dragon",
+      "label": "Potwór: Smok",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "336dcd682dbdbfe181cf71f4117a44e012432bcbb41293b0af6057cebacbaccc",
+    "targetId": "texture.legacy.monster.dragon"
+  },
+  "monster.orc": {
+    "bytes": 17622,
+    "file": "assets/monster__orc.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.orc",
+      "label": "Potwór: Ork",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "064253206058553949c3bab8dae39a75880e7e9d18c51bc64aeec7611e003fea",
+    "targetId": "texture.legacy.monster.orc"
+  },
+  "monster.rat": {
+    "bytes": 11448,
+    "file": "assets/monster__rat.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.rat",
+      "label": "Potwór: Szczur",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "d37463fd11adab86d19f11a30ba49c682cefe818f66704da443b96508a8eb10e",
+    "targetId": "texture.legacy.monster.rat"
+  },
+  "monster.skeleton": {
+    "bytes": 19011,
+    "file": "assets/monster__skeleton.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.skeleton",
+      "label": "Potwór: Szkielet",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "fcc6e7a61926a75a119b18452ef2a479aa9b56d6db5f6f379bfdb646993e8683",
+    "targetId": "texture.legacy.monster.skeleton"
+  },
+  "monster.troll": {
+    "bytes": 16824,
+    "file": "assets/monster__troll.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.troll",
+      "label": "Potwór: Troll",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "594a36290639b46462ea62f6447063df446aff14c06ad58a5535976e675088bf",
+    "targetId": "texture.legacy.monster.troll"
+  },
+  "monster.yeti": {
+    "bytes": 14408,
+    "file": "assets/monster__yeti.png",
+    "meta": {
+      "category": "monster",
+      "directions": 4,
+      "frameHeight": 64,
+      "frameWidth": 64,
+      "frames": 4,
+      "id": "monster.yeti",
+      "label": "Potwór: Yeti",
+      "layout": "4 directions in rows; frames horizontal",
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "baf7bd0079f6abfa6d56cc00583bad3a30245a638d9e53b93f0522d19fef7397",
+    "targetId": "texture.legacy.monster.yeti"
+  },
+  "player.archer": {
+    "bytes": 12876,
+    "file": "assets/player__archer.png",
+    "meta": {
+      "category": "player",
+      "directions": 4,
+      "frameHeight": 56,
+      "frameWidth": 48,
+      "frames": 4,
+      "id": "player.archer",
+      "label": "Postać: Łucznik",
+      "layout": "4 directions in rows; frames horizontal",
+      "optionalStates": {
+        "actions": [
+          "archer_attack",
+          "archer_arrow_rain"
+        ],
+        "attack": "class auto-attack",
+        "skill": "class Q skill",
+        "stateMetadataSupported": true
+      },
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "7e6d441531a498a117c449553e85287fb66a50d71bcb46e0b9204997ea305a2c",
+    "targetId": "texture.legacy.player.archer"
+  },
+  "player.mage": {
+    "bytes": 19023,
+    "file": "assets/player__mage.png",
+    "meta": {
+      "category": "player",
+      "directions": 4,
+      "frameHeight": 56,
+      "frameWidth": 48,
+      "frames": 4,
+      "id": "player.mage",
+      "label": "Postać: Mag",
+      "layout": "4 directions in rows; frames horizontal",
+      "optionalStates": {
+        "actions": [
+          "mage_attack",
+          "mage_fireball"
+        ],
+        "attack": "class auto-attack",
+        "skill": "class Q skill",
+        "stateMetadataSupported": true
+      },
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "375c4bb5253852acdda46444f032b8d2d5c82e62903de4affe1b4d34b44ad1ee",
+    "targetId": "texture.legacy.player.mage"
+  },
+  "player.warrior": {
+    "bytes": 14135,
+    "file": "assets/player__warrior.png",
+    "meta": {
+      "category": "player",
+      "directions": 4,
+      "frameHeight": 56,
+      "frameWidth": 48,
+      "frames": 4,
+      "id": "player.warrior",
+      "label": "Postać: Wojownik",
+      "layout": "4 directions in rows; frames horizontal",
+      "optionalStates": {
+        "actions": [
+          "warrior_attack",
+          "warrior_whirlwind"
+        ],
+        "attack": "class auto-attack",
+        "skill": "class Q skill",
+        "stateMetadataSupported": true
+      },
+      "states": {
+        "attack": {
+          "frames": 4,
+          "row": 0
+        },
+        "idle": {
+          "frames": 4,
+          "row": 0
+        },
+        "walk": {
+          "frames": 4,
+          "row": 0
+        }
+      }
+    },
+    "sha256": "5d4f4e50835ae68109971a8763872901cf326cfa2eb3654400274aa919a7934f",
+    "targetId": "texture.legacy.player.warrior"
+  },
+  "terrain.cave": {
+    "bytes": 1622,
+    "file": "assets/terrain__cave.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.cave",
+      "label": "Jaskinia",
+      "layout": "horizontal-frames",
+      "tile": 7
+    },
+    "sha256": "5cce134d31bc3a38e28701c662adac6cc885e2626ef0151a46bd6cd5b3c83724",
+    "targetId": "texture.legacy.terrain.cave"
+  },
+  "terrain.cliff": {
+    "bytes": 1254,
+    "file": "assets/terrain__cliff.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.cliff",
+      "label": "Urwisko",
+      "layout": "horizontal-frames",
+      "tile": 11
+    },
+    "sha256": "2f2271547d9c280974b0d363b8e71af907f20a034fec47625a03658cf5c75e38",
+    "targetId": "texture.legacy.terrain.cliff"
+  },
+  "terrain.dark_wall": {
+    "bytes": 1199,
+    "file": "assets/terrain__dark_wall.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.dark_wall",
+      "label": "Mroczny mur",
+      "layout": "horizontal-frames",
+      "tile": 17
+    },
+    "sha256": "978760f0101c948d3307d1420737fd9322eda2f5954d8cdb8ac64ba83b198cb1",
+    "targetId": "texture.legacy.terrain.dark_wall"
+  },
+  "terrain.earth": {
+    "bytes": 2999,
+    "file": "assets/terrain__earth.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.earth",
+      "label": "Ziemia",
+      "layout": "horizontal-frames",
+      "tile": 4
+    },
+    "sha256": "1c0821025b5530e5f46cae85660cddfa7f6a8c1bf362c5196152f215c32ea363",
+    "targetId": "texture.legacy.terrain.earth"
+  },
+  "terrain.grass": {
+    "bytes": 3482,
+    "file": "assets/terrain__grass.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.grass",
+      "label": "Trawa",
+      "layout": "horizontal-frames",
+      "tile": 0
+    },
+    "sha256": "2b4b0cd92d1fee4571aa7b4c8723eaf8a49fd06950f26a5754cf2420a0ae7989",
+    "targetId": "texture.legacy.terrain.grass"
+  },
+  "terrain.lava": {
+    "bytes": 6251,
+    "file": "assets/terrain__lava.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.lava",
+      "label": "Lawa",
+      "layout": "horizontal-frames",
+      "tile": 14
+    },
+    "sha256": "f533bfc5b4484f5272a8c29560e124fa124853c0eb82341bd621dc8706c15271",
+    "targetId": "texture.legacy.terrain.lava"
+  },
+  "terrain.rock_floor": {
+    "bytes": 1391,
+    "file": "assets/terrain__rock_floor.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.rock_floor",
+      "label": "Skalna posadzka",
+      "layout": "horizontal-frames",
+      "tile": 16
+    },
+    "sha256": "0ca1cc01f509fddc71e465c1e6ca47eaf529d668a013b1340d9e116f06d33ec0",
+    "targetId": "texture.legacy.terrain.rock_floor"
+  },
+  "terrain.sand": {
+    "bytes": 2405,
+    "file": "assets/terrain__sand.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.sand",
+      "label": "Piasek",
+      "layout": "horizontal-frames",
+      "tile": 8
+    },
+    "sha256": "b5db1db60df28c855860b7f03c6806a930dd0030ac845f379a680a84b4ede5a8",
+    "targetId": "texture.legacy.terrain.sand"
+  },
+  "terrain.snow": {
+    "bytes": 1685,
+    "file": "assets/terrain__snow.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.snow",
+      "label": "Śnieg",
+      "layout": "horizontal-frames",
+      "tile": 10
+    },
+    "sha256": "d273024fe7962e4e825e8684854a6f63b88c7c9c9ded66315527739a412bd657",
+    "targetId": "texture.legacy.terrain.snow"
+  },
+  "terrain.stairs_down": {
+    "bytes": 681,
+    "file": "assets/terrain__stairs_down.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.stairs_down",
+      "label": "Schody w dół",
+      "layout": "horizontal-frames",
+      "tile": 13
+    },
+    "sha256": "632ce701ffd0f41e116fa2b249ff005f3ece91144f819af66d88e2a70a3c7f4e",
+    "targetId": "texture.legacy.terrain.stairs_down"
+  },
+  "terrain.stairs_up": {
+    "bytes": 652,
+    "file": "assets/terrain__stairs_up.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.stairs_up",
+      "label": "Schody w górę",
+      "layout": "horizontal-frames",
+      "tile": 12
+    },
+    "sha256": "46ab9b4acf54b4b8d5b1ffcb1ad9a3b6d97ca7fc4aea18b4d36213fb7ffb759d",
+    "targetId": "texture.legacy.terrain.stairs_up"
+  },
+  "terrain.stone_floor": {
+    "bytes": 1482,
+    "file": "assets/terrain__stone_floor.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.stone_floor",
+      "label": "Kamienna posadzka",
+      "layout": "horizontal-frames",
+      "tile": 1
+    },
+    "sha256": "8357eb7fda10ac486bef76e4d6fc21766d406d00342f25e5fb8537d0e066628f",
+    "targetId": "texture.legacy.terrain.stone_floor"
+  },
+  "terrain.stone_wall": {
+    "bytes": 1245,
+    "file": "assets/terrain__stone_wall.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.stone_wall",
+      "label": "Kamienny mur",
+      "layout": "horizontal-frames",
+      "tile": 2
+    },
+    "sha256": "d2f8ea1a06184040d909dc223666d4f690d8c61fbd87327d81de02fb5cc40f0f",
+    "targetId": "texture.legacy.terrain.stone_wall"
+  },
+  "terrain.swamp": {
+    "bytes": 2678,
+    "file": "assets/terrain__swamp.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.swamp",
+      "label": "Bagno",
+      "layout": "horizontal-frames",
+      "tile": 9
+    },
+    "sha256": "d1dd5726b14202ba676777fd402f6192bc6ecc2e8f7014956b6e243d8444487d",
+    "targetId": "texture.legacy.terrain.swamp"
+  },
+  "terrain.tree": {
+    "bytes": 3354,
+    "file": "assets/terrain__tree.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.tree",
+      "label": "Drzewo",
+      "layout": "horizontal-frames",
+      "tile": 6
+    },
+    "sha256": "071e0aa3194ed89d60bb194d169136d43559718effdbfdfd6b8571ecead6b6fc",
+    "targetId": "texture.legacy.terrain.tree"
+  },
+  "terrain.void": {
+    "bytes": 267,
+    "file": "assets/terrain__void.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.void",
+      "label": "Pustka",
+      "layout": "horizontal-frames",
+      "tile": 15
+    },
+    "sha256": "b91f1cb9ea6f7d4738875876f1dc9173ef3fcb38f3960f7f7948fd2e6791f68b",
+    "targetId": "texture.legacy.terrain.void"
+  },
+  "terrain.water": {
+    "bytes": 4144,
+    "file": "assets/terrain__water.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.water",
+      "label": "Woda",
+      "layout": "horizontal-frames",
+      "tile": 3
+    },
+    "sha256": "fe4643211fa85523ea2ef7e7302834da1d58488bb261d05cbebcb92fe4d8b4e1",
+    "targetId": "texture.legacy.terrain.water"
+  },
+  "terrain.wood": {
+    "bytes": 556,
+    "file": "assets/terrain__wood.png",
+    "meta": {
+      "category": "terrain",
+      "directions": 1,
+      "frameHeight": 32,
+      "frameWidth": 32,
+      "frames": 4,
+      "id": "terrain.wood",
+      "label": "Deski",
+      "layout": "horizontal-frames",
+      "tile": 5
+    },
+    "sha256": "2c728a3e2f5de14dab8c05895b9c9c5e8b1d85fe812ad4f59b4d50d396d7b494",
+    "targetId": "texture.legacy.terrain.wood"
+  }
+}

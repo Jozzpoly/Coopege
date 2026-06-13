@@ -1,0 +1,1788 @@
+{
+  "findings": [
+    {
+      "category": "world.floors",
+      "message": "Wszystkie 5 warstw 200×200 przeniesiono bez dekodowania i ponownej kompresji RLE.",
+      "sourcePath": "$.map.floors",
+      "status": "MIGRATED",
+      "targetPath": "$.world.floors"
+    },
+    {
+      "category": "world.tiles",
+      "message": "Numery kafli otrzymały stabilne ID tile.legacy.<n>; walkability i blokowanie pocisków zachowano.",
+      "sourcePath": "$.map.tilePalette",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.world.tiles"
+    },
+    {
+      "category": "content.classes",
+      "message": "Trzy klasy przeniesiono do minimalnego modelu v1; MP, talenty, krytyki, amunicja i pełne statystyki pozostają w surowym snapshotcie.",
+      "sourcePath": "$.content.classes",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.content.classes"
+    },
+    {
+      "category": "content.abilities",
+      "message": "Aktywne umiejętności oraz podstawowe ataki zmapowano na prosty model mocy, zasięgu i cooldownu v1.",
+      "sourcePath": "$.content.skills",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.content.abilities"
+    },
+    {
+      "category": "content.monsters",
+      "message": "Sześć definicji potworów przeniesiono; tier, exp, złoto, rozmiar i szczegóły specjalnych ataków zachowano wyłącznie w surowym snapshotcie.",
+      "sourcePath": "$.content.monsters",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.content.monsters"
+    },
+    {
+      "category": "content.spawns",
+      "message": "Nazwane grupy spawnu spłaszczono do pojedynczych spawnów; legacy respawn co 20 sekund zapisano jako 600 ticków przy 30 Hz.",
+      "sourcePath": "$.map.spawnGroups",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.content.spawns"
+    },
+    {
+      "category": "assets",
+      "message": "Wszystkie proceduralne i wczytane atlasy wyeksportowano przez TibiaAssetAPI do 45 lokalnych PNG z SHA-256.",
+      "sourcePath": "$.assets.assets",
+      "status": "MIGRATED",
+      "targetPath": "$.assets.entries"
+    },
+    {
+      "category": "world.npcs",
+      "message": "2 NPC zachowano w surowym snapshotcie; schema projektu v1 nie posiada definicji NPC.",
+      "sourcePath": "$.map.npcs",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "category": "world.links",
+      "message": "12 połączeń pięter rozwinięto do 24 jawnych, dwukierunkowych przejść drużynowych wyzwalanych wejściem na pole.",
+      "sourcePath": "$.map.links",
+      "status": "MIGRATED_WITH_TRANSFORM",
+      "targetPath": "$.world.transitions"
+    },
+    {
+      "category": "world.entrances",
+      "message": "13 markerów nazwanych lokacji zachowano w surowym snapshotcie; nie są jeszcze osobnym modelem regionów.",
+      "sourcePath": "$.map.entrances",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "category": "content.quests",
+      "message": "5 questów zachowano w surowym snapshotcie; schema projektu v1 nie posiada jeszcze questów.",
+      "sourcePath": "$.content.quests",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "category": "content.talents",
+      "message": "15 talentów zachowano w surowym snapshotcie; schema projektu v1 nie posiada jeszcze drzewek talentów.",
+      "sourcePath": "$.content.classes.*.talents",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "category": "content.items",
+      "message": "Legacy Content API nie eksportuje definicji przedmiotów; grafiki przedmiotów przeniesiono, lecz dane gameplayowe wymagają osobnego ekstraktora lub nowego modelu.",
+      "sourcePath": "legacy runtime hardcoded tables",
+      "status": "MANUAL_REVIEW_REQUIRED"
+    }
+  ],
+  "generatedAt": "2026-06-12T00:00:00.000Z",
+  "generatedBy": "coopege-legacy-migrator-v1",
+  "reportVersion": 1,
+  "sourceApi": {
+    "assets": {
+      "engineVersion": "14.1.0",
+      "format": "jozz-tibia-assets",
+      "formatVersion": 1
+    },
+    "content": {
+      "capabilities": {
+        "editableActiveSkills": true,
+        "editableClasses": [
+          "warrior",
+          "archer",
+          "mage"
+        ],
+        "editableExistingTalents": true,
+        "monsterSpecialExecutors": [
+          "bone",
+          "breath",
+          "slam"
+        ],
+        "newActiveSkills": false,
+        "newClasses": false,
+        "newMonsters": true,
+        "newQuests": true,
+        "newTalentLogic": false,
+        "proceduralMonsterFallback": true,
+        "skillExecutors": [
+          "whirlwind",
+          "arrowRain",
+          "fireball"
+        ],
+        "transactionalProjectAPI": true
+      },
+      "engineVersion": "14.1.0",
+      "format": "jozz-tibia-content",
+      "formatVersion": 1
+    },
+    "map": {
+      "capabilities": {
+        "editableStart": true,
+        "linkMetadata": true,
+        "maxTile": 17,
+        "schemaValidation": true
+      },
+      "floors": [
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "formatVersion": 4,
+      "height": 200,
+      "width": 200
+    },
+    "project": {
+      "capabilities": {
+        "assets": true,
+        "atomicRollback": true,
+        "content": true,
+        "crossReferenceValidation": true,
+        "map": true
+      },
+      "engineVersion": "14.1.0",
+      "format": "jozz-tibia-runtime-project",
+      "formatVersion": 1
+    }
+  },
+  "sourceSha256": {
+    "runtime": "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c"
+  },
+  "sourceValidation": {
+    "assets": {
+      "assetCount": 45,
+      "errors": [],
+      "ok": true,
+      "warnings": []
+    },
+    "content": {
+      "errors": [],
+      "ok": true,
+      "warnings": []
+    },
+    "mapSchema": {
+      "issues": [],
+      "ok": true
+    },
+    "mapWorld": {
+      "floors": {
+        "0": {
+          "blocked": [],
+          "clearanceBlocked": [],
+          "entryCount": 8,
+          "reachablePlayerCenters": 25759,
+          "targetCount": 133,
+          "unreachable": []
+        },
+        "1": {
+          "blocked": [],
+          "clearanceBlocked": [],
+          "entryCount": 5,
+          "reachablePlayerCenters": 1745,
+          "targetCount": 33,
+          "unreachable": []
+        },
+        "2": {
+          "blocked": [],
+          "clearanceBlocked": [],
+          "entryCount": 2,
+          "reachablePlayerCenters": 931,
+          "targetCount": 17,
+          "unreachable": []
+        },
+        "-1": {
+          "blocked": [],
+          "clearanceBlocked": [],
+          "entryCount": 7,
+          "reachablePlayerCenters": 7820,
+          "targetCount": 98,
+          "unreachable": []
+        },
+        "-2": {
+          "blocked": [],
+          "clearanceBlocked": [],
+          "entryCount": 3,
+          "reachablePlayerCenters": 5241,
+          "targetCount": 97,
+          "unreachable": []
+        }
+      },
+      "gateCrossings": [
+        {
+          "bbox": [
+            82,
+            61,
+            96,
+            87
+          ],
+          "from": [
+            88,
+            63
+          ],
+          "name": "Północna brama — przejście przez nawę",
+          "ok": true,
+          "to": [
+            88,
+            84
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            82,
+            81,
+            95,
+            105
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Południowa brama twierdzy",
+          "ok": true,
+          "to": [
+            88,
+            103
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            64,
+            77,
+            91,
+            88
+          ],
+          "from": [
+            66,
+            82
+          ],
+          "name": "Zachodnia brama twierdzy",
+          "ok": true,
+          "to": [
+            88,
+            84
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            85,
+            77,
+            114,
+            88
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wschodnia brama twierdzy",
+          "ok": true,
+          "to": [
+            112,
+            82
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            80,
+            68,
+            97,
+            87
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wejście do świątyni",
+          "ok": true,
+          "to": [
+            89,
+            76
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            73,
+            68,
+            91,
+            86
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wejście do kuźni",
+          "ok": true,
+          "to": [
+            80,
+            75
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            73,
+            82,
+            91,
+            97
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wejście do magazynu i kanałów",
+          "ok": true,
+          "to": [
+            79,
+            90
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            87,
+            82,
+            106,
+            97
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wejście do karczmy",
+          "ok": true,
+          "to": [
+            99,
+            90
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            85,
+            68,
+            106,
+            86
+          ],
+          "from": [
+            88,
+            84
+          ],
+          "name": "Wejście do wieży",
+          "ok": true,
+          "to": [
+            100,
+            75
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            86,
+            133,
+            114,
+            164
+          ],
+          "from": [
+            93,
+            136
+          ],
+          "name": "Brama cmentarza",
+          "ok": true,
+          "to": [
+            100,
+            151
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            17,
+            13,
+            43,
+            38
+          ],
+          "from": [
+            30,
+            36
+          ],
+          "name": "Wejście do zachodnich ruin",
+          "ok": true,
+          "to": [
+            30,
+            23
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            140,
+            78,
+            178,
+            104
+          ],
+          "from": [
+            141,
+            91
+          ],
+          "name": "Wejście do pustynnej świątyni",
+          "ok": true,
+          "to": [
+            160,
+            91
+          ],
+          "z": 0
+        },
+        {
+          "bbox": [
+            11,
+            84,
+            35,
+            100
+          ],
+          "from": [
+            32,
+            92
+          ],
+          "name": "Wejście do domu farmera",
+          "ok": true,
+          "to": [
+            20,
+            93
+          ],
+          "z": 0
+        }
+      ],
+      "height": 200,
+      "issues": [],
+      "ok": true,
+      "playerFootprint": {
+        "height": 36,
+        "width": 22
+      },
+      "spawnDistribution": {
+        "byFloor": {
+          "0": 110,
+          "1": 28,
+          "2": 15,
+          "-1": 91,
+          "-2": 94
+        },
+        "byTier": {
+          "1": 35,
+          "2": 48,
+          "3": 90,
+          "4": 105,
+          "5": 60
+        },
+        "byType": {
+          "dragon": 10,
+          "orc": 101,
+          "rat": 54,
+          "skeleton": 105,
+          "troll": 39,
+          "yeti": 29
+        },
+        "groupCount": 45,
+        "groups": [
+          {
+            "composition": {
+              "rat": 4
+            },
+            "count": 4,
+            "id": "surface_city_north_vermin",
+            "label": "Szczury pod północną bramą",
+            "region": "Przedpola Srebrnej Bramy",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 4
+            },
+            "count": 4,
+            "id": "surface_city_west_vermin",
+            "label": "Szczury przy zachodnim trakcie",
+            "region": "Przedpola Srebrnej Bramy",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 5
+            },
+            "count": 5,
+            "id": "surface_city_south_vermin",
+            "label": "Szczury przy południowym trakcie",
+            "region": "Przedpola Srebrnej Bramy",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 1,
+              "troll": 5
+            },
+            "count": 6,
+            "id": "surface_forest_north_pack",
+            "label": "Trolle północnego boru",
+            "region": "Las Starych Dębów",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 1,
+              "troll": 5
+            },
+            "count": 6,
+            "id": "surface_forest_crossroads_pack",
+            "label": "Trolle leśnego rozdroża",
+            "region": "Las Starych Dębów",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 2,
+              "skeleton": 7
+            },
+            "count": 9,
+            "id": "surface_western_ruins_host",
+            "label": "Strażnicy zachodnich ruin",
+            "region": "Ruiny Zachodniej Strażnicy",
+            "special": true,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 1,
+              "troll": 5
+            },
+            "count": 6,
+            "id": "surface_swamp_west_pack",
+            "label": "Trolle zachodniego bagna",
+            "region": "Bagna Zmierzchu",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 1,
+              "troll": 5
+            },
+            "count": 6,
+            "id": "surface_swamp_east_pack",
+            "label": "Trolle wschodniego bagna",
+            "region": "Bagna Zmierzchu",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "skeleton": 10
+            },
+            "count": 10,
+            "id": "surface_graveyard_host",
+            "label": "Procesja umarłych",
+            "region": "Cmentarz Umarłych",
+            "special": true,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 5
+            },
+            "count": 5,
+            "id": "surface_desert_north_raiders",
+            "label": "Północni pustynni rabusie",
+            "region": "Pustynia Popiołu",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 5
+            },
+            "count": 5,
+            "id": "surface_desert_east_raiders",
+            "label": "Wschodni pustynni rabusie",
+            "region": "Pustynia Popiołu",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 5
+            },
+            "count": 5,
+            "id": "surface_desert_south_raiders",
+            "label": "Południowi pustynni rabusie",
+            "region": "Pustynia Popiołu",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 6,
+              "skeleton": 3
+            },
+            "count": 9,
+            "id": "surface_desert_temple_guard",
+            "label": "Gwardia pustynnej świątyni",
+            "region": "Pustynna Świątynia",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 0
+          },
+          {
+            "composition": {
+              "yeti": 4
+            },
+            "count": 4,
+            "id": "surface_snow_north_herd",
+            "label": "Yeti północnego pola",
+            "region": "Śnieżne Góry",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 0
+          },
+          {
+            "composition": {
+              "yeti": 4
+            },
+            "count": 4,
+            "id": "surface_snow_east_herd",
+            "label": "Yeti wschodniej grani",
+            "region": "Śnieżne Góry",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 0
+          },
+          {
+            "composition": {
+              "yeti": 3
+            },
+            "count": 3,
+            "id": "surface_snow_pass_herd",
+            "label": "Yeti górskiej przełęczy",
+            "region": "Śnieżne Góry",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 0
+          },
+          {
+            "composition": {
+              "dragon": 2,
+              "orc": 4
+            },
+            "count": 6,
+            "id": "surface_dragon_glade",
+            "label": "Smocza polana",
+            "region": "Smocze Pustkowie",
+            "special": true,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 1,
+              "troll": 4
+            },
+            "count": 5,
+            "id": "surface_north_wild_pack",
+            "label": "Trolle północnych pustkowi",
+            "region": "Dzika Kraina",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "rat": 4
+            },
+            "count": 4,
+            "id": "surface_far_west_vermin",
+            "label": "Szczury zachodnich mokradeł",
+            "region": "Bagna Zmierzchu",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 4
+            },
+            "count": 4,
+            "id": "surface_southeast_scouts",
+            "label": "Orczy zwiadowcy południowego wschodu",
+            "region": "Smocze Pustkowie",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 0
+          },
+          {
+            "composition": {
+              "orc": 5
+            },
+            "count": 5,
+            "id": "upper_west_wall_raiders",
+            "label": "Orkowie na zachodnim murze",
+            "region": "Mury Twierdzy",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 1
+          },
+          {
+            "composition": {
+              "orc": 5,
+              "skeleton": 2
+            },
+            "count": 7,
+            "id": "upper_east_wall_raiders",
+            "label": "Orkowie na wschodnim murze",
+            "region": "Mury Twierdzy",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": 1
+          },
+          {
+            "composition": {
+              "orc": 2,
+              "skeleton": 4
+            },
+            "count": 6,
+            "id": "upper_tower_guard",
+            "label": "Straż górnej wieży",
+            "region": "Górne Piętra Twierdzy",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 1
+          },
+          {
+            "composition": {
+              "yeti": 5
+            },
+            "count": 5,
+            "id": "upper_plateau_north_herd",
+            "label": "Stado północnego płaskowyżu",
+            "region": "Płaskowyż Białego Wiatru",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 1
+          },
+          {
+            "composition": {
+              "yeti": 5
+            },
+            "count": 5,
+            "id": "upper_plateau_south_herd",
+            "label": "Stado południowego płaskowyżu",
+            "region": "Płaskowyż Białego Wiatru",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 1
+          },
+          {
+            "composition": {
+              "skeleton": 5
+            },
+            "count": 5,
+            "id": "apex_observatory_guard",
+            "label": "Umarli obserwatorium",
+            "region": "Obserwatorium Wieży",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": 2
+          },
+          {
+            "composition": {
+              "yeti": 6
+            },
+            "count": 6,
+            "id": "apex_summit_herd",
+            "label": "Stado lodowego szczytu",
+            "region": "Korona Lodowego Szczytu",
+            "special": false,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": 2
+          },
+          {
+            "composition": {
+              "dragon": 2,
+              "yeti": 2
+            },
+            "count": 4,
+            "id": "apex_dragon_nest",
+            "label": "Gniazdo na koronie szczytu",
+            "region": "Korona Lodowego Szczytu",
+            "special": true,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": 2
+          },
+          {
+            "composition": {
+              "rat": 6
+            },
+            "count": 6,
+            "id": "underground_sewer_entry_vermin",
+            "label": "Szczury przy wejściu do kanałów",
+            "region": "Kanały Twierdzy",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": -1
+          },
+          {
+            "composition": {
+              "rat": 6
+            },
+            "count": 6,
+            "id": "underground_sewer_west_vermin",
+            "label": "Szczury zachodniego kanału",
+            "region": "Kanały Twierdzy",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": -1
+          },
+          {
+            "composition": {
+              "rat": 8,
+              "troll": 2
+            },
+            "count": 10,
+            "id": "underground_sewer_cistern_nest",
+            "label": "Gniazdo w dolnej cysternie",
+            "region": "Kanały Twierdzy",
+            "special": true,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": -1
+          },
+          {
+            "composition": {
+              "rat": 6
+            },
+            "count": 6,
+            "id": "underground_mine_entry_vermin",
+            "label": "Szczury starej kopalni",
+            "region": "Stare Kopalnie",
+            "special": false,
+            "tier": 1,
+            "tierName": "Początkowe",
+            "z": -1
+          },
+          {
+            "composition": {
+              "rat": 4,
+              "troll": 5
+            },
+            "count": 9,
+            "id": "underground_mine_middle_pack",
+            "label": "Trolle środkowych komór",
+            "region": "Stare Kopalnie",
+            "special": false,
+            "tier": 2,
+            "tierName": "Łatwe",
+            "z": -1
+          },
+          {
+            "composition": {
+              "skeleton": 3,
+              "troll": 6
+            },
+            "count": 9,
+            "id": "underground_mine_deep_guard",
+            "label": "Straż zapomnianego szybu",
+            "region": "Stare Kopalnie",
+            "special": true,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": -1
+          },
+          {
+            "composition": {
+              "skeleton": 8
+            },
+            "count": 8,
+            "id": "underground_catacomb_outer_host",
+            "label": "Umarli zewnętrznych katakumb",
+            "region": "Katakumby Umarłych",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": -1
+          },
+          {
+            "composition": {
+              "skeleton": 10,
+              "troll": 2
+            },
+            "count": 12,
+            "id": "underground_catacomb_ossuary",
+            "label": "Wielkie ossuarium",
+            "region": "Katakumby Umarłych",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": -1
+          },
+          {
+            "composition": {
+              "orc": 4,
+              "skeleton": 7
+            },
+            "count": 11,
+            "id": "underground_tomb_outer_guard",
+            "label": "Zewnętrzna straż grobowca",
+            "region": "Grobowiec Pustynnego Króla",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": -1
+          },
+          {
+            "composition": {
+              "orc": 8,
+              "skeleton": 6
+            },
+            "count": 14,
+            "id": "underground_tomb_royal_hall",
+            "label": "Gwardia sali królewskiej",
+            "region": "Grobowiec Pustynnego Króla",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": -1
+          },
+          {
+            "composition": {
+              "orc": 4,
+              "skeleton": 8
+            },
+            "count": 12,
+            "id": "deep_shaft_entry_host",
+            "label": "Straż dolnego szybu",
+            "region": "Zapomniany Szyb",
+            "special": false,
+            "tier": 3,
+            "tierName": "Średnie",
+            "z": -2
+          },
+          {
+            "composition": {
+              "orc": 8,
+              "skeleton": 4
+            },
+            "count": 12,
+            "id": "deep_shaft_warband",
+            "label": "Orcza kompania szybu",
+            "region": "Zapomniany Szyb",
+            "special": true,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": -2
+          },
+          {
+            "composition": {
+              "orc": 8,
+              "skeleton": 4
+            },
+            "count": 12,
+            "id": "deep_sanctuary_approach",
+            "label": "Straż podejścia do sanktuarium",
+            "region": "Sanktuarium Smoczego Ognia",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": -2
+          },
+          {
+            "composition": {
+              "dragon": 3,
+              "orc": 10,
+              "skeleton": 6
+            },
+            "count": 19,
+            "id": "deep_sanctuary_lava_host",
+            "label": "Legion Smoczego Ognia",
+            "region": "Sanktuarium Smoczego Ognia",
+            "special": true,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": -2
+          },
+          {
+            "composition": {
+              "dragon": 2,
+              "orc": 4
+            },
+            "count": 6,
+            "id": "deep_sanctuary_dragon_lair",
+            "label": "Wewnętrzne legowisko smoków",
+            "region": "Sanktuarium Smoczego Ognia",
+            "special": true,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": -2
+          },
+          {
+            "composition": {
+              "orc": 6,
+              "skeleton": 8
+            },
+            "count": 14,
+            "id": "deep_crypt_outer_host",
+            "label": "Straż królewskiej krypty",
+            "region": "Królewska Krypta",
+            "special": false,
+            "tier": 4,
+            "tierName": "Trudne",
+            "z": -2
+          },
+          {
+            "composition": {
+              "dragon": 1,
+              "orc": 8,
+              "skeleton": 10
+            },
+            "count": 19,
+            "id": "deep_crypt_throne_host",
+            "label": "Dwór martwego króla",
+            "region": "Królewska Krypta",
+            "special": true,
+            "tier": 5,
+            "tierName": "Elitarne",
+            "z": -2
+          }
+        ],
+        "specialGroups": 15,
+        "total": 338
+      },
+      "spawnProgression": {
+        "issues": [],
+        "ok": true,
+        "stats": {
+          "byFloor": {
+            "0": 110,
+            "1": 28,
+            "2": 15,
+            "-1": 91,
+            "-2": 94
+          },
+          "byTier": {
+            "1": 35,
+            "2": 48,
+            "3": 90,
+            "4": 105,
+            "5": 60
+          },
+          "byType": {
+            "dragon": 10,
+            "orc": 101,
+            "rat": 54,
+            "skeleton": 105,
+            "troll": 39,
+            "yeti": 29
+          },
+          "groupCount": 45,
+          "groups": [
+            {
+              "composition": {
+                "rat": 4
+              },
+              "count": 4,
+              "id": "surface_city_north_vermin",
+              "label": "Szczury pod północną bramą",
+              "region": "Przedpola Srebrnej Bramy",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 4
+              },
+              "count": 4,
+              "id": "surface_city_west_vermin",
+              "label": "Szczury przy zachodnim trakcie",
+              "region": "Przedpola Srebrnej Bramy",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 5
+              },
+              "count": 5,
+              "id": "surface_city_south_vermin",
+              "label": "Szczury przy południowym trakcie",
+              "region": "Przedpola Srebrnej Bramy",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 1,
+                "troll": 5
+              },
+              "count": 6,
+              "id": "surface_forest_north_pack",
+              "label": "Trolle północnego boru",
+              "region": "Las Starych Dębów",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 1,
+                "troll": 5
+              },
+              "count": 6,
+              "id": "surface_forest_crossroads_pack",
+              "label": "Trolle leśnego rozdroża",
+              "region": "Las Starych Dębów",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 2,
+                "skeleton": 7
+              },
+              "count": 9,
+              "id": "surface_western_ruins_host",
+              "label": "Strażnicy zachodnich ruin",
+              "region": "Ruiny Zachodniej Strażnicy",
+              "special": true,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 1,
+                "troll": 5
+              },
+              "count": 6,
+              "id": "surface_swamp_west_pack",
+              "label": "Trolle zachodniego bagna",
+              "region": "Bagna Zmierzchu",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 1,
+                "troll": 5
+              },
+              "count": 6,
+              "id": "surface_swamp_east_pack",
+              "label": "Trolle wschodniego bagna",
+              "region": "Bagna Zmierzchu",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "skeleton": 10
+              },
+              "count": 10,
+              "id": "surface_graveyard_host",
+              "label": "Procesja umarłych",
+              "region": "Cmentarz Umarłych",
+              "special": true,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 5
+              },
+              "count": 5,
+              "id": "surface_desert_north_raiders",
+              "label": "Północni pustynni rabusie",
+              "region": "Pustynia Popiołu",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 5
+              },
+              "count": 5,
+              "id": "surface_desert_east_raiders",
+              "label": "Wschodni pustynni rabusie",
+              "region": "Pustynia Popiołu",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 5
+              },
+              "count": 5,
+              "id": "surface_desert_south_raiders",
+              "label": "Południowi pustynni rabusie",
+              "region": "Pustynia Popiołu",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 6,
+                "skeleton": 3
+              },
+              "count": 9,
+              "id": "surface_desert_temple_guard",
+              "label": "Gwardia pustynnej świątyni",
+              "region": "Pustynna Świątynia",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 0
+            },
+            {
+              "composition": {
+                "yeti": 4
+              },
+              "count": 4,
+              "id": "surface_snow_north_herd",
+              "label": "Yeti północnego pola",
+              "region": "Śnieżne Góry",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 0
+            },
+            {
+              "composition": {
+                "yeti": 4
+              },
+              "count": 4,
+              "id": "surface_snow_east_herd",
+              "label": "Yeti wschodniej grani",
+              "region": "Śnieżne Góry",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 0
+            },
+            {
+              "composition": {
+                "yeti": 3
+              },
+              "count": 3,
+              "id": "surface_snow_pass_herd",
+              "label": "Yeti górskiej przełęczy",
+              "region": "Śnieżne Góry",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 0
+            },
+            {
+              "composition": {
+                "dragon": 2,
+                "orc": 4
+              },
+              "count": 6,
+              "id": "surface_dragon_glade",
+              "label": "Smocza polana",
+              "region": "Smocze Pustkowie",
+              "special": true,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 1,
+                "troll": 4
+              },
+              "count": 5,
+              "id": "surface_north_wild_pack",
+              "label": "Trolle północnych pustkowi",
+              "region": "Dzika Kraina",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "rat": 4
+              },
+              "count": 4,
+              "id": "surface_far_west_vermin",
+              "label": "Szczury zachodnich mokradeł",
+              "region": "Bagna Zmierzchu",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 4
+              },
+              "count": 4,
+              "id": "surface_southeast_scouts",
+              "label": "Orczy zwiadowcy południowego wschodu",
+              "region": "Smocze Pustkowie",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 0
+            },
+            {
+              "composition": {
+                "orc": 5
+              },
+              "count": 5,
+              "id": "upper_west_wall_raiders",
+              "label": "Orkowie na zachodnim murze",
+              "region": "Mury Twierdzy",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 1
+            },
+            {
+              "composition": {
+                "orc": 5,
+                "skeleton": 2
+              },
+              "count": 7,
+              "id": "upper_east_wall_raiders",
+              "label": "Orkowie na wschodnim murze",
+              "region": "Mury Twierdzy",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": 1
+            },
+            {
+              "composition": {
+                "orc": 2,
+                "skeleton": 4
+              },
+              "count": 6,
+              "id": "upper_tower_guard",
+              "label": "Straż górnej wieży",
+              "region": "Górne Piętra Twierdzy",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 1
+            },
+            {
+              "composition": {
+                "yeti": 5
+              },
+              "count": 5,
+              "id": "upper_plateau_north_herd",
+              "label": "Stado północnego płaskowyżu",
+              "region": "Płaskowyż Białego Wiatru",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 1
+            },
+            {
+              "composition": {
+                "yeti": 5
+              },
+              "count": 5,
+              "id": "upper_plateau_south_herd",
+              "label": "Stado południowego płaskowyżu",
+              "region": "Płaskowyż Białego Wiatru",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 1
+            },
+            {
+              "composition": {
+                "skeleton": 5
+              },
+              "count": 5,
+              "id": "apex_observatory_guard",
+              "label": "Umarli obserwatorium",
+              "region": "Obserwatorium Wieży",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": 2
+            },
+            {
+              "composition": {
+                "yeti": 6
+              },
+              "count": 6,
+              "id": "apex_summit_herd",
+              "label": "Stado lodowego szczytu",
+              "region": "Korona Lodowego Szczytu",
+              "special": false,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": 2
+            },
+            {
+              "composition": {
+                "dragon": 2,
+                "yeti": 2
+              },
+              "count": 4,
+              "id": "apex_dragon_nest",
+              "label": "Gniazdo na koronie szczytu",
+              "region": "Korona Lodowego Szczytu",
+              "special": true,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": 2
+            },
+            {
+              "composition": {
+                "rat": 6
+              },
+              "count": 6,
+              "id": "underground_sewer_entry_vermin",
+              "label": "Szczury przy wejściu do kanałów",
+              "region": "Kanały Twierdzy",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": -1
+            },
+            {
+              "composition": {
+                "rat": 6
+              },
+              "count": 6,
+              "id": "underground_sewer_west_vermin",
+              "label": "Szczury zachodniego kanału",
+              "region": "Kanały Twierdzy",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": -1
+            },
+            {
+              "composition": {
+                "rat": 8,
+                "troll": 2
+              },
+              "count": 10,
+              "id": "underground_sewer_cistern_nest",
+              "label": "Gniazdo w dolnej cysternie",
+              "region": "Kanały Twierdzy",
+              "special": true,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": -1
+            },
+            {
+              "composition": {
+                "rat": 6
+              },
+              "count": 6,
+              "id": "underground_mine_entry_vermin",
+              "label": "Szczury starej kopalni",
+              "region": "Stare Kopalnie",
+              "special": false,
+              "tier": 1,
+              "tierName": "Początkowe",
+              "z": -1
+            },
+            {
+              "composition": {
+                "rat": 4,
+                "troll": 5
+              },
+              "count": 9,
+              "id": "underground_mine_middle_pack",
+              "label": "Trolle środkowych komór",
+              "region": "Stare Kopalnie",
+              "special": false,
+              "tier": 2,
+              "tierName": "Łatwe",
+              "z": -1
+            },
+            {
+              "composition": {
+                "skeleton": 3,
+                "troll": 6
+              },
+              "count": 9,
+              "id": "underground_mine_deep_guard",
+              "label": "Straż zapomnianego szybu",
+              "region": "Stare Kopalnie",
+              "special": true,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": -1
+            },
+            {
+              "composition": {
+                "skeleton": 8
+              },
+              "count": 8,
+              "id": "underground_catacomb_outer_host",
+              "label": "Umarli zewnętrznych katakumb",
+              "region": "Katakumby Umarłych",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": -1
+            },
+            {
+              "composition": {
+                "skeleton": 10,
+                "troll": 2
+              },
+              "count": 12,
+              "id": "underground_catacomb_ossuary",
+              "label": "Wielkie ossuarium",
+              "region": "Katakumby Umarłych",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": -1
+            },
+            {
+              "composition": {
+                "orc": 4,
+                "skeleton": 7
+              },
+              "count": 11,
+              "id": "underground_tomb_outer_guard",
+              "label": "Zewnętrzna straż grobowca",
+              "region": "Grobowiec Pustynnego Króla",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": -1
+            },
+            {
+              "composition": {
+                "orc": 8,
+                "skeleton": 6
+              },
+              "count": 14,
+              "id": "underground_tomb_royal_hall",
+              "label": "Gwardia sali królewskiej",
+              "region": "Grobowiec Pustynnego Króla",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": -1
+            },
+            {
+              "composition": {
+                "orc": 4,
+                "skeleton": 8
+              },
+              "count": 12,
+              "id": "deep_shaft_entry_host",
+              "label": "Straż dolnego szybu",
+              "region": "Zapomniany Szyb",
+              "special": false,
+              "tier": 3,
+              "tierName": "Średnie",
+              "z": -2
+            },
+            {
+              "composition": {
+                "orc": 8,
+                "skeleton": 4
+              },
+              "count": 12,
+              "id": "deep_shaft_warband",
+              "label": "Orcza kompania szybu",
+              "region": "Zapomniany Szyb",
+              "special": true,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": -2
+            },
+            {
+              "composition": {
+                "orc": 8,
+                "skeleton": 4
+              },
+              "count": 12,
+              "id": "deep_sanctuary_approach",
+              "label": "Straż podejścia do sanktuarium",
+              "region": "Sanktuarium Smoczego Ognia",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": -2
+            },
+            {
+              "composition": {
+                "dragon": 3,
+                "orc": 10,
+                "skeleton": 6
+              },
+              "count": 19,
+              "id": "deep_sanctuary_lava_host",
+              "label": "Legion Smoczego Ognia",
+              "region": "Sanktuarium Smoczego Ognia",
+              "special": true,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": -2
+            },
+            {
+              "composition": {
+                "dragon": 2,
+                "orc": 4
+              },
+              "count": 6,
+              "id": "deep_sanctuary_dragon_lair",
+              "label": "Wewnętrzne legowisko smoków",
+              "region": "Sanktuarium Smoczego Ognia",
+              "special": true,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": -2
+            },
+            {
+              "composition": {
+                "orc": 6,
+                "skeleton": 8
+              },
+              "count": 14,
+              "id": "deep_crypt_outer_host",
+              "label": "Straż królewskiej krypty",
+              "region": "Królewska Krypta",
+              "special": false,
+              "tier": 4,
+              "tierName": "Trudne",
+              "z": -2
+            },
+            {
+              "composition": {
+                "dragon": 1,
+                "orc": 8,
+                "skeleton": 10
+              },
+              "count": 19,
+              "id": "deep_crypt_throne_host",
+              "label": "Dwór martwego króla",
+              "region": "Królewska Krypta",
+              "special": true,
+              "tier": 5,
+              "tierName": "Elitarne",
+              "z": -2
+            }
+          ],
+          "specialGroups": 15,
+          "total": 338
+        }
+      },
+      "width": 200
+    },
+    "projectCapabilities": {
+      "assets": true,
+      "atomicRollback": true,
+      "content": true,
+      "crossReferenceValidation": true,
+      "map": true
+    }
+  },
+  "summary": {
+    "abilities": 15,
+    "assets": 45,
+    "classes": 3,
+    "entrancesPreservedRaw": 13,
+    "floors": 5,
+    "linksMigrated": 12,
+    "monsters": 6,
+    "npcsPreservedRaw": 2,
+    "questsPreservedRaw": 5,
+    "spawns": 338,
+    "talentsPreservedRaw": 15,
+    "tiles": 18,
+    "transitions": 24
+  }
+}

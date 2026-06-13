@@ -1,0 +1,35 @@
+{
+  "format": "coopege-project-state",
+  "schemaVersion": 1,
+  "projectVersion": "0.7.3-m7-validation-candidate",
+  "releaseCandidateId": "M7-FINAL-VALIDATION-2026-06-13",
+  "activeMilestone": "M7 Finalization / Owner Validation",
+  "status": {
+    "implemented": true,
+    "techVerified": true,
+    "successorReviewed": false,
+    "ownerAccepted": false
+  },
+  "releaseHashAuthority": "External .zip.sha256 sidecar; the archive cannot contain its own final hash.",
+  "expectedBaseline": {
+    "typecheck": "PASS",
+    "nodeTests": 90,
+    "migrationArtifacts": 52,
+    "chromiumScenarios": 9,
+    "legacyArtifacts": 4,
+    "gameplayGate": "PASS_AUTOMATED"
+  },
+  "documents": {
+    "currentMilestone": "docs/process/CURRENT_MILESTONE.md",
+    "lastHandoff": "docs/process/LAST_HANDOFF.md",
+    "handoffProtocol": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
+    "inheritanceReviewTemplate": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
+    "playtestLog": "docs/process/PLAYTEST_LOG.md",
+    "ownerGuide": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md"
+  },
+  "blockers": [],
+  "mustFixBeforeNext": [
+    "Przemek must complete the owner playtest and explicitly accept M7 before M8 begins.",
+    "A successor agent must perform an independent L2 inheritance review before starting M8."
+  ]
+}

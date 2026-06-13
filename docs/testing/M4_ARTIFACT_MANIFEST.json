@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-06-12T21:57:57+00:00",
+  "workspaceVersion": "0.4.0-m4",
+  "milestone": "M4",
+  "nextMilestone": "M5",
+  "testSummary": {
+    "typecheck": "PASS",
+    "node": {
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "chromiumScenarios": {
+      "passed": 7,
+      "failed": 0
+    },
+    "physicalGamepadManualTest": "OPEN"
+  },
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 660422,
+      "sha256": "736ce2b44b02079a115beb093e26605e7c313ba16dd65d769480fba9e526f21f"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1018083,
+      "sha256": "75b429f579a7ab12b736de8d7b00170283a1fb1f552b42d7df8f736c4e5d4d48"
+    },
+    {
+      "path": "dist/Coopege_M4_Runtime.html",
+      "bytes": 148638,
+      "sha256": "435e27a190c39e41ab94daf4bd789c7e0ec7a1a40ee1f0dee4df7d9ad25e430a"
+    },
+    {
+      "path": "dist/Coopege_M4_Legacy_Runtime.html",
+      "bytes": 660422,
+      "sha256": "736ce2b44b02079a115beb093e26605e7c313ba16dd65d769480fba9e526f21f"
+    },
+    {
+      "path": "dist/Coopege_M4_Studio.html",
+      "bytes": 1018083,
+      "sha256": "75b429f579a7ab12b736de8d7b00170283a1fb1f552b42d7df8f736c4e5d4d48"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 30251,
+      "sha256": "b45c9cc9782bb880c37982320e2a3a896bc3efa5ac518add3752e3ed82e48606"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5342,
+      "sha256": "cc544ead888a5fa888b5ddb4d2f97286d59308d6b7871f6f6feb1de46f60f7d1"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1418,
+      "sha256": "a27c10628d3523e201598dd5c7079580d8280612d49cb720f7fdaab4cb056d18"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 4223,
+      "sha256": "296ea5ae77f41c5f58223e11790befdc25e9a724a9032b3ace9c9c115289c431"
+    },
+    {
+      "path": "docs/decisions/0010-local-coop-slots-camera-rewards-and-save-v2.md",
+      "bytes": 4282,
+      "sha256": "121028e31b4d978063a1bf36a49d7cfa2f3d4bbed5f8aa731f11419003499c7f"
+    },
+    {
+      "path": "docs/testing/M4_LOCAL_COOP_TEST_REPORT.md",
+      "bytes": 5723,
+      "sha256": "b0284f053bbf9fcf75d438d242469b186d0d260e77a40e3b184a23e5d60496c9"
+    },
+    {
+      "path": "docs/testing/screenshots/M4_Local_Coop.png",
+      "bytes": 84153,
+      "sha256": "49e5647fef4de1cf6083946dbcc713c21b3647ab35d179e6c6237b6de650ebee"
+    },
+    {
+      "path": "docs/testing/screenshots/M4_Party_Floor_Transition.png",
+      "bytes": 151188,
+      "sha256": "b8f1545a8cb8094c25f09b1cf03d86c86991cc8a0bdcb19acbbc3282b48773aa"
+    },
+    {
+      "path": "packages/gameplay/src/types.ts",
+      "bytes": 5207,
+      "sha256": "d999cf73016dae29e8275b1d8dd24dfbec5191ae2305cc6be512aed0c92039ad"
+    },
+    {
+      "path": "packages/gameplay/src/input.ts",
+      "bytes": 3457,
+      "sha256": "70f6f1dd7b221e2fbcb2beb335b025691daedd090b4316d9d0035453e075d039"
+    },
+    {
+      "path": "packages/gameplay/src/camera-framing.ts",
+      "bytes": 1940,
+      "sha256": "302a3f4f1bad66549b4506163933a7bdee33fed37d96fe582d3526314cc12342"
+    },
+    {
+      "path": "packages/gameplay/src/game-world.ts",
+      "bytes": 40828,
+      "sha256": "67329276fcfd384f7bddd8140165fb00fe003546af9dad193494e517fdc32191"
+    },
+    {
+      "path": "apps/runtime/src/input-adapter.ts",
+      "bytes": 5468,
+      "sha256": "5747d5e5aabb8828f8c05df96e206fd117091ed16948cde1c8f15cc0dc908068"
+    },
+    {
+      "path": "apps/runtime/src/renderer.ts",
+      "bytes": 13173,
+      "sha256": "7edc19d7071e60692543198e1605b2577515505cae5a27bd2c25d5f6d257d84b"
+    },
+    {
+      "path": "apps/runtime/src/main.ts",
+      "bytes": 18631,
+      "sha256": "9ac229a8a6dd260ab080092536a2a95e4fd85268f2eeb40cf93bc0c69f99f943"
+    },
+    {
+      "path": "tests/local-coop.test.ts",
+      "bytes": 13119,
+      "sha256": "1e532497544fa6c70ac7aed8d35be18706d9993af323257e0fcbcc7366654b7d"
+    },
+    {
+      "path": "tools/test/browser-smoke.mjs",
+      "bytes": 16727,
+      "sha256": "1af05884991a545648e09dfd7ac771dfe218ce0e70b3b7cdad270a7954ecc199"
+    }
+  ]
+}

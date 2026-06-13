@@ -1,0 +1,50 @@
+{
+  "name": "coopege",
+  "version": "0.7.3-m7-validation-candidate",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "node tools/build/build.mjs",
+    "clean": "node tools/build/clean.mjs",
+    "dev": "node tools/dev-server.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:compile": "tsc -p tsconfig.test.json",
+    "test": "node tools/test/full-suite.mjs",
+    "verify:legacy": "node tools/verify/verify-legacy.mjs --manifest legacy/reference/received-manifest.json",
+    "audit:baseline": "node tools/verify/audit-declared-baseline.mjs",
+    "inventory:legacy": "node tools/migrate/inventory-legacy.mjs",
+    "migrate:legacy:extract": "node tools/migrate/extract-legacy-raw.mjs",
+    "migrate:legacy:convert": "node tools/migrate/convert-legacy-snapshot.mjs && node tools/migrate/upgrade-project-v2.mjs project/migration/legacy-v14.1/coopege.project.json project/migration/legacy-v14.1/coopege.project.v2.json && node tools/migrate/create-golden-manifest.mjs",
+    "migrate:legacy": "npm run verify:legacy && npm run migrate:legacy:extract && npm run migrate:legacy:convert && npm run verify:migration",
+    "verify:migration": "node tools/migrate/verify-golden.mjs",
+    "test:browser": "npm run build && node tools/test/browser-suite.mjs",
+    "upgrade:project-v2": "node tools/migrate/upgrade-project-v2.mjs",
+    "test:gameplay-gate": "npm run test:compile && node tools/test/gameplay-gate-0.1.mjs",
+    "assets:vault": "npm run build",
+    "check": "npm run typecheck && npm run test:compile && node --test .build/node/tests/*.test.js && npm run verify:migration",
+    "doctor": "node tools/verify/doctor.mjs",
+    "play": "node tools/dev-server.mjs --open=runtime",
+    "diagnostics": "node tools/diagnostics/collect-diagnostics.mjs",
+    "start": "npm run play",
+    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:gameplay-gate",
+    "studio": "node tools/dev-server.mjs --open=studio",
+    "verify:portability": "node tools/verify/portability.mjs",
+    "play:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=runtime",
+    "studio:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=studio",
+    "verify:handoff": "node tools/verify/handoff.mjs",
+    "test:server": "node tools/test/dev-server-reuse.mjs",
+    "validate": "npm run release:verify"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.29",
+    "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": ">=20.11",
+    "npm": ">=10"
+  }
+}

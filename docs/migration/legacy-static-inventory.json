@@ -1,0 +1,47 @@
+{
+  "reportVersion": 1,
+  "generatedBy": "static-inventory-v1",
+  "sources": {
+    "runtimeSha256": "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c",
+    "studioSha256": "1364ee817bcbb73c0403d0d9e6006a7a63e324642b892560b15edc2288a12c47"
+  },
+  "apiMarkers": [
+    {
+      "name": "TibiaAssetAPI",
+      "present": true,
+      "references": 5
+    },
+    {
+      "name": "TibiaMapAPI",
+      "present": true,
+      "references": 1
+    },
+    {
+      "name": "TibiaContentAPI",
+      "present": true,
+      "references": 1
+    },
+    {
+      "name": "TibiaProjectAPI",
+      "present": true,
+      "references": 2
+    }
+  ],
+  "runtimeSignals": {
+    "floorConstants": 9,
+    "embeddedRle": true,
+    "classTable": true,
+    "monsterDefinitions": false,
+    "assetManifest": false
+  },
+  "studioSignals": {
+    "projectApply": true,
+    "undoReferences": 28,
+    "checkpointReferences": 39,
+    "postMessageReferences": 0
+  },
+  "limitations": [
+    "Inwentaryzacja statyczna potwierdza punkty zaczepienia, ale nie zastępuje eksportu przez API w automatycznej przeglądarce.",
+    "Dynamiczny ekstraktor i golden fixture pozostają następnym zadaniem M0."
+  ]
+}

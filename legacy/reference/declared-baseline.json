@@ -1,0 +1,16 @@
+{
+  "manifestVersion": 1,
+  "source": "AI_PROJECT_MEMORY.md and legacy test report",
+  "artifacts": [
+    {
+      "path": "legacy/reference/Tibia_Enhanced_v14_1_DevAPI.html",
+      "bytes": 338570,
+      "sha256": "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c"
+    },
+    {
+      "path": "legacy/reference/Tibia_Developer_Studio_v3_1.html",
+      "bytes": 102846,
+      "sha256": "b512be2b139862392853b0689cef9c42304b7e869944471a53b150edafff6adb"
+    }
+  ]
+}

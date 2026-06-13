@@ -1,0 +1,7 @@
+{
+  "name": "@coopege/gameplay",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministyczny GameWorld, encje, wejście, walka i snapshoty Coopege"
+}

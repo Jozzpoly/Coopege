@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-06-12T22:31:10.910Z",
+  "workspaceVersion": "0.5.0-m5",
+  "milestone": "M5",
+  "nextMilestone": "M6",
+  "testSummary": {
+    "typecheck": "PASS",
+    "node": {
+      "passed": 53,
+      "failed": 0,
+      "skipped": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "chromiumScenarios": {
+      "passed": 8,
+      "failed": 0
+    },
+    "physicalGamepadManualTest": "OPEN"
+  },
+  "projectFormat": {
+    "coopegeProjectSchema": 2,
+    "gameplayLanguageSchema": 1,
+    "domains": 6,
+    "foundationGraphs": 6,
+    "legacyGraphs": 20
+  },
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 732193,
+      "sha256": "be19e8102d7ab52fcbb90d05bfb578a4e274ab9134c25020401b3bf899e7d9b4"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1191778,
+      "sha256": "909a0d9a229da8bbc301610be4e7d639f964a054b8e6bb51b1ab50839bf39e27"
+    },
+    {
+      "path": "dist/Coopege_M5_Runtime.html",
+      "bytes": 202623,
+      "sha256": "531d5c6694228b4de9ec5fdece0779f46650e6b6c28904a5936a6e81b81ee5e3"
+    },
+    {
+      "path": "dist/Coopege_M5_Legacy_Runtime.html",
+      "bytes": 732193,
+      "sha256": "be19e8102d7ab52fcbb90d05bfb578a4e274ab9134c25020401b3bf899e7d9b4"
+    },
+    {
+      "path": "dist/Coopege_M5_Studio.html",
+      "bytes": 1191778,
+      "sha256": "909a0d9a229da8bbc301610be4e7d639f964a054b8e6bb51b1ab50839bf39e27"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 15898,
+      "sha256": "a8b321755464f089ca366b45c88e1e0ab0f244a551f969ef3e99ee8294a19de5"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4910,
+      "sha256": "76ed13a2420c82b18e80f62aaf773eac68def2b1232708379826b2624be5bea7"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1489,
+      "sha256": "9dde91707714159c38d02a94224a0f39a33b9101816f02dd643a845a4bd4ef75"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 4458,
+      "sha256": "e4d4cec496beb841db2cb63f5422dd092cd752f2f6f20cdeadfb392ef9a52f2d"
+    },
+    {
+      "path": "docs/decisions/0011-safe-gameplay-language-and-atomic-operations.md",
+      "bytes": 5249,
+      "sha256": "5022836c37154d51ade55d0911cffa388a577bd841e70baf6ca0435182e2ff6e"
+    },
+    {
+      "path": "docs/testing/M5_GAMEPLAY_LANGUAGE_TEST_REPORT.md",
+      "bytes": 6374,
+      "sha256": "841a17997b2fbb53dfab0f8a3de6798b3dee3fcd3efa5ca03efa7d03d95954b9"
+    },
+    {
+      "path": "docs/testing/screenshots/M5_Gameplay_Language_Coop.png",
+      "bytes": 87084,
+      "sha256": "33a2ddd15d71b7ca767830b23146acd04ead3cb989a179374053777ee8a91f21"
+    },
+    {
+      "path": "docs/testing/screenshots/M5_Silver_Gate_Runtime.png",
+      "bytes": 156427,
+      "sha256": "fd7342098a1aec5160fab0276772bc2bf0ac09752a3f82462cbf6284671b6853"
+    },
+    {
+      "path": "docs/testing/screenshots/M5_Studio_Toolchain.png",
+      "bytes": 73385,
+      "sha256": "8fce0cd62ba245c87c8dd78aa3cbf16b58c7c1af982bc61f08b50d1cb311425c"
+    },
+    {
+      "path": "packages/schema/src/types.ts",
+      "bytes": 4880,
+      "sha256": "23daf9129c536dc3a97c8ee8d4caaf84e371b5109694e29ffee22c27a370d5f4"
+    },
+    {
+      "path": "packages/schema/src/migrate.ts",
+      "bytes": 6698,
+      "sha256": "364ba0938d601c2c50021ccd9ffed38e574da83f50f5294b9e320ba6d50070f0"
+    },
+    {
+      "path": "packages/runtime-core/src/index.ts",
+      "bytes": 3612,
+      "sha256": "ff24e6d4bd201b06920f13630251c765a8c93c9c0587e27bcd29c4d8347c653c"
+    },
+    {
+      "path": "packages/validation/src/validate-project.ts",
+      "bytes": 16236,
+      "sha256": "23d1fc110524b43220da31252b909d38231f9f27c405b277ff098e8ead6a1cdc"
+    },
+    {
+      "path": "packages/gameplay-language/src/types.ts",
+      "bytes": 2573,
+      "sha256": "bcf343bd7d65018b1865101687ef28fd6f5377433f80f697912d8e318c967b2a"
+    },
+    {
+      "path": "packages/gameplay-language/src/registry.ts",
+      "bytes": 5118,
+      "sha256": "cc454cb9dff987b751e6b2052f0a56310d7c3a97d8c68b99fee0c097a0b8979c"
+    },
+    {
+      "path": "packages/gameplay-language/src/validate.ts",
+      "bytes": 12340,
+      "sha256": "2774e276c1c19f4d9a82f1cc884352011a3bd16c8733d75e3fdeaa3c2bc400a3"
+    },
+    {
+      "path": "packages/gameplay-language/src/interpreter.ts",
+      "bytes": 5828,
+      "sha256": "fcac35917a7f1c27546ed581f01fe8ae6210b747e44695107b1e574c4f00c134"
+    },
+    {
+      "path": "packages/gameplay-language/src/index.ts",
+      "bytes": 124,
+      "sha256": "04225e5244e3794e467dbbc3a59d3a21e9e564405ac850724e28928b0bee7751"
+    },
+    {
+      "path": "packages/gameplay/src/game-world.ts",
+      "bytes": 52953,
+      "sha256": "f40d699d12978f70446e812d4f545879b9a54fd6799dcea824f01c2ac9a8dc15"
+    },
+    {
+      "path": "packages/gameplay/src/types.ts",
+      "bytes": 5375,
+      "sha256": "3518ba75fec13ae210266cfcb0f357f8c60b18ac17af8c4797877ff57de09379"
+    },
+    {
+      "path": "apps/runtime/src/main.ts",
+      "bytes": 20187,
+      "sha256": "8ac20ecfc463ac738e056f8160ba61888e49d6874fdb33c9c8c4b6fa4e5cb131"
+    },
+    {
+      "path": "apps/runtime/template.html",
+      "bytes": 6414,
+      "sha256": "113005a96d910d11fef0e6a4c0f6386bf60399de59a7c2ad4b0ae00ca6abdcac"
+    },
+    {
+      "path": "apps/studio/src/main.ts",
+      "bytes": 25226,
+      "sha256": "c840d9789b3ab3583b0229609991e64bfd4fd031c9e70e1bb4c8e00ed01c21c2"
+    },
+    {
+      "path": "apps/studio/template.html",
+      "bytes": 19752,
+      "sha256": "414e07e7e5b5ad36a47cb814b27cfd08313fb586a59df53b46a8d36fa0e592a8"
+    },
+    {
+      "path": "tests/gameplay-language.test.ts",
+      "bytes": 9594,
+      "sha256": "8d7d9f8560e7b33d397975f078c5e2104d046f15f2942b5949506836acf38db1"
+    },
+    {
+      "path": "tools/migrate/upgrade-project-v2.mjs",
+      "bytes": 5728,
+      "sha256": "3fcd40f2f21441d47492944a33ea0c9a8a251748659f3043650995019825c76a"
+    },
+    {
+      "path": "tools/build/build.mjs",
+      "bytes": 6544,
+      "sha256": "8badf7039dfbc0718408426834bf5e4ef94719fbae01d2f5c7c2c1bad32937f5"
+    },
+    {
+      "path": "tools/test/browser-smoke.mjs",
+      "bytes": 19242,
+      "sha256": "dcc54a9d6966c175409ec2b6b544a6bc7e98bc2d111cba8535a02aba284042d7"
+    },
+    {
+      "path": "project/project.json",
+      "bytes": 11679,
+      "sha256": "25f81713f8ef795ac27242ad370a441b11f9973fbb62a597ecd0a5ffd073edf4"
+    },
+    {
+      "path": "project/migration/legacy-v14.1/coopege.project.v2.json",
+      "bytes": 515113,
+      "sha256": "a67062b254561f69adfb97ac76a99d6fdcc16932f29088fe1f34f126961898ce"
+    }
+  ]
+}

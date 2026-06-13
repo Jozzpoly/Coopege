@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-06-13T00:00:00Z",
+  "workspace": "coopege@0.6.0-m6",
+  "milestone": "M6 — Ability Composer",
+  "testSummary": {
+    "typescript": "PASS",
+    "node": {
+      "passed": 57,
+      "failed": 0
+    },
+    "migrationArtifacts": {
+      "passed": 51,
+      "failed": 0
+    },
+    "chromium": {
+      "passed": 9,
+      "failed": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 739121,
+      "sha256": "070d882577ffdb63b9561cbde62ea812814731cc70d2d6711d88bbd7387bb850"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1250376,
+      "sha256": "fa3501e3736f0aa5712e806a6afad6c6a31e540570eae3947c00173cf79687a7"
+    },
+    {
+      "path": "dist/Coopege_M6_Runtime.html",
+      "bytes": 209550,
+      "sha256": "4ada49a30f36fb3e5767ea87659b96e2de89779616bb90fa97a56f4f412d371d"
+    },
+    {
+      "path": "dist/Coopege_M6_Legacy_Runtime.html",
+      "bytes": 739121,
+      "sha256": "070d882577ffdb63b9561cbde62ea812814731cc70d2d6711d88bbd7387bb850"
+    },
+    {
+      "path": "dist/Coopege_M6_Studio.html",
+      "bytes": 1250376,
+      "sha256": "fa3501e3736f0aa5712e806a6afad6c6a31e540570eae3947c00173cf79687a7"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 18316,
+      "sha256": "c7136da206b8f5f6f409d8c223aad070b93a88ed4856520dbcf0439ca2987d01"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6024,
+      "sha256": "72ab19cf8db415c31d2c115422c0c16e3a14d67e7a62d461b17dd8c8716be7c0"
+    },
+    {
+      "path": "docs/testing/M6_ABILITY_COMPOSER_TEST_REPORT.md",
+      "bytes": 2574,
+      "sha256": "8da66db75ca6b61e3dd8d140f1ec9fdc80a33580fd4d471067ec107d02d49017"
+    },
+    {
+      "path": "docs/decisions/0012-ability-composer-shared-metadata-and-runtime-planning.md",
+      "bytes": 2294,
+      "sha256": "adbb00be0cdbc517aa13f4cdc9b6778b1b934b046f3208347837818a3a98d7b3"
+    },
+    {
+      "path": "docs/testing/screenshots/M6_Ability_Composer.png",
+      "bytes": 115383,
+      "sha256": "78f9617d73b4bf6a78cc67409689ea0ca04a2f5bb21e3f8c6b929c7ecb910995"
+    },
+    {
+      "path": "docs/testing/screenshots/M6_Silver_Gate_Runtime.png",
+      "bytes": 160622,
+      "sha256": "56688a1498f8fb205c49128318bcb27a154c8188c640c4a069e4f31b04248f23"
+    },
+    {
+      "path": "project/migration/legacy-v14.1/coopege.project.json",
+      "bytes": 478933,
+      "sha256": "24830321b73a9eee38f451fb673c48b8a42f77c9aa2f17385b7393817a47f10f"
+    }
+  ]
+}

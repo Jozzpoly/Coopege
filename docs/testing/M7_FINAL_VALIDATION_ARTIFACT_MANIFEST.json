@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-06-13T18:30:00Z",
+  "workspace": "coopege@0.7.3-m7-validation-candidate",
+  "status": "M7_FINAL_VALIDATION_CANDIDATE",
+  "baseline": {
+    "doctor": "17 PASS / 1 WARN / 0 FAIL",
+    "handoff": "25 PASS / 0 FAIL",
+    "portability": "21 PASS / 0 WARN / 0 FAIL",
+    "node": "90/90 PASS",
+    "migration": "52/52 PASS",
+    "legacy": "4/4 PASS",
+    "chromium": "9/9 PASS + Ability Composer",
+    "serverReuse": "PASS",
+    "gameplayGate": "54000 ticks PASS",
+    "cleanPackage": "PASS"
+  },
+  "files": [
+    {
+      "path": "package.json",
+      "bytes": 2674,
+      "sha256": "32e75e6d06d2cdf9407633080dd93dbd8fcbcdbc8804d28a4c72b4eee2e73ba9"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 4299,
+      "sha256": "018c7e14f0a75959ec2b5755503c2171d8582727ce2533584298dd3deb2d4552"
+    },
+    {
+      "path": ".npmrc",
+      "bytes": 60,
+      "sha256": "6e55aa84f7394184d4e5b26e38bbc5dcb099de321e5ceca2ddad0474a2a66ec5"
+    },
+    {
+      "path": "PROJECT_STATE.json",
+      "bytes": 1289,
+      "sha256": "2f02dc0fdc5acfb3f3e3f2d9b75a10f645684faec4c9f7003fbabf3f02ef7e5c"
+    },
+    {
+      "path": "AI_PROJECT_MEMORY.md",
+      "bytes": 3842,
+      "sha256": "1e7cbc49260bade223bf297099decaff0f0fed3abd671d6477935dcdaa938058"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 1189,
+      "sha256": "9e0ecb9ff81120a9405d5b76ac07a407ac925d5b5cf41175d8724ac89e039aa1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2178,
+      "sha256": "a229e184dfc9641391d6541cf4130239d42fc2524172f9fe1314dbbcace1eec8"
+    },
+    {
+      "path": "PLAY_COOPEGE.bat",
+      "bytes": 498,
+      "sha256": "a7991f26133c647f6be07f6e22160c9d30a02444b05ee7e5da589b371b782270"
+    },
+    {
+      "path": "START_STUDIO.bat",
+      "bytes": 462,
+      "sha256": "c431a2fcf6418b76d86775a6ef6c2d3b4c4a670eaaf73c0fe7b7f1e7157d6c73"
+    },
+    {
+      "path": "REBUILD_AND_PLAY.bat",
+      "bytes": 703,
+      "sha256": "e0d5fca0327f9ddeb8cc15f8029b8e0d922ea8265d1a18a76a59e6e69f769891"
+    },
+    {
+      "path": "COLLECT_DIAGNOSTICS.bat",
+      "bytes": 295,
+      "sha256": "c6474a359cd82082bd7a42ed27f3ff98f85f1685355c5cda79543ac3f4c736a1"
+    },
+    {
+      "path": "dist/Coopege_v0.01.html",
+      "bytes": 806880,
+      "sha256": "a7f5f83b7fc53d9e159aad08989d82d003d70ec46dad71f15efc57f26f7e3523"
+    },
+    {
+      "path": "dist/Coopege_Studio_v0.1.html",
+      "bytes": 1466716,
+      "sha256": "877f8127d800ab9edeeaf8d13ea87968c91b03f5767f1b23b0a532b1876a5a3f"
+    },
+    {
+      "path": "dist/Coopege_M7_Runtime.html",
+      "bytes": 264672,
+      "sha256": "ecab9805236ccfc4ed8f9201b42f15c1ae19c12bdb69aa4246c66ecaa8760fe0"
+    },
+    {
+      "path": "dist/Coopege_M7A_Asset_Vault.zip",
+      "bytes": 296513,
+      "sha256": "afb4fa02a06b33a50e4ef74ef8dc85731f428124b8a2ba3bee355261339e468e"
+    },
+    {
+      "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
+      "bytes": 3781,
+      "sha256": "06ba24963b08db15e156fad6c1aab4700bfc1ee2b28012c52614f6991815b80d"
+    },
+    {
+      "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
+      "bytes": 2394,
+      "sha256": "7e54e8ed3efc29d606dfdd827c51ced667c760754f98d954a057edc101096e97"
+    },
+    {
+      "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
+      "bytes": 8849,
+      "sha256": "8e29e06dce8e55f9f79f81cc4ee898458957996f7b10bc03686b2337af3cf7c9"
+    },
+    {
+      "path": "tools/build/build.mjs",
+      "bytes": 8340,
+      "sha256": "203bbf426813bd5500c8c993185c921d54b8894f412cd2986db30d9e21418af1"
+    },
+    {
+      "path": "tools/dev-server.mjs",
+      "bytes": 4622,
+      "sha256": "154b5cfe7c17f013d1ae49056cefd05e6abaf97b0bf9e769c0b3509e0099b09a"
+    },
+    {
+      "path": "tools/test/browser-suite.mjs",
+      "bytes": 313,
+      "sha256": "f4ea6ae93601fb919624b85bff468ce31f2e489f71a21e2c049753a5c6a84403"
+    },
+    {
+      "path": "tools/test/full-suite.mjs",
+      "bytes": 1094,
+      "sha256": "ed34e2c2d4df8a1e36944aa055afec9eb653ab6e00345e8747da811b120c5475"
+    },
+    {
+      "path": "tools/verify/handoff.mjs",
+      "bytes": 5364,
+      "sha256": "1942a3d0ee9d72c86bb3cda77a67af2afe1ac1e6dd437e87be247318554a2d23"
+    }
+  ]
+}
