@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-13T15:30:43.209Z",
+  "generatedAt": "2026-06-13T22:49:56.710Z",
   "workspace": "coopege@0.7.5-m7-owner-accepted",
   "status": "M7_OWNER_ACCEPTED_WITH_DEBT",
   "baseline": {
@@ -38,7 +38,7 @@
     {
       "path": "AI_PROJECT_MEMORY.md",
       "bytes": 4188,
-      "sha256": "a5418826afd4c0b01445cfb874aa6b0a61e34eabd38d98e37f17d3b43e3391b1"
+      "sha256": "03cfaed7283299d17366e2f6e20ab0dd5dc0c353ca3f1ebbd494dbbca81b1308"
     },
     {
       "path": "START_HERE.md",
@@ -93,7 +93,7 @@
     {
       "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
       "bytes": 4354,
-      "sha256": "efa49d0051c21ca31665858bda101e7ff4a4607fa8f5784495351127b2baa278"
+      "sha256": "821aa949be8d3e68ee7cd932da6fd7f63495bbb33c909f97b9def3dd29a0d757"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",

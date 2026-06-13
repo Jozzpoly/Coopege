@@ -20,7 +20,7 @@
 6. `docs/process/OWNER_FEEDBACK.md`
 7. najnowszy `PLAYTEST_LOG.md`
 8. wskazane ADR-y
-8. przy pierwszym przejęciu roli: `COOPEGE_SOUL.md`, `AGENT_SOUL.md`, `PANTHEON.md`, roadmapa
+9. przy pierwszym przejęciu roli: `COOPEGE_SOUL.md`, `AGENT_SOUL.md`, `PANTHEON.md`, roadmapa
 
 Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i aktualne ADR-y wygrywają ze starym opisem.
 
