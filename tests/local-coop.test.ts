@@ -92,6 +92,30 @@ test("dołączenie i opuszczenie P2 nie resetuje stanu ani encji P1", () => {
   assert.equal(world.playerSlots.find((slot) => slot.slotId === SECONDARY_SLOT_ID)?.joined, false);
 });
 
+test("odłączenie P2 usuwa threat z uśpionych spawnów i pozwala wczytać zapis solo", () => {
+  const project = loadProject("project/migration/legacy-v14.1/coopege.project.v2.json");
+  const world = new GameWorld(project, { initialPlayerCount: 2 });
+  const monster = world.monsters[0];
+  assert.ok(monster);
+  monster.threatByPlayer[SECONDARY_PLAYER_ID] = 30;
+  monster.targetPlayerId = SECONDARY_PLAYER_ID;
+
+  const otherFloorId = [...project.floors.keys()].find((floorId) => floorId !== world.activeFloorId);
+  assert.ok(otherFloorId);
+  world.transitionParty(otherFloorId);
+  world.leavePlayer(SECONDARY_PLAYER_ID);
+
+  const snapshot = world.createSaveSnapshot();
+  assert.equal(snapshot.actors.filter((record) => record.kind === "player").length, 1);
+  assert.ok(snapshot.spawnStates.every((state) => state.targetPlayerId !== SECONDARY_PLAYER_ID));
+  assert.ok(snapshot.spawnStates.every((state) => state.threatByPlayer.every(([playerId]) => playerId !== SECONDARY_PLAYER_ID)));
+
+  const restored = new GameWorld(project);
+  restored.loadSaveSnapshot(snapshot);
+  assert.equal(restored.players.length, 1);
+  assert.equal(restored.stateChecksum(), world.stateChecksum());
+});
+
 test("dwóch graczy porusza się jednocześnie z niezależnych InputFrame", () => {
   const world = new GameWorld(loadProject(), { initialPlayerCount: 2, softTetherTiles: 4, hardTetherTiles: 6 });
   const initial = world.players.map((player) => ({ ...player.position }));

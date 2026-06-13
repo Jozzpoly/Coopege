@@ -2,11 +2,12 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { arch, platform, release, totalmem } from "node:os";
 import { resolve } from "node:path";
+import { npmInvocation } from "../npm-cli.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
-const npmProgram = process.platform === "win32" ? "npm.cmd" : "npm";
 function command(args) {
-  try { return execFileSync(npmProgram, args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim(); }
+  const invocation = npmInvocation(args);
+  try { return execFileSync(invocation.command, invocation.args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim(); }
   catch (error) { return `ERROR: ${error instanceof Error ? error.message : String(error)}`; }
 }
 function packageVersion() {

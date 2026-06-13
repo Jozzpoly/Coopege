@@ -1,19 +1,28 @@
 {
   "format": "coopege-project-state",
   "schemaVersion": 1,
-  "projectVersion": "0.7.3-m7-validation-candidate",
-  "releaseCandidateId": "M7-FINAL-VALIDATION-2026-06-13",
-  "activeMilestone": "M7 Finalization / Owner Validation",
+  "projectVersion": "0.7.5-m7-owner-accepted",
+  "releaseCandidateId": "M7-OWNER-ACCEPTED-2026-06-13",
+  "completedMilestone": "M7 Finalization / Owner Validation",
+  "activeMilestone": "M8 LAN Foundation / Entry Review",
+  "statusScope": "completedMilestone",
   "status": {
     "implemented": true,
     "techVerified": true,
     "successorReviewed": false,
-    "ownerAccepted": false
+    "ownerAccepted": true,
+    "ownerAcceptedAt": "2026-06-13",
+    "acceptance": "ACCEPT_WITH_DEBT"
+  },
+  "nextMilestone": {
+    "id": "M8",
+    "phase": "ENTRY_REVIEW",
+    "implementationStarted": false
   },
   "releaseHashAuthority": "External .zip.sha256 sidecar; the archive cannot contain its own final hash.",
   "expectedBaseline": {
     "typecheck": "PASS",
-    "nodeTests": 90,
+    "nodeTests": 94,
     "migrationArtifacts": 52,
     "chromiumScenarios": 9,
     "legacyArtifacts": 4,
@@ -25,11 +34,13 @@
     "handoffProtocol": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
     "inheritanceReviewTemplate": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
     "playtestLog": "docs/process/PLAYTEST_LOG.md",
-    "ownerGuide": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md"
+    "ownerGuide": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
+    "ownerFeedback": "docs/process/OWNER_FEEDBACK.md"
   },
-  "blockers": [],
+  "blockers": [
+    "Independent L2 inheritance review is required before the first M8 LAN implementation change."
+  ],
   "mustFixBeforeNext": [
-    "Przemek must complete the owner playtest and explicitly accept M7 before M8 begins.",
-    "A successor agent must perform an independent L2 inheritance review before starting M8."
+    "A successor agent must perform an independent L2 inheritance review before the first M8 implementation change."
   ]
 }

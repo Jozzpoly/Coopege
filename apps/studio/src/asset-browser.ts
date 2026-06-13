@@ -170,7 +170,7 @@ export class AssetBrowser {
       `source: ${isPngDataUrl(entry.source) ? `data:image/png;base64… (${entry.source.length.toLocaleString("pl-PL")} znaków)` : entry.source}`,
       `sha256: ${entry.sha256 ?? "brak"}`,
       baseline ? `legacy source: ${baseline.source} · ${baseline.width}×${baseline.height}` : "legacy source: brak wpisu bazowego",
-      entry.texture ? `atlas: klatka ${entry.texture.frameWidth}×${entry.texture.frameHeight} · animacja ${(entry.texture.animationFrames ?? [entry.texture.idleFrame ?? 0]).join(",")}` : "atlas: pojedynczy obraz / auto",
+      entry.texture ? `atlas: klatka ${entry.texture.frameWidth}×${entry.texture.frameHeight} · ${entry.texture.frameMode === "variant" ? "warianty" : "animacja"} ${(entry.texture.animationFrames ?? [entry.texture.idleFrame ?? 0]).join(",")}` : "atlas: pojedynczy obraz / auto",
       "Import pojedynczy, paczkowy i ZIP jest atomowy oraz obsługuje undo/redo.",
     ].join("\n");
   }

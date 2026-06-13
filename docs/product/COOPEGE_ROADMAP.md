@@ -43,9 +43,9 @@ Roadmapa porządkuje hipotezę rozwoju. Realny gameplay feedback może zmienić 
 - 45 placeholderów PNG, manifest, contact sheet i niezależny ZIP;
 - batch PNG, import/export ZIP, walidacja SHA/CRC/ID/layoutu i atomowe undo/redo.
 
-## Aktywne: M7 Final Owner Gate
+## Zamknięte: M7 Final Owner Gate
 
-Status: **PLAYTEST CANDIDATE / NOT OWNER ACCEPTED**.
+Status: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT, 2026-06-13**.
 
 Po pierwszym uruchomieniu właściciela zakres M7 został rozszerzony o rzeczy wcześniej pominięte przez techniczne testy:
 
@@ -57,9 +57,11 @@ Po pierwszym uruchomieniu właściciela zakres M7 został rozszerzony o rzeczy w
 - clean-package i Windows portability gate;
 - launchery gotowego builda bez wymuszania npm/build.
 
-M7 kończy się dopiero po ręcznym teście Przemka i jawnej decyzji `ACCEPT M7`, `ACCEPT WITH DEBT` albo `REJECT / FIX M7`.
+Przemek zamknął M7 decyzją `ACCEPT_WITH_DEBT`. Jedyny jawny dług przy akceptacji dotyczy lokalnego C0: śmierć w coopie może przestawić punkt respawnu używany później solo. Dług nie blokuje M8 i jest zapisany jako `OF-001` w `OWNER_FEEDBACK.md`.
 
-## Następne po akceptacji: M8 — pierwszy LAN Coop
+## Aktywne: M8 — pierwszy LAN Coop
+
+Status wejściowy: **ENTRY REVIEW / IMPLEMENTATION NOT STARTED**. Pierwsza implementacja wymaga niezależnego L2 Inheritance Review; owner gate M7 jest zamknięty.
 
 Cel produktu: host i klient grają na osobnych urządzeniach w tej samej sieci lokalnej.
 

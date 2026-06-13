@@ -20,7 +20,17 @@ function normalizeVolatile(value) {
   return result;
 }
 
-const legacyHtml = readFileSync(legacyPath, "utf8");
+const legacySource = readFileSync(legacyPath, "utf8");
+const migrationBridgeMarker = "function loop(ts){";
+const migrationBridge = `window.__COOPEGE_MIGRATION_RENDER__=Object.freeze({
+  makeCanvas:(width,height)=>makeCanvas(width,height),
+  drawPlayer:(context,player,x,y,time,options)=>drawPlayerArt(context,player,x,y,time,options),
+  classAttackType:(classId)=>CLASSES[classId].atkType,
+  directions:()=>DIR_ORDER.slice()
+});
+function loop(ts){`;
+const legacyHtml = legacySource.replace(migrationBridgeMarker, migrationBridge);
+if (legacyHtml === legacySource) throw new Error("Nie znaleziono punktu wstrzyknięcia renderera migracji.");
 const snapshotText = await withChromiumPage(async (page) => {
     await page.setContent(legacyHtml);
     return await page.evaluate(`(async()=>{
@@ -36,6 +46,25 @@ const snapshotText = await withChromiumPage(async (page) => {
       const assetManifest=window.TibiaAssetAPI.getManifest();
       const assets=await window.TibiaAssetAPI.exportPackage({includeProcedural:true});
       const customAssets=await window.TibiaAssetAPI.exportPackage({includeProcedural:false});
+      const migrationRender=window.__COOPEGE_MIGRATION_RENDER__;
+      if(!migrationRender)throw new Error('Renderer migracji legacy nie jest dostępny.');
+      for(const classId of ['warrior','archer','mage']){
+        const assetId='player.'+classId,frameWidth=80,frameHeight=80;
+        const {canvas,g}=migrationRender.makeCanvas(frameWidth*4,frameHeight*4);
+        const directions=migrationRender.directions();
+        const fake={classKey:classId,dir:'s',moving:true,abonus:5,wbonus:6,blessTimer:0,atkType:migrationRender.classAttackType(classId)};
+        for(let direction=0;direction<4;direction++)for(let frame=0;frame<4;frame++){
+          migrationRender.drawPlayer(g,fake,frame*frameWidth+frameWidth/2,direction*frameHeight+52,frame/4,{classKey:classId,dir:directions[direction],moving:true,state:'walk',frame});
+        }
+        const layout={
+          frameWidth,frameHeight,frames:4,directions:4,
+          pivotX:.5,pivotY:(.78*56)/frameHeight,
+          worldWidthTiles:1.08*frameWidth/48,
+          worldHeightTiles:1.26*frameHeight/56,
+        };
+        assets.assets[assetId]={...assets.assets[assetId],data:canvas.toDataURL('image/png'),meta:{...assets.assets[assetId]?.meta,...layout}};
+        assetManifest.assets[assetId]={...assetManifest.assets[assetId],...layout};
+      }
       const validation={
         mapSchema:window.TibiaMapAPI.validatePackage(map),
         mapWorld:window.TibiaMapAPI.validateWorld(),

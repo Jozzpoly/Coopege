@@ -133,7 +133,7 @@ const joinButton = requiredElement<HTMLButtonElement>("#joinButton");
 const context = canvas.getContext("2d");
 if (!context) throw new Error("Canvas 2D jest niedostępny.");
 
-const config: RuntimeConfig = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.7.3-m7-validation-candidate" };
+const config: RuntimeConfig = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.7.5-m7-owner-accepted" };
 const host = new AtomicProjectHost();
 const clock = new FixedClock(30);
 const renderer = new RuntimeRenderer(canvas, context);
@@ -365,7 +365,7 @@ function applyProject(inputProject: unknown, studioRevision = 0): ReturnType<Ato
   diagnostics.gameplayExecutionFailures = 0;
   try {
     rebuildGameWorld();
-    setStatus(config.mode === "preview" ? "M7 Final Candidate — sandbox Studio gotowy do testu" : "M7 PLAYTEST CANDIDATE — czeka na test i akceptację właściciela", "good");
+    setStatus(config.mode === "preview" ? "M7 OWNER ACCEPTED — sandbox Studio gotowy" : "M7 OWNER ACCEPTED WITH DEBT — fundament gotowy do wejścia w M8 LAN", "good");
     diagnostics.ready = true;
   } catch (error) {
     diagnostics.gameplayReady = false;
@@ -387,7 +387,7 @@ function reply<TType extends Parameters<typeof createBridgeEnvelope>[2]>(
 
 if (config.mode === "preview") {
   if (!config.sessionNonce || config.sessionNonce.length < 16) throw new Error("Preview runtime nie otrzymał poprawnego nonce sesji.");
-  setStatus("Runtime M7 Final Candidate gotowy — oczekiwanie na Studio", "warn");
+  setStatus("Runtime M7 Owner Accepted gotowy — oczekiwanie na Studio", "warn");
   details.textContent = "Preview działa bez allow-same-origin.\nOczekiwanie na zwalidowany snapshot projektu.";
   window.addEventListener("message", (event: MessageEvent<unknown>) => {
     if (event.source !== parent || !isBridgeEnvelope(event.data, config.sessionNonce)) return;

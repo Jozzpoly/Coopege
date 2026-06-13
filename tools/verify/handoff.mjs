@@ -16,6 +16,8 @@ const required = [
   "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
   "docs/process/CURRENT_MILESTONE.md",
   "docs/process/LAST_HANDOFF.md",
+  "docs/process/OWNER_FEEDBACK.md",
+  "docs/process/AGENT_WORKFLOW.md",
   "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
   "docs/process/PLAYTEST_LOG.md",
   "docs/reviews/README.md",
@@ -37,17 +39,18 @@ if (state && pkg) {
   else fail("nieznany format PROJECT_STATE");
   if (state.projectVersion === pkg.version) pass(`wersja stanu zgadza się z package.json: ${pkg.version}`);
   else fail(`wersja stanu ${state.projectVersion} != package ${pkg.version}`);
-  if (state.activeMilestone?.includes("M7")) pass(`aktywny milestone: ${state.activeMilestone}`);
-  else fail("aktywny milestone nie wskazuje M7 Finalization");
-  if (state.status?.implemented === true) pass("IMPLEMENTED=true"); else fail("IMPLEMENTED powinno być true dla kandydata");
+  if (state.completedMilestone?.includes("M7") && state.activeMilestone?.includes("M8 LAN")) pass(`zamknięte ${state.completedMilestone}; aktywne ${state.activeMilestone}`);
+  else fail("stan powinien zamykać M7 i wskazywać M8 LAN jako aktywny etap wejściowy");
+  if (state.status?.implemented === true) pass("IMPLEMENTED=true dla zamkniętego M7"); else fail("IMPLEMENTED powinno być true dla zamkniętego M7");
   if (state.status?.successorReviewed === false) pass("SUCCESSOR_REVIEWED pozostaje false"); else fail("agent wydający paczkę nie może ustawić SUCCESSOR_REVIEWED");
-  if (state.status?.ownerAccepted === false) pass("OWNER_ACCEPTED pozostaje false"); else fail("OWNER_ACCEPTED może nadać tylko Przemek");
+  if (state.status?.ownerAccepted === true && state.status?.acceptance === "ACCEPT_WITH_DEBT") pass("OWNER_ACCEPTED_WITH_DEBT potwierdzone decyzją Przemka");
+  else fail("M7 powinno mieć OWNER_ACCEPTED=true i ACCEPT_WITH_DEBT");
   if (String(state.releaseHashAuthority).includes("External") && !JSON.stringify(state).match(/[a-f0-9]{64}.*\.zip/i)) pass("hash końcowego ZIP-a pozostaje zewnętrznym sidecarem");
   else fail("PROJECT_STATE nie może przechowywać samoreferencyjnego hash-u końcowego ZIP-a");
   if (Number.isInteger(state.expectedBaseline?.nodeTests) && state.expectedBaseline.nodeTests > 0) pass(`oczekiwane testy Node: ${state.expectedBaseline.nodeTests}`);
   else fail("brak oczekiwanej liczby testów Node");
-  if (Array.isArray(state.mustFixBeforeNext) && state.mustFixBeforeNext.some((item) => /owner|Przemek/i.test(item)) && state.mustFixBeforeNext.some((item) => /successor|L2/i.test(item))) pass("M8 ma dwie jawne blokady: owner gate i successor review");
-  else fail("brak pełnej blokady M8");
+  if (Array.isArray(state.mustFixBeforeNext) && !state.mustFixBeforeNext.some((item) => /owner|Przemek/i.test(item)) && state.mustFixBeforeNext.some((item) => /successor|L2/i.test(item))) pass("owner gate M7 zamknięty; M8 czeka wyłącznie na niezależny L2 review");
+  else fail("nieprawidłowe bramki wejścia do M8");
 }
 
 if (existsSync(resolve(root, "docs/process/NEXT_AGENT_BRIEF.md"))) {
@@ -56,11 +59,29 @@ if (existsSync(resolve(root, "docs/process/NEXT_AGENT_BRIEF.md"))) {
   else fail("NEXT_AGENT_BRIEF dubluje aktywny brief");
 }
 
-const current = existsSync(resolve(root, "docs/process/CURRENT_MILESTONE.md")) ? read("docs/process/CURRENT_MILESTONE.md") : "";
-const handoff = existsSync(resolve(root, "docs/process/LAST_HANDOFF.md")) ? read("docs/process/LAST_HANDOFF.md") : "";
-for (const [name, content] of [["CURRENT_MILESTONE", current], ["LAST_HANDOFF", handoff]]) {
-  if (/NOT OWNER ACCEPTED|OWNER_ACCEPTED.{0,20}(?:NIE|false)/is.test(content)) pass(`${name} nie deklaruje owner acceptance`);
-  else fail(`${name} musi jawnie pozostawić OWNER_ACCEPTED=false`);
+const currentDocs = [
+  "AI_PROJECT_MEMORY.md",
+  "START_HERE.md",
+  "README.md",
+  "docs/process/CURRENT_MILESTONE.md",
+  "docs/process/LAST_HANDOFF.md",
+  "docs/product/COOPEGE_ROADMAP.md",
+];
+for (const relative of currentDocs) {
+  const content = existsSync(resolve(root, relative)) ? read(relative) : "";
+  if (/OWNER[ _]ACCEPTED/i.test(content) && !/NOT OWNER[ _]ACCEPTED/i.test(content)) pass(`${relative} potwierdza owner acceptance M7`);
+  else fail(`${relative} nie jest spójny z OWNER_ACCEPTED=true`);
+  if (/M8[\s\S]{0,80}LAN|LAN[\s\S]{0,80}M8/i.test(content)) pass(`${relative} wskazuje M8 LAN`);
+  else fail(`${relative} nie wskazuje aktywnego M8 LAN`);
+}
+
+const feedback = existsSync(resolve(root, "docs/process/OWNER_FEEDBACK.md")) ? read("docs/process/OWNER_FEEDBACK.md") : "";
+if (/respawn/i.test(feedback) && /BACKLOG/i.test(feedback)) pass("OWNER_FEEDBACK zachowuje odłożony dług respawnu C0");
+else fail("OWNER_FEEDBACK nie zachowuje odłożonego długu respawnu C0");
+for (const relative of ["docs/process/AGENT_WORKFLOW.md", "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md"]) {
+  const content = existsSync(resolve(root, relative)) ? read(relative) : "";
+  if (content.includes("OWNER_FEEDBACK.md") && /spójno/i.test(content)) pass(`${relative} egzekwuje spójność dokumentacji i intake feedbacku`);
+  else fail(`${relative} nie zawiera reguły spójności dokumentacji i OWNER_FEEDBACK.md`);
 }
 
 const docsManifestPath = "docs/process/HANDOFF_DOCS_MANIFEST.json";

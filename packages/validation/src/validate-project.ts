@@ -182,6 +182,9 @@ function validateAsset(entry: AssetEntry, index: number, issues: ValidationIssue
         entry.texture.animationFrames.forEach((frame, frameIndex) => requireFiniteNumber(frame, `${texturePath}.animationFrames[${frameIndex}]`, issues, { integer: true, min: 0, max: 255 }));
       }
     }
+    if (entry.texture.frameMode !== undefined && entry.texture.frameMode !== "animation" && entry.texture.frameMode !== "variant") {
+      add(issues, "invalid_frame_mode", `${texturePath}.frameMode`, "Tryb klatek musi mieć wartość animation albo variant.");
+    }
     if (entry.texture.frameDurationMs !== undefined) requireFiniteNumber(entry.texture.frameDurationMs, `${texturePath}.frameDurationMs`, issues, { min: 16, max: 60_000 });
     if (entry.texture.pivotX !== undefined) requireFiniteNumber(entry.texture.pivotX, `${texturePath}.pivotX`, issues, { min: 0, max: 1 });
     if (entry.texture.pivotY !== undefined) requireFiniteNumber(entry.texture.pivotY, `${texturePath}.pivotY`, issues, { min: 0, max: 1 });

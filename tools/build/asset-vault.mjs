@@ -122,7 +122,7 @@ export function exportAssetVault(sourceProject, projectDir, baseline, distDir) {
     schemaVersion: 1,
     projectId: sourceProject.manifest.projectId,
     projectVersion: sourceProject.manifest.projectVersion,
-    exportedAt: new Date().toISOString(),
+    exportedAt: sourceProject.manifest.updatedAt,
     assetCount: assets.length,
     assets,
   };

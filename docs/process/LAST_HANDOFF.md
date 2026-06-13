@@ -1,20 +1,25 @@
-# LAST HANDOFF — M7 Final Validation Candidate
+# LAST HANDOFF — M7 Owner Accepted / M8 LAN Entry
 
 ## Tożsamość
 
-- Wersja: `0.7.3-m7-validation-candidate`
-- Kandydat: `M7-FINAL-VALIDATION-2026-06-13`
+- Wersja: `0.7.5-m7-owner-accepted`
+- Zamknięty etap: `M7-OWNER-ACCEPTED-2026-06-13`
+- Aktywny etap: `M8 LAN Foundation / Entry Review`
 - Status: `IMPLEMENTED=true`, `TECH_VERIFIED=true`.
 - `SUCCESSOR_REVIEWED`: **NIE**
-- `OWNER_ACCEPTED`: **NIE**
+- `OWNER_ACCEPTED`: **TAK — ACCEPT_WITH_DEBT, decyzja Przemka 2026-06-13**
 - SHA-256 końcowego ZIP-a: zewnętrzny plik `.zip.sha256`, generowany po spakowaniu.
 
 ## Rezultat użytkowy
 
-Przemek otrzymuje jedną gotową paczkę Windows z uruchamialnym runtime i Studio, naprawionym celowaniem względem kamery, odpornym dołączaniem P2, realnymi schodami i powtarzalnym launcherem.
+Przemek zaakceptował M7 po testach gotowej paczki Windows. Fundament obejmuje uruchamialny runtime i Studio, stabilne atlasy i warianty terenu, naprawione celowanie, odporne dołączanie P2, realne schody, save v3 i powtarzalny launcher.
 
 ## Najnowsza delta
 
+- zapis solo po odłączeniu P2 nie zawiera już osieroconego threat `player.local.2` także w uśpionych spawnach;
+- terrain sheets są interpretowane jako deterministyczne warianty, z wyjątkiem animowanej wody i lawy;
+- atlasy postaci mają bezpieczny margines 80x80 bez zmiany skali i pivotu w świecie;
+- skrypty uruchamiają npm przez Windows `cmd.exe`, dzięki czemu Node 24 nie kończy doctor/test/diagnostics błędem `EINVAL`;
 - kursor jest przeliczany z ekranu do świata w każdym ticku, więc ruch kamery nie psuje aimu;
 - P2 keyboard dołącza na zboczu wejścia i nie wraca natychmiast po ręcznym odłączeniu przy trzymanym klawiszu;
 - drugi launcher tej samej kopii wykrywa działający serwer i bezpiecznie ponownie otwiera stronę;
@@ -28,12 +33,12 @@ Przemek otrzymuje jedną gotową paczkę Windows z uruchamialnym runtime i Studi
 2. Gotowa paczka uruchamia się na Windowsie bez instalacji i bez przebudowania.
 3. Ponowne uruchomienie launchera nie powoduje `EADDRINUSE` ani użycia serwera innej kopii.
 4. Save/load zachowuje drużynę, piętro i lifecycle 338 spawnów.
-5. Dokumentacja nie nadaje przedwcześnie `SUCCESSOR_REVIEWED` ani `OWNER_ACCEPTED`.
+5. Dokumentacja zachowuje `SUCCESSOR_REVIEWED=false`, ale spójnie odzwierciedla nadane przez Przemka `OWNER_ACCEPTED=true`.
 
-## Nieweryfikowane przez właściciela
+## Jawny dług po akceptacji
 
-Feel ruchu i walki, czytelność animacji, kilka różnych par schodów, ergonomia P2 keyboard, kamera/tether, dłuższa sesja oraz Studio. Te obszary należą do ręcznego owner gate.
+Lokalny C0 może po śmierci przestawić punkt respawnu używany później w solo. Przemek świadomie odłożył problem, ponieważ coop na jednym ekranie nie jest priorytetem. Wpis `OF-001` w `OWNER_FEEDBACK.md` ma status `BACKLOG`; należy wrócić do polityki respawnu podczas projektowania hosta LAN.
 
 ## Następny dozwolony krok
 
-Najpierw ręczny test Przemka i niezależny L2 Inheritance Review. M8 jest zabronione do jawnego `OWNER_ACCEPTED`.
+M7 jest zamknięte. Następny główny agent wykonuje niezależny L2 Inheritance Review, a potem rozpoczyna minimalny vertical slice M8 LAN. Walka, progresja i rozbudowa Studio pozostają poza pierwszym zakresem M8.

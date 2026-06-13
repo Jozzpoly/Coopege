@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Coopege — M7 Final Playtest Candidate</title>
+<title>Coopege — M7 Owner Accepted</title>
 <style>
 :root{color-scheme:dark;font-family:Consolas,"Courier New",monospace;background:#07080d;color:#ece8df;--panel:#10131b;--line:#494452;--accent:#bd70e8;--blue:#70cfff;--gold:#ffd36f;--good:#70e4af;--warn:#ffc369;--bad:#ff7789}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:radial-gradient(circle at 42% -10%,#281a37,#07080d 52%);display:grid;place-items:center}main{width:min(1420px,98vw);height:min(860px,96vh);display:grid;grid-template-columns:minmax(600px,1fr) 350px;gap:12px;padding:12px}.panel{min-height:0;border:1px solid var(--line);background:linear-gradient(180deg,#171421,var(--panel));border-radius:9px;overflow:hidden;box-shadow:0 24px 75px #0009}.game-panel{display:grid;grid-template-rows:auto 1fr auto}.head{padding:10px 13px;border-bottom:1px solid #3c3846;background:#171321}.head h1{font-size:15px;margin:0 0 4px;color:#f0d5ff}.head p{font-size:9px;line-height:1.45;color:#96909e;margin:0}.stage{min-height:0;position:relative;display:grid;place-items:center;background:#050609;overflow:hidden}.stage canvas{display:block;max-width:100%;max-height:100%;image-rendering:pixelated;cursor:crosshair}.hud{position:absolute;left:12px;top:12px;display:grid;gap:7px;min-width:260px}.player-card{padding:8px;border:1px solid #5b5365;border-radius:7px;background:#080a0ddd;backdrop-filter:blur(4px);box-shadow:0 8px 30px #0008}.player-card[data-player="2"]{border-color:#77633b}.hud-row{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#bbb}.hud-row strong{color:var(--blue)}.player-card[data-player="2"] .hud-row strong{color:var(--gold)}.stats{font-size:8px;color:#aaa;margin-top:5px}.hpbar{height:9px;margin:5px 0 5px;background:#1c151b;border:1px solid #533d48;border-radius:10px;overflow:hidden}.hpbar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#3ab978,#75e0ad);transition:width .12s}.player-card[data-player="2"] .hpbar span{background:linear-gradient(90deg,#b58a32,#f0cf68)}.ability{font-size:8px;color:#e5c878;line-height:1.45}.join-hint{font-size:8px;color:#b9afbd;padding:7px 8px;border:1px dashed #65586f;border-radius:6px;background:#080a0dbb}.controls{padding:9px 12px;border-top:1px solid #393744;background:#0d1017;display:flex;gap:7px;align-items:center;flex-wrap:wrap}.controls b{font-size:9px;color:#d8cbdf;margin-right:auto}.btn{border:1px solid #62546c;background:#231e2a;color:#eee;padding:7px 9px;border-radius:5px;font:inherit;font-size:9px;cursor:pointer}.btn:hover{border-color:#c47be8;background:#34253e}.btn.primary{background:#4a255d;border-color:#b86dde}.btn.blue{background:#183b59;border-color:#5793c5}.btn.gold{background:#4a3a18;border-color:#b89645}.side{display:grid;grid-template-rows:auto auto minmax(150px,.65fr) minmax(210px,1fr);min-height:0}.section{padding:11px;border-bottom:1px solid #34323e;min-height:0}.label{display:block;color:#e2bb64;font-size:9px;margin-bottom:6px}#floorLabel{font-size:9px;color:#bcb5c2;line-height:1.45}#status{font-weight:bold;padding:9px;border:1px solid #4a4655;border-radius:6px;font-size:9px;line-height:1.45;margin-top:8px}#status[data-state=good]{color:var(--good);border-color:#397e60;background:#102a22}#status[data-state=bad]{color:var(--bad);border-color:#8d424c;background:#31171d}#status[data-state=warn]{color:var(--warn);border-color:#80623d;background:#2c2417}pre{white-space:pre-wrap;line-height:1.5;color:#bcb6c4;font-size:8px;margin:0;overflow:auto;height:100%}#eventLog{color:#d8c7dd}.tag{display:inline-block;margin-top:8px;padding:4px 7px;border-radius:20px;border:1px solid #73538a;color:#d99cff;font-size:8px}@media(max-width:900px){html,body{overflow:auto}main{height:auto;grid-template-columns:1fr}.game-panel{min-height:650px}.side{min-height:620px}}
 </style>
 </head>
 <body>
 <main>
-<section class="panel game-panel"><div class="head"><h1>Coopege Runtime — M7 Final Playtest Candidate</h1><p>Kandydat do końcowego playtestu M7: stabilne atlasy animacji, rzeczywiste przejścia po schodach, 338 authored spawnów oraz lokalny P2 z klawiatury lub gamepada.</p></div><div class="stage"><canvas id="world"></canvas><div class="hud"><div class="player-card" data-player="1"><div class="hud-row"><strong>P1 · KLAWIATURA/MYSZ</strong><span id="hpText">—</span></div><div class="hpbar"><span id="hpFill"></span></div><div class="ability" id="abilityText">Ładowanie umiejętności…</div><div class="stats" id="player1Stats">XP 0 · złoto 0 · loot 0</div></div><div class="player-card" data-player="2" id="player2Card" hidden><div class="hud-row"><strong>P2 · STRZAŁKI / GAMEPAD</strong><span id="hpText2">—</span></div><div class="hpbar"><span id="hpFill2"></span></div><div class="ability" id="abilityText2">—</div><div class="stats" id="player2Stats">XP 0 · złoto 0 · loot 0</div></div><div class="join-hint" id="joinHint">Naciśnij strzałkę lub prawy Ctrl, podłącz gamepad albo użyj „Dołącz P2”.</div></div></div><div class="controls"><b>P1 WASD + LPM/Spacja/F · P2 strzałki + prawy Ctrl/Numpad0 lub gamepad · wejście na schody przenosi drużynę</b><button class="btn gold" id="joinButton">Dołącz P2</button><button class="btn primary" id="attackButton">Atak P1</button><button class="btn blue" id="saveButton">Zapisz</button><button class="btn" id="loadButton">Wczytaj</button><button class="btn" id="resetButton">Reset</button></div></section>
-<aside class="panel side"><div class="head"><h1>Diagnostyka M7 Final Candidate</h1><p>Ta wersja jest technicznie przygotowana do końcowego testu właściciela. M8 pozostaje zablokowane do czasu feedbacku i jawnej akceptacji M7.</p></div><div class="section"><span class="label">AKTYWNE PIĘTRO I DRUŻYNA</span><div id="floorLabel">—</div><div id="status">Uruchamianie…</div><span class="tag">M7 / PLAYTEST CANDIDATE · NOT OWNER ACCEPTED</span></div><div class="section"><span class="label">ZDARZENIA GAMEPLAYOWE</span><pre id="eventLog">Brak zdarzeń.</pre></div><div class="section"><span class="label">STAN DETERMINISTYCZNY</span><pre id="details"></pre></div></aside>
+<section class="panel game-panel"><div class="head"><h1>Coopege Runtime — M7 Owner Accepted</h1><p>Zamknięty fundament M7: stabilne atlasy, deterministyczne warianty terenu, rzeczywiste schody, 338 authored spawnów oraz lokalny P2.</p></div><div class="stage"><canvas id="world"></canvas><div class="hud"><div class="player-card" data-player="1"><div class="hud-row"><strong>P1 · KLAWIATURA/MYSZ</strong><span id="hpText">—</span></div><div class="hpbar"><span id="hpFill"></span></div><div class="ability" id="abilityText">Ładowanie umiejętności…</div><div class="stats" id="player1Stats">XP 0 · złoto 0 · loot 0</div></div><div class="player-card" data-player="2" id="player2Card" hidden><div class="hud-row"><strong>P2 · STRZAŁKI / GAMEPAD</strong><span id="hpText2">—</span></div><div class="hpbar"><span id="hpFill2"></span></div><div class="ability" id="abilityText2">—</div><div class="stats" id="player2Stats">XP 0 · złoto 0 · loot 0</div></div><div class="join-hint" id="joinHint">Naciśnij strzałkę lub prawy Ctrl, podłącz gamepad albo użyj „Dołącz P2”.</div></div></div><div class="controls"><b>P1 WASD + LPM/Spacja/F · P2 strzałki + prawy Ctrl/Numpad0 lub gamepad · wejście na schody przenosi drużynę</b><button class="btn gold" id="joinButton">Dołącz P2</button><button class="btn primary" id="attackButton">Atak P1</button><button class="btn blue" id="saveButton">Zapisz</button><button class="btn" id="loadButton">Wczytaj</button><button class="btn" id="resetButton">Reset</button></div></section>
+<aside class="panel side"><div class="head"><h1>Diagnostyka M7 — Owner Accepted</h1><p>M7 zostało zaakceptowane z jawnym długiem dotyczącym respawnu lokalnego C0. Następny etap to M8 LAN po niezależnym review wejściowym.</p></div><div class="section"><span class="label">AKTYWNE PIĘTRO I DRUŻYNA</span><div id="floorLabel">—</div><div id="status">Uruchamianie…</div><span class="tag">M7 · OWNER ACCEPTED WITH DEBT</span></div><div class="section"><span class="label">ZDARZENIA GAMEPLAYOWE</span><pre id="eventLog">Brak zdarzeń.</pre></div><div class="section"><span class="label">STAN DETERMINISTYCZNY</span><pre id="details"></pre></div></aside>
 </main>
-<script>window.__COOPEGE_PROJECT__={"format":"coopege-project","schemaVersion":2,"manifest":{"projectId":"coopege.foundation","name":"Coopege Foundation Fixture","projectVersion":"0.0.1","createdAt":"2026-06-12T00:00:00.000Z","updatedAt":"2026-06-12T00:00:00.000Z","defaultLocale":"pl-PL","entryFloorId":"floor.surface","playerStart":{"floorId":"floor.surface","x":3,"y":3}},"world":{"tileSize":32,"tiles":[{"id":"tile.floor","name":"Kamienna posadzka","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.floor"},{"id":"tile.wall","name":"Kamienna ściana","walkable":false,"blocksProjectiles":true,"assetId":"texture.tile.wall"},{"id":"tile.grass","name":"Trawa","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.grass"}],"floors":[{"id":"floor.surface","name":"Plac testowy","width":12,"height":8,"encoding":"rle-v1","tiles":[["tile.wall",12],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",12]]}]},"content":{"classes":[{"id":"class.vanguard","name":"Strażnik","maxHp":120,"moveSpeedTilesPerSecond":4,"abilityIds":["ability.basic_strike"],"assetId":"texture.actor.vanguard"}],"abilities":[{"id":"ability.basic_strike","name":"Podstawowe uderzenie","kind":"melee","cooldownTicks":18,"rangeTiles":1.4,"power":15,"assetId":"texture.effect.strike","graphId":"graph.ability.basic_strike"}],"monsters":[{"id":"monster.training_slime","name":"Treningowy szlam","maxHp":35,"moveSpeedTilesPerSecond":2,"abilityIds":["ability.basic_strike"],"assetId":"texture.monster.slime"}],"spawns":[{"id":"spawn.training_slime.1","floorId":"floor.surface","monsterId":"monster.training_slime","x":8,"y":4,"count":1,"respawnTicks":180}]},"assets":{"schemaVersion":1,"entries":[{"id":"texture.tile.floor","kind":"texture","source":"procedural://tile/floor"},{"id":"texture.tile.wall","kind":"texture","source":"procedural://tile/wall"},{"id":"texture.tile.grass","kind":"texture","source":"procedural://tile/grass"},{"id":"texture.actor.vanguard","kind":"texture","source":"procedural://actor/vanguard"},{"id":"texture.effect.strike","kind":"texture","source":"procedural://effect/strike"},{"id":"texture.monster.slime","kind":"texture","source":"procedural://monster/slime"}]},"gameplay":{"schemaVersion":1,"executionBudget":64,"graphs":[{"id":"graph.ability.basic_strike","name":"Podstawowe uderzenie — migracja v1","entryNodeId":"node.source-alive","nodes":[{"id":"node.source-alive","kind":"condition","conditionId":"condition.source-alive","onTrue":"node.cooldown-ready","onFalse":"node.end"},{"id":"node.cooldown-ready","kind":"condition","conditionId":"condition.cooldown-ready","onTrue":"node.targets","onFalse":"node.end"},{"id":"node.targets","kind":"target-query","queryId":"query.nearest-hostile-in-range","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.cooldown","onFalse":"node.miss-cooldown"},{"id":"node.cooldown","kind":"action","actionId":"action.start-ability-cooldown","next":"node.emit"},{"id":"node.emit","kind":"action","actionId":"action.emit-ability-used","next":"node.damage"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-from-ability","next":"node.end"},{"id":"node.miss-cooldown","kind":"action","actionId":"action.start-miss-cooldown","next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.item.healing-tonic","name":"Efekt przedmiotu: mikstura treningowa","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":10},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.talent.guardian-focus","name":"Modyfikator talentu: skupienie strażnika","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":3},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.ai.training-attack","name":"Akcja AI: kontrolowany atak","entryNodeId":"node.target","nodes":[{"id":"node.target","kind":"target-query","queryId":"query.provided-target","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.damage","onFalse":"node.end"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-fixed","parameters":{"amount":5},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.quest.monster-kill-credit","name":"Reakcja questa: zalicz pokonanego potwora","entryNodeId":"node.monster","nodes":[{"id":"node.monster","kind":"condition","conditionId":"condition.provided-target-is-monster","onTrue":"node.credit","onFalse":"node.end"},{"id":"node.credit","kind":"action","actionId":"action.increment-quest-credit","parameters":{"amount":1},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.map.healing-sigil","name":"Trigger mapy: leczniczy znak","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":8},"next":"node.end"},{"id":"node.end","kind":"end"}]}],"bindings":[{"id":"binding.ability.basic_strike","domain":"ability","graphId":"graph.ability.basic_strike"},{"id":"binding.item.healing-tonic","domain":"item-effect","graphId":"graph.item.healing-tonic"},{"id":"binding.talent.guardian-focus","domain":"talent-modifier","graphId":"graph.talent.guardian-focus"},{"id":"binding.ai.training-attack","domain":"ai-action","graphId":"graph.ai.training-attack"},{"id":"binding.quest.monster-kill-credit","domain":"quest-reaction","graphId":"graph.quest.monster-kill-credit"},{"id":"binding.map.healing-sigil","domain":"map-trigger","graphId":"graph.map.healing-sigil"}],"triggers":[{"id":"trigger.quest.actor-died","domain":"quest-reaction","event":"actor.died","graphId":"graph.quest.monster-kill-credit","enabled":true}]}};window.__COOPEGE_RUNTIME_CONFIG__={"mode":"standalone","runtimeVersion":"0.7.3-m7-validation-candidate"};</script>
+<script>window.__COOPEGE_PROJECT__={"format":"coopege-project","schemaVersion":2,"manifest":{"projectId":"coopege.foundation","name":"Coopege Foundation Fixture","projectVersion":"0.0.1","createdAt":"2026-06-12T00:00:00.000Z","updatedAt":"2026-06-12T00:00:00.000Z","defaultLocale":"pl-PL","entryFloorId":"floor.surface","playerStart":{"floorId":"floor.surface","x":3,"y":3}},"world":{"tileSize":32,"tiles":[{"id":"tile.floor","name":"Kamienna posadzka","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.floor"},{"id":"tile.wall","name":"Kamienna ściana","walkable":false,"blocksProjectiles":true,"assetId":"texture.tile.wall"},{"id":"tile.grass","name":"Trawa","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.grass"}],"floors":[{"id":"floor.surface","name":"Plac testowy","width":12,"height":8,"encoding":"rle-v1","tiles":[["tile.wall",12],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",12]]}]},"content":{"classes":[{"id":"class.vanguard","name":"Strażnik","maxHp":120,"moveSpeedTilesPerSecond":4,"abilityIds":["ability.basic_strike"],"assetId":"texture.actor.vanguard"}],"abilities":[{"id":"ability.basic_strike","name":"Podstawowe uderzenie","kind":"melee","cooldownTicks":18,"rangeTiles":1.4,"power":15,"assetId":"texture.effect.strike","graphId":"graph.ability.basic_strike"}],"monsters":[{"id":"monster.training_slime","name":"Treningowy szlam","maxHp":35,"moveSpeedTilesPerSecond":2,"abilityIds":["ability.basic_strike"],"assetId":"texture.monster.slime"}],"spawns":[{"id":"spawn.training_slime.1","floorId":"floor.surface","monsterId":"monster.training_slime","x":8,"y":4,"count":1,"respawnTicks":180}]},"assets":{"schemaVersion":1,"entries":[{"id":"texture.tile.floor","kind":"texture","source":"procedural://tile/floor"},{"id":"texture.tile.wall","kind":"texture","source":"procedural://tile/wall"},{"id":"texture.tile.grass","kind":"texture","source":"procedural://tile/grass"},{"id":"texture.actor.vanguard","kind":"texture","source":"procedural://actor/vanguard"},{"id":"texture.effect.strike","kind":"texture","source":"procedural://effect/strike"},{"id":"texture.monster.slime","kind":"texture","source":"procedural://monster/slime"}]},"gameplay":{"schemaVersion":1,"executionBudget":64,"graphs":[{"id":"graph.ability.basic_strike","name":"Podstawowe uderzenie — migracja v1","entryNodeId":"node.source-alive","nodes":[{"id":"node.source-alive","kind":"condition","conditionId":"condition.source-alive","onTrue":"node.cooldown-ready","onFalse":"node.end"},{"id":"node.cooldown-ready","kind":"condition","conditionId":"condition.cooldown-ready","onTrue":"node.targets","onFalse":"node.end"},{"id":"node.targets","kind":"target-query","queryId":"query.nearest-hostile-in-range","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.cooldown","onFalse":"node.miss-cooldown"},{"id":"node.cooldown","kind":"action","actionId":"action.start-ability-cooldown","next":"node.emit"},{"id":"node.emit","kind":"action","actionId":"action.emit-ability-used","next":"node.damage"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-from-ability","next":"node.end"},{"id":"node.miss-cooldown","kind":"action","actionId":"action.start-miss-cooldown","next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.item.healing-tonic","name":"Efekt przedmiotu: mikstura treningowa","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":10},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.talent.guardian-focus","name":"Modyfikator talentu: skupienie strażnika","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":3},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.ai.training-attack","name":"Akcja AI: kontrolowany atak","entryNodeId":"node.target","nodes":[{"id":"node.target","kind":"target-query","queryId":"query.provided-target","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.damage","onFalse":"node.end"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-fixed","parameters":{"amount":5},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.quest.monster-kill-credit","name":"Reakcja questa: zalicz pokonanego potwora","entryNodeId":"node.monster","nodes":[{"id":"node.monster","kind":"condition","conditionId":"condition.provided-target-is-monster","onTrue":"node.credit","onFalse":"node.end"},{"id":"node.credit","kind":"action","actionId":"action.increment-quest-credit","parameters":{"amount":1},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.map.healing-sigil","name":"Trigger mapy: leczniczy znak","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":8},"next":"node.end"},{"id":"node.end","kind":"end"}]}],"bindings":[{"id":"binding.ability.basic_strike","domain":"ability","graphId":"graph.ability.basic_strike"},{"id":"binding.item.healing-tonic","domain":"item-effect","graphId":"graph.item.healing-tonic"},{"id":"binding.talent.guardian-focus","domain":"talent-modifier","graphId":"graph.talent.guardian-focus"},{"id":"binding.ai.training-attack","domain":"ai-action","graphId":"graph.ai.training-attack"},{"id":"binding.quest.monster-kill-credit","domain":"quest-reaction","graphId":"graph.quest.monster-kill-credit"},{"id":"binding.map.healing-sigil","domain":"map-trigger","graphId":"graph.map.healing-sigil"}],"triggers":[{"id":"trigger.quest.actor-died","domain":"quest-reaction","event":"actor.died","graphId":"graph.quest.monster-kill-credit","enabled":true}]}};window.__COOPEGE_RUNTIME_CONFIG__={"mode":"standalone","runtimeVersion":"0.7.5-m7-owner-accepted"};</script>
 <script>(function(global){
   const registry=new Map();
   function normalize(name,from){
@@ -1242,6 +1242,9 @@ define("packages/validation/src/validate-project", ["require", "exports", "packa
                     entry.texture.animationFrames.forEach((frame, frameIndex) => requireFiniteNumber(frame, `${texturePath}.animationFrames[${frameIndex}]`, issues, { integer: true, min: 0, max: 255 }));
                 }
             }
+            if (entry.texture.frameMode !== undefined && entry.texture.frameMode !== "animation" && entry.texture.frameMode !== "variant") {
+                add(issues, "invalid_frame_mode", `${texturePath}.frameMode`, "Tryb klatek musi mieć wartość animation albo variant.");
+            }
             if (entry.texture.frameDurationMs !== undefined)
                 requireFiniteNumber(entry.texture.frameDurationMs, `${texturePath}.frameDurationMs`, issues, { min: 16, max: 60_000 });
             if (entry.texture.pivotX !== undefined)
@@ -2033,6 +2036,11 @@ define("packages/gameplay/src/game-world", ["require", "exports", "packages/core
                 delete monster.threatByPlayer[playerId];
                 if (monster.targetPlayerId === playerId)
                     this.setMonsterTarget(monster, null);
+            }
+            for (const state of this.spawnStates.values()) {
+                state.threatByPlayer = state.threatByPlayer.filter(([threatPlayerId]) => threatPlayerId !== playerId);
+                if (state.targetPlayerId === playerId)
+                    state.targetPlayerId = null;
             }
             this.emitGameplayEvent({ type: "player.left", tick: this._tick, playerId, entityId: player.entityId, slotId: player.slotId });
             this.reconcileSpawnLifecycle();
@@ -3301,6 +3309,7 @@ define("apps/runtime/src/sprite-layout", ["require", "exports"], function (requi
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.resolveTextureLayout = resolveTextureLayout;
+    exports.selectTileFrame = selectTileFrame;
     exports.selectSpriteFrame = selectSpriteFrame;
     exports.computeSpriteDrawRect = computeSpriteDrawRect;
     function clampInteger(value, minimum, maximum) {
@@ -3315,6 +3324,7 @@ define("apps/runtime/src/sprite-layout", ["require", "exports"], function (requi
                 directionRows: { down: 0, left: 1, right: 2, up: 3 },
                 idleFrame: 0,
                 animationFrames: [0, 1, 2, 3],
+                frameMode: "animation",
                 frameDurationMs: 130,
                 pivotX: 0.5,
                 pivotY: player ? 0.78 : 0.72,
@@ -3330,6 +3340,7 @@ define("apps/runtime/src/sprite-layout", ["require", "exports"], function (requi
             frameHeight,
             idleFrame: 0,
             animationFrames: Array.from({ length: frameCount }, (_, index) => index),
+            frameMode: kind === "tile" ? "variant" : "animation",
             frameDurationMs: 360,
             pivotX: 0.5,
             pivotY: 0.5,
@@ -3372,6 +3383,7 @@ define("apps/runtime/src/sprite-layout", ["require", "exports"], function (requi
             directionRows,
             idleFrame: clampInteger(source.idleFrame ?? 0, 0, columns - 1),
             animationFrames,
+            frameMode: source.frameMode ?? (kind === "tile" ? "variant" : "animation"),
             frameDurationMs: Math.max(16, Number.isFinite(source.frameDurationMs) ? source.frameDurationMs : 130),
             pivotX: Math.max(0, Math.min(1, Number.isFinite(source.pivotX) ? source.pivotX : 0.5)),
             pivotY: Math.max(0, Math.min(1, Number.isFinite(source.pivotY) ? source.pivotY : 0.72)),
@@ -3379,6 +3391,35 @@ define("apps/runtime/src/sprite-layout", ["require", "exports"], function (requi
             worldHeightTiles: Number.isFinite(source.worldHeightTiles) && (source.worldHeightTiles ?? 0) > 0
                 ? source.worldHeightTiles
                 : proportionalHeight,
+        };
+    }
+    function stableTileFrameIndex(x, y, seed, frameCount) {
+        let hash = 2166136261;
+        for (const character of seed) {
+            hash ^= character.charCodeAt(0);
+            hash = Math.imul(hash, 16777619);
+        }
+        hash ^= Math.imul(Math.trunc(x), 374761393);
+        hash = Math.imul(hash, 668265263);
+        hash ^= Math.imul(Math.trunc(y), 1442695041);
+        hash = Math.imul(hash ^ (hash >>> 13), 1274126177);
+        return (hash >>> 0) % Math.max(1, frameCount);
+    }
+    function selectTileFrame(layout, imageWidth, imageHeight, tileX, tileY, seed, nowMs) {
+        const columns = Math.max(1, Math.floor(imageWidth / layout.frameWidth));
+        const rows = Math.max(1, Math.floor(imageHeight / layout.frameHeight));
+        const frames = layout.animationFrames.length > 0 ? layout.animationFrames : [layout.idleFrame];
+        const selectedIndex = layout.frameMode === "variant"
+            ? stableTileFrameIndex(tileX, tileY, seed, frames.length)
+            : Math.floor(Math.max(0, nowMs) / layout.frameDurationMs) % frames.length;
+        const frame = clampInteger(frames[selectedIndex] ?? layout.idleFrame, 0, columns - 1);
+        return {
+            frame,
+            row: 0,
+            sourceX: frame * layout.frameWidth,
+            sourceY: 0,
+            sourceWidth: layout.frameWidth,
+            sourceHeight: Math.min(layout.frameHeight, rows * layout.frameHeight),
         };
     }
     function selectSpriteFrame(layout, imageWidth, imageHeight, direction, moving, simulationTick, tickRate) {
@@ -3540,7 +3581,7 @@ define("apps/runtime/src/renderer", ["require", "exports", "packages/asset-syste
                     const definition = tileDefinitions.get(tileId);
                     const image = this.assets.image(definition?.assetId);
                     if (image)
-                        this.drawTileImage(image, definition?.assetId, screen, now);
+                        this.drawTileImage(image, definition?.assetId, screen, x, y, now);
                     else {
                         this.context.fillStyle = TILE_COLORS.get(tileId) ?? (definition?.walkable ? "#304249" : "#554452");
                         this.context.fillRect(Math.floor(screen.x), Math.floor(screen.y), this.tilePixels + 1, this.tilePixels + 1);
@@ -3558,9 +3599,9 @@ define("apps/runtime/src/renderer", ["require", "exports", "packages/asset-syste
             this.drawEffects(world.activeFloorId, now);
             this.drawVignette();
         }
-        drawTileImage(image, assetId, screen, now) {
+        drawTileImage(image, assetId, screen, tileX, tileY, now) {
             const layout = (0, sprite_layout_js_1.resolveTextureLayout)(this.assetEntries.get(assetId ?? "")?.texture, image.width, image.height, "tile");
-            const frameSelection = (0, sprite_layout_js_1.selectSpriteFrame)(layout, image.width, image.height, "down", true, Math.floor(now / 1000 * 30), 30);
+            const frameSelection = (0, sprite_layout_js_1.selectTileFrame)(layout, image.width, image.height, tileX, tileY, assetId ?? "tile", now);
             this.context.drawImage(image, frameSelection.sourceX, frameSelection.sourceY, frameSelection.sourceWidth, frameSelection.sourceHeight, Math.floor(screen.x), Math.floor(screen.y), this.tilePixels + 1, this.tilePixels + 1);
         }
         drawTransitions(activeFloorId, startX, endX, startY, endY, now) {
@@ -4004,7 +4045,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
     const context = canvas.getContext("2d");
     if (!context)
         throw new Error("Canvas 2D jest niedostępny.");
-    const config = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.7.3-m7-validation-candidate" };
+    const config = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.7.5-m7-owner-accepted" };
     const host = new index_js_14.AtomicProjectHost();
     const clock = new index_js_11.FixedClock(30);
     const renderer = new renderer_js_1.RuntimeRenderer(canvas, context);
@@ -4236,7 +4277,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         diagnostics.gameplayExecutionFailures = 0;
         try {
             rebuildGameWorld();
-            setStatus(config.mode === "preview" ? "M7 Final Candidate — sandbox Studio gotowy do testu" : "M7 PLAYTEST CANDIDATE — czeka na test i akceptację właściciela", "good");
+            setStatus(config.mode === "preview" ? "M7 OWNER ACCEPTED — sandbox Studio gotowy" : "M7 OWNER ACCEPTED WITH DEBT — fundament gotowy do wejścia w M8 LAN", "good");
             diagnostics.ready = true;
         }
         catch (error) {
@@ -4255,7 +4296,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
     if (config.mode === "preview") {
         if (!config.sessionNonce || config.sessionNonce.length < 16)
             throw new Error("Preview runtime nie otrzymał poprawnego nonce sesji.");
-        setStatus("Runtime M7 Final Candidate gotowy — oczekiwanie na Studio", "warn");
+        setStatus("Runtime M7 Owner Accepted gotowy — oczekiwanie na Studio", "warn");
         details.textContent = "Preview działa bez allow-same-origin.\nOczekiwanie na zwalidowany snapshot projektu.";
         window.addEventListener("message", (event) => {
             if (event.source !== parent || !(0, index_js_12.isBridgeEnvelope)(event.data, config.sessionNonce))

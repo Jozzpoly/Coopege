@@ -1,4 +1,4 @@
-> **ARCHIWALNY SNAPSHOT.** Ten dokument zachowuje decyzję z chwili M7A, ale nie jest aktualnym źródłem statusu. Normatywne są `AI_PROJECT_MEMORY.md`, `docs/process/CURRENT_MILESTONE.md` i `docs/product/COOPEGE_ROADMAP.md`. M8 pozostaje zablokowane do owner acceptance M7.
+> **ARCHIWALNY SNAPSHOT.** Ten dokument zachowuje decyzję z chwili M7A, ale nie jest aktualnym źródłem statusu. M7 zostało później zaakceptowane przez Przemka 2026-06-13. Normatywne są `AI_PROJECT_MEMORY.md`, `docs/process/CURRENT_MILESTONE.md`, `docs/process/OWNER_FEEDBACK.md` i `docs/product/COOPEGE_ROADMAP.md`.
 
 # COOPEGE — AKTUALIZACJA TRAJEKTORII I CIĄGŁOŚCI
 

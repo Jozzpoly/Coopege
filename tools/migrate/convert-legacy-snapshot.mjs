@@ -72,16 +72,18 @@ function textureLayoutFor(legacyId, manifestSpec) {
     frameHeight: manifestSpec.frameHeight,
     idleFrame: 0,
     animationFrames: Array.from({ length: frames }, (_, index) => index),
+    frameMode: manifestSpec.category === "terrain" && !["terrain.water", "terrain.lava"].includes(legacyId) ? "variant" : "animation",
     frameDurationMs: manifestSpec.category === "terrain" ? 360 : manifestSpec.category === "environment" ? 240 : 130,
   };
   if (manifestSpec.directions === 4) {
+    const player = legacyId.startsWith("player.");
     return {
       ...common,
       directionRows: { down: 0, left: 1, right: 2, up: 3 },
-      pivotX: 0.5,
-      pivotY: legacyId.startsWith("player.") ? 0.78 : 0.72,
-      worldWidthTiles: legacyId.startsWith("player.") ? 1.08 : 1.18,
-      worldHeightTiles: legacyId.startsWith("player.") ? 1.26 : 1.18,
+      pivotX: Number.isFinite(manifestSpec.pivotX) ? manifestSpec.pivotX : 0.5,
+      pivotY: Number.isFinite(manifestSpec.pivotY) ? manifestSpec.pivotY : player ? 0.78 : 0.72,
+      worldWidthTiles: Number.isFinite(manifestSpec.worldWidthTiles) ? manifestSpec.worldWidthTiles : player ? 1.08 : 1.18,
+      worldHeightTiles: Number.isFinite(manifestSpec.worldHeightTiles) ? manifestSpec.worldHeightTiles : player ? 1.26 : 1.18,
     };
   }
   if (manifestSpec.category === "environment") {

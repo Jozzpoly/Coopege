@@ -1,4 +1,4 @@
-# Coopege M7 Final Validation Candidate — START HERE
+# Coopege M7 Owner Accepted / M8 LAN Entry — START HERE
 
 ## Uruchomienie na Windows
 
@@ -18,12 +18,12 @@ Studio: `START_STUDIO.bat` lub `http://localhost:4173/dist/Coopege_Studio_v0.1.h
 - P2 dołącza po nowym naciśnięciu swojego sterowania; przycisk służy też do odłączenia.
 - Wejście na podświetlone schody przenosi drużynę.
 
-## Walidacja
+## Walidacja i feedback
 
-Wykonaj `docs/testing/M7_OWNER_PLAYTEST_GUIDE.md`. Gdy wystąpi problem, kliknij `COLLECT_DIAGNOSTICS.bat` i prześlij `coopege-diagnostics.json` wraz z opisem ostatnich czynności.
+M7 zostało zaakceptowane przez Przemka. Problemy opisuj przede wszystkim w czacie z agentem. Dłuższe uwagi i starsze błędy mogą trafić do `docs/process/OWNER_FEEDBACK.md`; agent odpowiada za ich uporządkowanie i synchronizację dokumentacji. Diagnostykę zbiera `COLLECT_DIAGNOSTICS.bat`.
 
 Deweloperska weryfikacja: `npm ci --ignore-scripts`, potem `npm run validate`.
 
 ## Status
 
-`TECH_VERIFIED`, ale **NOT SUCCESSOR_REVIEWED / NOT OWNER ACCEPTED**. M8 pozostaje zablokowane.
+M7: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT**. M8 LAN jest aktywnym następnym etapem; implementacja rozpoczyna się po niezależnym L2 review.

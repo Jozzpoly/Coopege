@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-13T18:30:00Z",
-  "workspace": "coopege@0.7.3-m7-validation-candidate",
-  "status": "TECH_VERIFIED_NOT_SUCCESSOR_REVIEWED_NOT_OWNER_ACCEPTED",
-  "activeMilestone": "M7_FINAL_OWNER_VALIDATION",
+  "generatedAt": "2026-06-13T15:30:43.209Z",
+  "workspace": "coopege@0.7.5-m7-owner-accepted",
+  "status": "M7_OWNER_ACCEPTED_WITH_DEBT_NOT_SUCCESSOR_REVIEWED",
+  "activeMilestone": "M8 LAN Foundation / Entry Review",
   "files": [
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 1289,
-      "sha256": "2f02dc0fdc5acfb3f3e3f2d9b75a10f645684faec4c9f7003fbabf3f02ef7e5c"
+      "bytes": 1649,
+      "sha256": "df1e36311ee2f3d38a6404b378148d6ae83b7a6f67eaaf91a70f6dc552fece02"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 3842,
-      "sha256": "1e7cbc49260bade223bf297099decaff0f0fed3abd671d6477935dcdaa938058"
+      "bytes": 4188,
+      "sha256": "a5418826afd4c0b01445cfb874aa6b0a61e34eabd38d98e37f17d3b43e3391b1"
     },
     {
       "path": "README.md",
-      "bytes": 2178,
-      "sha256": "a229e184dfc9641391d6541cf4130239d42fc2524172f9fe1314dbbcace1eec8"
+      "bytes": 2285,
+      "sha256": "76d17c333f2ed1423e6f6ed05c9112c1ec15551fa91c3b27551c7bbadc1f4613"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1189,
-      "sha256": "9e0ecb9ff81120a9405d5b76ac07a407ac925d5b5cf41175d8724ac89e039aa1"
+      "bytes": 1369,
+      "sha256": "e8881be2d3b895a6398b5d18404c60492cb88da6230d900438ad9fe0d00923d6"
     },
     {
       "path": "docs/product/COOPEGE_SOUL.md",
@@ -41,33 +41,33 @@
     },
     {
       "path": "docs/product/COOPEGE_ROADMAP.md",
-      "bytes": 3919,
-      "sha256": "63be82ff1fe916a960d1f9284ee43ea9db3a75ded7256fed0734301ddea2ec4a"
+      "bytes": 4216,
+      "sha256": "7d719a399a5fbd0758db8ec059507650847e60315f928500700fdd3ebc46dcfa"
     },
     {
       "path": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
-      "bytes": 3532,
-      "sha256": "d4122bc8e1ea67e6c9f28f7ae23bcc05dd4bb5f32c0a274881dce9f0cb04ea95"
+      "bytes": 4315,
+      "sha256": "cca55fbcd1310ef9317c6af3faec6396f28ecbb21c7534de6a95ebd30e5cd580"
     },
     {
       "path": "docs/process/AGENT_WORKFLOW.md",
-      "bytes": 2450,
-      "sha256": "1cf71200fbc0541df01743282621c5c92d28b44e2576611943132e66153ae679"
+      "bytes": 3278,
+      "sha256": "fff892a166f257b54a84c9376d10b8ad7a1bfefcb71d919c1ec300437fb1a3e0"
     },
     {
       "path": "docs/process/CURRENT_MILESTONE.md",
-      "bytes": 1633,
-      "sha256": "07d8c148ff8a7d9b0379da916ce088314635a3e08fedefc9e369f8b20448ab90"
+      "bytes": 1837,
+      "sha256": "2f9d39aa0103957eadc8726d5c45e62a3f3bf008668d70c8f1ac3c2d97eed0c0"
     },
     {
       "path": "docs/process/LAST_HANDOFF.md",
-      "bytes": 1947,
-      "sha256": "b7ee632596717cbe8066d8f300728d4d7133ae86e29563b575b0d3e36156f757"
+      "bytes": 2780,
+      "sha256": "c746de59501e73fba1ab0084fb2b3d5720b1363cf9a202df01996699cce04b91"
     },
     {
       "path": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
-      "bytes": 930,
-      "sha256": "f9a16ffea8108835d7a620590444cc36e0aa89a6bd38565645f85dcd43264b2d"
+      "bytes": 1297,
+      "sha256": "5bbe533bc30042c1f2a9583b3359b70554ac5995e75dd2f055056dd9b4369e87"
     },
     {
       "path": "docs/process/NEXT_AGENT_BRIEF.md",
@@ -76,23 +76,23 @@
     },
     {
       "path": "docs/process/PLAYTEST_LOG.md",
-      "bytes": 5289,
-      "sha256": "cca8b09b76d1ade111e4d98d755be8f95305cdb56d273223772eba8b5c95c47d"
+      "bytes": 7192,
+      "sha256": "e75e00b352b5717807598a90ede2aaa89868518cb4b997f3d1faf30063b87c95"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
-      "bytes": 2394,
-      "sha256": "7e54e8ed3efc29d606dfdd827c51ced667c760754f98d954a057edc101096e97"
+      "bytes": 3454,
+      "sha256": "8019e0c62cf1e2982bc903c871259fae82d9279ce53485caf35bce4a1cc1feff"
     },
     {
       "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
-      "bytes": 8849,
-      "sha256": "8e29e06dce8e55f9f79f81cc4ee898458957996f7b10bc03686b2337af3cf7c9"
+      "bytes": 10132,
+      "sha256": "484a5f6594a4d9cb84cfa0f64c80b2055e16476f040b507e5c3fcb3998b30137"
     },
     {
       "path": "docs/testing/M7_FINALIZATION_RELEASE_REVIEW.md",
-      "bytes": 777,
-      "sha256": "7906b52a3ed14e177cdf9f401b736b2427f7559da2aba32a04b11f5b005c1295"
+      "bytes": 960,
+      "sha256": "a557872fcd44692e6b9529dac6c197a84250027556a871de4acb69d7630850e4"
     },
     {
       "path": "docs/decisions/0013-authored-spawn-lifecycle-and-save-v3.md",
@@ -108,6 +108,21 @@
       "path": "docs/decisions/0015-owner-gated-playtest-transitions-and-texture-layouts.md",
       "bytes": 2711,
       "sha256": "4fa8568330e38579bfc556cd5166b37d4ff00e100e8b5b82ca5722b87f6820af"
+    },
+    {
+      "path": "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
+      "bytes": 1540,
+      "sha256": "b95ed9bf84ba804f65ec7640a24299e50d91f5e6be44d30d84cbae311978cce4"
+    },
+    {
+      "path": "docs/process/OWNER_FEEDBACK.md",
+      "bytes": 2132,
+      "sha256": "0c684e80ae9df44706ac582bf7b4b01797e0fd34c6eb7600c01a600a035ce0cb"
+    },
+    {
+      "path": "docs/decisions/0017-document-coherence-and-owner-feedback.md",
+      "bytes": 1395,
+      "sha256": "0567ed2efe3b560e461002ec6b9ab97c58460e57e3ba90e56ca1b8e7cbfaf617"
     }
   ]
 }

@@ -11,7 +11,7 @@ Każde nowe wcielenie głównego współtwórcy najpierw weryfikuje odziedziczon
 3. `SUCCESSOR_REVIEWED` — następny agent wykonał niezależny review dziedziczenia.
 4. `OWNER_ACCEPTED` — Przemek wykonał ręczny test i jawnie zaakceptował etap.
 
-Agent kończący pracę nie może sam ustawić dwóch ostatnich statusów. M8 pozostaje zablokowane, dopóki M7 nie ma wszystkich czterech.
+Agent kończący pracę nie może sam ustawić `SUCCESSOR_REVIEWED`. `OWNER_ACCEPTED` może zostać zapisane wyłącznie po jawnej decyzji Przemka. M7 ma `OWNER_ACCEPTED`; wejście implementacyjne do M8 czeka na niezależny L2 review.
 
 ## Minimalny pakiet startowy
 
@@ -23,7 +23,8 @@ Przy każdej zmianie głównego agenta przeczytaj kolejno:
 4. `docs/process/CURRENT_MILESTONE.md`
 5. `docs/process/LAST_HANDOFF.md`
 6. najnowszy wpis `docs/process/PLAYTEST_LOG.md`
-7. ADR-y wskazane przez milestone
+7. `docs/process/OWNER_FEEDBACK.md`
+8. ADR-y wskazane przez milestone
 
 Przy pierwszym przejęciu roli lub po zmianie tych plików przeczytaj także `COOPEGE_SOUL.md`, `AGENT_SOUL.md`, `PANTHEON.md` i roadmapę.
 
@@ -68,3 +69,9 @@ Domyślnie około 20% pracy na odbiór i 80% na naprawy/cel. Nie przepisuj zaakc
 ## Dowód użytkowy
 
 Twierdzenia „schody działają”, „P2 jest grywalny”, „build działa na Windows”, „import jest wygodny” i „LAN jest gotowy” wymagają normalnej ścieżki UI oraz ręcznej instrukcji. Debug API jest narzędziem diagnostycznym, nie jedynym dowodem ukończenia.
+
+## Spójność dokumentacji
+
+Agent przyjmujący feedback przez czat zapisuje trwałe informacje w `OWNER_FEEDBACK.md` i sam synchronizuje wszystkie bieżące dokumenty. `PROJECT_STATE.json` jest maszynowym źródłem statusu, ale nie zwalnia z aktualizacji `AI_PROJECT_MEMORY.md`, milestone, handoffu, roadmapy, raportów, testów i gotowego UI. Historyczne snapshoty pozostają historyczne i otrzymują datowaną adnotację o późniejszym zamknięciu.
+
+Handoff jest nieważny, jeżeli bieżące dokumenty podają różne wersje, milestone, owner acceptance, blockerów lub baseline. Przed przekazaniem uruchom pełny gate spójności i manifestów.

@@ -42,6 +42,8 @@ export interface TextureFrameLayout {
   idleFrame?: number;
   /** Ordered source columns used by the walk/loop animation. */
   animationFrames?: number[];
+  /** Whether source columns animate over time or represent stable visual variants. */
+  frameMode?: "animation" | "variant";
   /** Visual frame duration. This never drives gameplay simulation. */
   frameDurationMs?: number;
   /** Normalized point of the source sprite attached to the world position. */

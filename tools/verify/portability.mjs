@@ -61,6 +61,7 @@ for (const path of ["PLAY_COOPEGE.bat", "START_COOPEGE.bat", "START_STUDIO.bat",
 }
 
 const packageJson = JSON.parse(read("package.json"));
+const projectState = JSON.parse(read("PROJECT_STATE.json"));
 if (packageJson.scripts?.play === "node tools/dev-server.mjs --open=runtime") pass("play uruchamia gotowy build bez npm install/build");
 else fail("npm run play powinno uruchamiać gotowy build bez przebudowania");
 if (packageJson.scripts?.["play:rebuild"]?.includes("npm run build")) pass("osobny play:rebuild jawnie przebudowuje źródła");
@@ -73,10 +74,16 @@ for (const artifact of ["dist/Coopege_v0.01.html", "dist/Coopege_Studio_v0.1.htm
 for (const html of ["dist/Coopege_v0.01.html", "dist/Coopege_Studio_v0.1.html"]) {
   if (!existsSync(resolve(root, html))) continue;
   const text = read(html);
-  if (/data-owner-accepted\s*=\s*["\']true["\']/i.test(text) || /status[^<\n]{0,40}(?<!NOT )OWNER ACCEPTED/i.test(text)) fail(`${html}: przedwcześnie deklaruje OWNER ACCEPTED`);
-  else pass(`${html}: nie deklaruje OWNER ACCEPTED`);
-  if (/M7 Final Playtest Candidate|M7 PLAYTEST CANDIDATE/i.test(text)) pass(`${html}: oznaczone jako kandydat M7`);
-  else warn(`${html}: brak czytelnego statusu kandydata M7`);
+  if (projectState.status?.ownerAccepted === true) {
+    if (/OWNER ACCEPTED/i.test(text) && !/NOT OWNER ACCEPTED/i.test(text)) pass(`${html}: deklaruje zaakceptowane M7`);
+    else fail(`${html}: nie odzwierciedla OWNER_ACCEPTED=true`);
+  } else if (/data-owner-accepted\s*=\s*["\']true["\']/i.test(text) || /status[^<\n]{0,40}(?<!NOT )OWNER ACCEPTED/i.test(text)) {
+    fail(`${html}: przedwcześnie deklaruje OWNER ACCEPTED`);
+  } else {
+    pass(`${html}: nie deklaruje OWNER ACCEPTED`);
+  }
+  if (/M8[\s\S]{0,80}LAN|LAN[\s\S]{0,80}M8/i.test(text)) pass(`${html}: wskazuje M8 LAN jako następny etap`);
+  else warn(`${html}: brak czytelnego wskazania M8 LAN`);
 }
 
 console.log("\nCOOPEGE PORTABILITY GATE\n");

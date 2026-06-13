@@ -9,7 +9,7 @@ import {
 } from "../../../packages/gameplay/src/index.js";
 import type { AssetEntry } from "../../../packages/schema/src/index.js";
 import type { PreparedRuntimeProject } from "../../../packages/runtime-core/src/index.js";
-import { computeSpriteDrawRect, resolveTextureLayout, selectSpriteFrame, type SpriteDirection } from "./sprite-layout.js";
+import { computeSpriteDrawRect, resolveTextureLayout, selectSpriteFrame, selectTileFrame, type SpriteDirection } from "./sprite-layout.js";
 
 interface VisualEffect {
   kind: "hit" | "death" | "respawn" | "reward";
@@ -156,7 +156,7 @@ export class RuntimeRenderer {
         const screen = this.worldToScreen({ x, y });
         const definition = tileDefinitions.get(tileId);
         const image = this.assets.image(definition?.assetId);
-        if (image) this.drawTileImage(image, definition?.assetId, screen, now);
+        if (image) this.drawTileImage(image, definition?.assetId, screen, x, y, now);
         else {
           this.context.fillStyle = TILE_COLORS.get(tileId) ?? (definition?.walkable ? "#304249" : "#554452");
           this.context.fillRect(Math.floor(screen.x), Math.floor(screen.y), this.tilePixels + 1, this.tilePixels + 1);
@@ -175,9 +175,9 @@ export class RuntimeRenderer {
     this.drawVignette();
   }
 
-  private drawTileImage(image: HTMLImageElement, assetId: string | undefined, screen: Vec2, now: number): void {
+  private drawTileImage(image: HTMLImageElement, assetId: string | undefined, screen: Vec2, tileX: number, tileY: number, now: number): void {
     const layout = resolveTextureLayout(this.assetEntries.get(assetId ?? "")?.texture, image.width, image.height, "tile");
-    const frameSelection = selectSpriteFrame(layout, image.width, image.height, "down", true, Math.floor(now / 1000 * 30), 30);
+    const frameSelection = selectTileFrame(layout, image.width, image.height, tileX, tileY, assetId ?? "tile", now);
     this.context.drawImage(
       image,
       frameSelection.sourceX,

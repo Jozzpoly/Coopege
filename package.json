@@ -1,6 +1,6 @@
 {
   "name": "coopege",
-  "version": "0.7.3-m7-validation-candidate",
+  "version": "0.7.5-m7-owner-accepted",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -30,13 +30,15 @@
     "play": "node tools/dev-server.mjs --open=runtime",
     "diagnostics": "node tools/diagnostics/collect-diagnostics.mjs",
     "start": "npm run play",
-    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:gameplay-gate",
+    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:gameplay-gate && npm run verify:release-manifests",
     "studio": "node tools/dev-server.mjs --open=studio",
     "verify:portability": "node tools/verify/portability.mjs",
     "play:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=runtime",
     "studio:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=studio",
     "verify:handoff": "node tools/verify/handoff.mjs",
     "test:server": "node tools/test/dev-server-reuse.mjs",
+    "release:manifests": "node tools/verify/update-release-manifests.mjs",
+    "verify:release-manifests": "node tools/verify/update-release-manifests.mjs --check",
     "validate": "npm run release:verify"
   },
   "devDependencies": {

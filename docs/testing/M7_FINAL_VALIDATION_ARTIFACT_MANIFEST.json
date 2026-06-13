@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-13T18:30:00Z",
-  "workspace": "coopege@0.7.3-m7-validation-candidate",
-  "status": "M7_FINAL_VALIDATION_CANDIDATE",
+  "generatedAt": "2026-06-13T15:30:43.209Z",
+  "workspace": "coopege@0.7.5-m7-owner-accepted",
+  "status": "M7_OWNER_ACCEPTED_WITH_DEBT",
   "baseline": {
-    "doctor": "17 PASS / 1 WARN / 0 FAIL",
-    "handoff": "25 PASS / 0 FAIL",
+    "doctor": "18 PASS / 0 WARN / 0 FAIL",
+    "handoff": "40 PASS / 0 FAIL",
     "portability": "21 PASS / 0 WARN / 0 FAIL",
-    "node": "90/90 PASS",
+    "node": "94/94 PASS",
     "migration": "52/52 PASS",
     "legacy": "4/4 PASS",
     "chromium": "9/9 PASS + Ability Composer",
@@ -17,13 +17,13 @@
   "files": [
     {
       "path": "package.json",
-      "bytes": 2674,
-      "sha256": "32e75e6d06d2cdf9407633080dd93dbd8fcbcdbc8804d28a4c72b4eee2e73ba9"
+      "bytes": 2869,
+      "sha256": "1705c962cce38b4d1da8102f3a75a61c4ade0ffa46190e341da4de8060801e7c"
     },
     {
       "path": "package-lock.json",
-      "bytes": 4299,
-      "sha256": "018c7e14f0a75959ec2b5755503c2171d8582727ce2533584298dd3deb2d4552"
+      "bytes": 4287,
+      "sha256": "77833bd1470a0ca4866f95a2a8161efa035b014c6a21184d686bc961b2f718cf"
     },
     {
       "path": ".npmrc",
@@ -32,23 +32,23 @@
     },
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 1289,
-      "sha256": "2f02dc0fdc5acfb3f3e3f2d9b75a10f645684faec4c9f7003fbabf3f02ef7e5c"
+      "bytes": 1649,
+      "sha256": "df1e36311ee2f3d38a6404b378148d6ae83b7a6f67eaaf91a70f6dc552fece02"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 3842,
-      "sha256": "1e7cbc49260bade223bf297099decaff0f0fed3abd671d6477935dcdaa938058"
+      "bytes": 4188,
+      "sha256": "a5418826afd4c0b01445cfb874aa6b0a61e34eabd38d98e37f17d3b43e3391b1"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1189,
-      "sha256": "9e0ecb9ff81120a9405d5b76ac07a407ac925d5b5cf41175d8724ac89e039aa1"
+      "bytes": 1369,
+      "sha256": "e8881be2d3b895a6398b5d18404c60492cb88da6230d900438ad9fe0d00923d6"
     },
     {
       "path": "README.md",
-      "bytes": 2178,
-      "sha256": "a229e184dfc9641391d6541cf4130239d42fc2524172f9fe1314dbbcace1eec8"
+      "bytes": 2285,
+      "sha256": "76d17c333f2ed1423e6f6ed05c9112c1ec15551fa91c3b27551c7bbadc1f4613"
     },
     {
       "path": "PLAY_COOPEGE.bat",
@@ -72,43 +72,43 @@
     },
     {
       "path": "dist/Coopege_v0.01.html",
-      "bytes": 806880,
-      "sha256": "a7f5f83b7fc53d9e159aad08989d82d003d70ec46dad71f15efc57f26f7e3523"
+      "bytes": 822232,
+      "sha256": "55363c59b974a311ab98f01ac4909c66a2d4cc4097e4a64e026b3ba6828984de"
     },
     {
       "path": "dist/Coopege_Studio_v0.1.html",
-      "bytes": 1466716,
-      "sha256": "877f8127d800ab9edeeaf8d13ea87968c91b03f5767f1b23b0a532b1876a5a3f"
+      "bytes": 1486106,
+      "sha256": "cf0beee343867dcd2944316977d5ece92fcb11b6201b3cf7c94c1a707e65cffb"
     },
     {
       "path": "dist/Coopege_M7_Runtime.html",
-      "bytes": 264672,
-      "sha256": "ecab9805236ccfc4ed8f9201b42f15c1ae19c12bdb69aa4246c66ecaa8760fe0"
+      "bytes": 266873,
+      "sha256": "7840edaf0fceeb07fcefe48f203c740e65d3655b2f37c78c2b42987925806d8f"
     },
     {
       "path": "dist/Coopege_M7A_Asset_Vault.zip",
-      "bytes": 296513,
-      "sha256": "afb4fa02a06b33a50e4ef74ef8dc85731f428124b8a2ba3bee355261339e468e"
+      "bytes": 307070,
+      "sha256": "3dea9363173d21256ef0db2dfdf4eaecd5f3b53d0b9c40a7755d46921d438d23"
     },
     {
       "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
-      "bytes": 3781,
-      "sha256": "06ba24963b08db15e156fad6c1aab4700bfc1ee2b28012c52614f6991815b80d"
+      "bytes": 4354,
+      "sha256": "efa49d0051c21ca31665858bda101e7ff4a4607fa8f5784495351127b2baa278"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
-      "bytes": 2394,
-      "sha256": "7e54e8ed3efc29d606dfdd827c51ced667c760754f98d954a057edc101096e97"
+      "bytes": 3454,
+      "sha256": "8019e0c62cf1e2982bc903c871259fae82d9279ce53485caf35bce4a1cc1feff"
     },
     {
       "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
-      "bytes": 8849,
-      "sha256": "8e29e06dce8e55f9f79f81cc4ee898458957996f7b10bc03686b2337af3cf7c9"
+      "bytes": 10132,
+      "sha256": "484a5f6594a4d9cb84cfa0f64c80b2055e16476f040b507e5c3fcb3998b30137"
     },
     {
       "path": "tools/build/build.mjs",
-      "bytes": 8340,
-      "sha256": "203bbf426813bd5500c8c993185c921d54b8894f412cd2986db30d9e21418af1"
+      "bytes": 8279,
+      "sha256": "f2c397c261858eb5cd46e9067e52d805e0d40179659bbb1ee1da3d3f265aeecd"
     },
     {
       "path": "tools/dev-server.mjs",
@@ -122,13 +122,38 @@
     },
     {
       "path": "tools/test/full-suite.mjs",
-      "bytes": 1094,
-      "sha256": "ed34e2c2d4df8a1e36944aa055afec9eb653ab6e00345e8747da811b120c5475"
+      "bytes": 1221,
+      "sha256": "3ef19b08d7dfc18ebc764f9499388b16619069870637cae7028fb0f817d17519"
     },
     {
       "path": "tools/verify/handoff.mjs",
-      "bytes": 5364,
-      "sha256": "1942a3d0ee9d72c86bb3cda77a67af2afe1ac1e6dd437e87be247318554a2d23"
+      "bytes": 6568,
+      "sha256": "52c98b3b83126e71f54679811d9672f326fcfcef87232c70445a16e4ddc4397d"
+    },
+    {
+      "path": "tools/npm-cli.mjs",
+      "bytes": 243,
+      "sha256": "820fc81668f24a9a64e78e2b7dbf118f1826682ef5531db54015c18112622805"
+    },
+    {
+      "path": "tools/verify/update-release-manifests.mjs",
+      "bytes": 4161,
+      "sha256": "93f49bb2687d33b01224d522fecbb6276c32da3b85a30615552e67e3d9dc0682"
+    },
+    {
+      "path": "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
+      "bytes": 1540,
+      "sha256": "b95ed9bf84ba804f65ec7640a24299e50d91f5e6be44d30d84cbae311978cce4"
+    },
+    {
+      "path": "docs/decisions/0017-document-coherence-and-owner-feedback.md",
+      "bytes": 1395,
+      "sha256": "0567ed2efe3b560e461002ec6b9ab97c58460e57e3ba90e56ca1b8e7cbfaf617"
+    },
+    {
+      "path": "docs/process/OWNER_FEEDBACK.md",
+      "bytes": 2132,
+      "sha256": "0c684e80ae9df44706ac582bf7b4b01797e0fd34c6eb7600c01a600a035ce0cb"
     }
   ]
 }

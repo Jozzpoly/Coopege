@@ -1,6 +1,6 @@
 # Coopege — LAN-first coop action RPG
 
-Aktualna wersja: **0.7.3-m7-validation-candidate**. Status: **M7 FINAL VALIDATION CANDIDATE / TECH_VERIFIED / NOT OWNER ACCEPTED**.
+Aktualna wersja: **0.7.5-m7-owner-accepted**. Status: **M7 TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT**. Aktywny następny etap: **M8 LAN Foundation / Entry Review**.
 
 ## Najszybszy start
 
@@ -33,12 +33,12 @@ npm run validate
 
 ## Baseline
 
-Doctor 17/1/0, handoff 24/24, portability 21/0/0, TypeScript PASS, Node 90/90, migration 52/52, legacy 4/4, Chromium 9/9 + Ability Composer, server reuse PASS, Gameplay Gate 54 000 ticków i saves 6/6.
+Doctor 18/0/0, handoff bez FAIL, portability 21/0/0, TypeScript PASS, Node 94/94, migration 52/52, legacy 4/4, Chromium 9/9 + Ability Composer, server reuse PASS, Gameplay Gate 54 000 ticków i saves 6/6.
 
 ## Ograniczenia
 
-To nadal wczesny runtime: brak LAN/reconnectu, pełnych clipów attack/death, transition CRUD, docelowych itemów/questów/dialogów/talentów/AI authoringu oraz finalnego balansu i feelu. P2 keyboard może zależeć od key rollover. Automaty nie zastępują testu Przemka.
+To nadal wczesny runtime: brak LAN/reconnectu, pełnych clipów attack/death, transition CRUD, docelowych itemów/questów/dialogów/talentów/AI authoringu oraz finalnego balansu i feelu. Znany dług lokalnego C0 może przestawiać punkt respawnu solo i jest zapisany w `OWNER_FEEDBACK.md` jako backlog.
 
 ## Przekazanie
 
-Nowy główny agent zaczyna od `PROJECT_STATE.json`, `AI_PROJECT_MEMORY.md`, `CURRENT_MILESTONE.md`, `LAST_HANDOFF.md` i `AGENT_HANDOFF_PROTOCOL_V2.md`. Przed M8 wykonuje niezależny L2 review. Tylko Przemek nadaje `OWNER_ACCEPTED`.
+Nowy główny agent zaczyna od `PROJECT_STATE.json`, `AI_PROJECT_MEMORY.md`, `CURRENT_MILESTONE.md`, `LAST_HANDOFF.md`, `OWNER_FEEDBACK.md` i `AGENT_HANDOFF_PROTOCOL_V2.md`. M7 ma `OWNER_ACCEPTED`; przed pierwszą implementacją M8 LAN wymagany jest niezależny L2 review.

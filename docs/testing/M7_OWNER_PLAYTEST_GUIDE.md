@@ -1,6 +1,23 @@
 # M7 FINAL VALIDATION — OWNER PLAYTEST GUIDE
 
-Wersja: `0.7.3-m7-validation-candidate`. Ten test jest warunkiem `OWNER_ACCEPTED`; automaty już przeszły, ale nie oceniają feelu.
+Wersja zamykająca: `0.7.5-m7-owner-accepted`. **M7 OWNER ACCEPTED WITH DEBT — 2026-06-13.** Dalsza część dokumentu zachowuje historyczną checklistę i surowy feedback właściciela.
+
+## Retest po feedbacku właściciela
+
+Poprawki wdrożone 2026-06-13:
+
+- atlasy graczy mają ramki 80x80 z przezroczystym marginesem, więc stopy i broń nie są wycinane;
+- trawa, drzewa, ściany i pozostały teren używają stabilnych wariantów zależnych od pola mapy; animowane pozostają woda i lawa;
+- odłączenie P2 usuwa jego threat także z uśpionych spawnów, więc zapis solo po wcześniejszej grze we dwóch daje się wczytać;
+- doctor, diagnostyka i pełny runner testów uruchamiają npm poprawnie na Windowsie z Node 24.
+
+Wymagany krótki retest właściciela:
+
+1. Obróć wojownika w cztery strony i wykonaj atak: miecz oraz stopy mają pozostać kompletne.
+2. Obserwuj przez kilkanaście sekund trawę, drzewa i ściany: warianty mają być różne, ale nieruchome; woda i lawa mogą się animować.
+3. Dołącz P2, zapisz, odłącz P2, zapisz ponownie i wczytaj: sesja ma wrócić jako solo bez błędu `player.local.2`.
+
+Automatyczny i przeglądarkowy retest powyższych punktów: **PASS**. Przemek potwierdził brak problemów z atlasami i terenem, po czym jawnie zaakceptował M7 z odłożonym długiem respawnu lokalnego C0.
 
 ## Minimalny test regresji finalizacji
 
@@ -13,7 +30,7 @@ Wersja: `0.7.3-m7-validation-candidate`. Ten test jest warunkiem `OWNER_ACCEPTED
 
 ---
 
-Status wejściowy: **PLAYTEST CANDIDATE / NOT OWNER ACCEPTED**
+Status wejściowy tej historycznej checklisty: **PLAYTEST CANDIDATE / NOT OWNER ACCEPTED**. Status końcowy: **OWNER_ACCEPTED_WITH_DEBT**.
 
 Ten test nie ma udowodnić, że Coopege jest już pełną grą. Ma odpowiedzieć, czy fundament M7 jest wystarczająco stabilny i świadomy, aby rozpocząć M8 LAN.
 

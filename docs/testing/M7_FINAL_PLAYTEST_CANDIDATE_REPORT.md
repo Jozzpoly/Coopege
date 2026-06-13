@@ -1,5 +1,7 @@
 # Coopege M7 Final Playtest Candidate — raport krytycznej rewizji
 
+> **HISTORYCZNY RAPORT KANDYDATA.** M7 zostało później zaakceptowane przez Przemka jako `OWNER_ACCEPTED_WITH_DEBT` 2026-06-13. Aktualny status znajduje się w `PROJECT_STATE.json`; odłożony dług respawnu C0 w `docs/process/OWNER_FEEDBACK.md`.
+
 - Data: **2026-06-13**
 - Wersja: **0.7.2-m7-final-candidate**
 - Status: **PLAYTEST CANDIDATE / NOT OWNER ACCEPTED**

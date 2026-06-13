@@ -80,14 +80,14 @@ function createRuntimeHtml(project, config, variant = "m7", projectExpression = 
     .replace("/*__APP_BUNDLE__*/", bundle);
   if (variant === "migration") {
     html = html
-      .replace("Coopege — M7 Final Playtest Candidate", "Coopege — M7 Final Candidate · Legacy World")
-      .replace("Coopege Runtime — M7 Final Playtest Candidate", "Coopege Runtime — M7 Legacy World Candidate");
+      .replace("Coopege — M7 Owner Accepted", "Coopege — M7 Owner Accepted · Legacy World")
+      .replace("Coopege Runtime — M7 Owner Accepted", "Coopege Runtime — M7 Legacy World Accepted");
   }
   if (variant === "preview-host") {
     html = html
-      .replace("Coopege — M7 Final Playtest Candidate", "Coopege — Embedded M7 Candidate Preview")
-      .replace("Coopege Runtime — M7 Final Playtest Candidate", "Coopege Runtime — M7 preview Studia")
-      .replace("M7 / PLAYTEST CANDIDATE · NOT OWNER ACCEPTED", "M7 / sandbox preview · NOT OWNER ACCEPTED");
+      .replace("Coopege — M7 Owner Accepted", "Coopege — Embedded M7 Accepted Preview")
+      .replace("Coopege Runtime — M7 Owner Accepted", "Coopege Runtime — M7 preview Studia")
+      .replace("M7 · OWNER ACCEPTED WITH DEBT", "M7 · sandbox preview · OWNER ACCEPTED");
   }
   return html;
 }

@@ -415,6 +415,10 @@ export class GameWorld {
       delete monster.threatByPlayer[playerId];
       if (monster.targetPlayerId === playerId) this.setMonsterTarget(monster, null);
     }
+    for (const state of this.spawnStates.values()) {
+      state.threatByPlayer = state.threatByPlayer.filter(([threatPlayerId]) => threatPlayerId !== playerId);
+      if (state.targetPlayerId === playerId) state.targetPlayerId = null;
+    }
     this.emitGameplayEvent({ type: "player.left", tick: this._tick, playerId, entityId: player.entityId, slotId: player.slotId });
     this.reconcileSpawnLifecycle();
   }

@@ -31,6 +31,13 @@
 
 Scenariusz, użyte normalne UI, wynik i ewentualna rola debug API.
 
+## Spójność dokumentacji i feedbacku
+
+- `PROJECT_STATE.json`, pamięć, milestone, handoff, roadmapa i gotowy UI podają ten sam status:
+- `OWNER_FEEDBACK.md` zawiera otwarte długi i decyzje z ostatnich rozmów:
+- raporty historyczne są oznaczone jako snapshoty i nie udają bieżącego statusu:
+- wersja, baseline i manifesty odpowiadają aktualnemu buildowi:
+
 ## Znaleziska
 
 | ID | Klasa | Opis | Decyzja |

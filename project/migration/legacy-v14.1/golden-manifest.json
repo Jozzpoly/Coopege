@@ -10,8 +10,8 @@
     },
     {
       "path": "project/migration/legacy-v14.1/asset-map.json",
-      "bytes": 24115,
-      "sha256": "6dd1ff52d6d25510de2f7ef5616018dced229e533d39eeec62c6b4ba5a6f2aa9"
+      "bytes": 24430,
+      "sha256": "855e8e9d946cb82d2781625f1fe1ce4d153fc84a9cd8f015318fa94cb5a72ddc"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/environment__bones.png",
@@ -85,8 +85,8 @@
     },
     {
       "path": "project/migration/legacy-v14.1/assets/item__gold.png",
-      "bytes": 7701,
-      "sha256": "99ea26028476117320eb957809dbf60750b910d4fc51a236a4e3a835ddd93b7f"
+      "bytes": 7672,
+      "sha256": "4df943038a3e1aaece5e2546678b9e5a9c6ca0b0038e8cab75a2ac9901d0ff96"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/item__hpot.png",
@@ -135,18 +135,18 @@
     },
     {
       "path": "project/migration/legacy-v14.1/assets/player__archer.png",
-      "bytes": 12876,
-      "sha256": "7e6d441531a498a117c449553e85287fb66a50d71bcb46e0b9204997ea305a2c"
+      "bytes": 15763,
+      "sha256": "7b220fa1f027e953cf269b8a5f8d14338062466661a15742a7ba08c2a6004e90"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/player__mage.png",
-      "bytes": 19023,
-      "sha256": "375c4bb5253852acdda46444f032b8d2d5c82e62903de4affe1b4d34b44ad1ee"
+      "bytes": 22370,
+      "sha256": "27a66ba005052b8a3b858be1b480d0d4a6a97b83b0b3251fbb21c196c2dc1750"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/player__warrior.png",
-      "bytes": 14135,
-      "sha256": "5d4f4e50835ae68109971a8763872901cf326cfa2eb3654400274aa919a7934f"
+      "bytes": 17028,
+      "sha256": "3b771940ce537bb2c2dc09b0b39a49fb5f363363caf35485368126b91e1233c5"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/terrain__cave.png",
@@ -195,13 +195,13 @@
     },
     {
       "path": "project/migration/legacy-v14.1/assets/terrain__stairs_down.png",
-      "bytes": 681,
-      "sha256": "632ce701ffd0f41e116fa2b249ff005f3ece91144f819af66d88e2a70a3c7f4e"
+      "bytes": 656,
+      "sha256": "15e5b19bc345798f5124eacb19b77ba300c88e322460610ab4eebc766fbcbac6"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/terrain__stairs_up.png",
-      "bytes": 652,
-      "sha256": "46ab9b4acf54b4b8d5b1ffcb1ad9a3b6d97ca7fc4aea18b4d36213fb7ffb759d"
+      "bytes": 641,
+      "sha256": "0fc6e024a7d48de72c8727eb172ab1faa7959a7cdf08ffb571bb370dc9b22dcd"
     },
     {
       "path": "project/migration/legacy-v14.1/assets/terrain__stone_floor.png",
@@ -240,13 +240,13 @@
     },
     {
       "path": "project/migration/legacy-v14.1/coopege.project.json",
-      "bytes": 503186,
-      "sha256": "9f3e7d45e85f64ed72ffaa9fb3b4c00db3486da29e9d83f5638ea3c25de7946d"
+      "bytes": 504771,
+      "sha256": "2f7db7a74417f75687401f1b648781d92a6fdde41735bfbb00a0af647677fa1b"
     },
     {
       "path": "project/migration/legacy-v14.1/coopege.project.v2.json",
-      "bytes": 539366,
-      "sha256": "7797cfc14911ed528f85c1a8fa4aa968822fba78a91621e0d85bd84bf9c9bdbf"
+      "bytes": 540951,
+      "sha256": "4f09c8ccc90803d8f5d212111336aea2c997e11d16818b0d1fd2bbebb57c741c"
     },
     {
       "path": "project/migration/legacy-v14.1/migration-report.json",
@@ -255,13 +255,13 @@
     },
     {
       "path": "project/migration/legacy-v14.1/raw/legacy-export.normalized.json",
-      "bytes": 790964,
-      "sha256": "026773b01389cc80c6a6b6d3b5cbeeb0da8f4cdb0682c578cfcf4f3eb3fe2398"
+      "bytes": 803754,
+      "sha256": "a489185ac50436a2f158fa0cf244e448d12064d3b97c889d7cf745486fdab779"
     },
     {
       "path": "project/migration/legacy-v14.1/raw/legacy-export.sha256",
       "bytes": 96,
-      "sha256": "ce8ce5e0e4d015cea55f1bf1936e6f6d13752a84ab9d892346f7071833d4f767"
+      "sha256": "d98f64daba927f4b8a0db21afabdb477c384cf2c8f9955c75b30a59c63afd444"
     }
   ]
 }

@@ -9,6 +9,7 @@ export interface ResolvedTextureFrameLayout extends TextureFrameLayout {
   directionRows: Record<SpriteDirection, number>;
   idleFrame: number;
   animationFrames: number[];
+  frameMode: "animation" | "variant";
   frameDurationMs: number;
   pivotX: number;
   pivotY: number;
@@ -45,6 +46,7 @@ function fallbackLayout(imageWidth: number, imageHeight: number, kind: SpriteKin
       directionRows: { down: 0, left: 1, right: 2, up: 3 },
       idleFrame: 0,
       animationFrames: [0, 1, 2, 3],
+      frameMode: "animation",
       frameDurationMs: 130,
       pivotX: 0.5,
       pivotY: player ? 0.78 : 0.72,
@@ -60,6 +62,7 @@ function fallbackLayout(imageWidth: number, imageHeight: number, kind: SpriteKin
     frameHeight,
     idleFrame: 0,
     animationFrames: Array.from({ length: frameCount }, (_, index) => index),
+    frameMode: kind === "tile" ? "variant" : "animation",
     frameDurationMs: 360,
     pivotX: 0.5,
     pivotY: 0.5,
@@ -108,6 +111,7 @@ export function resolveTextureLayout(
     directionRows,
     idleFrame: clampInteger(source.idleFrame ?? 0, 0, columns - 1),
     animationFrames,
+    frameMode: source.frameMode ?? (kind === "tile" ? "variant" : "animation"),
     frameDurationMs: Math.max(16, Number.isFinite(source.frameDurationMs) ? source.frameDurationMs! : 130),
     pivotX: Math.max(0, Math.min(1, Number.isFinite(source.pivotX) ? source.pivotX! : 0.5)),
     pivotY: Math.max(0, Math.min(1, Number.isFinite(source.pivotY) ? source.pivotY! : 0.72)),
@@ -115,6 +119,45 @@ export function resolveTextureLayout(
     worldHeightTiles: Number.isFinite(source.worldHeightTiles) && (source.worldHeightTiles ?? 0) > 0
       ? source.worldHeightTiles!
       : proportionalHeight,
+  };
+}
+
+function stableTileFrameIndex(x: number, y: number, seed: string, frameCount: number): number {
+  let hash = 2166136261;
+  for (const character of seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  hash ^= Math.imul(Math.trunc(x), 374761393);
+  hash = Math.imul(hash, 668265263);
+  hash ^= Math.imul(Math.trunc(y), 1442695041);
+  hash = Math.imul(hash ^ (hash >>> 13), 1274126177);
+  return (hash >>> 0) % Math.max(1, frameCount);
+}
+
+export function selectTileFrame(
+  layout: ResolvedTextureFrameLayout,
+  imageWidth: number,
+  imageHeight: number,
+  tileX: number,
+  tileY: number,
+  seed: string,
+  nowMs: number,
+): SpriteFrameSelection {
+  const columns = Math.max(1, Math.floor(imageWidth / layout.frameWidth));
+  const rows = Math.max(1, Math.floor(imageHeight / layout.frameHeight));
+  const frames = layout.animationFrames.length > 0 ? layout.animationFrames : [layout.idleFrame];
+  const selectedIndex = layout.frameMode === "variant"
+    ? stableTileFrameIndex(tileX, tileY, seed, frames.length)
+    : Math.floor(Math.max(0, nowMs) / layout.frameDurationMs) % frames.length;
+  const frame = clampInteger(frames[selectedIndex] ?? layout.idleFrame, 0, columns - 1);
+  return {
+    frame,
+    row: 0,
+    sourceX: frame * layout.frameWidth,
+    sourceY: 0,
+    sourceWidth: layout.frameWidth,
+    sourceHeight: Math.min(layout.frameHeight, rows * layout.frameHeight),
   };
 }
 

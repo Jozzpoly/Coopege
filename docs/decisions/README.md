@@ -18,4 +18,6 @@ Aktualny zestaw:
 - `0012` — Ability Composer, wspólne metadane i planowanie runtime;
 - `0013` — authored spawn lifecycle, leniwe aktory i save v3;
 - `0014` — Asset Vault i niezależny Asset Pack v1.
-- `0015` — owner-gated milestone, authored transitions i jawne layouty tekstur.
+- `0015` — owner-gated milestone, authored transitions i jawne layouty tekstur;
+- `0016` — deterministyczne warianty kafli i atlasy postaci z marginesem;
+- `0017` — spójność dokumentacji i intake feedbacku właściciela.

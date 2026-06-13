@@ -224,7 +224,7 @@
     "targetId": "texture.legacy.item.corpse"
   },
   "item.gold": {
-    "bytes": 7701,
+    "bytes": 7672,
     "file": "assets/item__gold.png",
     "meta": {
       "category": "item",
@@ -236,7 +236,7 @@
       "label": "Przedmiot: gold",
       "layout": "horizontal-frames"
     },
-    "sha256": "99ea26028476117320eb957809dbf60750b910d4fc51a236a4e3a835ddd93b7f",
+    "sha256": "4df943038a3e1aaece5e2546678b9e5a9c6ca0b0038e8cab75a2ac9901d0ff96",
     "targetId": "texture.legacy.item.gold"
   },
   "item.hpot": {
@@ -468,13 +468,13 @@
     "targetId": "texture.legacy.monster.yeti"
   },
   "player.archer": {
-    "bytes": 12876,
+    "bytes": 15763,
     "file": "assets/player__archer.png",
     "meta": {
       "category": "player",
       "directions": 4,
-      "frameHeight": 56,
-      "frameWidth": 48,
+      "frameHeight": 80,
+      "frameWidth": 80,
       "frames": 4,
       "id": "player.archer",
       "label": "Postać: Łucznik",
@@ -488,6 +488,8 @@
         "skill": "class Q skill",
         "stateMetadataSupported": true
       },
+      "pivotX": 0.5,
+      "pivotY": 0.546,
       "states": {
         "attack": {
           "frames": 4,
@@ -501,19 +503,21 @@
           "frames": 4,
           "row": 0
         }
-      }
+      },
+      "worldHeightTiles": 1.8,
+      "worldWidthTiles": 1.8
     },
-    "sha256": "7e6d441531a498a117c449553e85287fb66a50d71bcb46e0b9204997ea305a2c",
+    "sha256": "7b220fa1f027e953cf269b8a5f8d14338062466661a15742a7ba08c2a6004e90",
     "targetId": "texture.legacy.player.archer"
   },
   "player.mage": {
-    "bytes": 19023,
+    "bytes": 22370,
     "file": "assets/player__mage.png",
     "meta": {
       "category": "player",
       "directions": 4,
-      "frameHeight": 56,
-      "frameWidth": 48,
+      "frameHeight": 80,
+      "frameWidth": 80,
       "frames": 4,
       "id": "player.mage",
       "label": "Postać: Mag",
@@ -527,6 +531,8 @@
         "skill": "class Q skill",
         "stateMetadataSupported": true
       },
+      "pivotX": 0.5,
+      "pivotY": 0.546,
       "states": {
         "attack": {
           "frames": 4,
@@ -540,19 +546,21 @@
           "frames": 4,
           "row": 0
         }
-      }
+      },
+      "worldHeightTiles": 1.8,
+      "worldWidthTiles": 1.8
     },
-    "sha256": "375c4bb5253852acdda46444f032b8d2d5c82e62903de4affe1b4d34b44ad1ee",
+    "sha256": "27a66ba005052b8a3b858be1b480d0d4a6a97b83b0b3251fbb21c196c2dc1750",
     "targetId": "texture.legacy.player.mage"
   },
   "player.warrior": {
-    "bytes": 14135,
+    "bytes": 17028,
     "file": "assets/player__warrior.png",
     "meta": {
       "category": "player",
       "directions": 4,
-      "frameHeight": 56,
-      "frameWidth": 48,
+      "frameHeight": 80,
+      "frameWidth": 80,
       "frames": 4,
       "id": "player.warrior",
       "label": "Postać: Wojownik",
@@ -566,6 +574,8 @@
         "skill": "class Q skill",
         "stateMetadataSupported": true
       },
+      "pivotX": 0.5,
+      "pivotY": 0.546,
       "states": {
         "attack": {
           "frames": 4,
@@ -579,9 +589,11 @@
           "frames": 4,
           "row": 0
         }
-      }
+      },
+      "worldHeightTiles": 1.8,
+      "worldWidthTiles": 1.8
     },
-    "sha256": "5d4f4e50835ae68109971a8763872901cf326cfa2eb3654400274aa919a7934f",
+    "sha256": "3b771940ce537bb2c2dc09b0b39a49fb5f363363caf35485368126b91e1233c5",
     "targetId": "texture.legacy.player.warrior"
   },
   "terrain.cave": {
@@ -738,7 +750,7 @@
     "targetId": "texture.legacy.terrain.snow"
   },
   "terrain.stairs_down": {
-    "bytes": 681,
+    "bytes": 656,
     "file": "assets/terrain__stairs_down.png",
     "meta": {
       "category": "terrain",
@@ -751,11 +763,11 @@
       "layout": "horizontal-frames",
       "tile": 13
     },
-    "sha256": "632ce701ffd0f41e116fa2b249ff005f3ece91144f819af66d88e2a70a3c7f4e",
+    "sha256": "15e5b19bc345798f5124eacb19b77ba300c88e322460610ab4eebc766fbcbac6",
     "targetId": "texture.legacy.terrain.stairs_down"
   },
   "terrain.stairs_up": {
-    "bytes": 652,
+    "bytes": 641,
     "file": "assets/terrain__stairs_up.png",
     "meta": {
       "category": "terrain",
@@ -768,7 +780,7 @@
       "layout": "horizontal-frames",
       "tile": 12
     },
-    "sha256": "46ab9b4acf54b4b8d5b1ffcb1ad9a3b6d97ca7fc4aea18b4d36213fb7ffb759d",
+    "sha256": "0fc6e024a7d48de72c8727eb172ab1faa7959a7cdf08ffb571bb370dc9b22dcd",
     "targetId": "texture.legacy.terrain.stairs_up"
   },
   "terrain.stone_floor": {

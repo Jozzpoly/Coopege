@@ -6,15 +6,19 @@ import test from "node:test";
 const state = JSON.parse(readFileSync(resolve(process.cwd(), "PROJECT_STATE.json"), "utf8"));
 const packageJson = JSON.parse(readFileSync(resolve(process.cwd(), "package.json"), "utf8"));
 
-test("PROJECT_STATE jest zgodny z wersją paczki i blokuje przedwczesne M8", () => {
+test("PROJECT_STATE zamyka M7 decyzją właściciela i otwiera M8 wyłącznie na entry review", () => {
   assert.equal(state.format, "coopege-project-state");
   assert.equal(state.schemaVersion, 1);
   assert.equal(state.projectVersion, packageJson.version);
   assert.equal(state.status.implemented, true);
   assert.equal(state.status.techVerified, true);
   assert.equal(state.status.successorReviewed, false);
-  assert.equal(state.status.ownerAccepted, false);
-  assert.ok(state.mustFixBeforeNext.some((item: string) => /Przemek|owner/i.test(item)));
+  assert.equal(state.status.ownerAccepted, true);
+  assert.equal(state.status.acceptance, "ACCEPT_WITH_DEBT");
+  assert.match(state.completedMilestone, /M7/);
+  assert.match(state.activeMilestone, /M8 LAN/);
+  assert.equal(state.nextMilestone.implementationStarted, false);
+  assert.ok(!state.mustFixBeforeNext.some((item: string) => /Przemek|owner/i.test(item)));
   assert.ok(state.mustFixBeforeNext.some((item: string) => /successor|L2/i.test(item)));
 });
 

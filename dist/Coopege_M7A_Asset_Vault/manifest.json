@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "projectId": "coopege.silver_gate_legacy",
   "projectVersion": "0.0.1-migration",
-  "exportedAt": "2026-06-13T16:54:39.753Z",
+  "exportedAt": "2026-06-12T00:00:00.000Z",
   "assetCount": 45,
   "assets": [
     {
@@ -22,6 +22,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -46,6 +47,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -70,6 +72,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -94,6 +97,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -118,6 +122,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -142,6 +147,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -166,6 +172,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -190,6 +197,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -214,6 +222,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -238,6 +247,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -265,6 +275,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -289,6 +300,7 @@
         ],
         "frameDurationMs": 240,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 48,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -316,6 +328,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -339,6 +352,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -351,7 +365,7 @@
       "filename": "textures/texture.legacy.item.gold.png",
       "width": 128,
       "height": 32,
-      "sha256": "99ea26028476117320eb957809dbf60750b910d4fc51a236a4e3a835ddd93b7f",
+      "sha256": "4df943038a3e1aaece5e2546678b9e5a9c6ca0b0038e8cab75a2ac9901d0ff96",
       "source": "assets/item__gold.png",
       "texture": {
         "animationFrames": [
@@ -362,6 +376,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -385,6 +400,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -408,6 +424,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -431,6 +448,7 @@
         ],
         "frameDurationMs": 130,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -460,6 +478,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -493,6 +512,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -526,6 +546,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -559,6 +580,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -592,6 +614,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -625,6 +648,7 @@
         },
         "frameDurationMs": 130,
         "frameHeight": 64,
+        "frameMode": "animation",
         "frameWidth": 64,
         "idleFrame": 0,
         "pivotX": 0.5,
@@ -639,9 +663,9 @@
       "category": "player",
       "status": "legacy-placeholder",
       "filename": "textures/texture.legacy.player.archer.png",
-      "width": 192,
-      "height": 224,
-      "sha256": "7e6d441531a498a117c449553e85287fb66a50d71bcb46e0b9204997ea305a2c",
+      "width": 320,
+      "height": 320,
+      "sha256": "7b220fa1f027e953cf269b8a5f8d14338062466661a15742a7ba08c2a6004e90",
       "source": "assets/player__archer.png",
       "texture": {
         "animationFrames": [
@@ -657,13 +681,14 @@
           "up": 3
         },
         "frameDurationMs": 130,
-        "frameHeight": 56,
-        "frameWidth": 48,
+        "frameHeight": 80,
+        "frameMode": "animation",
+        "frameWidth": 80,
         "idleFrame": 0,
         "pivotX": 0.5,
-        "pivotY": 0.78,
-        "worldHeightTiles": 1.26,
-        "worldWidthTiles": 1.08
+        "pivotY": 0.546,
+        "worldHeightTiles": 1.8,
+        "worldWidthTiles": 1.8
       }
     },
     {
@@ -672,9 +697,9 @@
       "category": "player",
       "status": "legacy-placeholder",
       "filename": "textures/texture.legacy.player.mage.png",
-      "width": 192,
-      "height": 224,
-      "sha256": "375c4bb5253852acdda46444f032b8d2d5c82e62903de4affe1b4d34b44ad1ee",
+      "width": 320,
+      "height": 320,
+      "sha256": "27a66ba005052b8a3b858be1b480d0d4a6a97b83b0b3251fbb21c196c2dc1750",
       "source": "assets/player__mage.png",
       "texture": {
         "animationFrames": [
@@ -690,13 +715,14 @@
           "up": 3
         },
         "frameDurationMs": 130,
-        "frameHeight": 56,
-        "frameWidth": 48,
+        "frameHeight": 80,
+        "frameMode": "animation",
+        "frameWidth": 80,
         "idleFrame": 0,
         "pivotX": 0.5,
-        "pivotY": 0.78,
-        "worldHeightTiles": 1.26,
-        "worldWidthTiles": 1.08
+        "pivotY": 0.546,
+        "worldHeightTiles": 1.8,
+        "worldWidthTiles": 1.8
       }
     },
     {
@@ -705,9 +731,9 @@
       "category": "player",
       "status": "legacy-placeholder",
       "filename": "textures/texture.legacy.player.warrior.png",
-      "width": 192,
-      "height": 224,
-      "sha256": "5d4f4e50835ae68109971a8763872901cf326cfa2eb3654400274aa919a7934f",
+      "width": 320,
+      "height": 320,
+      "sha256": "3b771940ce537bb2c2dc09b0b39a49fb5f363363caf35485368126b91e1233c5",
       "source": "assets/player__warrior.png",
       "texture": {
         "animationFrames": [
@@ -723,13 +749,14 @@
           "up": 3
         },
         "frameDurationMs": 130,
-        "frameHeight": 56,
-        "frameWidth": 48,
+        "frameHeight": 80,
+        "frameMode": "animation",
+        "frameWidth": 80,
         "idleFrame": 0,
         "pivotX": 0.5,
-        "pivotY": 0.78,
-        "worldHeightTiles": 1.26,
-        "worldWidthTiles": 1.08
+        "pivotY": 0.546,
+        "worldHeightTiles": 1.8,
+        "worldWidthTiles": 1.8
       }
     },
     {
@@ -751,6 +778,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -774,6 +802,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -797,6 +826,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -820,6 +850,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -843,6 +874,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -866,6 +898,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -889,6 +922,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -912,6 +946,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -935,6 +970,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -947,7 +983,7 @@
       "filename": "textures/texture.legacy.terrain.stairs_down.png",
       "width": 128,
       "height": 32,
-      "sha256": "632ce701ffd0f41e116fa2b249ff005f3ece91144f819af66d88e2a70a3c7f4e",
+      "sha256": "15e5b19bc345798f5124eacb19b77ba300c88e322460610ab4eebc766fbcbac6",
       "source": "assets/terrain__stairs_down.png",
       "texture": {
         "animationFrames": [
@@ -958,6 +994,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -970,7 +1007,7 @@
       "filename": "textures/texture.legacy.terrain.stairs_up.png",
       "width": 128,
       "height": 32,
-      "sha256": "46ab9b4acf54b4b8d5b1ffcb1ad9a3b6d97ca7fc4aea18b4d36213fb7ffb759d",
+      "sha256": "0fc6e024a7d48de72c8727eb172ab1faa7959a7cdf08ffb571bb370dc9b22dcd",
       "source": "assets/terrain__stairs_up.png",
       "texture": {
         "animationFrames": [
@@ -981,6 +1018,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1004,6 +1042,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1027,6 +1066,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1050,6 +1090,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1073,6 +1114,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1096,6 +1138,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1119,6 +1162,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "animation",
         "frameWidth": 32,
         "idleFrame": 0
       }
@@ -1142,6 +1186,7 @@
         ],
         "frameDurationMs": 360,
         "frameHeight": 32,
+        "frameMode": "variant",
         "frameWidth": 32,
         "idleFrame": 0
       }

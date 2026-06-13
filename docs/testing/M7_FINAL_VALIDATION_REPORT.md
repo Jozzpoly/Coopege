@@ -1,8 +1,12 @@
 # M7 FINAL VALIDATION CANDIDATE — TEST REPORT
 
-- Wersja: **0.7.3-m7-validation-candidate**
+- Wersja zamykająca: **0.7.5-m7-owner-accepted**
 - Data: **2026-06-13**
-- Status: **TECH_VERIFIED / NOT SUCCESSOR_REVIEWED / NOT OWNER ACCEPTED**
+- Status: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / NOT SUCCESSOR_REVIEWED**
+
+## Zamknięcie właścicielskie — 2026-06-13
+
+Przemek potwierdził usunięcie problemów z atlasami tekstur i animacją/wariantami terenu oraz zdecydował o przejściu do M8. M7 zostaje zamknięte jako `ACCEPT_WITH_DEBT`. Odłożony problem lokalnego C0 z przestawianiem punktu respawnu solo ma status `BACKLOG` w `docs/process/OWNER_FEEDBACK.md` i nie blokuje M8 LAN.
 
 ## Cel
 
@@ -10,6 +14,10 @@ Domknąć M7 jako świadomy fundament przed M8: prawdziwe ścieżki gracza, prze
 
 ## Najważniejsze poprawki finalnej rewizji
 
+- poprawka owner feedback: P2 jest usuwany z threat aktywnych i uśpionych spawnów przed zapisem solo;
+- stabilne warianty terenu wybierane z seeda i współrzędnych; animowane pozostają woda i lawa;
+- atlasy graczy 80x80 zachowują skalę i pivot, ale mieszczą broń oraz stopy w czterech kierunkach;
+- zgodne z Node 24 uruchamianie npm przez skrypty doctor, test i diagnostics na Windowsie;
 - dynamiczny `TextureFrameLayout` i pivot zamiast hardcoded 32 px;
 - 24 authored transitions uruchamiane wejściem P1/P2;
 - P2 keyboard bez gamepada;
@@ -24,11 +32,11 @@ Domknąć M7 jako świadomy fundament przed M8: prawdziwe ścieżki gracza, prze
 
 | Bramka | Wynik |
 |---|---:|
-| Doctor | 17 PASS / 1 env WARN / 0 FAIL |
-| Handoff | 24 PASS / 0 FAIL |
+| Doctor | 18 PASS / 0 WARN / 0 FAIL |
+| Handoff | 40 PASS / 0 FAIL |
 | Portability | 21 PASS / 0 WARN / 0 FAIL |
 | TypeScript | PASS |
-| Node | 90/90 PASS |
+| Node | 94/94 PASS |
 | Migration | 52/52 PASS |
 | Legacy | 4/4 PASS |
 | Chromium | 9/9 PASS |
@@ -36,6 +44,8 @@ Domknąć M7 jako świadomy fundament przed M8: prawdziwe ścieżki gracza, prze
 | Dev-server reuse | PASS |
 | Gameplay Gate | 27 000 solo + 27 000 C0; saves 6/6 PASS |
 | Asset Vault | 45/45 PNG + manifest/contact sheet PASS |
+| Reprodukowalność Asset Vault | 2 kolejne buildy, identyczny SHA-256 ZIP PASS |
+| Ręczny browser QA | 2 graczy, kompletne atlasy, brak błędów konsoli, save P2 -> solo -> load PASS |
 | Clean package | fresh `npm ci`, build, check, doctor, handoff, portability, legacy, server reuse and gameplay gate PASS |
 
 ## Kontrprzykłady
@@ -48,4 +58,4 @@ Headless Chromium/CDP w długich, wielokrotnie powtarzanych seriach kontenerowyc
 
 ## Otwarte
 
-Ręczny owner test, feel, balans, czytelność mapy i dłuższa realna sesja. M8 nie zostało rozpoczęte. `SUCCESSOR_REVIEWED` i `OWNER_ACCEPTED` pozostają false.
+M7 jest zamknięte decyzją właściciela. Otwarte pozostają wczesny feel, balans i rozwój rozgrywki, ale nie są blockerami zakończonego milestone. M8 LAN przechodzi do entry review; `SUCCESSOR_REVIEWED` pozostaje false do niezależnego audytu następcy.

@@ -2,12 +2,13 @@
 
 > Krótkie źródło prawdy technicznej. Szczegóły historyczne są w ADR-ach i raportach; wizja w dokumentach product.
 
-- Wersja pamięci: **5**
+- Wersja pamięci: **6**
 - Data: **2026-06-13**
-- Workspace: **0.7.3-m7-validation-candidate**
-- Status: **M7 FINAL VALIDATION CANDIDATE / TECH_VERIFIED / NOT SUCCESSOR_REVIEWED / NOT OWNER ACCEPTED**
-- Aktywne: ręczna walidacja Przemka i późniejszy niezależny L2 Inheritance Review
-- M8 LAN: **ZABLOKOWANE** do obu powyższych bramek
+- Workspace: **0.7.5-m7-owner-accepted**
+- Status: **M7 TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / NOT SUCCESSOR_REVIEWED**
+- Ukończone: M7 Finalization / Owner Validation
+- Aktywne: **M8 LAN Foundation / Entry Review**
+- M8 LAN: planowanie jest otwarte; pierwsza zmiana implementacyjna wymaga niezależnego L2 Inheritance Review
 
 ## Start głównego agenta
 
@@ -16,8 +17,9 @@
 3. ten plik
 4. `docs/process/CURRENT_MILESTONE.md`
 5. `docs/process/LAST_HANDOFF.md`
-6. najnowszy `PLAYTEST_LOG.md`
-7. wskazane ADR-y
+6. `docs/process/OWNER_FEEDBACK.md`
+7. najnowszy `PLAYTEST_LOG.md`
+8. wskazane ADR-y
 8. przy pierwszym przejęciu roli: `COOPEGE_SOUL.md`, `AGENT_SOUL.md`, `PANTHEON.md`, roadmapa
 
 Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i aktualne ADR-y wygrywają ze starym opisem.
@@ -42,7 +44,8 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - atomowe odrzucanie uszkodzonego save’a;
 - 24 walidowane transitions uruchamiane realnym wejściem P1 albo P2 na schody;
 - deterministyczny tie-break i bezpieczne rozmieszczenie drużyny;
-- `TextureFrameLayout`, legacy player sheet 48×56, stabilny pivot;
+- `TextureFrameLayout`, atlasy graczy 80×80 z zachowaną skalą i stabilnym pivotem;
+- teren używa deterministycznych wariantów; animowane pozostają woda i lawa;
 - aim myszy przeliczany co tick względem aktualnej kamery;
 - P2: strzałki + prawy Ctrl/Numpad0 albo gamepad; edge-triggered join bez natychmiastowego rejoinu;
 - Asset Vault: 45 PNG, manifest, contact sheet, import/export ZIP, SHA/CRC/layout validation;
@@ -51,11 +54,11 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 
 ## Potwierdzony baseline
 
-- Doctor: **17 PASS / 1 środowiskowy WARN / 0 FAIL**
-- Handoff gate: **24 PASS / 0 FAIL**
+- Doctor: **18 PASS / 0 WARN / 0 FAIL**
+- Handoff gate: **PASS**
 - Portability: **21 PASS / 0 WARN / 0 FAIL**
 - TypeScript: **PASS**
-- Node: **90/90 PASS**
+- Node: **94/94 PASS**
 - Golden migration: **52/52 PASS**
 - Chromium: **9/9 PASS**
 - Ability Composer: **PASS**
@@ -63,7 +66,7 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - Dev-server reuse: **PASS**
 - Gameplay Gate: **27 000 ticków solo + 27 000 C0, saves 6/6 — PASS_AUTOMATED**
 - Clean-package install/build/check/portability/handoff/legacy: **PASS**
-- Owner playtest: **OPEN**
+- Owner playtest: **ACCEPT_WITH_DEBT, 2026-06-13**
 
 ## Otwarte ograniczenia
 
@@ -71,6 +74,7 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - brak pełnych osobnych clipów attack/death;
 - transitions nie mają pełnego CRUD w Studio;
 - P2 keyboard zależy od key rollover klawiatury;
+- lokalny C0 może po śmierci zmienić punkt respawnu używany później solo; `BACKLOG`, nie blokuje M8;
 - brak LAN, reconnectu i interpolacji;
 - brak docelowych systemów itemów, questów/dialogów, talentów i authoringu AI;
 - headless Chromium/CDP w długiej serii kontenerowej bywa niestabilne infrastrukturalnie; scenariusze mają timeouty, izolację i pełny pass, ale ręczna walidacja Windows pozostaje nadrzędna.
@@ -83,3 +87,4 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - protokół: `docs/process/AGENT_HANDOFF_PROTOCOL_V2.md`
 - raport: `docs/testing/M7_FINAL_VALIDATION_REPORT.md`
 - instrukcja testu: `docs/testing/M7_OWNER_PLAYTEST_GUIDE.md`
+- trwały feedback właściciela: `docs/process/OWNER_FEEDBACK.md`

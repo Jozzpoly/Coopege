@@ -58,8 +58,14 @@ Przed wydaniem spróbuj obalić własne twierdzenia. Sprawdź czysty katalog, Wi
 - jedna kanoniczna paczka bez `node_modules` i `.build`;
 - zewnętrzny `.zip.sha256`;
 - raport, manifest artefaktów i uczciwe ograniczenia;
-- nie ustawiaj `SUCCESSOR_REVIEWED` ani `OWNER_ACCEPTED`.
+- nie ustawiaj `SUCCESSOR_REVIEWED`; `OWNER_ACCEPTED` ustawiaj wyłącznie po jawnej decyzji Przemka.
 
 ## 8. Feedback
 
-Każdą obserwację Przemka zapisz w `PLAYTEST_LOG.md` jako `BUG`, `UX`, `FEEL`, `BALANCE`, `CONTENT`, `ARCH` albo `IDEA`. Regresja dostaje test. Feel/balance wracają do ponownego playtestu. M8 nie omija otwartego owner gate M7.
+Czat jest podstawowym kanałem feedbacku Przemka. Trwałe decyzje, dłuższe uwagi, starsze błędy i świadomie odłożone długi zapisuj w `OWNER_FEEDBACK.md`; przebieg faktycznych sesji pozostaje w `PLAYTEST_LOG.md`. Regresja dostaje test, a feel/balance wracają do ponownego playtestu.
+
+## 9. Spójność dokumentacji
+
+Agent odpowiada za spójność wszystkich bieżących dokumentów. Po zmianie wersji, milestone, owner acceptance, blockerów, baseline'u lub priorytetów zaktualizuj co najmniej `PROJECT_STATE.json`, `AI_PROJECT_MEMORY.md`, `CURRENT_MILESTONE.md`, `LAST_HANDOFF.md`, roadmapę, `OWNER_FEEDBACK.md`, właściwy raport i gotowy interfejs. Następnie przebuduj `dist`, odtwórz manifesty i uruchom pełny gate.
+
+Raporty historyczne zachowują dawny stan, ale muszą mieć czytelną datowaną adnotację, jeśli późniejsza decyzja zmienia sposób ich interpretacji. Rozjazd dokumentacja ↔ kod ↔ test ↔ artefakt jest błędem wydania i należy go naprawić przed zakończeniem zadania.

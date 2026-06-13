@@ -210,7 +210,7 @@ class PreviewBridgeClient {
     if (!this.frame.contentWindow) throw new Error("Preview iframe nie ma contentWindow.");
     await new Promise<void>((resolve) => this.frame.addEventListener("load", () => resolve(), { once: true }));
     const response = await this.request(BRIDGE_TYPES.studioHello, {
-      studioVersion: "0.1.0-m7-final-candidate",
+      studioVersion: "0.1.0-m7-owner-accepted",
       schemaVersion: 2,
       capabilities: [
         "project.store",

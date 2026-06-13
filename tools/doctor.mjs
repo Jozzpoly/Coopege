@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve, relative } from "node:path";
 import { spawnSync } from "node:child_process";
+import { npmInvocation } from "./npm-cli.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const forbiddenPatterns = [
@@ -44,7 +45,8 @@ function result(ok, label, detail = "") {
 let failures = 0;
 const nodeMajor = Number.parseInt(process.versions.node.split(".")[0] ?? "0", 10);
 failures += result(nodeMajor >= 20, "Node >= 20", process.versions.node);
-const npm = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["--version"], { cwd: root, encoding: "utf8" });
+const npmCommand = npmInvocation(["--version"]);
+const npm = spawnSync(npmCommand.command, npmCommand.args, { cwd: root, encoding: "utf8" });
 failures += result(npm.status === 0, "npm dostępny", npm.stdout.trim() || npm.stderr.trim());
 
 for (const file of required) failures += result(existsSync(join(root, file)), `wymagany plik ${file}`);

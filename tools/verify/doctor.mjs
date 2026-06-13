@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { npmInvocation } from "../npm-cli.mjs";
 
 const root = resolve(import.meta.dirname, "../..");
 const failures = [];
@@ -19,8 +20,8 @@ function command(program, args) {
 const nodeMajor = Number(process.versions.node.split(".")[0]);
 if (nodeMajor >= 20) pass(`Node ${process.versions.node}`); else fail(`Node ${process.versions.node}; wymagany >=20.11.`);
 
-const npmProgram = process.platform === "win32" ? "npm.cmd" : "npm";
-const npmVersion = command(npmProgram, ["--version"]);
+const npmVersionInvocation = npmInvocation(["--version"]);
+const npmVersion = command(npmVersionInvocation.command, npmVersionInvocation.args);
 if (!npmVersion.startsWith("ERROR:")) pass(`npm ${npmVersion}`); else fail(`Nie można uruchomić npm: ${npmVersion}`);
 
 const required = [
@@ -56,7 +57,8 @@ const projectRegistry = projectRegistryMatch?.[1] ?? "";
 if (/^https:\/\/registry\.npmjs\.org\/?$/.test(projectRegistry)) pass(`projektowy registry npm: ${projectRegistry}`);
 else fail(`.npmrc nie wskazuje publicznego registry npm: ${projectRegistry || "brak wpisu"}`);
 
-const registry = command(npmProgram, ["config", "get", "registry"]);
+const registryInvocation = npmInvocation(["config", "get", "registry"]);
+const registry = command(registryInvocation.command, registryInvocation.args);
 if (/^https:\/\/registry\.npmjs\.org\/?$/.test(registry)) pass(`efektywny registry npm: ${registry}`);
 else if (registry.startsWith("ERROR:") && /^https:\/\/registry\.npmjs\.org\/?$/.test(projectRegistry)) {
   warn("npm nie pozwolił odczytać efektywnego registry, ale projektowy .npmrc jest poprawny.");
