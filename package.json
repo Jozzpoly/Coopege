@@ -1,6 +1,6 @@
 {
   "name": "coopege",
-  "version": "0.8.0-m8-lan-vs2",
+  "version": "0.8.0-m8-lan-vs3",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -21,7 +21,7 @@
     "migrate:legacy:convert": "node tools/migrate/convert-legacy-snapshot.mjs && node tools/migrate/upgrade-project-v2.mjs project/migration/legacy-v14.1/coopege.project.json project/migration/legacy-v14.1/coopege.project.v2.json && node tools/migrate/create-golden-manifest.mjs",
     "migrate:legacy": "npm run verify:legacy && npm run migrate:legacy:extract && npm run migrate:legacy:convert && npm run verify:migration",
     "verify:migration": "node tools/migrate/verify-golden.mjs",
-    "test:browser": "npm run build && node tools/test/browser-suite.mjs",
+    "test:browser": "npm run build && npm run lan:host:build && node tools/test/browser-suite.mjs",
     "upgrade:project-v2": "node tools/migrate/upgrade-project-v2.mjs",
     "test:gameplay-gate": "npm run test:compile && node tools/test/gameplay-gate-0.1.mjs",
     "assets:vault": "npm run build",
@@ -30,8 +30,8 @@
     "play": "node tools/dev-server.mjs --open=runtime",
     "diagnostics": "node tools/diagnostics/collect-diagnostics.mjs",
     "lan:host:build": "tsc -p tsconfig.lan-host.json",
-    "lan:host": "npm run lan:host:build && node .build/lan-host/apps/lan-host/src/server.js",
-    "test:lan-host": "npm run lan:host:build && node tools/test/lan-host-smoke.mjs",
+    "lan:host": "npm run build && npm run lan:host:build && node .build/lan-host/apps/lan-host/src/server.js",
+    "test:lan-host": "npm run build && npm run lan:host:build && node tools/test/lan-host-smoke.mjs",
     "start": "npm run play",
     "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:lan-host && npm run test:gameplay-gate && npm run verify:release-manifests",
     "studio": "node tools/dev-server.mjs --open=studio",

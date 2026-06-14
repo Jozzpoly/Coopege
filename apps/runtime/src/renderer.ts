@@ -3,12 +3,11 @@ import {
   computeSharedCameraFrame,
   type GameWorld,
   type GameplayEvent,
-  type PlayerActor,
-  type RuntimeActor,
   type Vec2,
 } from "../../../packages/gameplay/src/index.js";
 import type { AssetEntry } from "../../../packages/schema/src/index.js";
-import type { PreparedRuntimeProject } from "../../../packages/runtime-core/src/index.js";
+import type { PreparedFloor, PreparedRuntimeProject } from "../../../packages/runtime-core/src/index.js";
+import type { HostSnapshotPayload } from "../../../packages/lan-protocol/src/index.js";
 import { computeSpriteDrawRect, resolveTextureLayout, selectSpriteFrame, selectTileFrame, type SpriteDirection } from "./sprite-layout.js";
 
 interface VisualEffect {
@@ -40,18 +39,44 @@ const PLAYER_COLORS = ["#70cfff", "#ffd36f", "#8ff0a4", "#dc8cff"] as const;
 
 type DirectionKey = SpriteDirection;
 
+interface RenderBaseActor {
+  entityId: string;
+  kind: "player" | "monster";
+  floorId: string;
+  position: Vec2;
+  previousPosition: Vec2;
+  radius: number;
+  alive: boolean;
+  hp: number;
+  maxHp: number;
+}
+
+interface RenderPlayerActor extends RenderBaseActor {
+  kind: "player";
+  playerId: string;
+  classId: string;
+  facing: Vec2;
+}
+
+interface RenderMonsterActor extends RenderBaseActor {
+  kind: "monster";
+  definitionId: string;
+}
+
+type RenderActor = RenderPlayerActor | RenderMonsterActor;
+
 function interpolate(previous: number, current: number, alpha: number): number {
   return previous + (current - previous) * alpha;
 }
 
-function actorPosition(actor: RuntimeActor, alpha: number): Vec2 {
+function actorPosition(actor: RenderActor, alpha: number): Vec2 {
   return {
     x: interpolate(actor.previousPosition.x, actor.position.x, alpha),
     y: interpolate(actor.previousPosition.y, actor.position.y, alpha),
   };
 }
 
-function actorDirection(actor: RuntimeActor): DirectionKey {
+function actorDirection(actor: RenderActor): DirectionKey {
   const direction = actor.kind === "player"
     ? actor.facing
     : { x: actor.position.x - actor.previousPosition.x, y: actor.position.y - actor.previousPosition.y };
@@ -124,11 +149,69 @@ export class RuntimeRenderer {
   }
 
   render(world: GameWorld, alpha: number, now: number): void {
+    this.renderScene(
+      world.preparedFloor,
+      world.activeFloorId,
+      world.actors.values(),
+      world.players,
+      alpha,
+      world.tick,
+      world.tickRate,
+      now,
+    );
+  }
+
+  renderLan(snapshot: HostSnapshotPayload, tickRate: number, now: number): void {
     const project = this.project;
     if (!project) return;
-    const floor = world.preparedFloor;
-    const playerPositions = world.players
-      .filter((player) => player.floorId === world.activeFloorId)
+    const floor = project.floors.get(snapshot.activeFloorId);
+    if (!floor) return;
+    const players: RenderPlayerActor[] = snapshot.players.map((player) => ({
+      entityId: player.entityId,
+      kind: "player",
+      playerId: player.playerId,
+      classId: player.classId,
+      floorId: player.floorId,
+      position: { x: player.x, y: player.y },
+      previousPosition: { x: player.previousX, y: player.previousY },
+      radius: player.radius,
+      alive: player.alive,
+      hp: player.hp,
+      maxHp: player.maxHp,
+      facing: { x: player.facingX, y: player.facingY },
+    }));
+    const actors: RenderActor[] = [
+      ...players,
+      ...snapshot.actors.map((actor): RenderMonsterActor => ({
+        entityId: actor.entityId,
+        kind: "monster",
+        definitionId: actor.definitionId,
+        floorId: actor.floorId,
+        position: { x: actor.x, y: actor.y },
+        previousPosition: { x: actor.previousX, y: actor.previousY },
+        radius: actor.radius,
+        alive: actor.alive,
+        hp: actor.hp,
+        maxHp: actor.maxHp,
+      })),
+    ];
+    this.renderScene(floor, snapshot.activeFloorId, actors, players, 1, snapshot.hostTick, tickRate, now);
+  }
+
+  private renderScene(
+    floor: PreparedFloor,
+    activeFloorId: string,
+    actors: readonly RenderActor[],
+    players: readonly RenderPlayerActor[],
+    alpha: number,
+    tick: number,
+    tickRate: number,
+    now: number,
+  ): void {
+    const project = this.project;
+    if (!project) return;
+    const playerPositions = players
+      .filter((player) => player.floorId === activeFloorId)
       .map((player) => actorPosition(player, alpha));
     const frame = computeSharedCameraFrame(playerPositions, this.canvas.width, this.canvas.height, {
       marginTiles: 4.4,
@@ -166,12 +249,12 @@ export class RuntimeRenderer {
       }
     }
 
-    this.drawTransitions(world.activeFloorId, startX, endX, startY, endY, now);
-    const actors = world.actors.values()
-      .filter((actor) => actor.floorId === world.activeFloorId)
+    this.drawTransitions(activeFloorId, startX, endX, startY, endY, now);
+    const visibleActors = actors
+      .filter((actor) => actor.floorId === activeFloorId)
       .sort((left, right) => actorPosition(left, alpha).y - actorPosition(right, alpha).y || left.entityId.localeCompare(right.entityId));
-    for (const actor of actors) this.drawActor(actor, world.players, alpha, world.tick, world.tickRate);
-    this.drawEffects(world.activeFloorId, now);
+    for (const actor of visibleActors) this.drawActor(actor, players, alpha, tick, tickRate);
+    this.drawEffects(activeFloorId, now);
     this.drawVignette();
   }
 
@@ -213,7 +296,7 @@ export class RuntimeRenderer {
     }
   }
 
-  private drawActor(actor: RuntimeActor, players: readonly PlayerActor[], alpha: number, tick: number, tickRate: number): void {
+  private drawActor(actor: RenderActor, players: readonly RenderPlayerActor[], alpha: number, tick: number, tickRate: number): void {
     if (!actor.alive || !this.project) return;
     const position = actorPosition(actor, alpha);
     const screen = this.worldToScreen(position);

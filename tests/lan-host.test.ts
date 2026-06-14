@@ -12,7 +12,7 @@ import {
 import type { ClientHelloPayload, ClientInputPayload } from "../packages/lan-protocol/src/index.js";
 import { prepareRuntimeProject } from "../packages/runtime-core/src/index.js";
 
-const engineVersion = "0.8.0-m8-lan-vs2";
+const engineVersion = "0.8.0-m8-lan-vs3";
 const projectChecksum = "a".repeat(64);
 const sessionToken = "session-token-0123456789abcdef";
 

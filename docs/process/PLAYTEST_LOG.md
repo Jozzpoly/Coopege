@@ -2,6 +2,23 @@
 
 > Testy automatyczne sprawdzają spójność. Ten plik zachowuje doświadczenie z prawdziwego grania. Najnowsze wpisy są na górze.
 
+## 2026-06-14 - M8 VS-3 grywalny klient LAN
+
+- **Wersja:** `0.8.0-m8-lan-vs3`
+- **Zakres:** render-only klient WebSocket, wejście jednego gracza, interpolacja snapshotów i diagnostyka sieci
+- **Status:** techniczny slice ukończony; awarie i reconnect należą do VS-4
+
+### Automatyczne potwierdzenie
+
+- Node 111/111;
+- host serwuje `Coopege_M8_LAN_Client.html` wyłącznie z poprawnym tokenem;
+- Chromium połączył klienta jako `player.local.1`, drugi WebSocket jako `player.local.2`;
+- natywny `KeyD` przesunął gracza o 1,63 pola, ACK dogonił input;
+- snapshot rate około 8 Hz, dwa renderowane sloty i brak lokalnego `GameWorld`: PASS;
+- screenshot: `.build/browser-smoke/m8-lan-client.png`.
+
+---
+
 ## 2026-06-14 - M8 VS-2 autorytatywny host Node
 
 - **Wersja:** `0.8.0-m8-lan-vs2`

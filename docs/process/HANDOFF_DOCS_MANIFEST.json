@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-14T13:56:35.430Z",
-  "workspace": "coopege@0.8.0-m8-lan-vs2",
+  "generatedAt": "2026-06-14T14:21:30.196Z",
+  "workspace": "coopege@0.8.0-m8-lan-vs3",
   "status": "M7_OWNER_ACCEPTED_WITH_DEBT_SUCCESSOR_REVIEWED",
-  "activeMilestone": "M8 LAN Foundation / VS-3 Client",
+  "activeMilestone": "M8 LAN Foundation / VS-4 Failures and Reconnect",
   "files": [
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 2004,
-      "sha256": "b92e50da2649b52a618f4b261c1e639e84af3a59c900179f13c7614f2eb9c74c"
+      "bytes": 2208,
+      "sha256": "5b0e4fb2c19c33fb36d1bcc10907c0a79ef2459efa94472308888082ce2fa3d4"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 6287,
-      "sha256": "5a1d16d8fcacfc4c575ecc13f7fdde6e44228ffc2b08f42a3d218ac114368859"
+      "bytes": 6754,
+      "sha256": "433a8266eccf1cf8a97c73cba624afdcf4bcf93adda2c41fd93f16c6de4460b1"
     },
     {
       "path": "README.md",
-      "bytes": 3054,
-      "sha256": "6c4482f6984d8659f54ccee569e42391ff9a7aafdbe7a314bdae1993568b04d9"
+      "bytes": 3126,
+      "sha256": "7db646428a9d765f4796f2afbbf356ed7655bd4e728711020d6caeeec45b0d68"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1822,
-      "sha256": "92a6131a9fe6e31d99cba1c8f6d48a317cfb12f4887d6d26fd32c9d6c469d1da"
+      "bytes": 1922,
+      "sha256": "811ca8eb7d805b6b0cf2464ae9eba2c9236febc7ce0342b1c83bd2f41e8ccdcb"
     },
     {
       "path": "docs/product/COOPEGE_SOUL.md",
@@ -41,8 +41,8 @@
     },
     {
       "path": "docs/product/COOPEGE_ROADMAP.md",
-      "bytes": 4998,
-      "sha256": "5725466401df175bc5702acce083cc9e155b324de01970715f99d928a5ba2657"
+      "bytes": 5521,
+      "sha256": "5f495456a692d53fde52298c58227f47b966afa66b91bc9688251a968d4857b7"
     },
     {
       "path": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
@@ -56,13 +56,13 @@
     },
     {
       "path": "docs/process/CURRENT_MILESTONE.md",
-      "bytes": 3499,
-      "sha256": "c6981ad78fb5ca9c4d429d3e245a88d71f17f1fc4315abe32a5611e821cecfcd"
+      "bytes": 3138,
+      "sha256": "4b9a9f68f8c211f61d5dae000acaf06f20000168a0f2a974ede47a48620ce952"
     },
     {
       "path": "docs/process/LAST_HANDOFF.md",
-      "bytes": 2515,
-      "sha256": "4257d8696a8883d32800c8b7cb74d8be7e9c04e3457e037ff30232b49f82c33a"
+      "bytes": 2506,
+      "sha256": "b1209dd51a6db575f354af2becb402f38412773af9d04771de602489fdfdc229"
     },
     {
       "path": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
@@ -76,8 +76,8 @@
     },
     {
       "path": "docs/process/PLAYTEST_LOG.md",
-      "bytes": 9442,
-      "sha256": "d6428a8eb7b1db5f875ca2a2d7d269d61200ebb580079af7ae3edfa94af73259"
+      "bytes": 10150,
+      "sha256": "1ba423d43a0b07d7e074994ee7dfd79425cb1a52173406fe904f154e6158e1cd"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
@@ -131,8 +131,8 @@
     },
     {
       "path": "docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md",
-      "bytes": 3609,
-      "sha256": "a80ce9ba5fdd25c48907d3d6f097800f3af0f9ae7d71183b100d23426e8e57f0"
+      "bytes": 3887,
+      "sha256": "3b99b4b9c7cba2663990b3116079d4b4aad5f233a9d3e8ea648a4c6c8d4b1494"
     },
     {
       "path": "docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md",
@@ -146,23 +146,58 @@
     },
     {
       "path": "docs/process/M8_LAN_HOST_VS2.md",
-      "bytes": 1757,
-      "sha256": "4d112c6d293b221e3a11412c6dee9db15c86b219c103f3c39487357a5eddc488"
+      "bytes": 1793,
+      "sha256": "92e1471f7274ae3fbcbfe59418ada234248ff86ec6ea2a8def3664ce22ed1367"
     },
     {
       "path": "apps/lan-host/src/session.ts",
-      "bytes": 12248,
-      "sha256": "25a3e72ba3545b1a99eb09728b05f676fb1d6e1dcff40f34ae5b16fb06316711"
+      "bytes": 12392,
+      "sha256": "98f5fef3840b81236cb5f2f2c312ce792c52d108e294f305f765bd080be0cd12"
     },
     {
       "path": "apps/lan-host/src/server.ts",
-      "bytes": 11512,
-      "sha256": "e4c0c6ccbc140cd194f6d2dc13f1203464c1f5c190125d48bcac1f431da26d55"
+      "bytes": 11775,
+      "sha256": "cce524cb5ba76836e9a763e022268939a2dceaa3e4990424a7d05b0ff4f1b593"
     },
     {
       "path": "tools/test/lan-host-smoke.mjs",
-      "bytes": 5637,
-      "sha256": "7b250cd3426ef5d346dfedb4ecaf51e972ac51611d3a7059c236b897eab9e698"
+      "bytes": 5737,
+      "sha256": "dc4aa324bc9cbe75342886ebd9b9f05f48513417177321e90ce99ba01c0c3893"
+    },
+    {
+      "path": "docs/process/M8_LAN_CLIENT_VS3.md",
+      "bytes": 1984,
+      "sha256": "da8100f6dd0299510307d145e5a954532318eecc7e0e17436a658ef1853190ff"
+    },
+    {
+      "path": "apps/runtime/lan-client-template.html",
+      "bytes": 5061,
+      "sha256": "ebc54b244557f5c89484e40f951267c5db642ac64eb9d0da100e65773b1bf673"
+    },
+    {
+      "path": "apps/runtime/src/lan-client-main.ts",
+      "bytes": 13141,
+      "sha256": "7fae6f8e880edbe776dc0b41419184698f571bb942b216ff27a58282bc74ee56"
+    },
+    {
+      "path": "apps/runtime/src/lan-input-adapter.ts",
+      "bytes": 3800,
+      "sha256": "dfde1ca2226ea736ab3e4640c314832a1029588fcb8d0dfa49b3be98c90994cb"
+    },
+    {
+      "path": "packages/lan-protocol/src/snapshot-buffer.ts",
+      "bytes": 4898,
+      "sha256": "654c05fc8f247ba756d7da3b969b030692669d00006e5b3a5373172e9e468b65"
+    },
+    {
+      "path": "tests/lan-client.test.ts",
+      "bytes": 3085,
+      "sha256": "cae6215cd849584890e1ab4d191068567074a84dba8a3a8ed09ce2df41217a48"
+    },
+    {
+      "path": "tools/test/lan-client-browser-smoke.mjs",
+      "bytes": 7291,
+      "sha256": "7241e7876f0037f6f8d5389466ce6c5f66786a46680fe16f139d126b7939e541"
     }
   ]
 }

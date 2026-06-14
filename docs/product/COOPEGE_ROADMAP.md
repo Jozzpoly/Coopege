@@ -61,7 +61,7 @@ Przemek zamknął M7 decyzją `ACCEPT_WITH_DEBT`. Dług lokalnego C0 zapisany ja
 
 ## Aktywne: M8 — pierwszy LAN Coop
 
-Status: **L2 PASS / IMPLEMENTATION IN PROGRESS / VS-1 AND VS-2 COMPLETE**. Niezależny L2 Inheritance Review zakończył się `PASS` 2026-06-14, kontrakt protokołu i autorytatywny host Node są gotowe, a następnym krokiem jest VS-3 klient runtime.
+Status: **L2 PASS / IMPLEMENTATION IN PROGRESS / VS-1, VS-2 AND VS-3 COMPLETE**. Niezależny L2 Inheritance Review zakończył się `PASS` 2026-06-14. Kontrakt protokołu, autorytatywny host Node i grywalny klient renderujący snapshoty są gotowe; następnym krokiem jest VS-4 odporność połączenia.
 
 Cel produktu: host i klient grają na osobnych urządzeniach w tej samej sieci lokalnej.
 
@@ -93,6 +93,15 @@ Ukończone w VS-2:
 - reconnect token bez usuwania świata po disconnect;
 - host-only load/autosave/shutdown save;
 - realny smoke test dwóch połączeń WebSocket.
+
+Ukończone w VS-3:
+
+- samowystarczalny `dist/Coopege_M8_LAN_Client.html` serwowany przez hosta;
+- wejście klawiatura/mysz/gamepad wysyłane jako komendy przydzielonego gracza;
+- render-only klient bez lokalnego `GameWorld` i bez ownershipu save'a;
+- bufor snapshotów z kontrolą kolejności, limitem pamięci i interpolacją;
+- diagnostyka RTT, ACK, input age, tick drift, snapshot rate i rejected inputs;
+- test Chromium z dwoma klientami i natywnym ruchem gracza.
 
 Kryteria M8:
 

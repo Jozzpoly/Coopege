@@ -22,7 +22,7 @@ const sessionToken = "token-0123456789abcdef";
 
 function hello(overrides: Partial<ClientHelloPayload> = {}): ClientHelloPayload {
   return {
-    engineVersion: "0.8.0-m8-lan-vs2",
+    engineVersion: "0.8.0-m8-lan-vs3",
     projectId: "coopege.silver_gate_legacy",
     projectChecksum: checksum,
     sessionToken,
@@ -68,7 +68,7 @@ test("LAN handshake ma osobny protokół, wersję i deterministyczne kodowanie J
 });
 
 test("compatibility gate odrzuca inną wersję silnika, projekt, checksum i token", () => {
-  const expected = { engineVersion: "0.8.0-m8-lan-vs2", projectId: "coopege.silver_gate_legacy", projectChecksum: checksum, sessionToken };
+  const expected = { engineVersion: "0.8.0-m8-lan-vs3", projectId: "coopege.silver_gate_legacy", projectChecksum: checksum, sessionToken };
   assert.deepEqual(checkHelloCompatibility(hello(), expected), { ok: true });
   assert.equal(checkHelloCompatibility(hello({ engineVersion: "0.7.5" }), expected).ok, false);
   assert.equal(checkHelloCompatibility(hello({ projectId: "coopege.other" }), expected).ok, false);
@@ -126,7 +126,9 @@ test("snapshot prezentacyjny ma limit graczy, aktorów i poprawne ACK", () => {
       playerId: "player.local.1",
       entityId: "entity.player.000001",
       slotId: "slot.lan.1",
+      classId: "class.warrior",
       floorId: "floor.legacy.z_0",
+      radius: 0.3,
       x: 88.5,
       y: 84.5,
       previousX: 88.4,

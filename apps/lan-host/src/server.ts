@@ -24,6 +24,7 @@ const packageJson = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8
 const port = Number(process.env.PORT ?? 4174);
 const bindAddress = process.env.COOPEGE_LAN_BIND ?? "0.0.0.0";
 const projectPath = resolve(root, process.env.COOPEGE_LAN_PROJECT ?? "project/migration/legacy-v14.1/coopege.project.v2.json");
+const clientPath = resolve(root, process.env.COOPEGE_LAN_CLIENT ?? "dist/Coopege_M8_LAN_Client.html");
 const savePath = resolve(root, process.env.COOPEGE_LAN_SAVE_PATH ?? "data/m8-lan-host-save.json");
 const autosaveSeconds = Number(process.env.COOPEGE_LAN_AUTOSAVE_SECONDS ?? 30);
 const sessionToken = process.env.COOPEGE_LAN_TOKEN ?? randomBytes(18).toString("hex");
@@ -35,7 +36,9 @@ const projectInput = JSON.parse(readFileSync(projectPath, "utf8")) as unknown;
 const preparedResult = prepareRuntimeProject(projectInput);
 if (!preparedResult.ok) throw new Error(`Projekt hosta nie przeszedł walidacji: ${JSON.stringify(preparedResult.issues)}`);
 const prepared = preparedResult.prepared;
-const projectChecksum = createHash("sha256").update(JSON.stringify(prepared.project)).digest("hex");
+const projectChecksum = createHash("sha256").update(JSON.stringify(projectInput)).digest("hex");
+if (!existsSync(clientPath)) throw new Error(`Brak zbudowanego klienta LAN: ${clientPath}. Uruchom npm run build.`);
+const clientDocument = readFileSync(clientPath, "utf8");
 const world = new GameWorld(prepared, { initialPlayerCount: 2, tickRate: 30 });
 if (existsSync(savePath)) {
   const save = JSON.parse(readFileSync(savePath, "utf8")) as Parameters<typeof world.loadSaveSnapshot>[0];
@@ -76,7 +79,7 @@ function clientHtml(): string {
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Coopege M8 LAN Host</title><style>
 body{margin:0;background:#111827;color:#e5e7eb;font:16px system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}main{width:min(760px,90vw);background:#1f2937;border:1px solid #374151;border-radius:14px;padding:24px}h1{margin-top:0;color:#f9fafb}.ok{color:#86efac}.bad{color:#fca5a5}code,pre{background:#111827;border-radius:8px;padding:4px 7px}pre{padding:14px;overflow:auto;min-height:130px}small{color:#9ca3af}
-</style></head><body><main><h1>Coopege M8 LAN · VS-2 Host</h1><p id="state">Łączenie z hostem…</p><p><small>Ta strona sprawdza wspólny transport i snapshoty. Sterowanie oraz renderer LAN powstaną w VS-3.</small></p><pre id="details"></pre><script>
+</style></head><body><main><h1>Coopege M8 LAN · VS-3 Client</h1><p id="state">Łączenie z hostem…</p><p><small>Awaryjna diagnostyka transportu; standardowa ścieżka serwuje grywalny klient VS-3.</small></p><pre id="details"></pre><script>
 const config=${bootstrap};const state=document.querySelector('#state');const details=document.querySelector('#details');
 const socket=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/lan');
 const envelope=(type,payload)=>JSON.stringify({protocol:'coopege-lan',protocolVersion:1,type,payload});
@@ -102,7 +105,7 @@ const httpServer = createServer((request, response) => {
   }
   if (url.pathname === "/" && url.searchParams.get("token") === sessionToken) {
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
-    response.end(clientHtml());
+    response.end(clientDocument);
     return;
   }
   response.writeHead(url.pathname === "/" ? 403 : 404, { "Content-Type": "text/plain; charset=utf-8" });
@@ -229,7 +232,7 @@ httpServer.listen(port, bindAddress, () => {
   console.log(`Coopege LAN host ${packageJson.version}`);
   console.log(`Projekt: ${prepared.project.manifest.projectId}`);
   console.log(`WebSocket: ws://<adres>:${actualPort}/lan`);
-  console.log("Adresy klienta diagnostycznego:");
+  console.log("Adresy grywalnego klienta LAN:");
   for (const addressValue of addresses(actualPort)) console.log(`  ${addressValue}`);
   console.log(`Autosave: ${savePath}`);
   console.log("Zatrzymanie kontrolowane: wpisz shutdown i naciśnij Enter.");

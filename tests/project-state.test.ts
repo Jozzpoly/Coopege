@@ -6,7 +6,7 @@ import test from "node:test";
 const state = JSON.parse(readFileSync(resolve(process.cwd(), "PROJECT_STATE.json"), "utf8"));
 const packageJson = JSON.parse(readFileSync(resolve(process.cwd(), "package.json"), "utf8"));
 
-test("PROJECT_STATE zamyka M7 i potwierdza ukończony host M8 VS-2", () => {
+test("PROJECT_STATE zamyka M7 i potwierdza ukończony grywalny klient M8 VS-3", () => {
   assert.equal(state.format, "coopege-project-state");
   assert.equal(state.schemaVersion, 1);
   assert.equal(state.projectVersion, packageJson.version);
@@ -19,8 +19,8 @@ test("PROJECT_STATE zamyka M7 i potwierdza ukończony host M8 VS-2", () => {
   assert.match(state.activeMilestone, /M8 LAN/);
   assert.equal(state.nextMilestone.phase, "IN_PROGRESS");
   assert.equal(state.nextMilestone.implementationStarted, true);
-  assert.equal(state.nextMilestone.completedSlice, "VS-2");
-  assert.equal(state.nextMilestone.nextSlice, "VS-3");
+  assert.equal(state.nextMilestone.completedSlice, "VS-3");
+  assert.equal(state.nextMilestone.nextSlice, "VS-4");
   assert.deepEqual(state.blockers, []);
   assert.deepEqual(state.mustFixBeforeNext, []);
   assert.match(state.documents.inheritanceReview, /M8_ENTRY_L2_INHERITANCE_REVIEW/);
@@ -31,6 +31,9 @@ test("PROJECT_STATE zamyka M7 i potwierdza ukończony host M8 VS-2", () => {
   assert.match(state.documents.lanHost, /apps\/lan-host/);
   assert.match(state.documents.lanHostGuide, /M8_LAN_HOST_VS2/);
   assert.match(state.documents.lanHostSmoke, /lan-host-smoke/);
+  assert.match(state.documents.lanClient, /lan-client-main/);
+  assert.match(state.documents.lanClientGuide, /M8_LAN_CLIENT_VS3/);
+  assert.match(state.documents.lanClientBrowserSmoke, /lan-client-browser-smoke/);
 });
 
 test("PROJECT_STATE nie próbuje zawierać samoreferencyjnego SHA końcowego ZIP-a", () => {

@@ -81,7 +81,7 @@ server.on("error", async (error) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`Coopege M8 VS-2 Runtime:       ${runtimeUrl}`);
+  console.log(`Coopege M8 VS-3 Runtime:       ${runtimeUrl}`);
   console.log(`Coopege Studio:                ${studioUrl}`);
   console.log(`Minimal runtime:               http://localhost:${port}/dist/Coopege_M7_Runtime.html`);
   console.log("Zatrzymaj serwer skrótem Ctrl+C.");

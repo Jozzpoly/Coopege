@@ -2,13 +2,13 @@
 
 > Krótkie źródło prawdy technicznej. Szczegóły historyczne są w ADR-ach i raportach; wizja w dokumentach product.
 
-- Wersja pamięci: **9**
+- Wersja pamięci: **10**
 - Data: **2026-06-14**
-- Workspace: **0.8.0-m8-lan-vs2**
+- Workspace: **0.8.0-m8-lan-vs3**
 - Status: **M7 TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**
 - Ukończone: M7 Finalization / Owner Validation
-- Aktywne: **M8 LAN Foundation / VS-3 Client**
-- M8 LAN: niezależny L2 Inheritance Review zakończony `PASS` 2026-06-14; VS-1 i VS-2 są ukończone, następny krok to VS-3 klient runtime
+- Aktywne: **M8 LAN Foundation / VS-4 Failures and Reconnect**
+- M8 LAN: niezależny L2 Inheritance Review zakończony `PASS` 2026-06-14; VS-1, VS-2 i VS-3 są ukończone, następny krok to VS-4
 
 ## Start głównego agenta
 
@@ -73,7 +73,10 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - dwa równorzędne połączenia dostają stabilne sloty, reconnect token i per-client ACK;
 - host składa neutralny input dla brakujących komend i publikuje snapshoty 10 Hz;
 - disconnect nie usuwa świata, a autosave i kontrolowany `shutdown` utrzymują ownership zapisu po stronie hosta;
-- diagnostyczna strona VS-2 sprawdza transport; grywalny renderer klienta należy do VS-3;
+- host serwuje grywalny `Coopege_M8_LAN_Client.html` z checksumą zgodną z projektem hosta;
+- klient nie tworzy lokalnego `GameWorld`, wysyła `PlayerCommand` 30 Hz i renderuje snapshoty przez wspólny renderer;
+- `LanSnapshotBuffer` odrzuca duplicate/out-of-order, ogranicza pamięć i interpoluje pozycje bez przechodzenia przez zmianę piętra;
+- HUD klienta pokazuje RTT, ACK, input age, tick drift, snapshot rate, bufor i rejected inputs;
 - lokalny C0 używa jednej kotwicy respawnu drużyny; starsze rozbieżne save'y są normalizowane.
 
 ## Potwierdzony baseline
@@ -82,13 +85,13 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - Handoff gate: **PASS**
 - Portability: **21 PASS / 0 WARN / 0 FAIL**
 - TypeScript: **PASS**
-- Node: **107/107 PASS**
+- Node: **111/111 PASS**
 - Golden migration: **52/52 PASS**
-- Chromium: **9/9 PASS**
+- Chromium: **10/10 PASS**
 - Ability Composer: **PASS**
 - Legacy: **4/4 PASS**
 - Dev-server reuse: **PASS**
-- LAN host smoke: **HTTP + 2 WebSocket + input ACK + ping/pong + shutdown save PASS**
+- LAN host/client smoke: **HTTP + 2 WebSocket + input ACK + ping/pong + native movement + render-only client + shutdown save PASS**
 - Gameplay Gate: **27 000 ticków solo + 27 000 C0, saves 6/6 — PASS_AUTOMATED**
 - Clean-package install/build/check/portability/handoff/legacy: **PASS**
 - Owner playtest: **ACCEPT_WITH_DEBT, 2026-06-13**
@@ -100,8 +103,8 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - transitions nie mają pełnego CRUD w Studio;
 - P2 keyboard zależy od key rollover klawiatury;
 - poprawka lokalnego respawnu C0 ma status `FIXED_NEEDS_RETEST`;
-- brak grywalnego klienta LAN, interpolacji snapshotów i pełnej diagnostyki RTT/tick drift/input age;
-- reconnect hosta istnieje na poziomie tokenu slotu, ale UX klienta i timeouty należą do VS-3/VS-4;
+- brak timeoutów klienta, automatycznego reconnectu i kontrolowanych profili latency/jitter/drop;
+- reconnect hosta istnieje na poziomie tokenu slotu, ale pełny UX i polityka zwolnienia slotu należą do VS-4;
 - brak docelowych systemów itemów, questów/dialogów, talentów i authoringu AI;
 - headless Chromium/CDP w długiej serii kontenerowej bywa niestabilne infrastrukturalnie; scenariusze mają timeouty, izolację i pełny pass, ale ręczna walidacja Windows pozostaje nadrzędna.
 
@@ -115,6 +118,7 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - plan M8 LAN: `docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md`
 - decyzja sieciowa: `docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md`
 - host VS-2: `docs/process/M8_LAN_HOST_VS2.md`
+- klient VS-3: `docs/process/M8_LAN_CLIENT_VS3.md`
 - raport: `docs/testing/M7_FINAL_VALIDATION_REPORT.md`
 - instrukcja testu: `docs/testing/M7_OWNER_PLAYTEST_GUIDE.md`
 - trwały feedback właściciela: `docs/process/OWNER_FEEDBACK.md`

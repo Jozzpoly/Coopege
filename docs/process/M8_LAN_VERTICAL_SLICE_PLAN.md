@@ -32,14 +32,16 @@ Implementacja: `packages/lan-protocol/src/`; testy: `tests/lan-protocol.test.ts`
 
 Implementacja: `apps/lan-host/src/`; uruchomienie: `npm run lan:host`; smoke test: `npm run test:lan-host`. Host ma dwa sloty, reconnect token, snapshoty 10 Hz, autosave i kontrolowane zamknięcie przez `shutdown`.
 
-### VS-3 — klient i interpolacja — NEXT
+### VS-3 — klient i interpolacja — COMPLETE 2026-06-14
 
 - adapter fizycznego wejścia tworzy `PlayerCommand`, ale nie `InputFrame`;
 - klient wysyła rosnące `inputSeq`;
 - renderer odtwarza `WorldSnapshot` bez mutowania symulacji;
 - brak prediction/rollback w pierwszym pionowym przekroju.
 
-### VS-4 — awarie i diagnostyka
+Implementacja: `apps/runtime/src/lan-client-main.ts`, `apps/runtime/src/lan-input-adapter.ts`, `packages/lan-protocol/src/snapshot-buffer.ts`; artefakt: `dist/Coopege_M8_LAN_Client.html`; test przeglądarkowy: `tools/test/lan-client-browser-smoke.mjs`.
+
+### VS-4 — awarie i diagnostyka — NEXT
 
 - timeout, rozłączenie, ponowne połączenie lub bezpieczne zwolnienie slotu;
 - kontrolowane 50–250 ms latency, jitter, 1–10% drop, duplikaty i zmiana kolejności;

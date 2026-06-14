@@ -45,6 +45,13 @@ for (const path of [
   "apps/lan-host/src/session.ts",
   "apps/lan-host/src/server.ts",
   "tools/test/lan-host-smoke.mjs",
+  "docs/process/M8_LAN_CLIENT_VS3.md",
+  "apps/runtime/lan-client-template.html",
+  "apps/runtime/src/lan-client-main.ts",
+  "apps/runtime/src/lan-input-adapter.ts",
+  "packages/lan-protocol/src/snapshot-buffer.ts",
+  "tests/lan-client.test.ts",
+  "tools/test/lan-client-browser-smoke.mjs",
 ]) {
   if (!handoffPaths.includes(path)) handoffPaths.push(path);
 }
@@ -63,6 +70,8 @@ expectedValidation.baseline.doctor = "18 PASS / 0 WARN / 0 FAIL";
 expectedValidation.baseline.handoff = "40 PASS / 0 FAIL";
 expectedValidation.baseline.portability = "21 PASS / 0 WARN / 0 FAIL";
 expectedValidation.baseline.node = `${projectState.expectedBaseline.nodeTests}/${projectState.expectedBaseline.nodeTests} PASS`;
+expectedValidation.baseline.chromium = `${projectState.expectedBaseline.chromiumScenarios}/${projectState.expectedBaseline.chromiumScenarios} PASS + Ability Composer`;
+expectedValidation.baseline.lanHostClient = "PASS";
 const validationPaths = [...validation.files.map((entry) => entry.path)];
 for (const path of [
   "tools/npm-cli.mjs",
@@ -70,6 +79,14 @@ for (const path of [
   "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
   "docs/decisions/0017-document-coherence-and-owner-feedback.md",
   "docs/process/OWNER_FEEDBACK.md",
+  "docs/process/M8_LAN_CLIENT_VS3.md",
+  "dist/Coopege_M8_LAN_Client.html",
+  "apps/runtime/lan-client-template.html",
+  "apps/runtime/src/lan-client-main.ts",
+  "apps/runtime/src/lan-input-adapter.ts",
+  "packages/lan-protocol/src/snapshot-buffer.ts",
+  "tests/lan-client.test.ts",
+  "tools/test/lan-client-browser-smoke.mjs",
 ]) {
   if (!validationPaths.includes(path)) validationPaths.push(path);
 }
@@ -81,6 +98,9 @@ const sumPaths = readFileSync(resolve(root, sumsPath), "utf8")
   .split(/\r?\n/)
   .filter(Boolean)
   .map((line) => line.slice(66));
+for (const path of ["dist/Coopege_M8_LAN_Client.html", "docs/process/M8_LAN_CLIENT_VS3.md"]) {
+  if (!sumPaths.includes(path)) sumPaths.push(path);
+}
 const sums = sumPaths.map((path) => `${fileMetadata(path).sha256}  ${path}`).join("\n");
 const expectedSums = `${sums}\n`;
 

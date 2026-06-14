@@ -65,7 +65,9 @@ export interface LanPlayerSnapshot {
   playerId: string;
   entityId: string;
   slotId: string;
+  classId: string;
   floorId: string;
+  radius: number;
   x: number;
   y: number;
   previousX: number;
@@ -80,7 +82,9 @@ export interface LanPlayerSnapshot {
 export interface LanActorSnapshot {
   entityId: string;
   kind: "monster";
+  definitionId: string;
   floorId: string;
+  radius: number;
   x: number;
   y: number;
   previousX: number;

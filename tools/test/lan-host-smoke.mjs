@@ -100,7 +100,10 @@ try {
   const forbidden = await fetch(`http://127.0.0.1:${port}/`);
   if (forbidden.status !== 403) fail(`Strona bez tokenu zwróciła ${forbidden.status}, oczekiwano 403.`);
   const page = await fetch(`http://127.0.0.1:${port}/?token=${token}`);
-  if (!page.ok || !(await page.text()).includes("VS-2 Host")) fail("Strona diagnostyczna hosta nie jest dostępna.");
+  const pageHtml = await page.text();
+  if (!page.ok || !pageHtml.includes("M8 LAN Client") || !pageHtml.includes("apps/runtime/src/lan-client-main")) {
+    fail("Grywalny klient LAN nie jest dostępny z hosta.");
+  }
 
   first = await openClient(port, health, "smoke-client-0000000000000001");
   second = await openClient(port, health, "smoke-client-0000000000000002");

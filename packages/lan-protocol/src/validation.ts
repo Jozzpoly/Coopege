@@ -69,15 +69,17 @@ function isPlayerCommand(value: unknown): boolean {
 
 function isPlayerSnapshot(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  return isShortString(value.playerId) && isShortString(value.entityId) && isShortString(value.slotId) && isShortString(value.floorId)
-    && [value.x, value.y, value.previousX, value.previousY, value.facingX, value.facingY, value.hp, value.maxHp].every(isFiniteNumber)
+  return isShortString(value.playerId) && isShortString(value.entityId) && isShortString(value.slotId) && isShortString(value.classId) && isShortString(value.floorId)
+    && [value.x, value.y, value.previousX, value.previousY, value.facingX, value.facingY, value.radius, value.hp, value.maxHp].every(isFiniteNumber)
+    && (value.radius as number) > 0 && (value.radius as number) <= 2
     && typeof value.alive === "boolean" && (value.hp as number) >= 0 && (value.maxHp as number) > 0 && (value.hp as number) <= (value.maxHp as number);
 }
 
 function isActorSnapshot(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  return value.kind === "monster" && isShortString(value.entityId) && isShortString(value.floorId)
-    && [value.x, value.y, value.previousX, value.previousY, value.hp, value.maxHp].every(isFiniteNumber)
+  return value.kind === "monster" && isShortString(value.entityId) && isShortString(value.definitionId) && isShortString(value.floorId)
+    && [value.x, value.y, value.previousX, value.previousY, value.radius, value.hp, value.maxHp].every(isFiniteNumber)
+    && (value.radius as number) > 0 && (value.radius as number) <= 2
     && typeof value.alive === "boolean" && (value.hp as number) >= 0 && (value.maxHp as number) > 0 && (value.hp as number) <= (value.maxHp as number);
 }
 

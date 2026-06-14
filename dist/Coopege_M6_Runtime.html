@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Coopege — M8 LAN VS-2</title>
+<title>Coopege — M8 LAN VS-3</title>
 <style>
 :root{color-scheme:dark;font-family:Consolas,"Courier New",monospace;background:#07080d;color:#ece8df;--panel:#10131b;--line:#494452;--accent:#bd70e8;--blue:#70cfff;--gold:#ffd36f;--good:#70e4af;--warn:#ffc369;--bad:#ff7789}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:radial-gradient(circle at 42% -10%,#281a37,#07080d 52%);display:grid;place-items:center}main{width:min(1420px,98vw);height:min(860px,96vh);display:grid;grid-template-columns:minmax(600px,1fr) 350px;gap:12px;padding:12px}.panel{min-height:0;border:1px solid var(--line);background:linear-gradient(180deg,#171421,var(--panel));border-radius:9px;overflow:hidden;box-shadow:0 24px 75px #0009}.game-panel{display:grid;grid-template-rows:auto 1fr auto}.head{padding:10px 13px;border-bottom:1px solid #3c3846;background:#171321}.head h1{font-size:15px;margin:0 0 4px;color:#f0d5ff}.head p{font-size:9px;line-height:1.45;color:#96909e;margin:0}.stage{min-height:0;position:relative;display:grid;place-items:center;background:#050609;overflow:hidden}.stage canvas{display:block;max-width:100%;max-height:100%;image-rendering:pixelated;cursor:crosshair}.hud{position:absolute;left:12px;top:12px;display:grid;gap:7px;min-width:260px}.player-card{padding:8px;border:1px solid #5b5365;border-radius:7px;background:#080a0ddd;backdrop-filter:blur(4px);box-shadow:0 8px 30px #0008}.player-card[data-player="2"]{border-color:#77633b}.hud-row{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#bbb}.hud-row strong{color:var(--blue)}.player-card[data-player="2"] .hud-row strong{color:var(--gold)}.stats{font-size:8px;color:#aaa;margin-top:5px}.hpbar{height:9px;margin:5px 0 5px;background:#1c151b;border:1px solid #533d48;border-radius:10px;overflow:hidden}.hpbar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#3ab978,#75e0ad);transition:width .12s}.player-card[data-player="2"] .hpbar span{background:linear-gradient(90deg,#b58a32,#f0cf68)}.ability{font-size:8px;color:#e5c878;line-height:1.45}.join-hint{font-size:8px;color:#b9afbd;padding:7px 8px;border:1px dashed #65586f;border-radius:6px;background:#080a0dbb}.controls{padding:9px 12px;border-top:1px solid #393744;background:#0d1017;display:flex;gap:7px;align-items:center;flex-wrap:wrap}.controls b{font-size:9px;color:#d8cbdf;margin-right:auto}.btn{border:1px solid #62546c;background:#231e2a;color:#eee;padding:7px 9px;border-radius:5px;font:inherit;font-size:9px;cursor:pointer}.btn:hover{border-color:#c47be8;background:#34253e}.btn.primary{background:#4a255d;border-color:#b86dde}.btn.blue{background:#183b59;border-color:#5793c5}.btn.gold{background:#4a3a18;border-color:#b89645}.side{display:grid;grid-template-rows:auto auto minmax(150px,.65fr) minmax(210px,1fr);min-height:0}.section{padding:11px;border-bottom:1px solid #34323e;min-height:0}.label{display:block;color:#e2bb64;font-size:9px;margin-bottom:6px}#floorLabel{font-size:9px;color:#bcb5c2;line-height:1.45}#status{font-weight:bold;padding:9px;border:1px solid #4a4655;border-radius:6px;font-size:9px;line-height:1.45;margin-top:8px}#status[data-state=good]{color:var(--good);border-color:#397e60;background:#102a22}#status[data-state=bad]{color:var(--bad);border-color:#8d424c;background:#31171d}#status[data-state=warn]{color:var(--warn);border-color:#80623d;background:#2c2417}pre{white-space:pre-wrap;line-height:1.5;color:#bcb6c4;font-size:8px;margin:0;overflow:auto;height:100%}#eventLog{color:#d8c7dd}.tag{display:inline-block;margin-top:8px;padding:4px 7px;border-radius:20px;border:1px solid #73538a;color:#d99cff;font-size:8px}@media(max-width:900px){html,body{overflow:auto}main{height:auto;grid-template-columns:1fr}.game-panel{min-height:650px}.side{min-height:620px}}
 </style>
 </head>
 <body>
 <main>
-<section class="panel game-panel"><div class="head"><h1>Coopege Runtime — M8 LAN VS-2</h1><p>Fundament M7 OWNER ACCEPTED, kontrakt LAN i autorytatywny host Node są gotowe. Ten standalone runtime pozostaje lokalny; klient sieciowy powstaje w VS-3.</p></div><div class="stage"><canvas id="world"></canvas><div class="hud"><div class="player-card" data-player="1"><div class="hud-row"><strong>P1 · KLAWIATURA/MYSZ</strong><span id="hpText">—</span></div><div class="hpbar"><span id="hpFill"></span></div><div class="ability" id="abilityText">Ładowanie umiejętności…</div><div class="stats" id="player1Stats">XP 0 · złoto 0 · loot 0</div></div><div class="player-card" data-player="2" id="player2Card" hidden><div class="hud-row"><strong>P2 · STRZAŁKI / GAMEPAD</strong><span id="hpText2">—</span></div><div class="hpbar"><span id="hpFill2"></span></div><div class="ability" id="abilityText2">—</div><div class="stats" id="player2Stats">XP 0 · złoto 0 · loot 0</div></div><div class="join-hint" id="joinHint">Naciśnij strzałkę lub prawy Ctrl, podłącz gamepad albo użyj „Dołącz P2”.</div></div></div><div class="controls"><b>P1 WASD + LPM/Spacja/F · P2 strzałki + prawy Ctrl/Numpad0 lub gamepad · wejście na schody przenosi drużynę</b><button class="btn gold" id="joinButton">Dołącz P2</button><button class="btn primary" id="attackButton">Atak P1</button><button class="btn blue" id="saveButton">Zapisz</button><button class="btn" id="loadButton">Wczytaj</button><button class="btn" id="resetButton">Reset</button></div></section>
-<aside class="panel side"><div class="head"><h1>Diagnostyka M8 — VS-2 Complete</h1><p>Host HTTP/WebSocket, dwa sloty, snapshoty i host-only save przeszły smoke test. Grywalny klient LAN jest następnym krokiem.</p></div><div class="section"><span class="label">AKTYWNE PIĘTRO I DRUŻYNA</span><div id="floorLabel">—</div><div id="status">Uruchamianie…</div><span class="tag">M7 OWNER ACCEPTED · M8 VS-2 COMPLETE</span></div><div class="section"><span class="label">ZDARZENIA GAMEPLAYOWE</span><pre id="eventLog">Brak zdarzeń.</pre></div><div class="section"><span class="label">STAN DETERMINISTYCZNY</span><pre id="details"></pre></div></aside>
+<section class="panel game-panel"><div class="head"><h1>Coopege Runtime — M8 LAN VS-3</h1><p>Ten standalone runtime pozostaje lokalny. Grywalny klient LAN z autorytatywnym hostem uruchamia `npm run lan:host`.</p></div><div class="stage"><canvas id="world"></canvas><div class="hud"><div class="player-card" data-player="1"><div class="hud-row"><strong>P1 · KLAWIATURA/MYSZ</strong><span id="hpText">—</span></div><div class="hpbar"><span id="hpFill"></span></div><div class="ability" id="abilityText">Ładowanie umiejętności…</div><div class="stats" id="player1Stats">XP 0 · złoto 0 · loot 0</div></div><div class="player-card" data-player="2" id="player2Card" hidden><div class="hud-row"><strong>P2 · STRZAŁKI / GAMEPAD</strong><span id="hpText2">—</span></div><div class="hpbar"><span id="hpFill2"></span></div><div class="ability" id="abilityText2">—</div><div class="stats" id="player2Stats">XP 0 · złoto 0 · loot 0</div></div><div class="join-hint" id="joinHint">Naciśnij strzałkę lub prawy Ctrl, podłącz gamepad albo użyj „Dołącz P2”.</div></div></div><div class="controls"><b>P1 WASD + LPM/Spacja/F · P2 strzałki + prawy Ctrl/Numpad0 lub gamepad · wejście na schody przenosi drużynę</b><button class="btn gold" id="joinButton">Dołącz P2</button><button class="btn primary" id="attackButton">Atak P1</button><button class="btn blue" id="saveButton">Zapisz</button><button class="btn" id="loadButton">Wczytaj</button><button class="btn" id="resetButton">Reset</button></div></section>
+<aside class="panel side"><div class="head"><h1>Diagnostyka M8 — VS-3 Complete</h1><p>Host, dwa sloty, render-only klient, interpolacja, wejście i diagnostyka sieci przeszły smoke test. Następny zakres to VS-4.</p></div><div class="section"><span class="label">AKTYWNE PIĘTRO I DRUŻYNA</span><div id="floorLabel">—</div><div id="status">Uruchamianie…</div><span class="tag">M7 OWNER ACCEPTED · M8 VS-3 COMPLETE</span></div><div class="section"><span class="label">ZDARZENIA GAMEPLAYOWE</span><pre id="eventLog">Brak zdarzeń.</pre></div><div class="section"><span class="label">STAN DETERMINISTYCZNY</span><pre id="details"></pre></div></aside>
 </main>
-<script>window.__COOPEGE_PROJECT__={"format":"coopege-project","schemaVersion":2,"manifest":{"projectId":"coopege.foundation","name":"Coopege Foundation Fixture","projectVersion":"0.0.1","createdAt":"2026-06-12T00:00:00.000Z","updatedAt":"2026-06-12T00:00:00.000Z","defaultLocale":"pl-PL","entryFloorId":"floor.surface","playerStart":{"floorId":"floor.surface","x":3,"y":3}},"world":{"tileSize":32,"tiles":[{"id":"tile.floor","name":"Kamienna posadzka","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.floor"},{"id":"tile.wall","name":"Kamienna ściana","walkable":false,"blocksProjectiles":true,"assetId":"texture.tile.wall"},{"id":"tile.grass","name":"Trawa","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.grass"}],"floors":[{"id":"floor.surface","name":"Plac testowy","width":12,"height":8,"encoding":"rle-v1","tiles":[["tile.wall",12],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",12]]}]},"content":{"classes":[{"id":"class.vanguard","name":"Strażnik","maxHp":120,"moveSpeedTilesPerSecond":4,"abilityIds":["ability.basic_strike"],"assetId":"texture.actor.vanguard"}],"abilities":[{"id":"ability.basic_strike","name":"Podstawowe uderzenie","kind":"melee","cooldownTicks":18,"rangeTiles":1.4,"power":15,"assetId":"texture.effect.strike","graphId":"graph.ability.basic_strike"}],"monsters":[{"id":"monster.training_slime","name":"Treningowy szlam","maxHp":35,"moveSpeedTilesPerSecond":2,"abilityIds":["ability.basic_strike"],"assetId":"texture.monster.slime"}],"spawns":[{"id":"spawn.training_slime.1","floorId":"floor.surface","monsterId":"monster.training_slime","x":8,"y":4,"count":1,"respawnTicks":180}]},"assets":{"schemaVersion":1,"entries":[{"id":"texture.tile.floor","kind":"texture","source":"procedural://tile/floor"},{"id":"texture.tile.wall","kind":"texture","source":"procedural://tile/wall"},{"id":"texture.tile.grass","kind":"texture","source":"procedural://tile/grass"},{"id":"texture.actor.vanguard","kind":"texture","source":"procedural://actor/vanguard"},{"id":"texture.effect.strike","kind":"texture","source":"procedural://effect/strike"},{"id":"texture.monster.slime","kind":"texture","source":"procedural://monster/slime"}]},"gameplay":{"schemaVersion":1,"executionBudget":64,"graphs":[{"id":"graph.ability.basic_strike","name":"Podstawowe uderzenie — migracja v1","entryNodeId":"node.source-alive","nodes":[{"id":"node.source-alive","kind":"condition","conditionId":"condition.source-alive","onTrue":"node.cooldown-ready","onFalse":"node.end"},{"id":"node.cooldown-ready","kind":"condition","conditionId":"condition.cooldown-ready","onTrue":"node.targets","onFalse":"node.end"},{"id":"node.targets","kind":"target-query","queryId":"query.nearest-hostile-in-range","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.cooldown","onFalse":"node.miss-cooldown"},{"id":"node.cooldown","kind":"action","actionId":"action.start-ability-cooldown","next":"node.emit"},{"id":"node.emit","kind":"action","actionId":"action.emit-ability-used","next":"node.damage"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-from-ability","next":"node.end"},{"id":"node.miss-cooldown","kind":"action","actionId":"action.start-miss-cooldown","next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.item.healing-tonic","name":"Efekt przedmiotu: mikstura treningowa","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":10},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.talent.guardian-focus","name":"Modyfikator talentu: skupienie strażnika","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":3},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.ai.training-attack","name":"Akcja AI: kontrolowany atak","entryNodeId":"node.target","nodes":[{"id":"node.target","kind":"target-query","queryId":"query.provided-target","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.damage","onFalse":"node.end"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-fixed","parameters":{"amount":5},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.quest.monster-kill-credit","name":"Reakcja questa: zalicz pokonanego potwora","entryNodeId":"node.monster","nodes":[{"id":"node.monster","kind":"condition","conditionId":"condition.provided-target-is-monster","onTrue":"node.credit","onFalse":"node.end"},{"id":"node.credit","kind":"action","actionId":"action.increment-quest-credit","parameters":{"amount":1},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.map.healing-sigil","name":"Trigger mapy: leczniczy znak","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":8},"next":"node.end"},{"id":"node.end","kind":"end"}]}],"bindings":[{"id":"binding.ability.basic_strike","domain":"ability","graphId":"graph.ability.basic_strike"},{"id":"binding.item.healing-tonic","domain":"item-effect","graphId":"graph.item.healing-tonic"},{"id":"binding.talent.guardian-focus","domain":"talent-modifier","graphId":"graph.talent.guardian-focus"},{"id":"binding.ai.training-attack","domain":"ai-action","graphId":"graph.ai.training-attack"},{"id":"binding.quest.monster-kill-credit","domain":"quest-reaction","graphId":"graph.quest.monster-kill-credit"},{"id":"binding.map.healing-sigil","domain":"map-trigger","graphId":"graph.map.healing-sigil"}],"triggers":[{"id":"trigger.quest.actor-died","domain":"quest-reaction","event":"actor.died","graphId":"graph.quest.monster-kill-credit","enabled":true}]}};window.__COOPEGE_RUNTIME_CONFIG__={"mode":"standalone","runtimeVersion":"0.8.0-m8-lan-vs2"};</script>
+<script>window.__COOPEGE_PROJECT__={"format":"coopege-project","schemaVersion":2,"manifest":{"projectId":"coopege.foundation","name":"Coopege Foundation Fixture","projectVersion":"0.0.1","createdAt":"2026-06-12T00:00:00.000Z","updatedAt":"2026-06-12T00:00:00.000Z","defaultLocale":"pl-PL","entryFloorId":"floor.surface","playerStart":{"floorId":"floor.surface","x":3,"y":3}},"world":{"tileSize":32,"tiles":[{"id":"tile.floor","name":"Kamienna posadzka","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.floor"},{"id":"tile.wall","name":"Kamienna ściana","walkable":false,"blocksProjectiles":true,"assetId":"texture.tile.wall"},{"id":"tile.grass","name":"Trawa","walkable":true,"blocksProjectiles":false,"assetId":"texture.tile.grass"}],"floors":[{"id":"floor.surface","name":"Plac testowy","width":12,"height":8,"encoding":"rle-v1","tiles":[["tile.wall",12],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",2],["tile.floor",6],["tile.grass",2],["tile.wall",1],["tile.wall",1],["tile.grass",10],["tile.wall",1],["tile.wall",12]]}]},"content":{"classes":[{"id":"class.vanguard","name":"Strażnik","maxHp":120,"moveSpeedTilesPerSecond":4,"abilityIds":["ability.basic_strike"],"assetId":"texture.actor.vanguard"}],"abilities":[{"id":"ability.basic_strike","name":"Podstawowe uderzenie","kind":"melee","cooldownTicks":18,"rangeTiles":1.4,"power":15,"assetId":"texture.effect.strike","graphId":"graph.ability.basic_strike"}],"monsters":[{"id":"monster.training_slime","name":"Treningowy szlam","maxHp":35,"moveSpeedTilesPerSecond":2,"abilityIds":["ability.basic_strike"],"assetId":"texture.monster.slime"}],"spawns":[{"id":"spawn.training_slime.1","floorId":"floor.surface","monsterId":"monster.training_slime","x":8,"y":4,"count":1,"respawnTicks":180}]},"assets":{"schemaVersion":1,"entries":[{"id":"texture.tile.floor","kind":"texture","source":"procedural://tile/floor"},{"id":"texture.tile.wall","kind":"texture","source":"procedural://tile/wall"},{"id":"texture.tile.grass","kind":"texture","source":"procedural://tile/grass"},{"id":"texture.actor.vanguard","kind":"texture","source":"procedural://actor/vanguard"},{"id":"texture.effect.strike","kind":"texture","source":"procedural://effect/strike"},{"id":"texture.monster.slime","kind":"texture","source":"procedural://monster/slime"}]},"gameplay":{"schemaVersion":1,"executionBudget":64,"graphs":[{"id":"graph.ability.basic_strike","name":"Podstawowe uderzenie — migracja v1","entryNodeId":"node.source-alive","nodes":[{"id":"node.source-alive","kind":"condition","conditionId":"condition.source-alive","onTrue":"node.cooldown-ready","onFalse":"node.end"},{"id":"node.cooldown-ready","kind":"condition","conditionId":"condition.cooldown-ready","onTrue":"node.targets","onFalse":"node.end"},{"id":"node.targets","kind":"target-query","queryId":"query.nearest-hostile-in-range","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.cooldown","onFalse":"node.miss-cooldown"},{"id":"node.cooldown","kind":"action","actionId":"action.start-ability-cooldown","next":"node.emit"},{"id":"node.emit","kind":"action","actionId":"action.emit-ability-used","next":"node.damage"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-from-ability","next":"node.end"},{"id":"node.miss-cooldown","kind":"action","actionId":"action.start-miss-cooldown","next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.item.healing-tonic","name":"Efekt przedmiotu: mikstura treningowa","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":10},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.talent.guardian-focus","name":"Modyfikator talentu: skupienie strażnika","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":3},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.ai.training-attack","name":"Akcja AI: kontrolowany atak","entryNodeId":"node.target","nodes":[{"id":"node.target","kind":"target-query","queryId":"query.provided-target","next":"node.has-target"},{"id":"node.has-target","kind":"condition","conditionId":"condition.targets-present","onTrue":"node.damage","onFalse":"node.end"},{"id":"node.damage","kind":"effect","effectId":"effect.damage-fixed","parameters":{"amount":5},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.quest.monster-kill-credit","name":"Reakcja questa: zalicz pokonanego potwora","entryNodeId":"node.monster","nodes":[{"id":"node.monster","kind":"condition","conditionId":"condition.provided-target-is-monster","onTrue":"node.credit","onFalse":"node.end"},{"id":"node.credit","kind":"action","actionId":"action.increment-quest-credit","parameters":{"amount":1},"next":"node.end"},{"id":"node.end","kind":"end"}]},{"id":"graph.map.healing-sigil","name":"Trigger mapy: leczniczy znak","entryNodeId":"node.source","nodes":[{"id":"node.source","kind":"target-query","queryId":"query.source","next":"node.heal"},{"id":"node.heal","kind":"effect","effectId":"effect.heal-fixed","parameters":{"amount":8},"next":"node.end"},{"id":"node.end","kind":"end"}]}],"bindings":[{"id":"binding.ability.basic_strike","domain":"ability","graphId":"graph.ability.basic_strike"},{"id":"binding.item.healing-tonic","domain":"item-effect","graphId":"graph.item.healing-tonic"},{"id":"binding.talent.guardian-focus","domain":"talent-modifier","graphId":"graph.talent.guardian-focus"},{"id":"binding.ai.training-attack","domain":"ai-action","graphId":"graph.ai.training-attack"},{"id":"binding.quest.monster-kill-credit","domain":"quest-reaction","graphId":"graph.quest.monster-kill-credit"},{"id":"binding.map.healing-sigil","domain":"map-trigger","graphId":"graph.map.healing-sigil"}],"triggers":[{"id":"trigger.quest.actor-died","domain":"quest-reaction","event":"actor.died","graphId":"graph.quest.monster-kill-credit","enabled":true}]}};window.__COOPEGE_RUNTIME_CONFIG__={"mode":"standalone","runtimeVersion":"0.8.0-m8-lan-vs3"};</script>
 <script>(function(global){
   const registry=new Map();
   function normalize(name,from){
@@ -3318,6 +3318,375 @@ define("packages/gameplay/src/index", ["require", "exports", "packages/gameplay/
     __exportStar(camera_framing_js_1, exports);
     __exportStar(spawn_runtime_js_2, exports);
 });
+define("packages/lan-protocol/src/types", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LAN_MESSAGE_TYPES = exports.LAN_MAX_ACTORS = exports.LAN_MAX_PLAYERS = exports.LAN_MAX_MESSAGE_BYTES = exports.COOPEGE_LAN_PROTOCOL_VERSION = exports.COOPEGE_LAN_PROTOCOL = void 0;
+    exports.COOPEGE_LAN_PROTOCOL = "coopege-lan";
+    exports.COOPEGE_LAN_PROTOCOL_VERSION = 1;
+    exports.LAN_MAX_MESSAGE_BYTES = 64 * 1024;
+    exports.LAN_MAX_PLAYERS = 2;
+    exports.LAN_MAX_ACTORS = 512;
+    exports.LAN_MESSAGE_TYPES = {
+        clientHello: "client.hello",
+        hostWelcome: "host.welcome",
+        hostReject: "host.reject",
+        clientInput: "client.input",
+        hostSnapshot: "host.snapshot",
+        clientPing: "client.ping",
+        hostPong: "host.pong",
+        clientDisconnect: "client.disconnect",
+        hostDisconnect: "host.disconnect",
+    };
+});
+define("packages/lan-protocol/src/validation", ["require", "exports", "packages/lan-protocol/src/types"], function (require, exports, types_js_4) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.isLanMessageType = isLanMessageType;
+    exports.validateLanEnvelope = validateLanEnvelope;
+    exports.isLanEnvelope = isLanEnvelope;
+    exports.encodeLanMessage = encodeLanMessage;
+    exports.decodeLanMessage = decodeLanMessage;
+    exports.createLanEnvelope = createLanEnvelope;
+    exports.checkHelloCompatibility = checkHelloCompatibility;
+    const SHA256 = /^[a-f0-9]{64}$/;
+    const MESSAGE_TYPES = new Set(Object.values(types_js_4.LAN_MESSAGE_TYPES));
+    const REJECT_CODES = new Set([
+        "engine_version_mismatch",
+        "project_id_mismatch",
+        "project_checksum_mismatch",
+        "invalid_session_token",
+        "session_full",
+        "reconnect_rejected",
+    ]);
+    const DISCONNECT_REASONS = new Set(["client_exit", "timeout", "protocol_error", "server_shutdown", "replaced"]);
+    function isRecord(value) {
+        return typeof value === "object" && value !== null && !Array.isArray(value);
+    }
+    function isFiniteNumber(value) {
+        return typeof value === "number" && Number.isFinite(value);
+    }
+    function isInteger(value, minimum = 0) {
+        return Number.isInteger(value) && value >= minimum;
+    }
+    function isShortString(value, minimum = 1, maximum = 256) {
+        return typeof value === "string" && value.length >= minimum && value.length <= maximum;
+    }
+    function isNullableShortString(value, minimum = 1, maximum = 256) {
+        return value === null || isShortString(value, minimum, maximum);
+    }
+    function isPlayerCommand(value) {
+        if (!isRecord(value))
+            return false;
+        const axes = [value.moveX, value.moveY, value.aimX, value.aimY];
+        return axes.every((axis) => isFiniteNumber(axis) && axis >= -1 && axis <= 1) && typeof value.usePrimary === "boolean";
+    }
+    function isPlayerSnapshot(value) {
+        if (!isRecord(value))
+            return false;
+        return isShortString(value.playerId) && isShortString(value.entityId) && isShortString(value.slotId) && isShortString(value.classId) && isShortString(value.floorId)
+            && [value.x, value.y, value.previousX, value.previousY, value.facingX, value.facingY, value.radius, value.hp, value.maxHp].every(isFiniteNumber)
+            && value.radius > 0 && value.radius <= 2
+            && typeof value.alive === "boolean" && value.hp >= 0 && value.maxHp > 0 && value.hp <= value.maxHp;
+    }
+    function isActorSnapshot(value) {
+        if (!isRecord(value))
+            return false;
+        return value.kind === "monster" && isShortString(value.entityId) && isShortString(value.definitionId) && isShortString(value.floorId)
+            && [value.x, value.y, value.previousX, value.previousY, value.radius, value.hp, value.maxHp].every(isFiniteNumber)
+            && value.radius > 0 && value.radius <= 2
+            && typeof value.alive === "boolean" && value.hp >= 0 && value.maxHp > 0 && value.hp <= value.maxHp;
+    }
+    function isPresentationValue(value) {
+        return value === null || typeof value === "string" || typeof value === "boolean" || isFiniteNumber(value);
+    }
+    function isPresentationEvent(value) {
+        if (!isRecord(value) || !isShortString(value.eventId) || !isShortString(value.type) || !isInteger(value.tick) || !isNullableShortString(value.entityId))
+            return false;
+        return isRecord(value.data) && Object.keys(value.data).length <= 32 && Object.values(value.data).every(isPresentationValue);
+    }
+    function hasUniqueStrings(values) {
+        return values.every((value) => typeof value === "string") && new Set(values).size === values.length;
+    }
+    function validatePayload(type, payload) {
+        if (!isRecord(payload))
+            return false;
+        switch (type) {
+            case types_js_4.LAN_MESSAGE_TYPES.clientHello:
+                return isShortString(payload.engineVersion)
+                    && isShortString(payload.projectId)
+                    && typeof payload.projectChecksum === "string" && SHA256.test(payload.projectChecksum)
+                    && isShortString(payload.sessionToken, 16, 256)
+                    && isShortString(payload.clientNonce, 16, 256)
+                    && isNullableShortString(payload.reconnectToken, 16, 256);
+            case types_js_4.LAN_MESSAGE_TYPES.hostWelcome:
+                return isShortString(payload.sessionId, 16) && isShortString(payload.playerId) && isShortString(payload.slotId)
+                    && isShortString(payload.reconnectToken, 16) && isInteger(payload.hostTick)
+                    && isInteger(payload.tickRate, 1) && payload.tickRate <= 240
+                    && isInteger(payload.snapshotRateHz, 1) && payload.snapshotRateHz <= payload.tickRate;
+            case types_js_4.LAN_MESSAGE_TYPES.hostReject:
+                return typeof payload.code === "string" && REJECT_CODES.has(payload.code) && isShortString(payload.message, 1, 1024);
+            case types_js_4.LAN_MESSAGE_TYPES.clientInput:
+                return isShortString(payload.sessionId, 16) && isShortString(payload.playerId)
+                    && isInteger(payload.inputSeq, 1) && isInteger(payload.clientTick)
+                    && isFiniteNumber(payload.sampledAtMs) && payload.sampledAtMs >= 0
+                    && isPlayerCommand(payload.command);
+            case types_js_4.LAN_MESSAGE_TYPES.hostSnapshot:
+                if (!isShortString(payload.sessionId, 16) || !isInteger(payload.hostTick) || !isShortString(payload.activeFloorId)
+                    || !isInteger(payload.acknowledgedInputSeq) || !Array.isArray(payload.players) || payload.players.length > types_js_4.LAN_MAX_PLAYERS
+                    || !payload.players.every(isPlayerSnapshot) || !Array.isArray(payload.actors) || payload.actors.length > types_js_4.LAN_MAX_ACTORS
+                    || !payload.actors.every(isActorSnapshot) || !Array.isArray(payload.events) || payload.events.length > 256
+                    || !payload.events.every(isPresentationEvent) || !isRecord(payload.diagnostics))
+                    return false;
+                if (!hasUniqueStrings(payload.players.map((player) => player.playerId))
+                    || !hasUniqueStrings(payload.players.map((player) => player.slotId))
+                    || !hasUniqueStrings([
+                        ...payload.players.map((player) => player.entityId),
+                        ...payload.actors.map((actor) => actor.entityId),
+                    ])
+                    || !hasUniqueStrings(payload.events.map((event) => event.eventId))
+                    || payload.players.some((player) => player.floorId !== payload.activeFloorId)
+                    || payload.actors.some((actor) => actor.floorId !== payload.activeFloorId))
+                    return false;
+                return isInteger(payload.diagnostics.snapshotSeq, 1)
+                    && isInteger(payload.diagnostics.connectedPlayers) && payload.diagnostics.connectedPlayers <= types_js_4.LAN_MAX_PLAYERS
+                    && isInteger(payload.diagnostics.rejectedInputs);
+            case types_js_4.LAN_MESSAGE_TYPES.clientPing:
+                return isShortString(payload.sessionId, 16) && isShortString(payload.pingId) && isFiniteNumber(payload.sentAtMs) && payload.sentAtMs >= 0;
+            case types_js_4.LAN_MESSAGE_TYPES.hostPong:
+                return isShortString(payload.sessionId, 16) && isShortString(payload.pingId)
+                    && [payload.clientSentAtMs, payload.hostReceivedAtMs, payload.hostSentAtMs].every((value) => isFiniteNumber(value) && value >= 0);
+            case types_js_4.LAN_MESSAGE_TYPES.clientDisconnect:
+                return isShortString(payload.sessionId, 16) && typeof payload.reason === "string" && DISCONNECT_REASONS.has(payload.reason);
+            case types_js_4.LAN_MESSAGE_TYPES.hostDisconnect:
+                return isShortString(payload.sessionId, 16) && typeof payload.reason === "string" && DISCONNECT_REASONS.has(payload.reason)
+                    && isShortString(payload.message, 1, 1024) && typeof payload.reconnectAllowed === "boolean";
+        }
+    }
+    function isLanMessageType(value) {
+        return typeof value === "string" && MESSAGE_TYPES.has(value);
+    }
+    function validateLanEnvelope(value) {
+        if (!isRecord(value))
+            return { ok: false, code: "invalid_envelope", path: "$", message: "Koperta LAN musi być obiektem." };
+        if (value.protocol !== types_js_4.COOPEGE_LAN_PROTOCOL)
+            return { ok: false, code: "unsupported_protocol", path: "$.protocol", message: "Nieobsługiwana nazwa protokołu LAN." };
+        if (value.protocolVersion !== types_js_4.COOPEGE_LAN_PROTOCOL_VERSION)
+            return { ok: false, code: "unsupported_protocol_version", path: "$.protocolVersion", message: "Nieobsługiwana wersja protokołu LAN." };
+        if (!isLanMessageType(value.type))
+            return { ok: false, code: "unknown_message_type", path: "$.type", message: "Nieznany typ wiadomości LAN." };
+        if (!validatePayload(value.type, value.payload))
+            return { ok: false, code: "invalid_payload", path: "$.payload", message: `Nieprawidłowy payload ${value.type}.` };
+        return { ok: true, envelope: value };
+    }
+    function isLanEnvelope(value) {
+        return validateLanEnvelope(value).ok;
+    }
+    function stableJson(value) {
+        if (value === null || typeof value !== "object")
+            return JSON.stringify(value);
+        if (Array.isArray(value))
+            return `[${value.map(stableJson).join(",")}]`;
+        const record = value;
+        return `{${Object.keys(record).sort().map((key) => `${JSON.stringify(key)}:${stableJson(record[key])}`).join(",")}}`;
+    }
+    function encodeLanMessage(envelope) {
+        const validation = validateLanEnvelope(envelope);
+        if (!validation.ok)
+            throw new Error(`${validation.code} ${validation.path}: ${validation.message}`);
+        const encoded = stableJson(envelope);
+        if (new TextEncoder().encode(encoded).byteLength > types_js_4.LAN_MAX_MESSAGE_BYTES)
+            throw new Error("Wiadomość LAN przekracza limit rozmiaru.");
+        return encoded;
+    }
+    function decodeLanMessage(encoded) {
+        if (new TextEncoder().encode(encoded).byteLength > types_js_4.LAN_MAX_MESSAGE_BYTES) {
+            return { ok: false, code: "message_too_large", path: "$", message: "Wiadomość LAN przekracza limit rozmiaru." };
+        }
+        let value;
+        try {
+            value = JSON.parse(encoded);
+        }
+        catch {
+            return { ok: false, code: "invalid_json", path: "$", message: "Wiadomość LAN nie jest poprawnym JSON-em." };
+        }
+        return validateLanEnvelope(value);
+    }
+    function createLanEnvelope(type, payload) {
+        const envelope = {
+            protocol: types_js_4.COOPEGE_LAN_PROTOCOL,
+            protocolVersion: types_js_4.COOPEGE_LAN_PROTOCOL_VERSION,
+            type,
+            payload,
+        };
+        const validation = validateLanEnvelope(envelope);
+        if (!validation.ok)
+            throw new Error(`${validation.code} ${validation.path}: ${validation.message}`);
+        return envelope;
+    }
+    function checkHelloCompatibility(hello, expected) {
+        if (hello.engineVersion !== expected.engineVersion)
+            return { ok: false, code: "engine_version_mismatch", message: "Wersja silnika klienta nie zgadza się z hostem." };
+        if (hello.projectId !== expected.projectId)
+            return { ok: false, code: "project_id_mismatch", message: "Klient otworzył inny projekt niż host." };
+        if (hello.projectChecksum !== expected.projectChecksum)
+            return { ok: false, code: "project_checksum_mismatch", message: "Snapshot projektu klienta nie zgadza się z hostem." };
+        if (hello.sessionToken !== expected.sessionToken)
+            return { ok: false, code: "invalid_session_token", message: "Token sesji LAN jest nieprawidłowy." };
+        return { ok: true };
+    }
+});
+define("packages/lan-protocol/src/input-admission", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.evaluateInputAdmission = evaluateInputAdmission;
+    function evaluateInputAdmission(input, context) {
+        if (context.connectionId !== context.ownerConnectionId) {
+            return { ok: false, code: "not_owner", message: "Połączenie nie posiada wskazanego gracza." };
+        }
+        if (input.sessionId !== context.sessionId) {
+            return { ok: false, code: "session_mismatch", message: "Input należy do innej sesji." };
+        }
+        if (input.playerId !== context.playerId) {
+            return { ok: false, code: "player_mismatch", message: "Input próbuje sterować graczem należącym do innego połączenia." };
+        }
+        if (input.inputSeq === context.lastAcceptedInputSeq) {
+            return { ok: false, code: "duplicate_input", message: "Input o tym numerze został już przyjęty." };
+        }
+        if (input.inputSeq < context.lastAcceptedInputSeq) {
+            return { ok: false, code: "out_of_order_input", message: "Input dotarł po nowszej komendzie." };
+        }
+        const maximumPastTicks = context.maximumPastTicks ?? 120;
+        const maximumFutureTicks = context.maximumFutureTicks ?? 2;
+        if (input.clientTick < context.hostTick - maximumPastTicks) {
+            return { ok: false, code: "input_too_old", message: "Input jest zbyt stary względem ticka hosta." };
+        }
+        if (input.clientTick > context.hostTick + maximumFutureTicks) {
+            return { ok: false, code: "input_from_future", message: "Input wskazuje niedozwolony przyszły tick." };
+        }
+        return { ok: true, acceptedInputSeq: input.inputSeq };
+    }
+});
+define("packages/lan-protocol/src/snapshot-buffer", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LanSnapshotBuffer = void 0;
+    function clamp01(value) {
+        return Math.max(0, Math.min(1, value));
+    }
+    function interpolate(previous, next, alpha) {
+        return previous + (next - previous) * alpha;
+    }
+    function interpolatePlayer(previous, next, alpha) {
+        if (!previous || previous.floorId !== next.floorId)
+            return structuredClone(next);
+        return {
+            ...next,
+            previousX: previous.x,
+            previousY: previous.y,
+            x: interpolate(previous.x, next.x, alpha),
+            y: interpolate(previous.y, next.y, alpha),
+            facingX: interpolate(previous.facingX, next.facingX, alpha),
+            facingY: interpolate(previous.facingY, next.facingY, alpha),
+        };
+    }
+    function interpolateActor(previous, next, alpha) {
+        if (!previous || previous.floorId !== next.floorId)
+            return structuredClone(next);
+        return {
+            ...next,
+            previousX: previous.x,
+            previousY: previous.y,
+            x: interpolate(previous.x, next.x, alpha),
+            y: interpolate(previous.y, next.y, alpha),
+        };
+    }
+    class LanSnapshotBuffer {
+        interpolationDelayMs;
+        maximumSnapshots;
+        snapshots = [];
+        constructor(options = {}) {
+            this.interpolationDelayMs = options.interpolationDelayMs ?? 110;
+            this.maximumSnapshots = options.maximumSnapshots ?? 8;
+            if (!Number.isFinite(this.interpolationDelayMs) || this.interpolationDelayMs < 0)
+                throw new Error("Interpolation delay musi być nieujemny.");
+            if (!Number.isInteger(this.maximumSnapshots) || this.maximumSnapshots < 2 || this.maximumSnapshots > 64)
+                throw new Error("Bufor snapshotów musi mieścić 2..64 wpisy.");
+        }
+        push(snapshot, receivedAtMs) {
+            if (!Number.isFinite(receivedAtMs) || receivedAtMs < 0)
+                throw new Error("Czas odebrania snapshotu jest nieprawidłowy.");
+            const latest = this.snapshots[this.snapshots.length - 1];
+            if (latest && snapshot.hostTick <= latest.snapshot.hostTick)
+                return false;
+            this.snapshots.push({ snapshot: structuredClone(snapshot), receivedAtMs });
+            if (this.snapshots.length > this.maximumSnapshots)
+                this.snapshots.splice(0, this.snapshots.length - this.maximumSnapshots);
+            return true;
+        }
+        clear() {
+            this.snapshots = [];
+        }
+        size() {
+            return this.snapshots.length;
+        }
+        latest() {
+            const latest = this.snapshots[this.snapshots.length - 1];
+            return latest ? structuredClone(latest.snapshot) : null;
+        }
+        snapshotRateHz() {
+            if (this.snapshots.length < 2)
+                return 0;
+            const first = this.snapshots[0];
+            const last = this.snapshots[this.snapshots.length - 1];
+            const elapsedMs = last.receivedAtMs - first.receivedAtMs;
+            return elapsedMs > 0 ? (this.snapshots.length - 1) * 1000 / elapsedMs : 0;
+        }
+        sample(nowMs) {
+            if (!Number.isFinite(nowMs) || this.snapshots.length === 0)
+                return null;
+            const renderAtMs = nowMs - this.interpolationDelayMs;
+            let previous = this.snapshots[0];
+            let next = previous;
+            for (const candidate of this.snapshots) {
+                if (candidate.receivedAtMs <= renderAtMs)
+                    previous = candidate;
+                if (candidate.receivedAtMs >= renderAtMs) {
+                    next = candidate;
+                    break;
+                }
+                next = candidate;
+            }
+            if (previous.snapshot.activeFloorId !== next.snapshot.activeFloorId)
+                previous = next;
+            const durationMs = next.receivedAtMs - previous.receivedAtMs;
+            const alpha = durationMs > 0 ? clamp01((renderAtMs - previous.receivedAtMs) / durationMs) : 1;
+            const previousPlayers = new Map(previous.snapshot.players.map((player) => [player.entityId, player]));
+            const previousActors = new Map(previous.snapshot.actors.map((actor) => [actor.entityId, actor]));
+            const snapshot = {
+                ...structuredClone(next.snapshot),
+                players: next.snapshot.players.map((player) => interpolatePlayer(previousPlayers.get(player.entityId), player, alpha)),
+                actors: next.snapshot.actors.map((actor) => interpolateActor(previousActors.get(actor.entityId), actor, alpha)),
+            };
+            return {
+                snapshot,
+                alpha,
+                previousHostTick: previous.snapshot.hostTick,
+                nextHostTick: next.snapshot.hostTick,
+                bufferedSnapshots: this.snapshots.length,
+            };
+        }
+    }
+    exports.LanSnapshotBuffer = LanSnapshotBuffer;
+});
+define("packages/lan-protocol/src/index", ["require", "exports", "packages/lan-protocol/src/types", "packages/lan-protocol/src/validation", "packages/lan-protocol/src/input-admission", "packages/lan-protocol/src/snapshot-buffer"], function (require, exports, types_js_5, validation_js_1, input_admission_js_1, snapshot_buffer_js_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    __exportStar(types_js_5, exports);
+    __exportStar(validation_js_1, exports);
+    __exportStar(input_admission_js_1, exports);
+    __exportStar(snapshot_buffer_js_1, exports);
+});
 define("apps/runtime/src/sprite-layout", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -3561,12 +3930,52 @@ define("apps/runtime/src/renderer", ["require", "exports", "packages/asset-syste
             };
         }
         render(world, alpha, now) {
+            this.renderScene(world.preparedFloor, world.activeFloorId, world.actors.values(), world.players, alpha, world.tick, world.tickRate, now);
+        }
+        renderLan(snapshot, tickRate, now) {
             const project = this.project;
             if (!project)
                 return;
-            const floor = world.preparedFloor;
-            const playerPositions = world.players
-                .filter((player) => player.floorId === world.activeFloorId)
+            const floor = project.floors.get(snapshot.activeFloorId);
+            if (!floor)
+                return;
+            const players = snapshot.players.map((player) => ({
+                entityId: player.entityId,
+                kind: "player",
+                playerId: player.playerId,
+                classId: player.classId,
+                floorId: player.floorId,
+                position: { x: player.x, y: player.y },
+                previousPosition: { x: player.previousX, y: player.previousY },
+                radius: player.radius,
+                alive: player.alive,
+                hp: player.hp,
+                maxHp: player.maxHp,
+                facing: { x: player.facingX, y: player.facingY },
+            }));
+            const actors = [
+                ...players,
+                ...snapshot.actors.map((actor) => ({
+                    entityId: actor.entityId,
+                    kind: "monster",
+                    definitionId: actor.definitionId,
+                    floorId: actor.floorId,
+                    position: { x: actor.x, y: actor.y },
+                    previousPosition: { x: actor.previousX, y: actor.previousY },
+                    radius: actor.radius,
+                    alive: actor.alive,
+                    hp: actor.hp,
+                    maxHp: actor.maxHp,
+                })),
+            ];
+            this.renderScene(floor, snapshot.activeFloorId, actors, players, 1, snapshot.hostTick, tickRate, now);
+        }
+        renderScene(floor, activeFloorId, actors, players, alpha, tick, tickRate, now) {
+            const project = this.project;
+            if (!project)
+                return;
+            const playerPositions = players
+                .filter((player) => player.floorId === activeFloorId)
                 .map((player) => actorPosition(player, alpha));
             const frame = (0, index_js_9.computeSharedCameraFrame)(playerPositions, this.canvas.width, this.canvas.height, {
                 marginTiles: 4.4,
@@ -3603,13 +4012,13 @@ define("apps/runtime/src/renderer", ["require", "exports", "packages/asset-syste
                     this.context.strokeRect(Math.floor(screen.x) + 0.5, Math.floor(screen.y) + 0.5, this.tilePixels - 1, this.tilePixels - 1);
                 }
             }
-            this.drawTransitions(world.activeFloorId, startX, endX, startY, endY, now);
-            const actors = world.actors.values()
-                .filter((actor) => actor.floorId === world.activeFloorId)
+            this.drawTransitions(activeFloorId, startX, endX, startY, endY, now);
+            const visibleActors = actors
+                .filter((actor) => actor.floorId === activeFloorId)
                 .sort((left, right) => actorPosition(left, alpha).y - actorPosition(right, alpha).y || left.entityId.localeCompare(right.entityId));
-            for (const actor of actors)
-                this.drawActor(actor, world.players, alpha, world.tick, world.tickRate);
-            this.drawEffects(world.activeFloorId, now);
+            for (const actor of visibleActors)
+                this.drawActor(actor, players, alpha, tick, tickRate);
+            this.drawEffects(activeFloorId, now);
             this.drawVignette();
         }
         drawTileImage(image, assetId, screen, tileX, tileY, now) {
@@ -3926,6 +4335,366 @@ define("apps/runtime/src/input-adapter", ["require", "exports", "packages/gamepl
     }
     exports.LocalCoopInputAdapter = LocalCoopInputAdapter;
 });
+define("apps/runtime/src/lan-input-adapter", ["require", "exports", "apps/runtime/src/input-adapter"], function (require, exports, input_adapter_js_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.LanClientInputAdapter = void 0;
+    const GAMEPAD_DEADZONE = 0.18;
+    function deadzone(value) {
+        const safe = Number.isFinite(value) ? value : 0;
+        if (Math.abs(safe) < GAMEPAD_DEADZONE)
+            return 0;
+        const normalized = (Math.abs(safe) - GAMEPAD_DEADZONE) / (1 - GAMEPAD_DEADZONE);
+        return Math.sign(safe) * Math.min(1, normalized);
+    }
+    class LanClientInputAdapter {
+        canvas;
+        renderer;
+        pressed = new Set();
+        pointerClient;
+        queuedAttack = false;
+        virtualCommand = null;
+        constructor(canvas, renderer) {
+            this.canvas = canvas;
+            this.renderer = renderer;
+            window.addEventListener("keydown", (event) => {
+                if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(event.code))
+                    event.preventDefault();
+                this.pressed.add(event.code);
+                if (!event.repeat && (event.code === "Space" || event.code === "KeyF" || event.code === "ControlRight"))
+                    this.queuedAttack = true;
+            });
+            window.addEventListener("keyup", (event) => this.pressed.delete(event.code));
+            window.addEventListener("blur", () => {
+                this.pressed.clear();
+                this.queuedAttack = false;
+            });
+            canvas.addEventListener("pointermove", (event) => { this.pointerClient = { x: event.clientX, y: event.clientY }; });
+            canvas.addEventListener("pointerdown", (event) => {
+                if (event.button === 0) {
+                    this.pointerClient = { x: event.clientX, y: event.clientY };
+                    this.queuedAttack = true;
+                }
+            });
+            canvas.addEventListener("contextmenu", (event) => event.preventDefault());
+        }
+        queueAttack() {
+            this.queuedAttack = true;
+        }
+        setVirtualCommand(command) {
+            this.virtualCommand = command ? { ...command } : null;
+        }
+        capture(player) {
+            if (this.virtualCommand)
+                return { ...this.virtualCommand };
+            const gamepad = (0, input_adapter_js_1.selectConnectedGamepad)([...(navigator.getGamepads?.() ?? [])]);
+            let moveX = (this.isPressed("KeyD", "ArrowRight") ? 1 : 0) - (this.isPressed("KeyA", "ArrowLeft") ? 1 : 0);
+            let moveY = (this.isPressed("KeyS", "ArrowDown") ? 1 : 0) - (this.isPressed("KeyW", "ArrowUp") ? 1 : 0);
+            let aimX = player.facingX;
+            let aimY = player.facingY;
+            let usePrimary = this.queuedAttack;
+            if (gamepad) {
+                const padMoveX = deadzone(gamepad.axes[0]);
+                const padMoveY = deadzone(gamepad.axes[1]);
+                if (Math.hypot(padMoveX, padMoveY) > Math.hypot(moveX, moveY)) {
+                    moveX = padMoveX;
+                    moveY = padMoveY;
+                }
+                const padAimX = deadzone(gamepad.axes[2]);
+                const padAimY = deadzone(gamepad.axes[3]);
+                if (Math.hypot(padAimX, padAimY) > 0.01) {
+                    aimX = padAimX;
+                    aimY = padAimY;
+                }
+                usePrimary = usePrimary || gamepad.buttons[0]?.pressed === true || (gamepad.buttons[7]?.value ?? 0) > 0.55;
+            }
+            if (this.pointerClient) {
+                const aim = (0, input_adapter_js_1.resolvePointerAim)(this.pointerClient, { x: player.x, y: player.y }, { x: aimX, y: aimY }, (x, y) => this.renderer.screenToWorld(x, y));
+                aimX = aim.x;
+                aimY = aim.y;
+            }
+            else if (Math.hypot(aimX, aimY) < 0.01 && Math.hypot(moveX, moveY) > 0.01) {
+                aimX = moveX;
+                aimY = moveY;
+            }
+            this.queuedAttack = false;
+            return { moveX, moveY, aimX, aimY, usePrimary };
+        }
+        isPressed(...codes) {
+            return codes.some((code) => this.pressed.has(code));
+        }
+    }
+    exports.LanClientInputAdapter = LanClientInputAdapter;
+});
+define("apps/runtime/src/lan-client-main", ["require", "exports", "packages/lan-protocol/src/index", "packages/runtime-core/src/index", "apps/runtime/src/lan-input-adapter", "apps/runtime/src/renderer"], function (require, exports, index_js_11, index_js_12, lan_input_adapter_js_1, renderer_js_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function requiredElement(selector) {
+        const element = document.querySelector(selector);
+        if (!element)
+            throw new Error(`Niekompletny shell klienta LAN: ${selector}.`);
+        return element;
+    }
+    function clientNonce() {
+        return typeof crypto.randomUUID === "function"
+            ? crypto.randomUUID().replaceAll("-", "")
+            : `${Date.now().toString(16)}${Math.random().toString(16).slice(2).padEnd(20, "0")}`;
+    }
+    const embeddedConfig = window.__COOPEGE_LAN_CONFIG__;
+    if (!embeddedConfig || embeddedConfig.mode !== "lan-client")
+        throw new Error("Brak konfiguracji klienta LAN.");
+    const config = embeddedConfig;
+    const preparedResult = (0, index_js_12.prepareRuntimeProject)(window.__COOPEGE_PROJECT__);
+    if (!preparedResult.ok)
+        throw new Error(`Projekt klienta LAN jest nieprawidłowy: ${JSON.stringify(preparedResult.issues)}`);
+    const prepared = preparedResult.prepared;
+    if (prepared.project.manifest.projectId !== config.projectId)
+        throw new Error("Osadzony projekt klienta nie zgadza się z konfiguracją LAN.");
+    const canvas = requiredElement("#world");
+    const context = canvas.getContext("2d");
+    if (!context)
+        throw new Error("Canvas 2D jest niedostępny.");
+    const status = requiredElement("#status");
+    const identity = requiredElement("#identity");
+    const floorLabel = requiredElement("#floorLabel");
+    const network = requiredElement("#network");
+    const eventLog = requiredElement("#eventLog");
+    const hpText = requiredElement("#hpText");
+    const hpFill = requiredElement("#hpFill");
+    const peerText = requiredElement("#peerText");
+    const attackButton = requiredElement("#attackButton");
+    const renderer = new renderer_js_1.RuntimeRenderer(canvas, context);
+    renderer.setProject(prepared);
+    const input = new lan_input_adapter_js_1.LanClientInputAdapter(canvas, renderer);
+    const snapshots = new index_js_11.LanSnapshotBuffer({ interpolationDelayMs: 110, maximumSnapshots: 12 });
+    const token = new URLSearchParams(location.search).get("token") ?? "";
+    const reconnectStorageKey = `coopege.m8.lan.reconnect.${config.projectId}`;
+    const diagnostics = {
+        ready: false,
+        connectionState: "connecting",
+        playerId: "",
+        slotId: "",
+        sessionId: "",
+        hostTick: 0,
+        inputSeq: 0,
+        acknowledgedInputSeq: 0,
+        inputAge: 0,
+        tickDrift: 0,
+        rttMs: 0,
+        snapshotRateHz: 0,
+        snapshotSeq: 0,
+        bufferedSnapshots: 0,
+        interpolationAlpha: 0,
+        connectedPlayers: 0,
+        rejectedInputs: 0,
+        activeFloorId: "",
+        lastEventType: "",
+        lastError: "",
+    };
+    window.__COOPEGE_LAN_DIAGNOSTICS__ = diagnostics;
+    let socket = null;
+    let welcome = null;
+    let latestSnapshot = null;
+    let recentEvents = [];
+    let pingSequence = 0;
+    function setStatus(message, state) {
+        status.textContent = message;
+        status.dataset.state = state;
+    }
+    function reconnectToken() {
+        try {
+            return localStorage.getItem(reconnectStorageKey);
+        }
+        catch {
+            return null;
+        }
+    }
+    function storeReconnectToken(value) {
+        try {
+            if (value)
+                localStorage.setItem(reconnectStorageKey, value);
+            else
+                localStorage.removeItem(reconnectStorageKey);
+        }
+        catch {
+            // Private browsing may disable storage. The active connection still works.
+        }
+    }
+    function updateHud() {
+        const own = latestSnapshot?.players.find((player) => player.playerId === diagnostics.playerId);
+        const peer = latestSnapshot?.players.find((player) => player.playerId !== diagnostics.playerId);
+        if (own) {
+            hpText.textContent = `${Math.ceil(own.hp)} / ${own.maxHp} HP`;
+            hpFill.style.width = `${Math.max(0, Math.min(100, own.hp / own.maxHp * 100))}%`;
+        }
+        peerText.textContent = peer ? `Partner ${peer.alive ? "aktywny" : "odradza się"} · ${Math.ceil(peer.hp)}/${peer.maxHp} HP` : "Oczekiwanie na partnera";
+        identity.textContent = diagnostics.playerId ? `${diagnostics.playerId} · ${diagnostics.slotId}` : "Oczekiwanie na przydział gracza";
+        floorLabel.textContent = diagnostics.activeFloorId || "—";
+        network.textContent = [
+            `RTT ${diagnostics.rttMs.toFixed(0)} ms · snapshoty ${diagnostics.snapshotRateHz.toFixed(1)} Hz`,
+            `host tick ${diagnostics.hostTick} · drift ${diagnostics.tickDrift} · input age ${diagnostics.inputAge}`,
+            `ACK ${diagnostics.acknowledgedInputSeq}/${diagnostics.inputSeq} · bufor ${diagnostics.bufferedSnapshots} · alpha ${diagnostics.interpolationAlpha.toFixed(2)}`,
+            `połączeni ${diagnostics.connectedPlayers}/2 · odrzucone inputy ${diagnostics.rejectedInputs}`,
+        ].join("\n");
+        eventLog.textContent = recentEvents.length ? recentEvents.join("\n") : "Brak zdarzeń gameplayowych.";
+    }
+    function recordEvents(events) {
+        for (const event of events) {
+            diagnostics.lastEventType = event.type;
+            recentEvents.unshift(`[${event.tick}] ${event.type}${event.entityId ? ` · ${event.entityId}` : ""}`);
+        }
+        recentEvents = recentEvents.slice(0, 12);
+    }
+    function handleWelcome(payload) {
+        welcome = payload;
+        diagnostics.connectionState = "connected";
+        diagnostics.playerId = payload.playerId;
+        diagnostics.slotId = payload.slotId;
+        diagnostics.sessionId = payload.sessionId;
+        diagnostics.hostTick = payload.hostTick;
+        storeReconnectToken(payload.reconnectToken);
+        setStatus(`Połączono jako ${payload.playerId}. Oczekiwanie na snapshot świata…`, "good");
+    }
+    function handleSnapshot(payload) {
+        const receivedAt = performance.now();
+        if (!snapshots.push(payload, receivedAt))
+            return;
+        latestSnapshot = payload;
+        diagnostics.ready = snapshots.size() >= 2;
+        diagnostics.hostTick = payload.hostTick;
+        diagnostics.acknowledgedInputSeq = payload.acknowledgedInputSeq;
+        diagnostics.inputAge = diagnostics.inputSeq - payload.acknowledgedInputSeq;
+        diagnostics.snapshotSeq = payload.diagnostics.snapshotSeq;
+        diagnostics.snapshotRateHz = snapshots.snapshotRateHz();
+        diagnostics.bufferedSnapshots = snapshots.size();
+        diagnostics.connectedPlayers = payload.diagnostics.connectedPlayers;
+        diagnostics.rejectedInputs = payload.diagnostics.rejectedInputs;
+        diagnostics.activeFloorId = payload.activeFloorId;
+        recordEvents(payload.events);
+        setStatus(diagnostics.ready ? "Klient LAN zsynchronizowany z autorytatywnym hostem." : "Połączono. Napełnianie bufora interpolacji…", diagnostics.ready ? "good" : "warn");
+        updateHud();
+    }
+    function handleReject(payload) {
+        diagnostics.connectionState = "rejected";
+        diagnostics.lastError = `${payload.code}: ${payload.message}`;
+        if (payload.code === "reconnect_rejected")
+            storeReconnectToken(null);
+        setStatus(`Host odrzucił klienta: ${payload.message}`, "bad");
+    }
+    function handleDisconnect(payload) {
+        diagnostics.connectionState = "disconnected";
+        diagnostics.lastError = payload.message;
+        setStatus(payload.message, payload.reconnectAllowed ? "warn" : "bad");
+    }
+    function connect() {
+        if (token.length < 16) {
+            diagnostics.connectionState = "error";
+            diagnostics.lastError = "Brak tokenu sesji w adresie URL.";
+            setStatus("Brak poprawnego tokenu sesji LAN w adresie.", "bad");
+            return;
+        }
+        const scheme = location.protocol === "https:" ? "wss" : "ws";
+        socket = new WebSocket(`${scheme}://${location.host}${config.websocketPath}`);
+        socket.addEventListener("open", () => {
+            const hello = (0, index_js_11.createLanEnvelope)(index_js_11.LAN_MESSAGE_TYPES.clientHello, {
+                engineVersion: config.engineVersion,
+                projectId: config.projectId,
+                projectChecksum: config.projectChecksum,
+                sessionToken: token,
+                clientNonce: clientNonce(),
+                reconnectToken: reconnectToken(),
+            });
+            socket?.send((0, index_js_11.encodeLanMessage)(hello));
+        });
+        socket.addEventListener("message", (event) => {
+            if (typeof event.data !== "string")
+                return;
+            const decoded = (0, index_js_11.decodeLanMessage)(event.data);
+            if (!decoded.ok) {
+                diagnostics.lastError = decoded.message;
+                return;
+            }
+            const message = decoded.envelope;
+            if (message.type === index_js_11.LAN_MESSAGE_TYPES.hostWelcome)
+                handleWelcome(message.payload);
+            else if (message.type === index_js_11.LAN_MESSAGE_TYPES.hostSnapshot)
+                handleSnapshot(message.payload);
+            else if (message.type === index_js_11.LAN_MESSAGE_TYPES.hostReject)
+                handleReject(message.payload);
+            else if (message.type === index_js_11.LAN_MESSAGE_TYPES.hostPong)
+                diagnostics.rttMs = Math.max(0, Date.now() - message.payload.clientSentAtMs);
+            else if (message.type === index_js_11.LAN_MESSAGE_TYPES.hostDisconnect)
+                handleDisconnect(message.payload);
+        });
+        socket.addEventListener("close", () => {
+            if (diagnostics.connectionState !== "rejected")
+                diagnostics.connectionState = "disconnected";
+            if (!diagnostics.lastError)
+                setStatus("Połączenie z hostem zostało zamknięte.", "warn");
+        });
+        socket.addEventListener("error", () => {
+            diagnostics.connectionState = "error";
+            diagnostics.lastError = "Błąd transportu WebSocket.";
+            setStatus(diagnostics.lastError, "bad");
+        });
+    }
+    function sendInput() {
+        if (!welcome || !latestSnapshot || !socket || socket.readyState !== WebSocket.OPEN)
+            return;
+        const player = latestSnapshot.players.find((entry) => entry.playerId === welcome?.playerId);
+        if (!player)
+            return;
+        diagnostics.inputSeq += 1;
+        const envelope = (0, index_js_11.createLanEnvelope)(index_js_11.LAN_MESSAGE_TYPES.clientInput, {
+            sessionId: welcome.sessionId,
+            playerId: welcome.playerId,
+            inputSeq: diagnostics.inputSeq,
+            clientTick: latestSnapshot.hostTick,
+            sampledAtMs: Date.now(),
+            command: input.capture(player),
+        });
+        socket.send((0, index_js_11.encodeLanMessage)(envelope));
+    }
+    function sendPing() {
+        if (!welcome || !socket || socket.readyState !== WebSocket.OPEN)
+            return;
+        pingSequence += 1;
+        const envelope = (0, index_js_11.createLanEnvelope)(index_js_11.LAN_MESSAGE_TYPES.clientPing, {
+            sessionId: welcome.sessionId,
+            pingId: `ping.${pingSequence}`,
+            sentAtMs: Date.now(),
+        });
+        socket.send((0, index_js_11.encodeLanMessage)(envelope));
+    }
+    function animationLoop(now) {
+        const sample = snapshots.sample(now);
+        if (sample && welcome) {
+            renderer.renderLan(sample.snapshot, welcome.tickRate, now);
+            diagnostics.interpolationAlpha = sample.alpha;
+            diagnostics.bufferedSnapshots = sample.bufferedSnapshots;
+            diagnostics.tickDrift = latestSnapshot ? latestSnapshot.hostTick - sample.snapshot.hostTick : 0;
+        }
+        updateHud();
+        requestAnimationFrame(animationLoop);
+    }
+    attackButton.addEventListener("click", () => input.queueAttack());
+    window.__COOPEGE_LAN_DEBUG__ = {
+        diagnostics: () => ({ ...diagnostics }),
+        latestSnapshot: () => latestSnapshot ? structuredClone(latestSnapshot) : null,
+        setVirtualCommand: (command) => input.setVirtualCommand(command),
+        queueAttack: () => input.queueAttack(),
+    };
+    window.addEventListener("beforeunload", () => {
+        if (welcome && socket?.readyState === WebSocket.OPEN) {
+            socket.send((0, index_js_11.encodeLanMessage)((0, index_js_11.createLanEnvelope)(index_js_11.LAN_MESSAGE_TYPES.clientDisconnect, { sessionId: welcome.sessionId, reason: "client_exit" })));
+        }
+    });
+    setStatus("Łączenie z autorytatywnym hostem LAN…", "warn");
+    connect();
+    setInterval(sendInput, 1000 / 30);
+    setInterval(sendPing, 1000);
+    requestAnimationFrame(animationLoop);
+});
 define("packages/dev-protocol/src/index", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -4026,7 +4795,7 @@ define("packages/dev-protocol/src/index", ["require", "exports"], function (requ
         return Array.from(bytes, (value) => value.toString(16).padStart(2, "0")).join("");
     }
 });
-define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index", "packages/dev-protocol/src/index", "packages/gameplay/src/index", "packages/runtime-core/src/index", "apps/runtime/src/input-adapter", "apps/runtime/src/renderer"], function (require, exports, index_js_11, index_js_12, index_js_13, index_js_14, input_adapter_js_1, renderer_js_1) {
+define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index", "packages/dev-protocol/src/index", "packages/gameplay/src/index", "packages/runtime-core/src/index", "apps/runtime/src/input-adapter", "apps/runtime/src/renderer"], function (require, exports, index_js_13, index_js_14, index_js_15, index_js_16, input_adapter_js_2, renderer_js_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function requiredElement(selector) {
@@ -4058,11 +4827,11 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
     const context = canvas.getContext("2d");
     if (!context)
         throw new Error("Canvas 2D jest niedostępny.");
-    const config = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.8.0-m8-lan-vs2" };
-    const host = new index_js_14.AtomicProjectHost();
-    const clock = new index_js_11.FixedClock(30);
-    const renderer = new renderer_js_1.RuntimeRenderer(canvas, context);
-    const input = new input_adapter_js_1.LocalCoopInputAdapter(canvas, renderer);
+    const config = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.8.0-m8-lan-vs3" };
+    const host = new index_js_16.AtomicProjectHost();
+    const clock = new index_js_13.FixedClock(30);
+    const renderer = new renderer_js_2.RuntimeRenderer(canvas, context);
+    const input = new input_adapter_js_2.LocalCoopInputAdapter(canvas, renderer);
     const SAVE_KEY_PREFIX = "coopege.m7.save.";
     let game;
     let lastFrame = performance.now();
@@ -4170,7 +4939,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         const current = host.current;
         if (!current)
             return;
-        game = new index_js_13.GameWorld(current, {
+        game = new index_js_15.GameWorld(current, {
             tickRate: 30,
             simulationSeed: 0xc00fee,
             dropSeed: 0xd09f00d,
@@ -4223,7 +4992,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         diagnostics.activeMonsterLimit = summary.spawnDiagnostics.activeMonsterLimit;
         diagnostics.activeFloorId = summary.activeFloorId;
         diagnostics.authoredTransitionCount = host.current.project.world.transitions?.length ?? 0;
-        diagnostics.secondaryInputDevice = game.playerSlots.find((slot) => slot.slotId === index_js_13.SECONDARY_SLOT_ID)?.deviceKind ?? "—";
+        diagnostics.secondaryInputDevice = game.playerSlots.find((slot) => slot.slotId === index_js_15.SECONDARY_SLOT_ID)?.deviceKind ?? "—";
         diagnostics.textureLayoutAssets = host.current.project.assets.entries.filter((asset) => asset.texture !== undefined).length;
         const assetStats = renderer.getAssetStats();
         diagnostics.assetTotal = assetStats.totalTextures;
@@ -4290,7 +5059,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         diagnostics.gameplayExecutionFailures = 0;
         try {
             rebuildGameWorld();
-            setStatus(config.mode === "preview" ? "M8 VS-2 — sandbox Studio gotowy" : "M8 LAN VS-2 ukończone — host Node gotowy, klient gry powstaje w VS-3", "good");
+            setStatus(config.mode === "preview" ? "M8 VS-3 — sandbox Studio gotowy" : "M8 LAN VS-3 ukończone — grywalny klient LAN jest gotowy", "good");
             diagnostics.ready = true;
         }
         catch (error) {
@@ -4304,22 +5073,22 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
     function reply(requestId, type, payload) {
         if (!config.sessionNonce)
             return;
-        parent.postMessage((0, index_js_12.createBridgeEnvelope)(config.sessionNonce, requestId, type, payload), "*");
+        parent.postMessage((0, index_js_14.createBridgeEnvelope)(config.sessionNonce, requestId, type, payload), "*");
     }
     if (config.mode === "preview") {
         if (!config.sessionNonce || config.sessionNonce.length < 16)
             throw new Error("Preview runtime nie otrzymał poprawnego nonce sesji.");
-        setStatus("Runtime M8 VS-2 — oczekiwanie na Studio", "warn");
+        setStatus("Runtime M8 VS-3 — oczekiwanie na Studio", "warn");
         details.textContent = "Preview działa bez allow-same-origin.\nOczekiwanie na zwalidowany snapshot projektu.";
         window.addEventListener("message", (event) => {
-            if (event.source !== parent || !(0, index_js_12.isBridgeEnvelope)(event.data, config.sessionNonce))
+            if (event.source !== parent || !(0, index_js_14.isBridgeEnvelope)(event.data, config.sessionNonce))
                 return;
             const envelope = event.data;
             switch (envelope.type) {
-                case index_js_12.BRIDGE_TYPES.studioHello: {
+                case index_js_14.BRIDGE_TYPES.studioHello: {
                     const payload = envelope.payload;
                     diagnostics.bridgeConnected = true;
-                    reply(envelope.requestId, index_js_12.BRIDGE_TYPES.runtimeReady, {
+                    reply(envelope.requestId, index_js_14.BRIDGE_TYPES.runtimeReady, {
                         runtimeVersion: config.runtimeVersion,
                         schemaVersion: 2,
                         capabilities: [
@@ -4350,11 +5119,11 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
                     diagnostics.ready = true;
                     break;
                 }
-                case index_js_12.BRIDGE_TYPES.projectApply: {
+                case index_js_14.BRIDGE_TYPES.projectApply: {
                     const payload = envelope.payload;
                     const result = applyProject(payload.project, payload.studioRevision);
                     if (result.ok) {
-                        reply(envelope.requestId, index_js_12.BRIDGE_TYPES.projectApplied, {
+                        reply(envelope.requestId, index_js_14.BRIDGE_TYPES.projectApplied, {
                             runtimeRevision: result.revision,
                             studioRevision: payload.studioRevision,
                             checksum: result.checksum,
@@ -4362,7 +5131,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
                         });
                     }
                     else {
-                        reply(envelope.requestId, index_js_12.BRIDGE_TYPES.projectRejected, {
+                        reply(envelope.requestId, index_js_14.BRIDGE_TYPES.projectRejected, {
                             runtimeRevision: result.revision,
                             studioRevision: payload.studioRevision,
                             issues: result.issues,
@@ -4370,23 +5139,23 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
                     }
                     break;
                 }
-                case index_js_12.BRIDGE_TYPES.gameplayTest: {
+                case index_js_14.BRIDGE_TYPES.gameplayTest: {
                     const payload = envelope.payload;
                     if (!game) {
-                        reply(envelope.requestId, index_js_12.BRIDGE_TYPES.error, { code: "gameplay_not_ready", message: "GameWorld nie jest gotowy.", requestType: envelope.type });
+                        reply(envelope.requestId, index_js_14.BRIDGE_TYPES.error, { code: "gameplay_not_ready", message: "GameWorld nie jest gotowy.", requestType: envelope.type });
                         break;
                     }
                     const result = game.planGameplayGraph(payload.graphId, payload.playerId);
-                    reply(envelope.requestId, index_js_12.BRIDGE_TYPES.gameplayTestResult, { graphId: payload.graphId, playerId: payload.playerId, result });
+                    reply(envelope.requestId, index_js_14.BRIDGE_TYPES.gameplayTestResult, { graphId: payload.graphId, playerId: payload.playerId, result });
                     break;
                 }
-                case index_js_12.BRIDGE_TYPES.ping: {
+                case index_js_14.BRIDGE_TYPES.ping: {
                     const payload = envelope.payload;
-                    reply(envelope.requestId, index_js_12.BRIDGE_TYPES.pong, { sentAt: payload.sentAt, receivedAt: performance.now() });
+                    reply(envelope.requestId, index_js_14.BRIDGE_TYPES.pong, { sentAt: payload.sentAt, receivedAt: performance.now() });
                     break;
                 }
                 default:
-                    reply(envelope.requestId, index_js_12.BRIDGE_TYPES.error, { code: "unsupported_request", message: `Runtime nie obsługuje wiadomości ${envelope.type}.`, requestType: envelope.type });
+                    reply(envelope.requestId, index_js_14.BRIDGE_TYPES.error, { code: "unsupported_request", message: `Runtime nie obsługuje wiadomości ${envelope.type}.`, requestType: envelope.type });
             }
         });
     }
@@ -4417,7 +5186,7 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
     function togglePlayer2() {
         if (!game)
             return;
-        if (game.getPlayer(index_js_13.SECONDARY_PLAYER_ID))
+        if (game.getPlayer(index_js_15.SECONDARY_PLAYER_ID))
             input.leaveSecondPlayer(game);
         else
             input.joinSecondPlayer(game, "keyboard");
@@ -4459,10 +5228,10 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         rebuildGameWorld();
         setStatus("Sesja zresetowana deterministycznie", "good");
     });
-    attackButton.addEventListener("click", () => input.queueAttack(index_js_13.PRIMARY_SLOT_ID));
+    attackButton.addEventListener("click", () => input.queueAttack(index_js_15.PRIMARY_SLOT_ID));
     joinButton.addEventListener("click", togglePlayer2);
     window.__COOPEGE_GAME_DEBUG__ = {
-        queueAttack: (slotId = index_js_13.PRIMARY_SLOT_ID) => input.queueAttack(slotId),
+        queueAttack: (slotId = index_js_15.PRIMARY_SLOT_ID) => input.queueAttack(slotId),
         joinPlayer2: () => { if (game)
             input.joinSecondPlayer(game); },
         leavePlayer2: () => { if (game)
@@ -4488,260 +5257,6 @@ define("apps/runtime/src/main", ["require", "exports", "packages/core/src/index"
         requestAnimationFrame(animationLoop);
     }
     requestAnimationFrame(animationLoop);
-});
-define("packages/lan-protocol/src/types", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.LAN_MESSAGE_TYPES = exports.LAN_MAX_ACTORS = exports.LAN_MAX_PLAYERS = exports.LAN_MAX_MESSAGE_BYTES = exports.COOPEGE_LAN_PROTOCOL_VERSION = exports.COOPEGE_LAN_PROTOCOL = void 0;
-    exports.COOPEGE_LAN_PROTOCOL = "coopege-lan";
-    exports.COOPEGE_LAN_PROTOCOL_VERSION = 1;
-    exports.LAN_MAX_MESSAGE_BYTES = 64 * 1024;
-    exports.LAN_MAX_PLAYERS = 2;
-    exports.LAN_MAX_ACTORS = 512;
-    exports.LAN_MESSAGE_TYPES = {
-        clientHello: "client.hello",
-        hostWelcome: "host.welcome",
-        hostReject: "host.reject",
-        clientInput: "client.input",
-        hostSnapshot: "host.snapshot",
-        clientPing: "client.ping",
-        hostPong: "host.pong",
-        clientDisconnect: "client.disconnect",
-        hostDisconnect: "host.disconnect",
-    };
-});
-define("packages/lan-protocol/src/validation", ["require", "exports", "packages/lan-protocol/src/types"], function (require, exports, types_js_4) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.isLanMessageType = isLanMessageType;
-    exports.validateLanEnvelope = validateLanEnvelope;
-    exports.isLanEnvelope = isLanEnvelope;
-    exports.encodeLanMessage = encodeLanMessage;
-    exports.decodeLanMessage = decodeLanMessage;
-    exports.createLanEnvelope = createLanEnvelope;
-    exports.checkHelloCompatibility = checkHelloCompatibility;
-    const SHA256 = /^[a-f0-9]{64}$/;
-    const MESSAGE_TYPES = new Set(Object.values(types_js_4.LAN_MESSAGE_TYPES));
-    const REJECT_CODES = new Set([
-        "engine_version_mismatch",
-        "project_id_mismatch",
-        "project_checksum_mismatch",
-        "invalid_session_token",
-        "session_full",
-        "reconnect_rejected",
-    ]);
-    const DISCONNECT_REASONS = new Set(["client_exit", "timeout", "protocol_error", "server_shutdown", "replaced"]);
-    function isRecord(value) {
-        return typeof value === "object" && value !== null && !Array.isArray(value);
-    }
-    function isFiniteNumber(value) {
-        return typeof value === "number" && Number.isFinite(value);
-    }
-    function isInteger(value, minimum = 0) {
-        return Number.isInteger(value) && value >= minimum;
-    }
-    function isShortString(value, minimum = 1, maximum = 256) {
-        return typeof value === "string" && value.length >= minimum && value.length <= maximum;
-    }
-    function isNullableShortString(value, minimum = 1, maximum = 256) {
-        return value === null || isShortString(value, minimum, maximum);
-    }
-    function isPlayerCommand(value) {
-        if (!isRecord(value))
-            return false;
-        const axes = [value.moveX, value.moveY, value.aimX, value.aimY];
-        return axes.every((axis) => isFiniteNumber(axis) && axis >= -1 && axis <= 1) && typeof value.usePrimary === "boolean";
-    }
-    function isPlayerSnapshot(value) {
-        if (!isRecord(value))
-            return false;
-        return isShortString(value.playerId) && isShortString(value.entityId) && isShortString(value.slotId) && isShortString(value.floorId)
-            && [value.x, value.y, value.previousX, value.previousY, value.facingX, value.facingY, value.hp, value.maxHp].every(isFiniteNumber)
-            && typeof value.alive === "boolean" && value.hp >= 0 && value.maxHp > 0 && value.hp <= value.maxHp;
-    }
-    function isActorSnapshot(value) {
-        if (!isRecord(value))
-            return false;
-        return value.kind === "monster" && isShortString(value.entityId) && isShortString(value.floorId)
-            && [value.x, value.y, value.previousX, value.previousY, value.hp, value.maxHp].every(isFiniteNumber)
-            && typeof value.alive === "boolean" && value.hp >= 0 && value.maxHp > 0 && value.hp <= value.maxHp;
-    }
-    function isPresentationValue(value) {
-        return value === null || typeof value === "string" || typeof value === "boolean" || isFiniteNumber(value);
-    }
-    function isPresentationEvent(value) {
-        if (!isRecord(value) || !isShortString(value.eventId) || !isShortString(value.type) || !isInteger(value.tick) || !isNullableShortString(value.entityId))
-            return false;
-        return isRecord(value.data) && Object.keys(value.data).length <= 32 && Object.values(value.data).every(isPresentationValue);
-    }
-    function hasUniqueStrings(values) {
-        return values.every((value) => typeof value === "string") && new Set(values).size === values.length;
-    }
-    function validatePayload(type, payload) {
-        if (!isRecord(payload))
-            return false;
-        switch (type) {
-            case types_js_4.LAN_MESSAGE_TYPES.clientHello:
-                return isShortString(payload.engineVersion)
-                    && isShortString(payload.projectId)
-                    && typeof payload.projectChecksum === "string" && SHA256.test(payload.projectChecksum)
-                    && isShortString(payload.sessionToken, 16, 256)
-                    && isShortString(payload.clientNonce, 16, 256)
-                    && isNullableShortString(payload.reconnectToken, 16, 256);
-            case types_js_4.LAN_MESSAGE_TYPES.hostWelcome:
-                return isShortString(payload.sessionId, 16) && isShortString(payload.playerId) && isShortString(payload.slotId)
-                    && isShortString(payload.reconnectToken, 16) && isInteger(payload.hostTick)
-                    && isInteger(payload.tickRate, 1) && payload.tickRate <= 240
-                    && isInteger(payload.snapshotRateHz, 1) && payload.snapshotRateHz <= payload.tickRate;
-            case types_js_4.LAN_MESSAGE_TYPES.hostReject:
-                return typeof payload.code === "string" && REJECT_CODES.has(payload.code) && isShortString(payload.message, 1, 1024);
-            case types_js_4.LAN_MESSAGE_TYPES.clientInput:
-                return isShortString(payload.sessionId, 16) && isShortString(payload.playerId)
-                    && isInteger(payload.inputSeq, 1) && isInteger(payload.clientTick)
-                    && isFiniteNumber(payload.sampledAtMs) && payload.sampledAtMs >= 0
-                    && isPlayerCommand(payload.command);
-            case types_js_4.LAN_MESSAGE_TYPES.hostSnapshot:
-                if (!isShortString(payload.sessionId, 16) || !isInteger(payload.hostTick) || !isShortString(payload.activeFloorId)
-                    || !isInteger(payload.acknowledgedInputSeq) || !Array.isArray(payload.players) || payload.players.length > types_js_4.LAN_MAX_PLAYERS
-                    || !payload.players.every(isPlayerSnapshot) || !Array.isArray(payload.actors) || payload.actors.length > types_js_4.LAN_MAX_ACTORS
-                    || !payload.actors.every(isActorSnapshot) || !Array.isArray(payload.events) || payload.events.length > 256
-                    || !payload.events.every(isPresentationEvent) || !isRecord(payload.diagnostics))
-                    return false;
-                if (!hasUniqueStrings(payload.players.map((player) => player.playerId))
-                    || !hasUniqueStrings(payload.players.map((player) => player.slotId))
-                    || !hasUniqueStrings([
-                        ...payload.players.map((player) => player.entityId),
-                        ...payload.actors.map((actor) => actor.entityId),
-                    ])
-                    || !hasUniqueStrings(payload.events.map((event) => event.eventId))
-                    || payload.players.some((player) => player.floorId !== payload.activeFloorId)
-                    || payload.actors.some((actor) => actor.floorId !== payload.activeFloorId))
-                    return false;
-                return isInteger(payload.diagnostics.snapshotSeq, 1)
-                    && isInteger(payload.diagnostics.connectedPlayers) && payload.diagnostics.connectedPlayers <= types_js_4.LAN_MAX_PLAYERS
-                    && isInteger(payload.diagnostics.rejectedInputs);
-            case types_js_4.LAN_MESSAGE_TYPES.clientPing:
-                return isShortString(payload.sessionId, 16) && isShortString(payload.pingId) && isFiniteNumber(payload.sentAtMs) && payload.sentAtMs >= 0;
-            case types_js_4.LAN_MESSAGE_TYPES.hostPong:
-                return isShortString(payload.sessionId, 16) && isShortString(payload.pingId)
-                    && [payload.clientSentAtMs, payload.hostReceivedAtMs, payload.hostSentAtMs].every((value) => isFiniteNumber(value) && value >= 0);
-            case types_js_4.LAN_MESSAGE_TYPES.clientDisconnect:
-                return isShortString(payload.sessionId, 16) && typeof payload.reason === "string" && DISCONNECT_REASONS.has(payload.reason);
-            case types_js_4.LAN_MESSAGE_TYPES.hostDisconnect:
-                return isShortString(payload.sessionId, 16) && typeof payload.reason === "string" && DISCONNECT_REASONS.has(payload.reason)
-                    && isShortString(payload.message, 1, 1024) && typeof payload.reconnectAllowed === "boolean";
-        }
-    }
-    function isLanMessageType(value) {
-        return typeof value === "string" && MESSAGE_TYPES.has(value);
-    }
-    function validateLanEnvelope(value) {
-        if (!isRecord(value))
-            return { ok: false, code: "invalid_envelope", path: "$", message: "Koperta LAN musi być obiektem." };
-        if (value.protocol !== types_js_4.COOPEGE_LAN_PROTOCOL)
-            return { ok: false, code: "unsupported_protocol", path: "$.protocol", message: "Nieobsługiwana nazwa protokołu LAN." };
-        if (value.protocolVersion !== types_js_4.COOPEGE_LAN_PROTOCOL_VERSION)
-            return { ok: false, code: "unsupported_protocol_version", path: "$.protocolVersion", message: "Nieobsługiwana wersja protokołu LAN." };
-        if (!isLanMessageType(value.type))
-            return { ok: false, code: "unknown_message_type", path: "$.type", message: "Nieznany typ wiadomości LAN." };
-        if (!validatePayload(value.type, value.payload))
-            return { ok: false, code: "invalid_payload", path: "$.payload", message: `Nieprawidłowy payload ${value.type}.` };
-        return { ok: true, envelope: value };
-    }
-    function isLanEnvelope(value) {
-        return validateLanEnvelope(value).ok;
-    }
-    function stableJson(value) {
-        if (value === null || typeof value !== "object")
-            return JSON.stringify(value);
-        if (Array.isArray(value))
-            return `[${value.map(stableJson).join(",")}]`;
-        const record = value;
-        return `{${Object.keys(record).sort().map((key) => `${JSON.stringify(key)}:${stableJson(record[key])}`).join(",")}}`;
-    }
-    function encodeLanMessage(envelope) {
-        const validation = validateLanEnvelope(envelope);
-        if (!validation.ok)
-            throw new Error(`${validation.code} ${validation.path}: ${validation.message}`);
-        const encoded = stableJson(envelope);
-        if (new TextEncoder().encode(encoded).byteLength > types_js_4.LAN_MAX_MESSAGE_BYTES)
-            throw new Error("Wiadomość LAN przekracza limit rozmiaru.");
-        return encoded;
-    }
-    function decodeLanMessage(encoded) {
-        if (new TextEncoder().encode(encoded).byteLength > types_js_4.LAN_MAX_MESSAGE_BYTES) {
-            return { ok: false, code: "message_too_large", path: "$", message: "Wiadomość LAN przekracza limit rozmiaru." };
-        }
-        let value;
-        try {
-            value = JSON.parse(encoded);
-        }
-        catch {
-            return { ok: false, code: "invalid_json", path: "$", message: "Wiadomość LAN nie jest poprawnym JSON-em." };
-        }
-        return validateLanEnvelope(value);
-    }
-    function createLanEnvelope(type, payload) {
-        const envelope = {
-            protocol: types_js_4.COOPEGE_LAN_PROTOCOL,
-            protocolVersion: types_js_4.COOPEGE_LAN_PROTOCOL_VERSION,
-            type,
-            payload,
-        };
-        const validation = validateLanEnvelope(envelope);
-        if (!validation.ok)
-            throw new Error(`${validation.code} ${validation.path}: ${validation.message}`);
-        return envelope;
-    }
-    function checkHelloCompatibility(hello, expected) {
-        if (hello.engineVersion !== expected.engineVersion)
-            return { ok: false, code: "engine_version_mismatch", message: "Wersja silnika klienta nie zgadza się z hostem." };
-        if (hello.projectId !== expected.projectId)
-            return { ok: false, code: "project_id_mismatch", message: "Klient otworzył inny projekt niż host." };
-        if (hello.projectChecksum !== expected.projectChecksum)
-            return { ok: false, code: "project_checksum_mismatch", message: "Snapshot projektu klienta nie zgadza się z hostem." };
-        if (hello.sessionToken !== expected.sessionToken)
-            return { ok: false, code: "invalid_session_token", message: "Token sesji LAN jest nieprawidłowy." };
-        return { ok: true };
-    }
-});
-define("packages/lan-protocol/src/input-admission", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.evaluateInputAdmission = evaluateInputAdmission;
-    function evaluateInputAdmission(input, context) {
-        if (context.connectionId !== context.ownerConnectionId) {
-            return { ok: false, code: "not_owner", message: "Połączenie nie posiada wskazanego gracza." };
-        }
-        if (input.sessionId !== context.sessionId) {
-            return { ok: false, code: "session_mismatch", message: "Input należy do innej sesji." };
-        }
-        if (input.playerId !== context.playerId) {
-            return { ok: false, code: "player_mismatch", message: "Input próbuje sterować graczem należącym do innego połączenia." };
-        }
-        if (input.inputSeq === context.lastAcceptedInputSeq) {
-            return { ok: false, code: "duplicate_input", message: "Input o tym numerze został już przyjęty." };
-        }
-        if (input.inputSeq < context.lastAcceptedInputSeq) {
-            return { ok: false, code: "out_of_order_input", message: "Input dotarł po nowszej komendzie." };
-        }
-        const maximumPastTicks = context.maximumPastTicks ?? 120;
-        const maximumFutureTicks = context.maximumFutureTicks ?? 2;
-        if (input.clientTick < context.hostTick - maximumPastTicks) {
-            return { ok: false, code: "input_too_old", message: "Input jest zbyt stary względem ticka hosta." };
-        }
-        if (input.clientTick > context.hostTick + maximumFutureTicks) {
-            return { ok: false, code: "input_from_future", message: "Input wskazuje niedozwolony przyszły tick." };
-        }
-        return { ok: true, acceptedInputSeq: input.inputSeq };
-    }
-});
-define("packages/lan-protocol/src/index", ["require", "exports", "packages/lan-protocol/src/types", "packages/lan-protocol/src/validation", "packages/lan-protocol/src/input-admission"], function (require, exports, types_js_5, validation_js_1, input_admission_js_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    __exportStar(types_js_5, exports);
-    __exportStar(validation_js_1, exports);
-    __exportStar(input_admission_js_1, exports);
 });
 define("packages/map-core/src/index", ["require", "exports"], function (require, exports) {
     "use strict";

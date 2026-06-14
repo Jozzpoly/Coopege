@@ -1,10 +1,10 @@
 {
   "format": "coopege-project-state",
   "schemaVersion": 1,
-  "projectVersion": "0.8.0-m8-lan-vs2",
-  "releaseCandidateId": "M8-LAN-VS2-2026-06-14",
+  "projectVersion": "0.8.0-m8-lan-vs3",
+  "releaseCandidateId": "M8-LAN-VS3-2026-06-14",
   "completedMilestone": "M7 Finalization / Owner Validation",
-  "activeMilestone": "M8 LAN Foundation / VS-3 Client",
+  "activeMilestone": "M8 LAN Foundation / VS-4 Failures and Reconnect",
   "statusScope": "completedMilestone",
   "status": {
     "implemented": true,
@@ -18,15 +18,15 @@
     "id": "M8",
     "phase": "IN_PROGRESS",
     "implementationStarted": true,
-    "completedSlice": "VS-2",
-    "nextSlice": "VS-3"
+    "completedSlice": "VS-3",
+    "nextSlice": "VS-4"
   },
   "releaseHashAuthority": "External .zip.sha256 sidecar; the archive cannot contain its own final hash.",
   "expectedBaseline": {
     "typecheck": "PASS",
-    "nodeTests": 107,
+    "nodeTests": 111,
     "migrationArtifacts": 52,
-    "chromiumScenarios": 9,
+    "chromiumScenarios": 10,
     "legacyArtifacts": 4,
     "gameplayGate": "PASS_AUTOMATED"
   },
@@ -45,7 +45,10 @@
     "lanProtocol": "packages/lan-protocol/src/index.ts",
     "lanHost": "apps/lan-host/src/server.ts",
     "lanHostGuide": "docs/process/M8_LAN_HOST_VS2.md",
-    "lanHostSmoke": "tools/test/lan-host-smoke.mjs"
+    "lanHostSmoke": "tools/test/lan-host-smoke.mjs",
+    "lanClient": "apps/runtime/src/lan-client-main.ts",
+    "lanClientGuide": "docs/process/M8_LAN_CLIENT_VS3.md",
+    "lanClientBrowserSmoke": "tools/test/lan-client-browser-smoke.mjs"
   },
   "blockers": [],
   "mustFixBeforeNext": []

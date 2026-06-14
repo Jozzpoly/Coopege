@@ -80,16 +80,27 @@ function createRuntimeHtml(project, config, variant = "m7", projectExpression = 
     .replace("/*__APP_BUNDLE__*/", bundle);
   if (variant === "migration") {
     html = html
-      .replace("Coopege — M8 LAN VS-2", "Coopege — M8 LAN VS-2 · Legacy World")
-      .replace("Coopege Runtime — M8 LAN VS-2", "Coopege Runtime — M8 LAN VS-2 · Legacy World");
+      .replace("Coopege — M8 LAN VS-3", "Coopege — M8 LAN VS-3 · Legacy World")
+      .replace("Coopege Runtime — M8 LAN VS-3", "Coopege Runtime — M8 LAN VS-3 · Legacy World");
   }
   if (variant === "preview-host") {
     html = html
-      .replace("Coopege — M8 LAN VS-2", "Coopege — Embedded M8 VS-2 Preview")
-      .replace("Coopege Runtime — M8 LAN VS-2", "Coopege Runtime — M8 VS-2 preview Studia")
-      .replace("M7 OWNER ACCEPTED · M8 VS-2 COMPLETE", "M7 OWNER ACCEPTED · M8 sandbox VS-2");
+      .replace("Coopege — M8 LAN VS-3", "Coopege — Embedded M8 VS-3 Preview")
+      .replace("Coopege Runtime — M8 LAN VS-3", "Coopege Runtime — M8 VS-3 preview Studia")
+      .replace("M7 OWNER ACCEPTED · M8 VS-3 COMPLETE", "M7 OWNER ACCEPTED · M8 sandbox VS-3");
   }
   return html;
+}
+
+function createLanClientHtml(project, config) {
+  const template = readFileSync(resolve(root, "apps/runtime/lan-client-template.html"), "utf8");
+  const loader = readFileSync(resolve(root, "tools/build/amd-loader.js"), "utf8");
+  const bundle = readFileSync(resolve(buildDir, "runtime.js"), "utf8");
+  return template
+    .replace("/*__PROJECT__*/", safeJson(project))
+    .replace("/*__LAN_CONFIG__*/", safeJson(config))
+    .replace("/*__AMD_LOADER__*/", loader)
+    .replace("/*__APP_BUNDLE__*/", bundle);
 }
 
 function writeArtifact(name, html) {
@@ -137,9 +148,18 @@ const runtimeConfig = { mode: "standalone", runtimeVersion: packageVersion };
 const officialRuntime = createRuntimeHtml(migratedProject, runtimeConfig, "migration");
 const officialStudio = createStudioHtml(migratedProject, migratedAssetBaseline);
 const minimalRuntime = createRuntimeHtml(minimalProject, runtimeConfig);
+const lanClient = createLanClientHtml(migratedProject, {
+  mode: "lan-client",
+  runtimeVersion: packageVersion,
+  engineVersion: packageVersion,
+  projectId: migratedSourceProject.manifest.projectId,
+  projectChecksum: createHash("sha256").update(JSON.stringify(migratedSourceProject)).digest("hex"),
+  websocketPath: "/lan",
+});
 const artifacts = [
-  ["docelowy grywalny runtime M8 VS-2", "Coopege_v0.01.html", officialRuntime],
-  ["docelowe Studio M8 VS-2", "Coopege_Studio_v0.1.html", officialStudio],
+  ["grywalny klient LAN M8 VS-3", "Coopege_M8_LAN_Client.html", lanClient],
+  ["docelowy grywalny runtime M8 VS-3", "Coopege_v0.01.html", officialRuntime],
+  ["docelowe Studio M8 VS-3", "Coopege_Studio_v0.1.html", officialStudio],
   ["M7 arena minimalna", "Coopege_M7_Runtime.html", minimalRuntime],
   ["M7 runtime pełnego świata", "Coopege_M7_Legacy_Runtime.html", officialRuntime],
   ["M7A Studio", "Coopege_M7A_Studio.html", officialStudio],

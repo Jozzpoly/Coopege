@@ -7,7 +7,7 @@ npm ci --ignore-scripts
 npm run lan:host
 ```
 
-Host buduje kod Node, ładuje pełny zmigrowany projekt, uruchamia `GameWorld` 30 Hz i wypisuje adresy LAN zawierające token sesji. Otwarta strona jest na razie diagnostyką transportu i snapshotów. Grywalny renderer oraz sterowanie sieciowe należą do VS-3.
+Host buduje klienta i kod Node, ładuje pełny zmigrowany projekt, uruchamia `GameWorld` 30 Hz i wypisuje adresy LAN zawierające token sesji. Od VS-3 otwarta strona jest grywalnym klientem renderującym autorytatywne snapshoty.
 
 Kontrolowane zatrzymanie na Windowsie: wpisz `shutdown` w terminalu hosta i naciśnij Enter. Host zapisze świat przed zamknięciem.
 
@@ -17,6 +17,7 @@ Kontrolowane zatrzymanie na Windowsie: wpisz `shutdown` w terminalu hosta i naci
 - `COOPEGE_LAN_BIND` - adres nasłuchu, domyślnie `0.0.0.0`;
 - `COOPEGE_LAN_TOKEN` - opcjonalny stały token sesji;
 - `COOPEGE_LAN_PROJECT` - ścieżka projektu względem repo;
+- `COOPEGE_LAN_CLIENT` - opcjonalna ścieżka zbudowanego klienta HTML;
 - `COOPEGE_LAN_SAVE_PATH` - ścieżka save'a hosta, domyślnie `data/m8-lan-host-save.json`;
 - `COOPEGE_LAN_AUTOSAVE_SECONDS` - interwał autosave, domyślnie 30 sekund.
 
@@ -29,7 +30,7 @@ Kontrolowane zatrzymanie na Windowsie: wpisz `shutdown` w terminalu hosta i naci
 - disconnect zwalnia połączenie, ale nie usuwa gracza ani świata;
 - reconnect token odzyskuje ten sam slot;
 - snapshot 10 Hz ma ACK właściwy dla klienta i nie zawiera save v3;
-- token jest wymagany zarówno przez handshake, jak i adres strony diagnostycznej.
+- token jest wymagany zarówno przez handshake, jak i adres grywalnego klienta.
 
 ## Weryfikacja
 
