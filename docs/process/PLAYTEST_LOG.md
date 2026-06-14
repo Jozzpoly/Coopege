@@ -2,6 +2,65 @@
 
 > Testy automatyczne sprawdzają spójność. Ten plik zachowuje doświadczenie z prawdziwego grania. Najnowsze wpisy są na górze.
 
+## 2026-06-14 - M8 VS-2 autorytatywny host Node
+
+- **Wersja:** `0.8.0-m8-lan-vs2`
+- **Zakres:** HTTP + WebSocket, dwa sloty, fixed tick 30 Hz, snapshoty 10 Hz, reconnect token i host-only save
+- **Status:** techniczny slice ukończony; grywalny klient należy do VS-3
+
+### Automatyczne potwierdzenie
+
+- Node 107/107;
+- realny proces na losowym porcie;
+- strona bez tokenu: HTTP 403, strona z tokenem: HTTP 200;
+- dwa WebSockety dostały różne `playerId`;
+- input klienta wrócił w per-client ACK;
+- ping/pong i dwa snapshoty graczy: PASS;
+- kontrolowana komenda `shutdown` utworzyła save hosta.
+
+---
+
+## 2026-06-14 — poprawka respawnu C0 i start M8 VS-1
+
+- **Wersja:** `0.8.0-m8-lan-vs1`
+- **Źródło:** owner feedback — gracz losowo wracał do historycznej pozycji po śmierci
+- **Diagnoza:** P1 i później dołączony P2 zapisywali różne `spawnPosition`; save v3 utrwalał miejsce dołączenia P2
+- **Poprawka:** jedna kotwica respawnu drużyny, wolne pole wybierane przy odrodzeniu, normalizacja starszych save'ów
+- **Status owner feedback:** `OF-001 FIXED_NEEDS_RETEST`
+- **M8:** ukończono transport-independent `@coopege/lan-protocol` VS-1
+
+### Automatyczne potwierdzenie
+
+- testy regresyjne coopa: wspólna kotwica, brak nakładania graczy, migracja rozbieżnego save'a;
+- testy protokołu: compatibility, limit wiadomości, ownership, duplicate, out-of-order, tick age i snapshot identity;
+- TypeScript oraz celowane testy GameWorld/LAN: PASS.
+
+---
+
+## 2026-06-14 — M8 entry L2 review
+
+- **Wersja bazowa:** `0.7.5-m7-owner-accepted`
+- **Decyzja:** `PASS`
+- **Status:** `SUCCESSOR_REVIEWED=true`, M8 implementation ready, implementation not started
+
+### Normalna ścieżka UI
+
+- gotowy runtime uruchomiony z `dist`;
+- P2 dołączony przyciskiem bez debug API;
+- save v3 zapisany dla dwóch graczy;
+- P2 odłączony, następnie load przywrócił obu graczy i stabilne ID;
+- HUD i playfield pozostały czytelne, konsola 0 warningów / 0 błędów.
+
+### Automatyczne potwierdzenie
+
+- pełne `npm run validate`: PASS;
+- Node 94/94, migration 52/52, Chromium 9/9 + Ability Composer;
+- schody przez normalny input, server reuse i Gameplay Gate bez regresji.
+
+Raport: `docs/reviews/M8_ENTRY_L2_INHERITANCE_REVIEW_2026-06-14.md`.
+
+---
+
 ## 2026-06-13 — M7 owner acceptance
 
 - **Wersja zamykająca:** `0.7.5-m7-owner-accepted`

@@ -2,15 +2,7 @@
 
 ## Zasada użycia
 
-Czat z agentem jest podstawowym kanałem feedbacku Przemka. Właściciel nie musi ręcznie aktualizować dokumentacji projektu. Agent ma obowiązek:
-
-1. rozpoznać w rozmowie decyzje, błędy, długi, pomysły i zmianę priorytetów;
-2. zapisać tutaj tylko informacje, które powinny przetrwać kolejne rozmowy;
-3. nadać wpisowi status i wpływ na milestone;
-4. zsynchronizować `PROJECT_STATE.json`, `AI_PROJECT_MEMORY.md`, `CURRENT_MILESTONE.md`, `LAST_HANDOFF.md`, roadmapę, testy i raporty, jeżeli feedback zmienia ich treść;
-5. nie pozostawiać sprzeczności między dokumentacją, kodem, testami i gotowym `dist`.
-
-Przemek może dopisywać do tego pliku dłuższe opisy lub starsze błędy. Agent porządkuje takie wpisy, ale nie usuwa sensu oryginalnego feedbacku.
+Czat z agentem jest podstawowym kanałem feedbacku Przemka. Agent zapisuje tutaj trwałe decyzje, błędy, długi i zmianę priorytetów oraz synchronizuje dokumentację, kod, testy i gotowy `dist`.
 
 ## Statusy
 
@@ -18,20 +10,21 @@ Przemek może dopisywać do tego pliku dłuższe opisy lub starsze błędy. Agen
 - `IN_PROGRESS` - aktualnie realizowane;
 - `FIXED_NEEDS_RETEST` - naprawione, czeka na test właściciela;
 - `CLOSED` - zakończone;
-- `BACKLOG` - świadomie odłożone i nieblokujące aktywnego milestone;
+- `BACKLOG` - świadomie odłożone;
 - `IDEA` - hipoteza bez zobowiązania realizacyjnego.
 
 ## Aktywne wpisy
 
-### OF-001 - lokalny C0 zmienia punkt respawnu solo
+### OF-001 - lokalny C0 używa historycznego punktu respawnu
 
-- Status: `BACKLOG`
-- Źródło: owner playtest M7, potwierdzone w czacie 2026-06-13
-- Obszar: local coop C0 / respawn
-- Wpływ na M7: nie blokuje; M7 zaakceptowane z tym długiem
-- Wpływ na M8 LAN: sprawdzić podczas projektowania polityki śmierci i respawnu hosta, aby nie przenieść niejawnej reguły C0 do protokołu LAN
+- Status: `FIXED_NEEDS_RETEST`
+- Źródło: owner playtest M7 z 2026-06-13, ponowiony feedback 2026-06-14
+- Obszar: local coop C0 / respawn / save v3
+- Wpływ na M8 LAN: polityka naprawiona przed implementacją hosta, aby LAN dziedziczył jedną jawną kotwicę drużyny
 
-Po śmierci w lokalnym trybie dwóch graczy mechanizm odrodzenia może przestawić punkt używany później w trybie solo. Lokalny coop na jednym ekranie nie jest obecnie priorytetem, więc poprawka została świadomie odłożona.
+Przyczyna: P1 i później dołączony P2 przechowywali różne `spawnPosition`. Save v3 utrwalał miejsce dołączenia P2 jako drugi, historyczny checkpoint, więc po śmierci wynik zależał od gracza.
+
+Poprawka: drużyna ma wspólną kotwicę respawnu, gracze są bezpiecznie rozstawiani obok niej, a loader normalizuje starsze save'y z rozbieżnymi punktami. Testy automatyczne przeszły; potrzebny ręczny retest w gotowym runtime.
 
 ## Zamknięte decyzje M7
 

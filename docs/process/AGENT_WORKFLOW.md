@@ -58,7 +58,7 @@ Przed wydaniem spróbuj obalić własne twierdzenia. Sprawdź czysty katalog, Wi
 - jedna kanoniczna paczka bez `node_modules` i `.build`;
 - zewnętrzny `.zip.sha256`;
 - raport, manifest artefaktów i uczciwe ograniczenia;
-- nie ustawiaj `SUCCESSOR_REVIEWED`; `OWNER_ACCEPTED` ustawiaj wyłącznie po jawnej decyzji Przemka.
+- agent wydający własny etap nie ustawia `SUCCESSOR_REVIEWED`; niezależny następca może to zrobić dopiero po zapisanym review. `OWNER_ACCEPTED` ustawiaj wyłącznie po jawnej decyzji Przemka.
 
 ## 8. Feedback
 

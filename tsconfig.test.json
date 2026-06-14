@@ -8,6 +8,7 @@
     "types": ["node"]
   },
   "include": [
+    "apps/lan-host/src/**/*.ts",
     "packages/**/*.ts",
     "tests/**/*.ts"
   ]

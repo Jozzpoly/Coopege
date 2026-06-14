@@ -1,5 +1,7 @@
 # M7 FINAL VALIDATION CANDIDATE — TEST REPORT
 
+> **PÓŹNIEJSZY STATUS:** niezależny L2 Inheritance Review wejścia do M8 zakończył się `PASS` 2026-06-14. Poniższy status `NOT SUCCESSOR_REVIEWED` opisuje chwilę zamknięcia M7.
+
 - Wersja zamykająca: **0.7.5-m7-owner-accepted**
 - Data: **2026-06-13**
 - Status: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / NOT SUCCESSOR_REVIEWED**

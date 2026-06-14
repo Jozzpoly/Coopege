@@ -80,14 +80,14 @@ function createRuntimeHtml(project, config, variant = "m7", projectExpression = 
     .replace("/*__APP_BUNDLE__*/", bundle);
   if (variant === "migration") {
     html = html
-      .replace("Coopege — M7 Owner Accepted", "Coopege — M7 Owner Accepted · Legacy World")
-      .replace("Coopege Runtime — M7 Owner Accepted", "Coopege Runtime — M7 Legacy World Accepted");
+      .replace("Coopege — M8 LAN VS-2", "Coopege — M8 LAN VS-2 · Legacy World")
+      .replace("Coopege Runtime — M8 LAN VS-2", "Coopege Runtime — M8 LAN VS-2 · Legacy World");
   }
   if (variant === "preview-host") {
     html = html
-      .replace("Coopege — M7 Owner Accepted", "Coopege — Embedded M7 Accepted Preview")
-      .replace("Coopege Runtime — M7 Owner Accepted", "Coopege Runtime — M7 preview Studia")
-      .replace("M7 · OWNER ACCEPTED WITH DEBT", "M7 · sandbox preview · OWNER ACCEPTED");
+      .replace("Coopege — M8 LAN VS-2", "Coopege — Embedded M8 VS-2 Preview")
+      .replace("Coopege Runtime — M8 LAN VS-2", "Coopege Runtime — M8 VS-2 preview Studia")
+      .replace("M7 OWNER ACCEPTED · M8 VS-2 COMPLETE", "M7 OWNER ACCEPTED · M8 sandbox VS-2");
   }
   return html;
 }
@@ -138,8 +138,8 @@ const officialRuntime = createRuntimeHtml(migratedProject, runtimeConfig, "migra
 const officialStudio = createStudioHtml(migratedProject, migratedAssetBaseline);
 const minimalRuntime = createRuntimeHtml(minimalProject, runtimeConfig);
 const artifacts = [
-  ["docelowy grywalny runtime M7", "Coopege_v0.01.html", officialRuntime],
-  ["docelowe Studio M7", "Coopege_Studio_v0.1.html", officialStudio],
+  ["docelowy grywalny runtime M8 VS-2", "Coopege_v0.01.html", officialRuntime],
+  ["docelowe Studio M8 VS-2", "Coopege_Studio_v0.1.html", officialStudio],
   ["M7 arena minimalna", "Coopege_M7_Runtime.html", minimalRuntime],
   ["M7 runtime pełnego świata", "Coopege_M7_Legacy_Runtime.html", officialRuntime],
   ["M7A Studio", "Coopege_M7A_Studio.html", officialStudio],

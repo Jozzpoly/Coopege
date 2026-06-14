@@ -1,28 +1,30 @@
 {
   "format": "coopege-project-state",
   "schemaVersion": 1,
-  "projectVersion": "0.7.5-m7-owner-accepted",
-  "releaseCandidateId": "M7-OWNER-ACCEPTED-2026-06-13",
+  "projectVersion": "0.8.0-m8-lan-vs2",
+  "releaseCandidateId": "M8-LAN-VS2-2026-06-14",
   "completedMilestone": "M7 Finalization / Owner Validation",
-  "activeMilestone": "M8 LAN Foundation / Entry Review",
+  "activeMilestone": "M8 LAN Foundation / VS-3 Client",
   "statusScope": "completedMilestone",
   "status": {
     "implemented": true,
     "techVerified": true,
-    "successorReviewed": false,
+    "successorReviewed": true,
     "ownerAccepted": true,
     "ownerAcceptedAt": "2026-06-13",
     "acceptance": "ACCEPT_WITH_DEBT"
   },
   "nextMilestone": {
     "id": "M8",
-    "phase": "ENTRY_REVIEW",
-    "implementationStarted": false
+    "phase": "IN_PROGRESS",
+    "implementationStarted": true,
+    "completedSlice": "VS-2",
+    "nextSlice": "VS-3"
   },
   "releaseHashAuthority": "External .zip.sha256 sidecar; the archive cannot contain its own final hash.",
   "expectedBaseline": {
     "typecheck": "PASS",
-    "nodeTests": 94,
+    "nodeTests": 107,
     "migrationArtifacts": 52,
     "chromiumScenarios": 9,
     "legacyArtifacts": 4,
@@ -35,12 +37,16 @@
     "inheritanceReviewTemplate": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
     "playtestLog": "docs/process/PLAYTEST_LOG.md",
     "ownerGuide": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
-    "ownerFeedback": "docs/process/OWNER_FEEDBACK.md"
+    "ownerFeedback": "docs/process/OWNER_FEEDBACK.md",
+    "inheritanceReview": "docs/reviews/M8_ENTRY_L2_INHERITANCE_REVIEW_2026-06-14.md",
+    "m8LanPlan": "docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md",
+    "m8LanAdr": "docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md",
+    "respawnAdr": "docs/decisions/0019-party-respawn-anchor-and-save-normalization.md",
+    "lanProtocol": "packages/lan-protocol/src/index.ts",
+    "lanHost": "apps/lan-host/src/server.ts",
+    "lanHostGuide": "docs/process/M8_LAN_HOST_VS2.md",
+    "lanHostSmoke": "tools/test/lan-host-smoke.mjs"
   },
-  "blockers": [
-    "Independent L2 inheritance review is required before the first M8 LAN implementation change."
-  ],
-  "mustFixBeforeNext": [
-    "A successor agent must perform an independent L2 inheritance review before the first M8 implementation change."
-  ]
+  "blockers": [],
+  "mustFixBeforeNext": []
 }

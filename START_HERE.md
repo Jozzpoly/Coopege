@@ -1,4 +1,4 @@
-# Coopege M7 Owner Accepted / M8 LAN Entry — START HERE
+# Coopege M8 LAN VS-2 — START HERE
 
 ## Uruchomienie na Windows
 
@@ -24,6 +24,10 @@ M7 zostało zaakceptowane przez Przemka. Problemy opisuj przede wszystkim w czac
 
 Deweloperska weryfikacja: `npm ci --ignore-scripts`, potem `npm run validate`.
 
+## Host LAN VS-2
+
+Po instalacji zależności uruchom `npm run lan:host`. Terminal wypisze adresy LAN z tokenem. Otwarta strona potwierdza połączenie i snapshoty, ale nie jest jeszcze grywalnym klientem. Wpisz `shutdown` w terminalu hosta, aby zapisać świat i bezpiecznie zakończyć proces. Szczegóły: `docs/process/M8_LAN_HOST_VS2.md`.
+
 ## Status
 
-M7: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT**. M8 LAN jest aktywnym następnym etapem; implementacja rozpoczyna się po niezależnym L2 review.
+M7: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**. M8 LAN jest **IN_PROGRESS**: kontrakt VS-1 i autorytatywny host VS-2 są ukończone, a następny krok to grywalny klient runtime VS-3. Lokalna poprawka wspólnego respawnu P1/P2 oczekuje na ręczny retest.

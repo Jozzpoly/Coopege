@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-13T22:49:56.710Z",
-  "workspace": "coopege@0.7.5-m7-owner-accepted",
+  "generatedAt": "2026-06-14T13:56:35.430Z",
+  "workspace": "coopege@0.8.0-m8-lan-vs2",
   "status": "M7_OWNER_ACCEPTED_WITH_DEBT",
   "baseline": {
     "doctor": "18 PASS / 0 WARN / 0 FAIL",
     "handoff": "40 PASS / 0 FAIL",
     "portability": "21 PASS / 0 WARN / 0 FAIL",
-    "node": "94/94 PASS",
+    "node": "107/107 PASS",
     "migration": "52/52 PASS",
     "legacy": "4/4 PASS",
     "chromium": "9/9 PASS + Ability Composer",
@@ -17,13 +17,13 @@
   "files": [
     {
       "path": "package.json",
-      "bytes": 2869,
-      "sha256": "1705c962cce38b4d1da8102f3a75a61c4ade0ffa46190e341da4de8060801e7c"
+      "bytes": 3192,
+      "sha256": "7b93241453d7e5da0bb62efbc2788563d710484ac682ae49736fc57935c397f0"
     },
     {
       "path": "package-lock.json",
-      "bytes": 4287,
-      "sha256": "77833bd1470a0ca4866f95a2a8161efa035b014c6a21184d686bc961b2f718cf"
+      "bytes": 5721,
+      "sha256": "7e14cbf53d97f1eaafd7bf84e4552368156cc21eec98491ddda356967533a065"
     },
     {
       "path": ".npmrc",
@@ -32,23 +32,23 @@
     },
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 1649,
-      "sha256": "df1e36311ee2f3d38a6404b378148d6ae83b7a6f67eaaf91a70f6dc552fece02"
+      "bytes": 2004,
+      "sha256": "b92e50da2649b52a618f4b261c1e639e84af3a59c900179f13c7614f2eb9c74c"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 4188,
-      "sha256": "03cfaed7283299d17366e2f6e20ab0dd5dc0c353ca3f1ebbd494dbbca81b1308"
+      "bytes": 6287,
+      "sha256": "5a1d16d8fcacfc4c575ecc13f7fdde6e44228ffc2b08f42a3d218ac114368859"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1369,
-      "sha256": "e8881be2d3b895a6398b5d18404c60492cb88da6230d900438ad9fe0d00923d6"
+      "bytes": 1822,
+      "sha256": "92a6131a9fe6e31d99cba1c8f6d48a317cfb12f4887d6d26fd32c9d6c469d1da"
     },
     {
       "path": "README.md",
-      "bytes": 2285,
-      "sha256": "76d17c333f2ed1423e6f6ed05c9112c1ec15551fa91c3b27551c7bbadc1f4613"
+      "bytes": 3054,
+      "sha256": "6c4482f6984d8659f54ccee569e42391ff9a7aafdbe7a314bdae1993568b04d9"
     },
     {
       "path": "PLAY_COOPEGE.bat",
@@ -72,18 +72,18 @@
     },
     {
       "path": "dist/Coopege_v0.01.html",
-      "bytes": 822232,
-      "sha256": "55363c59b974a311ab98f01ac4909c66a2d4cc4097e4a64e026b3ba6828984de"
+      "bytes": 838504,
+      "sha256": "51ae78c0e518f183c4859a3f522ceed0d150c01589918806b0a41814b7b2b8c0"
     },
     {
       "path": "dist/Coopege_Studio_v0.1.html",
-      "bytes": 1486106,
-      "sha256": "cf0beee343867dcd2944316977d5ece92fcb11b6201b3cf7c94c1a707e65cffb"
+      "bytes": 1535999,
+      "sha256": "0fd69740484a5a369e313db87188220f4194f83ac133bd68ff5b58d940a5b163"
     },
     {
       "path": "dist/Coopege_M7_Runtime.html",
-      "bytes": 266873,
-      "sha256": "7840edaf0fceeb07fcefe48f203c740e65d3655b2f37c78c2b42987925806d8f"
+      "bytes": 283136,
+      "sha256": "a58ac673826302b70780e4f230ea3d3c664240ac0ddbc526ae0cd61ed346b171"
     },
     {
       "path": "dist/Coopege_M7A_Asset_Vault.zip",
@@ -92,13 +92,13 @@
     },
     {
       "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
-      "bytes": 4354,
-      "sha256": "821aa949be8d3e68ee7cd932da6fd7f63495bbb33c909f97b9def3dd29a0d757"
+      "bytes": 5775,
+      "sha256": "858ba0029a89e7c05939d4cd12c10ee913e6c43dda66a4d3c5e23b6585f33b4b"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
-      "bytes": 3454,
-      "sha256": "8019e0c62cf1e2982bc903c871259fae82d9279ce53485caf35bce4a1cc1feff"
+      "bytes": 3641,
+      "sha256": "98ab14331bf942fd5cafd3bb1d67f56e950c54c1ae50d2d047f4fa96991fb10c"
     },
     {
       "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
@@ -107,13 +107,13 @@
     },
     {
       "path": "tools/build/build.mjs",
-      "bytes": 8279,
-      "sha256": "f2c397c261858eb5cd46e9067e52d805e0d40179659bbb1ee1da3d3f265aeecd"
+      "bytes": 8267,
+      "sha256": "8ad98c49af198a3bcdf1d0f163253ff8c3c3eb36e71e711dc549da024524cc3d"
     },
     {
       "path": "tools/dev-server.mjs",
       "bytes": 4622,
-      "sha256": "154b5cfe7c17f013d1ae49056cefd05e6abaf97b0bf9e769c0b3509e0099b09a"
+      "sha256": "cbaf5ccd8e9edc54232e8afabf39c5636b9c6a748b510c0cd69a88cf10515da5"
     },
     {
       "path": "tools/test/browser-suite.mjs",
@@ -127,8 +127,8 @@
     },
     {
       "path": "tools/verify/handoff.mjs",
-      "bytes": 6568,
-      "sha256": "52c98b3b83126e71f54679811d9672f326fcfcef87232c70445a16e4ddc4397d"
+      "bytes": 7254,
+      "sha256": "a5206391d329374e30efa70464198aee6e3ca13b6651b60389ad54ca78580ebb"
     },
     {
       "path": "tools/npm-cli.mjs",
@@ -137,8 +137,8 @@
     },
     {
       "path": "tools/verify/update-release-manifests.mjs",
-      "bytes": 4161,
-      "sha256": "93f49bb2687d33b01224d522fecbb6276c32da3b85a30615552e67e3d9dc0682"
+      "bytes": 4739,
+      "sha256": "b4c1c4a20f310728be796206caf83f74ac99096859aab7604f6a492ac3d2bdcd"
     },
     {
       "path": "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
@@ -152,8 +152,8 @@
     },
     {
       "path": "docs/process/OWNER_FEEDBACK.md",
-      "bytes": 2132,
-      "sha256": "0c684e80ae9df44706ac582bf7b4b01797e0fd34c6eb7600c01a600a035ce0cb"
+      "bytes": 1674,
+      "sha256": "43535b6d6adcd1495d0d2d24eef74e458b9cd12e5afbbc6ba08c270dd724362f"
     }
   ]
 }

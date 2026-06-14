@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-13T22:49:56.710Z",
-  "workspace": "coopege@0.7.5-m7-owner-accepted",
-  "status": "M7_OWNER_ACCEPTED_WITH_DEBT_NOT_SUCCESSOR_REVIEWED",
-  "activeMilestone": "M8 LAN Foundation / Entry Review",
+  "generatedAt": "2026-06-14T13:56:35.430Z",
+  "workspace": "coopege@0.8.0-m8-lan-vs2",
+  "status": "M7_OWNER_ACCEPTED_WITH_DEBT_SUCCESSOR_REVIEWED",
+  "activeMilestone": "M8 LAN Foundation / VS-3 Client",
   "files": [
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 1649,
-      "sha256": "df1e36311ee2f3d38a6404b378148d6ae83b7a6f67eaaf91a70f6dc552fece02"
+      "bytes": 2004,
+      "sha256": "b92e50da2649b52a618f4b261c1e639e84af3a59c900179f13c7614f2eb9c74c"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 4188,
-      "sha256": "03cfaed7283299d17366e2f6e20ab0dd5dc0c353ca3f1ebbd494dbbca81b1308"
+      "bytes": 6287,
+      "sha256": "5a1d16d8fcacfc4c575ecc13f7fdde6e44228ffc2b08f42a3d218ac114368859"
     },
     {
       "path": "README.md",
-      "bytes": 2285,
-      "sha256": "76d17c333f2ed1423e6f6ed05c9112c1ec15551fa91c3b27551c7bbadc1f4613"
+      "bytes": 3054,
+      "sha256": "6c4482f6984d8659f54ccee569e42391ff9a7aafdbe7a314bdae1993568b04d9"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1369,
-      "sha256": "e8881be2d3b895a6398b5d18404c60492cb88da6230d900438ad9fe0d00923d6"
+      "bytes": 1822,
+      "sha256": "92a6131a9fe6e31d99cba1c8f6d48a317cfb12f4887d6d26fd32c9d6c469d1da"
     },
     {
       "path": "docs/product/COOPEGE_SOUL.md",
@@ -41,28 +41,28 @@
     },
     {
       "path": "docs/product/COOPEGE_ROADMAP.md",
-      "bytes": 4216,
-      "sha256": "7d719a399a5fbd0758db8ec059507650847e60315f928500700fdd3ebc46dcfa"
+      "bytes": 4998,
+      "sha256": "5725466401df175bc5702acce083cc9e155b324de01970715f99d928a5ba2657"
     },
     {
       "path": "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md",
-      "bytes": 4315,
-      "sha256": "cca55fbcd1310ef9317c6af3faec6396f28ecbb21c7534de6a95ebd30e5cd580"
+      "bytes": 4341,
+      "sha256": "71da25a9cf5ca8176ff158a4602ce8a0c97293fc458eaf50e1f5a579df6522e9"
     },
     {
       "path": "docs/process/AGENT_WORKFLOW.md",
-      "bytes": 3278,
-      "sha256": "fff892a166f257b54a84c9376d10b8ad7a1bfefcb71d919c1ec300437fb1a3e0"
+      "bytes": 3374,
+      "sha256": "ba6d2a609cb4c67815f26dbe488ae89bdcff922959b92c3bcbd288458722843d"
     },
     {
       "path": "docs/process/CURRENT_MILESTONE.md",
-      "bytes": 1837,
-      "sha256": "2f9d39aa0103957eadc8726d5c45e62a3f3bf008668d70c8f1ac3c2d97eed0c0"
+      "bytes": 3499,
+      "sha256": "c6981ad78fb5ca9c4d429d3e245a88d71f17f1fc4315abe32a5611e821cecfcd"
     },
     {
       "path": "docs/process/LAST_HANDOFF.md",
-      "bytes": 2780,
-      "sha256": "c746de59501e73fba1ab0084fb2b3d5720b1363cf9a202df01996699cce04b91"
+      "bytes": 2515,
+      "sha256": "4257d8696a8883d32800c8b7cb74d8be7e9c04e3457e037ff30232b49f82c33a"
     },
     {
       "path": "docs/process/INHERITANCE_REVIEW_TEMPLATE.md",
@@ -76,13 +76,13 @@
     },
     {
       "path": "docs/process/PLAYTEST_LOG.md",
-      "bytes": 7192,
-      "sha256": "e75e00b352b5717807598a90ede2aaa89868518cb4b997f3d1faf30063b87c95"
+      "bytes": 9442,
+      "sha256": "d6428a8eb7b1db5f875ca2a2d7d269d61200ebb580079af7ae3edfa94af73259"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
-      "bytes": 3454,
-      "sha256": "8019e0c62cf1e2982bc903c871259fae82d9279ce53485caf35bce4a1cc1feff"
+      "bytes": 3641,
+      "sha256": "98ab14331bf942fd5cafd3bb1d67f56e950c54c1ae50d2d047f4fa96991fb10c"
     },
     {
       "path": "docs/testing/M7_OWNER_PLAYTEST_GUIDE.md",
@@ -91,8 +91,8 @@
     },
     {
       "path": "docs/testing/M7_FINALIZATION_RELEASE_REVIEW.md",
-      "bytes": 960,
-      "sha256": "a557872fcd44692e6b9529dac6c197a84250027556a871de4acb69d7630850e4"
+      "bytes": 990,
+      "sha256": "67847f913713e0623f84dcfb653cbcaba8afdbfae0deb1fb1de907b75bdaa6fd"
     },
     {
       "path": "docs/decisions/0013-authored-spawn-lifecycle-and-save-v3.md",
@@ -116,13 +116,53 @@
     },
     {
       "path": "docs/process/OWNER_FEEDBACK.md",
-      "bytes": 2132,
-      "sha256": "0c684e80ae9df44706ac582bf7b4b01797e0fd34c6eb7600c01a600a035ce0cb"
+      "bytes": 1674,
+      "sha256": "43535b6d6adcd1495d0d2d24eef74e458b9cd12e5afbbc6ba08c270dd724362f"
     },
     {
       "path": "docs/decisions/0017-document-coherence-and-owner-feedback.md",
       "bytes": 1395,
       "sha256": "0567ed2efe3b560e461002ec6b9ab97c58460e57e3ba90e56ca1b8e7cbfaf617"
+    },
+    {
+      "path": "docs/reviews/M8_ENTRY_L2_INHERITANCE_REVIEW_2026-06-14.md",
+      "bytes": 3821,
+      "sha256": "8dd0c094fdc939147fc19138cd3259a929288279d8d5484626103e0f87272c84"
+    },
+    {
+      "path": "docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md",
+      "bytes": 3609,
+      "sha256": "a80ce9ba5fdd25c48907d3d6f097800f3af0f9ae7d71183b100d23426e8e57f0"
+    },
+    {
+      "path": "docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md",
+      "bytes": 3536,
+      "sha256": "5ebec422c37d98f64434993e213f97eaa8e9b3501e4ebe3e8cf3f58a5ccce2cd"
+    },
+    {
+      "path": "docs/decisions/0019-party-respawn-anchor-and-save-normalization.md",
+      "bytes": 1851,
+      "sha256": "7f0360a7b15dae015a42dec4ad39e20ca14d60fec17f440e6f73cd20146bdc71"
+    },
+    {
+      "path": "docs/process/M8_LAN_HOST_VS2.md",
+      "bytes": 1757,
+      "sha256": "4d112c6d293b221e3a11412c6dee9db15c86b219c103f3c39487357a5eddc488"
+    },
+    {
+      "path": "apps/lan-host/src/session.ts",
+      "bytes": 12248,
+      "sha256": "25a3e72ba3545b1a99eb09728b05f676fb1d6e1dcff40f34ae5b16fb06316711"
+    },
+    {
+      "path": "apps/lan-host/src/server.ts",
+      "bytes": 11512,
+      "sha256": "e4c0c6ccbc140cd194f6d2dc13f1203464c1f5c190125d48bcac1f431da26d55"
+    },
+    {
+      "path": "tools/test/lan-host-smoke.mjs",
+      "bytes": 5637,
+      "sha256": "7b250cd3426ef5d346dfedb4ecaf51e972ac51611d3a7059c236b897eab9e698"
     }
   ]
 }

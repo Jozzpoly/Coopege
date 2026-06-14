@@ -11,7 +11,7 @@ Każde nowe wcielenie głównego współtwórcy najpierw weryfikuje odziedziczon
 3. `SUCCESSOR_REVIEWED` — następny agent wykonał niezależny review dziedziczenia.
 4. `OWNER_ACCEPTED` — Przemek wykonał ręczny test i jawnie zaakceptował etap.
 
-Agent kończący pracę nie może sam ustawić `SUCCESSOR_REVIEWED`. `OWNER_ACCEPTED` może zostać zapisane wyłącznie po jawnej decyzji Przemka. M7 ma `OWNER_ACCEPTED`; wejście implementacyjne do M8 czeka na niezależny L2 review.
+Agent kończący pracę nie może sam ustawić `SUCCESSOR_REVIEWED`. `OWNER_ACCEPTED` może zostać zapisane wyłącznie po jawnej decyzji Przemka. M7 ma `OWNER_ACCEPTED`, a niezależny następca zakończył L2 review wejścia do M8 wynikiem `PASS` 2026-06-14.
 
 ## Minimalny pakiet startowy
 

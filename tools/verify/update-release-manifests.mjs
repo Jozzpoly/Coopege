@@ -27,7 +27,9 @@ const expectedHandoff = { ...handoff };
 if (!checkOnly) expectedHandoff.generatedAt = generatedAt;
 expectedHandoff.workspace = `coopege@${packageJson.version}`;
 expectedHandoff.status = projectState.status.ownerAccepted
-  ? "M7_OWNER_ACCEPTED_WITH_DEBT_NOT_SUCCESSOR_REVIEWED"
+  ? projectState.status.successorReviewed
+    ? "M7_OWNER_ACCEPTED_WITH_DEBT_SUCCESSOR_REVIEWED"
+    : "M7_OWNER_ACCEPTED_WITH_DEBT_NOT_SUCCESSOR_REVIEWED"
   : "TECH_VERIFIED_NOT_SUCCESSOR_REVIEWED_NOT_OWNER_ACCEPTED";
 expectedHandoff.activeMilestone = projectState.activeMilestone;
 const handoffPaths = [...handoff.files.map((entry) => entry.path)];
@@ -35,6 +37,14 @@ for (const path of [
   "docs/process/OWNER_FEEDBACK.md",
   "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
   "docs/decisions/0017-document-coherence-and-owner-feedback.md",
+  "docs/reviews/M8_ENTRY_L2_INHERITANCE_REVIEW_2026-06-14.md",
+  "docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md",
+  "docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md",
+  "docs/decisions/0019-party-respawn-anchor-and-save-normalization.md",
+  "docs/process/M8_LAN_HOST_VS2.md",
+  "apps/lan-host/src/session.ts",
+  "apps/lan-host/src/server.ts",
+  "tools/test/lan-host-smoke.mjs",
 ]) {
   if (!handoffPaths.includes(path)) handoffPaths.push(path);
 }
@@ -52,7 +62,7 @@ expectedValidation.status = projectState.status.ownerAccepted
 expectedValidation.baseline.doctor = "18 PASS / 0 WARN / 0 FAIL";
 expectedValidation.baseline.handoff = "40 PASS / 0 FAIL";
 expectedValidation.baseline.portability = "21 PASS / 0 WARN / 0 FAIL";
-expectedValidation.baseline.node = "94/94 PASS";
+expectedValidation.baseline.node = `${projectState.expectedBaseline.nodeTests}/${projectState.expectedBaseline.nodeTests} PASS`;
 const validationPaths = [...validation.files.map((entry) => entry.path)];
 for (const path of [
   "tools/npm-cli.mjs",

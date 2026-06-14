@@ -1,6 +1,6 @@
 {
   "name": "coopege",
-  "version": "0.7.5-m7-owner-accepted",
+  "version": "0.8.0-m8-lan-vs2",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -29,8 +29,11 @@
     "doctor": "node tools/verify/doctor.mjs",
     "play": "node tools/dev-server.mjs --open=runtime",
     "diagnostics": "node tools/diagnostics/collect-diagnostics.mjs",
+    "lan:host:build": "tsc -p tsconfig.lan-host.json",
+    "lan:host": "npm run lan:host:build && node .build/lan-host/apps/lan-host/src/server.js",
+    "test:lan-host": "npm run lan:host:build && node tools/test/lan-host-smoke.mjs",
     "start": "npm run play",
-    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:gameplay-gate && npm run verify:release-manifests",
+    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:lan-host && npm run test:gameplay-gate && npm run verify:release-manifests",
     "studio": "node tools/dev-server.mjs --open=studio",
     "verify:portability": "node tools/verify/portability.mjs",
     "play:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=runtime",
@@ -41,8 +44,12 @@
     "verify:release-manifests": "node tools/verify/update-release-manifests.mjs --check",
     "validate": "npm run release:verify"
   },
+  "dependencies": {
+    "ws": "8.21.0"
+  },
   "devDependencies": {
     "@types/node": "22.15.29",
+    "@types/ws": "8.18.1",
     "typescript": "5.8.3"
   },
   "engines": {

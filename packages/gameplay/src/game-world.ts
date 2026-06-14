@@ -389,7 +389,8 @@ export class GameWorld {
     const abilityId = playerClass.abilityIds[0];
     if (!abilityId || !this.abilities.has(abilityId)) throw new Error(`Klasa ${playerClass.id} nie ma poprawnej umiejętności podstawowej.`);
     const position = this.playerSpawnPosition(this.players.length);
-    const player = this.createPlayer(playerClass, abilityId, position, playerId, slotId);
+    const respawnAnchor = this.partyRespawnAnchor() ?? position;
+    const player = this.createPlayer(playerClass, abilityId, position, respawnAnchor, playerId, slotId);
     this.actors.add(player);
     this.playerEntityIds.set(playerId, player.entityId);
     this.slots.set(slotId, {
@@ -449,6 +450,11 @@ export class GameWorld {
       ? { x: configuredStart.x + 0.5, y: configuredStart.y + 0.5 }
       : this.collision.findNearestWalkable({ x: configuredStart.x + 0.5, y: configuredStart.y + 0.5 });
     return index === 0 ? center : this.collision.findNearestWalkable(center, Math.max(1, index));
+  }
+
+  private partyRespawnAnchor(): Vec2 | null {
+    const owner = this.getPlayer(PRIMARY_PLAYER_ID) ?? this.players[0];
+    return owner ? cloneVec(owner.spawnPosition) : null;
   }
 
   get authoredSpawnStates(): SpawnRuntimeState[] {
@@ -591,6 +597,7 @@ export class GameWorld {
     definition: PlayerClassDefinition,
     abilityId: string,
     position: Vec2,
+    respawnAnchor: Vec2,
     playerId: PlayerId,
     slotId: PlayerSlotId,
   ): PlayerActor {
@@ -612,7 +619,7 @@ export class GameWorld {
       cooldownUntilTick: 0,
       respawnAtTick: 0,
       facing: { x: 1, y: 0 },
-      spawnPosition: cloneVec(position),
+      spawnPosition: cloneVec(respawnAnchor),
       deaths: 0,
       xp: 0,
       gold: 0,
@@ -1132,15 +1139,19 @@ export class GameWorld {
       player.floorId = floorId;
       player.position = cloneVec(position);
       player.previousPosition = cloneVec(position);
-      player.spawnPosition = cloneVec(position);
+      player.spawnPosition = cloneVec(center);
     }
     this.reconcileSpawnLifecycle();
     this.emitGameplayEvent({ type: "party.floor_changed", tick: this._tick, transitionId, fromFloorId: previousFloorId, toFloorId: floorId, playerIds: this.players.map((player) => player.playerId), triggeringPlayerIds: [...triggeringPlayerIds] });
   }
 
   private respawnPlayer(player: PlayerActor): void {
-    player.position = cloneVec(player.spawnPosition);
-    player.previousPosition = cloneVec(player.spawnPosition);
+    const occupied = new Set(this.players
+      .filter((candidate) => candidate.entityId !== player.entityId && candidate.alive && candidate.floorId === player.floorId)
+      .map((candidate) => `${Math.floor(candidate.position.x)},${Math.floor(candidate.position.y)}`));
+    const position = this.collision.findNearestWalkable(player.spawnPosition, 0, occupied);
+    player.position = cloneVec(position);
+    player.previousPosition = cloneVec(position);
     player.hp = player.maxHp;
     player.alive = true;
     player.cooldownUntilTick = this._tick + 10;
@@ -1307,6 +1318,9 @@ export class GameWorld {
 
     const restoredPlayers = playerRecords.map((record) => this.saveRecordToActor(record)).filter(isPlayer);
     if (restoredPlayers.length < 1) throw new Error("Zapis lokalnej sesji musi zawierać co najmniej jednego gracza.");
+    const respawnOwner = restoredPlayers.find((player) => player.playerId === PRIMARY_PLAYER_ID) ?? restoredPlayers[0]!;
+    const sharedRespawnAnchor = cloneVec(respawnOwner.spawnPosition);
+    for (const player of restoredPlayers) player.spawnPosition = cloneVec(sharedRespawnAnchor);
     const playerIds = new Set<PlayerId>();
     const slotIds = new Set<PlayerSlotId>();
     for (const player of restoredPlayers) {

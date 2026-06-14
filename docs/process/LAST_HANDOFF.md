@@ -1,44 +1,50 @@
-# LAST HANDOFF — M7 Owner Accepted / M8 LAN Entry
+# LAST HANDOFF - M8 LAN VS-2 Complete
 
 ## Tożsamość
 
-- Wersja: `0.7.5-m7-owner-accepted`
+- Wersja: `0.8.0-m8-lan-vs2`
+- Bazowy checkout: `a38494e2c426e5fd220ee6f649a4f8adc70bd83e`
 - Zamknięty etap: `M7-OWNER-ACCEPTED-2026-06-13`
-- Aktywny etap: `M8 LAN Foundation / Entry Review`
-- Status: `IMPLEMENTED=true`, `TECH_VERIFIED=true`.
-- `SUCCESSOR_REVIEWED`: **NIE**
-- `OWNER_ACCEPTED`: **TAK — ACCEPT_WITH_DEBT, decyzja Przemka 2026-06-13**
-- SHA-256 końcowego ZIP-a: zewnętrzny plik `.zip.sha256`, generowany po spakowaniu.
+- Aktywny etap: `M8 LAN Foundation / VS-3 Client`
+- `IMPLEMENTED`: M7 **TAK**, M8 **CZĘŚCIOWO - VS-1 I VS-2**
+- `TECH_VERIFIED`: **TAK dla VS-1, VS-2 i poprawki respawnu**
+- `SUCCESSOR_REVIEWED`: **TAK - L2 PASS, 2026-06-14**
+- `OWNER_ACCEPTED`: M7 **TAK - ACCEPT_WITH_DEBT**
 
-## Rezultat użytkowy
+## Wykonane
 
-Przemek zaakceptował M7 po testach gotowej paczki Windows. Fundament obejmuje uruchamialny runtime i Studio, stabilne atlasy i warianty terenu, naprawione celowanie, odporne dołączanie P2, realne schody, save v3 i powtarzalny launcher.
+### M8 VS-1
 
-## Najnowsza delta
+`@coopege/lan-protocol` v1 zawiera wersjonowane koperty hello/welcome/reject, input, snapshot, ping/pong i disconnect, deterministyczny JSON, limit 64 KiB, runtime validation, compatibility gate oraz admission inputu.
 
-- zapis solo po odłączeniu P2 nie zawiera już osieroconego threat `player.local.2` także w uśpionych spawnach;
-- terrain sheets są interpretowane jako deterministyczne warianty, z wyjątkiem animowanej wody i lawy;
-- atlasy postaci mają bezpieczny margines 80x80 bez zmiany skali i pivotu w świecie;
-- skrypty uruchamiają npm przez Windows `cmd.exe`, dzięki czemu Node 24 nie kończy doctor/test/diagnostics błędem `EINVAL`;
-- kursor jest przeliczany z ekranu do świata w każdym ticku, więc ruch kamery nie psuje aimu;
-- P2 keyboard dołącza na zboczu wejścia i nie wraca natychmiast po ręcznym odłączeniu przy trzymanym klawiszu;
-- drugi launcher tej samej kopii wykrywa działający serwer i bezpiecznie ponownie otwiera stronę;
-- build pobiera wersję z `package.json`;
-- `REBUILD_AND_PLAY.bat` używa zablokowanego `npm ci`;
-- Handoff Protocol v2 i `PROJECT_STATE.json` są częścią repo, a ich spójność jest automatycznie weryfikowana.
+### M8 VS-2
 
-## Twierdzenia do niezależnej rewizji następcy
+`apps/lan-host` uruchamia autorytatywny `GameWorld` 30 Hz dla pełnego zmigrowanego projektu. Jeden proces serwuje HTTP oraz WebSocket `/lan`, przydziela dwa stabilne sloty, egzekwuje ownership, konsumuje najnowszy input raz i składa neutralną komendę, gdy inputu brakuje.
 
-1. Normalne sterowanie P1/P2 i schody działają bez debugowego teleportu.
-2. Gotowa paczka uruchamia się na Windowsie bez instalacji i bez przebudowania.
-3. Ponowne uruchomienie launchera nie powoduje `EADDRINUSE` ani użycia serwera innej kopii.
-4. Save/load zachowuje drużynę, piętro i lifecycle 338 spawnów.
-5. Dokumentacja zachowuje `SUCCESSOR_REVIEWED=false`, ale spójnie odzwierciedla nadane przez Przemka `OWNER_ACCEPTED=true`.
+Snapshoty 10 Hz mają osobny ACK dla każdego klienta i nie zawierają save v3. Disconnect zwalnia połączenie, ale nie usuwa gracza ani świata; reconnect token odzyskuje ten sam slot. Host ładuje save, wykonuje autosave i zapisuje atomowo przy komendzie `shutdown`.
 
-## Jawny dług po akceptacji
+Strona HTTP VS-2 jest diagnostyką handshake'u i snapshotów. Pełne sterowanie oraz renderer sieciowy należą do VS-3.
 
-Lokalny C0 może po śmierci przestawić punkt respawnu używany później w solo. Przemek świadomie odłożył problem, ponieważ coop na jednym ekranie nie jest priorytetem. Wpis `OF-001` w `OWNER_FEEDBACK.md` ma status `BACKLOG`; należy wrócić do polityki respawnu podczas projektowania hosta LAN.
+### OF-001
 
-## Następny dozwolony krok
+Lokalny coop używa jednej kotwicy respawnu drużyny, wybiera wolne pole i normalizuje historyczne rozbieżne save'y. Status: `FIXED_NEEDS_RETEST`.
 
-M7 jest zamknięte. Następny główny agent wykonuje niezależny L2 Inheritance Review, a potem rozpoczyna minimalny vertical slice M8 LAN. Walka, progresja i rozbudowa Studio pozostają poza pierwszym zakresem M8.
+## Dowody
+
+- TypeScript: PASS;
+- testy Node: 107/107 PASS;
+- LAN host smoke: HTTP, ochrona tokenem, dwa WebSockety, różne sloty, input ACK, ping/pong i shutdown save PASS;
+- kompatybilność save v1-v3 zachowana;
+- `npm run validate`: wymagany końcowy PASS po aktualizacji manifestów i dist.
+
+## Nienaruszalne granice M8
+
+- Node host jest jedynym właścicielem `GameWorld`, ticka i save'a.
+- Obie przeglądarki używają tej samej ścieżki protokołu.
+- Klient wysyła tylko `PlayerCommand`; host wybiera tick i składa `InputFrame`.
+- `HostSnapshotPayload` jest prezentacyjny; save v3 nie jest transportem renderowania.
+- Disconnect nie niszczy świata ani ownershipu save'a.
+
+## Następny krok
+
+VS-3: dodać tryb `lan-client` w runtime. Nie tworzy lokalnego `GameWorld`, wysyła komendy przydzielonego gracza, buforuje co najmniej dwa snapshoty, interpoluje pozycje i pokazuje connection state, RTT, input age, tick drift oraz snapshot rate.

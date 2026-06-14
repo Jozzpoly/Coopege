@@ -42,15 +42,25 @@ if (state && pkg) {
   if (state.completedMilestone?.includes("M7") && state.activeMilestone?.includes("M8 LAN")) pass(`zamknięte ${state.completedMilestone}; aktywne ${state.activeMilestone}`);
   else fail("stan powinien zamykać M7 i wskazywać M8 LAN jako aktywny etap wejściowy");
   if (state.status?.implemented === true) pass("IMPLEMENTED=true dla zamkniętego M7"); else fail("IMPLEMENTED powinno być true dla zamkniętego M7");
-  if (state.status?.successorReviewed === false) pass("SUCCESSOR_REVIEWED pozostaje false"); else fail("agent wydający paczkę nie może ustawić SUCCESSOR_REVIEWED");
+  const inheritanceReview = state.documents?.inheritanceReview;
+  if (state.status?.successorReviewed === true && typeof inheritanceReview === "string" && existsSync(resolve(root, inheritanceReview)) && /`PASS`|Decyzja[\s\S]{0,80}PASS/i.test(read(inheritanceReview))) {
+    pass(`SUCCESSOR_REVIEWED potwierdzone raportem ${inheritanceReview}`);
+  } else fail("SUCCESSOR_REVIEWED wymaga istniejącego raportu L2 z decyzją PASS");
   if (state.status?.ownerAccepted === true && state.status?.acceptance === "ACCEPT_WITH_DEBT") pass("OWNER_ACCEPTED_WITH_DEBT potwierdzone decyzją Przemka");
   else fail("M7 powinno mieć OWNER_ACCEPTED=true i ACCEPT_WITH_DEBT");
   if (String(state.releaseHashAuthority).includes("External") && !JSON.stringify(state).match(/[a-f0-9]{64}.*\.zip/i)) pass("hash końcowego ZIP-a pozostaje zewnętrznym sidecarem");
   else fail("PROJECT_STATE nie może przechowywać samoreferencyjnego hash-u końcowego ZIP-a");
   if (Number.isInteger(state.expectedBaseline?.nodeTests) && state.expectedBaseline.nodeTests > 0) pass(`oczekiwane testy Node: ${state.expectedBaseline.nodeTests}`);
   else fail("brak oczekiwanej liczby testów Node");
-  if (Array.isArray(state.mustFixBeforeNext) && !state.mustFixBeforeNext.some((item) => /owner|Przemek/i.test(item)) && state.mustFixBeforeNext.some((item) => /successor|L2/i.test(item))) pass("owner gate M7 zamknięty; M8 czeka wyłącznie na niezależny L2 review");
-  else fail("nieprawidłowe bramki wejścia do M8");
+  if (state.nextMilestone?.phase === "IN_PROGRESS" && state.nextMilestone?.implementationStarted === true
+    && state.nextMilestone?.completedSlice === "VS-2" && state.nextMilestone?.nextSlice === "VS-3"
+    && existsSync(resolve(root, "packages/lan-protocol/src/index.ts"))
+    && existsSync(resolve(root, "apps/lan-host/src/server.ts"))
+    && existsSync(resolve(root, "tools/test/lan-host-smoke.mjs"))
+    && Array.isArray(state.blockers) && state.blockers.length === 0
+    && Array.isArray(state.mustFixBeforeNext) && state.mustFixBeforeNext.length === 0) {
+    pass("M8 rozpoczęte; VS-2 host ukończony, VS-3 klient jest następnym krokiem");
+  } else fail("nieprawidłowy stan implementacji M8 po VS-2");
 }
 
 if (existsSync(resolve(root, "docs/process/NEXT_AGENT_BRIEF.md"))) {
@@ -76,8 +86,8 @@ for (const relative of currentDocs) {
 }
 
 const feedback = existsSync(resolve(root, "docs/process/OWNER_FEEDBACK.md")) ? read("docs/process/OWNER_FEEDBACK.md") : "";
-if (/respawn/i.test(feedback) && /BACKLOG/i.test(feedback)) pass("OWNER_FEEDBACK zachowuje odłożony dług respawnu C0");
-else fail("OWNER_FEEDBACK nie zachowuje odłożonego długu respawnu C0");
+if (/respawn/i.test(feedback) && /FIXED_NEEDS_RETEST/i.test(feedback)) pass("OWNER_FEEDBACK zachowuje poprawkę respawnu C0 oczekującą na retest");
+else fail("OWNER_FEEDBACK nie zapisuje aktualnego statusu poprawki respawnu C0");
 for (const relative of ["docs/process/AGENT_WORKFLOW.md", "docs/process/AGENT_HANDOFF_PROTOCOL_V2.md"]) {
   const content = existsSync(resolve(root, relative)) ? read(relative) : "";
   if (content.includes("OWNER_FEEDBACK.md") && /spójno/i.test(content)) pass(`${relative} egzekwuje spójność dokumentacji i intake feedbacku`);

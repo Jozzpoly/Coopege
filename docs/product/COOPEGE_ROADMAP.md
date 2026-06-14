@@ -57,11 +57,11 @@ Po pierwszym uruchomieniu właściciela zakres M7 został rozszerzony o rzeczy w
 - clean-package i Windows portability gate;
 - launchery gotowego builda bez wymuszania npm/build.
 
-Przemek zamknął M7 decyzją `ACCEPT_WITH_DEBT`. Jedyny jawny dług przy akceptacji dotyczy lokalnego C0: śmierć w coopie może przestawić punkt respawnu używany później solo. Dług nie blokuje M8 i jest zapisany jako `OF-001` w `OWNER_FEEDBACK.md`.
+Przemek zamknął M7 decyzją `ACCEPT_WITH_DEBT`. Dług lokalnego C0 zapisany jako `OF-001` został naprawiony 2026-06-14 przez wspólną kotwicę respawnu drużyny i normalizację starszych save'ów; oczekuje na ręczny retest.
 
 ## Aktywne: M8 — pierwszy LAN Coop
 
-Status wejściowy: **ENTRY REVIEW / IMPLEMENTATION NOT STARTED**. Pierwsza implementacja wymaga niezależnego L2 Inheritance Review; owner gate M7 jest zamknięty.
+Status: **L2 PASS / IMPLEMENTATION IN PROGRESS / VS-1 AND VS-2 COMPLETE**. Niezależny L2 Inheritance Review zakończył się `PASS` 2026-06-14, kontrakt protokołu i autorytatywny host Node są gotowe, a następnym krokiem jest VS-3 klient runtime.
 
 Cel produktu: host i klient grają na osobnych urządzeniach w tej samej sieci lokalnej.
 
@@ -76,6 +76,23 @@ Minimalny vertical slice:
 7. disconnect/timeout nie niszczy stanu hosta;
 8. zapis świata należy do hosta;
 9. dwa fizyczne urządzenia przechodzą co najmniej 15-minutowy playtest.
+
+Ukończone w VS-1:
+
+- osobny `@coopege/lan-protocol` v1 bez zależności od transportu;
+- hello/welcome/reject, input, snapshot, ping/pong i disconnect;
+- runtime validation, limit 64 KiB i deterministyczne kodowanie JSON;
+- compatibility gate oraz ownership/duplicate/out-of-order/tick-age input admission;
+- ograniczony snapshot prezentacyjny zamiast save v3.
+
+Ukończone w VS-2:
+
+- `apps/lan-host` z HTTP i WebSocket `/lan` w jednym procesie;
+- autorytatywny `GameWorld` 30 Hz dla dwóch stabilnych slotów;
+- ownership, neutralny fallback, per-client ACK i snapshoty 10 Hz;
+- reconnect token bez usuwania świata po disconnect;
+- host-only load/autosave/shutdown save;
+- realny smoke test dwóch połączeń WebSocket.
 
 Kryteria M8:
 

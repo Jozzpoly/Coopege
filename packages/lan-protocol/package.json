@@ -1,0 +1,7 @@
+{
+  "name": "@coopege/lan-protocol",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Wersjonowany kontrakt LAN Coopege niezależny od transportu"
+}

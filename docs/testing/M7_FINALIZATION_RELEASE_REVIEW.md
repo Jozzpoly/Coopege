@@ -2,7 +2,7 @@
 
 To jest self-review i audyt wydania wykonany przez agenta budującego kandydata. Nie jest niezależnym Inheritance Review i nie ustawia `SUCCESSOR_REVIEWED`.
 
-> **ZAMKNIĘCIE:** Przemek zaakceptował M7 jako `OWNER_ACCEPTED_WITH_DEBT` 2026-06-13. Ten dokument pozostaje historycznym self-review; M8 LAN nadal wymaga niezależnego L2 review.
+> **ZAMKNIĘCIE:** Przemek zaakceptował M7 jako `OWNER_ACCEPTED_WITH_DEBT` 2026-06-13. Ten dokument pozostaje historycznym self-review; wymagany L2 review M8 LAN został później zakończony `PASS` 2026-06-14.
 
 ## Kontrprzykłady wykryte podczas rewizji
 

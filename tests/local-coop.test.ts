@@ -85,11 +85,33 @@ test("dołączenie i opuszczenie P2 nie resetuje stanu ani encji P1", () => {
   assert.equal(p2.entityId, "entity.player.000002");
   assert.equal(world.player.entityId, p1Before.entityId);
   assert.deepEqual(world.player.position, p1Before.position);
+  assert.notDeepEqual(p2.position, p1Before.position);
+  assert.deepEqual(p2.spawnPosition, p1Before.spawnPosition);
   world.leavePlayer(SECONDARY_PLAYER_ID);
   assert.equal(world.players.length, 1);
   assert.equal(world.player.entityId, p1Before.entityId);
   assert.deepEqual(world.player.position, p1Before.position);
   assert.equal(world.playerSlots.find((slot) => slot.slotId === SECONDARY_SLOT_ID)?.joined, false);
+});
+
+test("lokalny coop używa wspólnej kotwicy respawnu niezależnie od chwili dołączenia P2", () => {
+  const world = new GameWorld(loadProject());
+  for (let tick = 1; tick <= 24; tick += 1) world.step(createMultiPlayerInputFrame(tick, [{ playerId: PRIMARY_PLAYER_ID, command: command({ moveX: 1 }) }]));
+  const originalAnchor = { ...world.player.spawnPosition };
+  const p2 = world.joinPlayer({ playerId: SECONDARY_PLAYER_ID, slotId: SECONDARY_SLOT_ID, deviceKind: "virtual", deviceIndex: null });
+  assert.deepEqual(world.player.spawnPosition, originalAnchor);
+  assert.deepEqual(p2.spawnPosition, originalAnchor);
+
+  for (const player of world.players) {
+    player.alive = false;
+    player.hp = 0;
+    player.respawnAtTick = world.tick + 1;
+  }
+  world.step(twoPlayerFrame(world.tick + 1));
+
+  assert.ok(world.players.every((player) => player.alive));
+  assert.ok(world.players.every((player) => player.spawnPosition.x === originalAnchor.x && player.spawnPosition.y === originalAnchor.y));
+  assert.notDeepEqual(world.players[0]!.position, world.players[1]!.position);
 });
 
 test("odłączenie P2 usuwa threat z uśpionych spawnów i pozwala wczytać zapis solo", () => {
@@ -206,6 +228,25 @@ test("save v3 przywraca dwóch graczy, sloty, threat i identyczny checksum", () 
   assert.equal(world.monsters[0]?.threatByPlayer[PRIMARY_PLAYER_ID], 15);
 });
 
+test("loader normalizuje historyczny save coopa z rozbieżnymi punktami respawnu", () => {
+  const source = new GameWorld(loadProject(), { initialPlayerCount: 2 });
+  const snapshot = source.createSaveSnapshot();
+  const p1Record = snapshot.actors.find((record) => record.kind === "player" && record.playerId === PRIMARY_PLAYER_ID);
+  const p2Record = snapshot.actors.find((record) => record.kind === "player" && record.playerId === SECONDARY_PLAYER_ID);
+  const p2 = source.getPlayer(SECONDARY_PLAYER_ID);
+  assert.ok(p1Record && p2Record && p2);
+  p2Record.spawnX = p2.position.x;
+  p2Record.spawnY = p2.position.y;
+  assert.notDeepEqual({ x: p2Record.spawnX, y: p2Record.spawnY }, { x: p1Record.spawnX, y: p1Record.spawnY });
+
+  const restored = new GameWorld(loadProject());
+  restored.loadSaveSnapshot(snapshot);
+  assert.deepEqual(restored.players.map((player) => player.spawnPosition), [
+    { x: p1Record.spawnX, y: p1Record.spawnY },
+    { x: p1Record.spawnX, y: p1Record.spawnY },
+  ]);
+});
+
 test("save v1 migruje jawnie do v3 bez utraty gracza i authored spawnów", () => {
   const source = new GameWorld(loadProject());
   const v2 = source.createSaveSnapshot();
@@ -266,6 +307,10 @@ test("drużynowa zmiana piętra przenosi wszystkich graczy i zapisuje aktywne pi
   world.transitionParty(targetFloorId);
   assert.equal(world.activeFloorId, targetFloorId);
   assert.ok(world.players.every((player) => player.floorId === targetFloorId));
+  assert.deepEqual(world.players.map((player) => player.spawnPosition), [
+    world.players[0]!.spawnPosition,
+    world.players[0]!.spawnPosition,
+  ]);
   assert.ok(world.monsters.every((monster) => monster.floorId === targetFloorId));
   assert.equal(world.authoredSpawnStates.length, 338);
   assert.ok(world.monsters.length < world.authoredSpawnStates.length);
