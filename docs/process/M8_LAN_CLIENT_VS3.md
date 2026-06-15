@@ -1,34 +1,42 @@
-# M8 LAN VS-3 - grywalny klient runtime
+# M8 LAN VS-3 - kandydat do owner retestu
 
-## Cel
+## Status
 
-VS-3 zamienia stronę diagnostyczną hosta w grywalnego klienta LAN. Przeglądarka wysyła wyłącznie `PlayerCommand`, renderuje snapshoty hosta i nie tworzy lokalnego `GameWorld`.
+VS-3 nie jest ukończone. Pierwszy owner test wykazał czarny ekran drugiej karty, szarpany input i zbyt techniczne uruchomienie. Poprawki automatyczne przeszły, ale zamknięcie etapu wymaga ponownego testu właściciela.
 
-## Uruchomienie
+## Uruchomienie bez ręcznej konsoli
 
-```powershell
-npm ci --ignore-scripts
-npm run lan:host
-```
+1. Kliknij dwukrotnie `PLAY_COOPEGE_LAN.bat`.
+2. Launcher sam doinstaluje brakujące publiczne zależności tylko przy pierwszym starcie.
+3. Pierwszy klient otworzy się automatycznie.
+4. Drugi gracz otwiera jeden z adresów LAN wypisanych w oknie hosta.
+5. Zatrzymanie hosta: `Ctrl+C` w jego oknie.
 
-Host buduje klienta i wypisuje adresy z tokenem, na przykład `http://192.168.1.20:4174/?token=...`. Otwórz ten sam adres na maksymalnie dwóch urządzeniach w tej samej sieci. Wpisanie `shutdown` w terminalu wykonuje zapis i kontrolowane zamknięcie.
+Zwykły start używa gotowego `dist/Coopege_M8_LAN_Client.html`. Deweloperska przebudowa jest jawna: `npm run lan:host:rebuild`.
 
-## Kontrakty VS-3
+## Naprawione przyczyny OF-002
 
-- `dist/Coopege_M8_LAN_Client.html` jest samowystarczalnym artefaktem serwowanym przez hosta.
-- Checksum osadzonego projektu musi być identyczna z checksumą projektu hosta.
-- `LanClientInputAdapter` mapuje klawiaturę, mysz i gamepad na komendę jednego przydzielonego gracza.
-- `LanSnapshotBuffer` odrzuca duplikaty i snapshoty out-of-order, ogranicza pamięć i interpoluje pozycje z opóźnieniem 110 ms.
-- Renderer korzysta z prezentacyjnych danych snapshotu; klient nie ma API save/load ani lokalnego debug `GameWorld`.
-- HUD pokazuje player/slot, RTT, host tick, tick drift, input age, ACK, snapshot rate, bufor, liczbę klientów i odrzucone inputy.
+- reconnect token jest zapisany w `sessionStorage`, więc każda karta ma własny slot;
+- skopiowana karta ze starym tokenem ponawia połączenie raz bez tokenu;
+- host podtrzymuje ostatni kierunek przez 6 ticków, aby jitter timerów nie zerował ruchu;
+- `usePrimary` pozostaje zdarzeniem jednorazowym i nie jest podtrzymywany;
+- keydown/keyup wysyłają input natychmiast;
+- przed pierwszym snapshotem lub po błędzie canvas pokazuje stan połączenia zamiast czerni.
 
 ## Automatyczne dowody
 
-- `tests/lan-client.test.ts`: kolejność snapshotów, interpolacja, zmiana piętra, rate i limit pamięci.
-- `npm run test:lan-host`: HTTP z tokenem, dwa WebSockety, różne sloty, input ACK, ping/pong i shutdown save.
-- `tools/test/lan-client-browser-smoke.mjs`: realny Chromium, drugi peer WebSocket, natywny ruch `KeyD`, dwa renderowane gracze, ACK, snapshot rate i brak lokalnego `GameWorld`.
-- Screenshot: `.build/browser-smoke/m8-lan-client.png`.
+- `tests/lan-host.test.ts`: ownership, podtrzymanie ruchu, wygaśnięcie i brak powtarzania ataku;
+- `tests/lan-client.test.ts`: kolejność snapshotów, interpolacja i limit bufora;
+- `tools/test/lan-client-browser-smoke.mjs`: dwie prawdziwe karty jednego originu, osobne sloty i ciągły ruch obu graczy;
+- `tools/test/lan-launcher-smoke.mjs`: rzeczywisty start `PLAY_COOPEGE_LAN.bat`, gotowość hosta, shutdown i save;
+- screenshoty: `.build/browser-smoke/m8-lan-client-tab-1.png` i `m8-lan-client-tab-2.png`.
 
-## Następny zakres
+## Owner retest
 
-VS-4 obejmuje timeouty, czytelne przyczyny disconnectu, automatyczny reconnect albo jawne zwolnienie slotu oraz kontrolowane testy latency, jitter, drop, duplicate i reordering. VS-3 nie implementuje prediction, rollbacku ani host migration.
+- pierwsza karta reaguje płynnie na WASD/strzałki;
+- druga karta lub urządzenie nie pokazuje czarnego ekranu;
+- P1 i P2 poruszają się niezależnie przez kilka minut;
+- atak działa bez samoczynnego powtarzania;
+- zamknięcie i ponowne wejście nie przejmuje slotu aktywnej karty.
+
+VS-4 pozostaje nieaktywne do czasu potwierdzenia tych punktów.

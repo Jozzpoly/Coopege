@@ -15,6 +15,21 @@ Czat z agentem jest podstawowym kanałem feedbacku Przemka. Agent zapisuje tutaj
 
 ## Aktywne wpisy
 
+### OF-002 - M8 VS-3 nie spełniał kryterium grywalnego LAN
+
+- Status: `FIXED_NEEDS_RETEST`
+- Źródło: owner test z 2026-06-15
+- Obszar: LAN startup / dwie karty / reconnect token / responsywność wejścia
+- Wpływ na roadmapę: VS-3 ponownie otwarte; VS-4 nie może rozpocząć się przed pozytywnym owner retestem
+
+Objawy: uruchomienie wymagało ręcznej komendy i pełnego builda, druga karta z tym samym linkiem kończyła z czarnym ekranem, a host-player poruszał się skokowo lub prawie wcale.
+
+Przyczyny: reconnect token był współdzielony przez `localStorage`, więc druga karta próbowała przejąć zajęty slot. Host zerował komendę w każdym ticku bez świeżego pakietu, mimo że timery klienta i hosta nie są zsynchronizowane. Poprzedni test używał drugiego surowego WebSocketu zamiast drugiej prawdziwej karty i nie wykrył błędu.
+
+Poprawka: token per karta w `sessionStorage`, automatyczny fallback po odrzuceniu starego tokenu, krótkie podtrzymanie ciągłego inputu na hoście, natychmiastowa wysyłka keydown/keyup, czytelny ekran błędu, test dwóch realnych kart oraz launcher `PLAY_COOPEGE_LAN.bat`.
+
+Gate zamknięcia: właściciel uruchamia LAN dwuklikiem, druga karta lub urządzenie dołącza bez czarnego ekranu, a obaj gracze poruszają się płynnie i niezależnie.
+
 ### OF-001 - lokalny C0 używa historycznego punktu respawnu
 
 - Status: `FIXED_NEEDS_RETEST`

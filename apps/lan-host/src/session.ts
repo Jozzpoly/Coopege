@@ -59,7 +59,11 @@ interface HostSlot {
   reconnectToken: string;
   lastAcceptedInputSeq: number;
   pendingCommand: PlayerCommand | null;
+  heldCommand: PlayerCommand;
+  lastInputHostTick: number;
 }
+
+const INPUT_HOLD_TICKS = 6;
 
 function secureToken(): string {
   return randomBytes(18).toString("hex");
@@ -162,6 +166,8 @@ export class LanHostSession {
       reconnectToken: this.createToken(),
       lastAcceptedInputSeq: 0,
       pendingCommand: null,
+      heldCommand: neutralPlayerCommand(),
+      lastInputHostTick: -INPUT_HOLD_TICKS - 1,
     }));
     if (this.slots.length !== 2) throw new Error("Pierwszy host LAN wymaga dokładnie dwóch graczy w GameWorld.");
   }
@@ -184,6 +190,8 @@ export class LanHostSession {
 
     slot.ownerConnectionId = connectionId;
     slot.pendingCommand = null;
+    slot.heldCommand = neutralPlayerCommand();
+    slot.lastInputHostTick = this.world.tick - INPUT_HOLD_TICKS - 1;
     this.slotByConnection.set(connectionId, slot);
     const message = createLanEnvelope(LAN_MESSAGE_TYPES.hostWelcome, {
       sessionId: this.sessionId,
@@ -202,6 +210,7 @@ export class LanHostSession {
     if (!slot) return;
     slot.ownerConnectionId = null;
     slot.pendingCommand = null;
+    slot.heldCommand = neutralPlayerCommand();
     this.slotByConnection.delete(connectionId);
   }
 
@@ -218,7 +227,11 @@ export class LanHostSession {
     });
     if (!admission.ok) return this.rejected(admission);
     slot.lastAcceptedInputSeq = admission.acceptedInputSeq;
-    slot.pendingCommand = structuredClone(input.command);
+    slot.pendingCommand = {
+      ...structuredClone(input.command),
+      usePrimary: input.command.usePrimary || slot.pendingCommand?.usePrimary === true,
+    };
+    slot.lastInputHostTick = this.world.tick;
     return admission;
   }
 
@@ -235,11 +248,14 @@ export class LanHostSession {
 
   advanceTick(): ReadonlyMap<string, LanEnvelope<"host.snapshot">> {
     const nextTick = this.world.tick + 1;
-    const commands = this.slots.map((slot) => ({
-      playerId: slot.playerId,
-      command: slot.pendingCommand ?? neutralPlayerCommand(),
-    }));
-    for (const slot of this.slots) slot.pendingCommand = null;
+    const commands = this.slots.map((slot) => {
+      const pending = slot.pendingCommand;
+      if (pending) slot.heldCommand = { ...pending, usePrimary: false };
+      const inputAgeTicks = nextTick - slot.lastInputHostTick;
+      const command = pending ?? (inputAgeTicks <= INPUT_HOLD_TICKS ? slot.heldCommand : neutralPlayerCommand());
+      slot.pendingCommand = null;
+      return { playerId: slot.playerId, command };
+    });
     this.world.step(createMultiPlayerInputFrame(nextTick, commands));
     this.collectEvents(this.world.events.drain());
     if (this.world.tick % this.snapshotIntervalTicks !== 0) return new Map();

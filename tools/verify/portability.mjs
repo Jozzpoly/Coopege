@@ -25,7 +25,7 @@ function walk(relativeRoot) {
 
 const operationalFiles = [
   "package.json", "package-lock.json", ".npmrc", "tsconfig.json", "tsconfig.test.json",
-  "PLAY_COOPEGE.bat", "START_COOPEGE.bat", "START_STUDIO.bat", "REBUILD_AND_PLAY.bat", "COLLECT_DIAGNOSTICS.bat",
+  "PLAY_COOPEGE.bat", "PLAY_COOPEGE_LAN.bat", "START_COOPEGE.bat", "START_STUDIO.bat", "REBUILD_AND_PLAY.bat", "COLLECT_DIAGNOSTICS.bat",
   ...walk("apps"), ...walk("packages"), ...walk("tools"), ...walk("tests"),
 ].filter((path) => !["tools/verify/doctor.mjs", "tools/verify/portability.mjs"].includes(path))
   .filter((path) => [".json", ".js", ".mjs", ".ts", ".html", ".css", ".bat", ".npmrc"].includes(extname(path)) || path === ".npmrc");
@@ -51,7 +51,7 @@ const packageHosts = [...new Set(hosts.filter((host) => host.includes("npm") || 
 if (packageHosts.every((host) => host === "registry.npmjs.org")) pass("lockfile używa wyłącznie publicznego hosta pakietów");
 else fail(`lockfile zawiera niepubliczne hosty pakietów: ${packageHosts.join(", ")}`);
 
-for (const path of ["PLAY_COOPEGE.bat", "START_COOPEGE.bat", "START_STUDIO.bat", "REBUILD_AND_PLAY.bat", "COLLECT_DIAGNOSTICS.bat"]) {
+for (const path of ["PLAY_COOPEGE.bat", "PLAY_COOPEGE_LAN.bat", "START_COOPEGE.bat", "START_STUDIO.bat", "REBUILD_AND_PLAY.bat", "COLLECT_DIAGNOSTICS.bat"]) {
   const bytes = readFileSync(resolve(root, path));
   if ([...bytes].some((value) => value > 127)) fail(`${path}: zawiera znaki spoza ASCII, ryzyko Windows PowerShell/cmd`);
   else pass(`${path}: ASCII`);
@@ -66,8 +66,11 @@ if (packageJson.scripts?.play === "node tools/dev-server.mjs --open=runtime") pa
 else fail("npm run play powinno uruchamiać gotowy build bez przebudowania");
 if (packageJson.scripts?.["play:rebuild"]?.includes("npm run build")) pass("osobny play:rebuild jawnie przebudowuje źródła");
 else fail("brak osobnego play:rebuild");
+if (!packageJson.scripts?.["lan:host"]?.includes("npm run build") && packageJson.scripts?.["lan:host:rebuild"]?.includes("npm run build")) {
+  pass("LAN używa gotowego klienta; osobny lan:host:rebuild jawnie przebudowuje źródła");
+} else fail("LAN nie powinien wymuszać pełnego builda przy każdym starcie");
 
-for (const artifact of ["dist/Coopege_v0.01.html", "dist/Coopege_Studio_v0.1.html", "dist/Coopege_M7A_Asset_Vault.zip"]) {
+for (const artifact of ["dist/Coopege_v0.01.html", "dist/Coopege_Studio_v0.1.html", "dist/Coopege_M8_LAN_Client.html", "dist/Coopege_M7A_Asset_Vault.zip"]) {
   if (!existsSync(resolve(root, artifact))) fail(`brak artefaktu wydania ${artifact}`);
   else pass(`jest ${artifact}`);
 }

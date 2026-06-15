@@ -2,13 +2,13 @@
 
 > Krótkie źródło prawdy technicznej. Szczegóły historyczne są w ADR-ach i raportach; wizja w dokumentach product.
 
-- Wersja pamięci: **10**
-- Data: **2026-06-14**
-- Workspace: **0.8.0-m8-lan-vs3**
+- Wersja pamięci: **11**
+- Data: **2026-06-15**
+- Workspace: **0.8.1-m8-lan-vs3-retest**
 - Status: **M7 TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**
 - Ukończone: M7 Finalization / Owner Validation
-- Aktywne: **M8 LAN Foundation / VS-4 Failures and Reconnect**
-- M8 LAN: niezależny L2 Inheritance Review zakończony `PASS` 2026-06-14; VS-1, VS-2 i VS-3 są ukończone, następny krok to VS-4
+- Aktywne: **M8 LAN Foundation / VS-3 Stabilization and Owner Retest**
+- M8 LAN: VS-1 i VS-2 ukończone; VS-3 ponownie otwarte po negatywnym owner teście, `OWNER_RETEST_REQUIRED`
 
 ## Start głównego agenta
 
@@ -73,7 +73,7 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - dwa równorzędne połączenia dostają stabilne sloty, reconnect token i per-client ACK;
 - host składa neutralny input dla brakujących komend i publikuje snapshoty 10 Hz;
 - disconnect nie usuwa świata, a autosave i kontrolowany `shutdown` utrzymują ownership zapisu po stronie hosta;
-- host serwuje grywalny `Coopege_M8_LAN_Client.html` z checksumą zgodną z projektem hosta;
+- host serwuje kandydata `Coopege_M8_LAN_Client.html` z checksumą zgodną z projektem hosta;
 - klient nie tworzy lokalnego `GameWorld`, wysyła `PlayerCommand` 30 Hz i renderuje snapshoty przez wspólny renderer;
 - `LanSnapshotBuffer` odrzuca duplicate/out-of-order, ogranicza pamięć i interpoluje pozycje bez przechodzenia przez zmianę piętra;
 - HUD klienta pokazuje RTT, ACK, input age, tick drift, snapshot rate, bufor i rejected inputs;
@@ -83,18 +83,19 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 
 - Doctor: **18 PASS / 0 WARN / 0 FAIL**
 - Handoff gate: **PASS**
-- Portability: **21 PASS / 0 WARN / 0 FAIL**
+- Portability: **25 PASS / 0 WARN / 0 FAIL**
 - TypeScript: **PASS**
-- Node: **111/111 PASS**
+- Node: **112/112 PASS**
 - Golden migration: **52/52 PASS**
 - Chromium: **10/10 PASS**
 - Ability Composer: **PASS**
 - Legacy: **4/4 PASS**
 - Dev-server reuse: **PASS**
-- LAN host/client smoke: **HTTP + 2 WebSocket + input ACK + ping/pong + native movement + render-only client + shutdown save PASS**
+- LAN host/client smoke: **HTTP + 2 real browser tabs + responsive movement P1/P2 + launcher Windows + shutdown save PASS**
 - Gameplay Gate: **27 000 ticków solo + 27 000 C0, saves 6/6 — PASS_AUTOMATED**
 - Clean-package install/build/check/portability/handoff/legacy: **PASS**
-- Owner playtest: **ACCEPT_WITH_DEBT, 2026-06-13**
+- M7 owner playtest: **ACCEPT_WITH_DEBT, 2026-06-13**
+- M8 VS-3 owner playtest: **FAIL on prior candidate; FIXED_NEEDS_RETEST, 2026-06-15**
 
 ## Otwarte ograniczenia
 
@@ -104,7 +105,8 @@ Następnie wykonaj `npm ci --ignore-scripts` i `npm run validate`. Kod, testy i 
 - P2 keyboard zależy od key rollover klawiatury;
 - poprawka lokalnego respawnu C0 ma status `FIXED_NEEDS_RETEST`;
 - brak timeoutów klienta, automatycznego reconnectu i kontrolowanych profili latency/jitter/drop;
-- reconnect hosta istnieje na poziomie tokenu slotu, ale pełny UX i polityka zwolnienia slotu należą do VS-4;
+- VS-3 nie może zostać zamknięte bez owner retestu dwóch kart/urządzeń;
+- reconnect token jest izolowany per karta; pełna polityka timeoutów nadal pozostaje poza VS-3;
 - brak docelowych systemów itemów, questów/dialogów, talentów i authoringu AI;
 - headless Chromium/CDP w długiej serii kontenerowej bywa niestabilne infrastrukturalnie; scenariusze mają timeouty, izolację i pełny pass, ale ręczna walidacja Windows pozostaje nadrzędna.
 

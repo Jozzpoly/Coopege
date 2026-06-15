@@ -22,7 +22,7 @@ const sessionToken = "token-0123456789abcdef";
 
 function hello(overrides: Partial<ClientHelloPayload> = {}): ClientHelloPayload {
   return {
-    engineVersion: "0.8.0-m8-lan-vs3",
+    engineVersion: "0.8.1-m8-lan-vs3-retest",
     projectId: "coopege.silver_gate_legacy",
     projectChecksum: checksum,
     sessionToken,
@@ -68,7 +68,7 @@ test("LAN handshake ma osobny protokół, wersję i deterministyczne kodowanie J
 });
 
 test("compatibility gate odrzuca inną wersję silnika, projekt, checksum i token", () => {
-  const expected = { engineVersion: "0.8.0-m8-lan-vs3", projectId: "coopege.silver_gate_legacy", projectChecksum: checksum, sessionToken };
+  const expected = { engineVersion: "0.8.1-m8-lan-vs3-retest", projectId: "coopege.silver_gate_legacy", projectChecksum: checksum, sessionToken };
   assert.deepEqual(checkHelloCompatibility(hello(), expected), { ok: true });
   assert.equal(checkHelloCompatibility(hello({ engineVersion: "0.7.5" }), expected).ok, false);
   assert.equal(checkHelloCompatibility(hello({ projectId: "coopege.other" }), expected).ok, false);

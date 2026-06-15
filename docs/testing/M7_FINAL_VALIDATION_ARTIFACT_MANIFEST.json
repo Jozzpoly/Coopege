@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-14T14:21:30.196Z",
-  "workspace": "coopege@0.8.0-m8-lan-vs3",
+  "generatedAt": "2026-06-15T14:27:42.116Z",
+  "workspace": "coopege@0.8.1-m8-lan-vs3-retest",
   "status": "M7_OWNER_ACCEPTED_WITH_DEBT",
   "baseline": {
     "doctor": "18 PASS / 0 WARN / 0 FAIL",
     "handoff": "40 PASS / 0 FAIL",
-    "portability": "21 PASS / 0 WARN / 0 FAIL",
-    "node": "111/111 PASS",
+    "portability": "25 PASS / 0 WARN / 0 FAIL",
+    "node": "112/112 PASS",
     "migration": "52/52 PASS",
     "legacy": "4/4 PASS",
     "chromium": "10/10 PASS + Ability Composer",
@@ -18,13 +18,13 @@
   "files": [
     {
       "path": "package.json",
-      "bytes": 3252,
-      "sha256": "882659190f0cbb816b3a315f0ab595e7758644420e19d50880a4921eb90935f9"
+      "bytes": 3399,
+      "sha256": "7fbc715fd23151c38cb8b24841cf00230a82f17b8b7ac2b529f94a8def92c5aa"
     },
     {
       "path": "package-lock.json",
-      "bytes": 5721,
-      "sha256": "4fbf2ab2abadf2a6e4ea17cbae51e784624edf708c58b64fb8f07a58c2ed94a6"
+      "bytes": 5735,
+      "sha256": "f6a0e30570a5273c5a5f9809676dc61e630701f86a9da99a0c97aed430bc7249"
     },
     {
       "path": ".npmrc",
@@ -33,23 +33,23 @@
     },
     {
       "path": "PROJECT_STATE.json",
-      "bytes": 2208,
-      "sha256": "5b0e4fb2c19c33fb36d1bcc10907c0a79ef2459efa94472308888082ce2fa3d4"
+      "bytes": 2494,
+      "sha256": "0cc157910a3d0cad50cb6b4e7e99765225adf25bd584bf7648b092eec31992f8"
     },
     {
       "path": "AI_PROJECT_MEMORY.md",
-      "bytes": 6754,
-      "sha256": "433a8266eccf1cf8a97c73cba624afdcf4bcf93adda2c41fd93f16c6de4460b1"
+      "bytes": 6891,
+      "sha256": "7954f6cdfced643f8e745398ee13ddb619b1d69d5cf59e2846c592235664b264"
     },
     {
       "path": "START_HERE.md",
-      "bytes": 1922,
-      "sha256": "811ca8eb7d805b6b0cf2464ae9eba2c9236febc7ce0342b1c83bd2f41e8ccdcb"
+      "bytes": 1743,
+      "sha256": "906dbb43ccc700e405344185a0ac3b042103b4d282656d3140a2a2dce69202f9"
     },
     {
       "path": "README.md",
-      "bytes": 3126,
-      "sha256": "7db646428a9d765f4796f2afbbf356ed7655bd4e728711020d6caeeec45b0d68"
+      "bytes": 3044,
+      "sha256": "429dffe117c9299de17e6c040fb896f83c2079a55e97daded775652e775bad97"
     },
     {
       "path": "PLAY_COOPEGE.bat",
@@ -73,18 +73,18 @@
     },
     {
       "path": "dist/Coopege_v0.01.html",
-      "bytes": 863179,
-      "sha256": "939e51c3719cd55ce12f64b6c6581189abb6f92f570a70de57d15e2815bbfe69"
+      "bytes": 865155,
+      "sha256": "95f2870385c3326ca1bcc77cc7e46173476364a3a5ea569365ccb2b7f80540fe"
     },
     {
       "path": "dist/Coopege_Studio_v0.1.html",
-      "bytes": 1592459,
-      "sha256": "489186ca30a0d5ce4cae985b725806fca273d7287421c8248c03fec4ac6947d8"
+      "bytes": 1596565,
+      "sha256": "905fd44673b1b451d54c7abbde88c6c0170892a47b1f459800548a22bb520764"
     },
     {
       "path": "dist/Coopege_M7_Runtime.html",
-      "bytes": 307811,
-      "sha256": "39fb6b8797d3e80f3ff64a08d21f4274d036b6bf8b8135140bd3a82f160f6b95"
+      "bytes": 309787,
+      "sha256": "ace3ba4d1b25ab6801648c2e02b24efb7e0ce3652474ee605bcddcbf38185d42"
     },
     {
       "path": "dist/Coopege_M7A_Asset_Vault.zip",
@@ -93,8 +93,8 @@
     },
     {
       "path": "docs/process/HANDOFF_DOCS_MANIFEST.json",
-      "bytes": 6987,
-      "sha256": "6a02a65353d1245a5a600b678034e6538bf8f9441bb56748604a6cd8f40466f3"
+      "bytes": 7324,
+      "sha256": "e5e4f401606ac07c108d09c2320005af1e61ef0f5b3472a0604a226b743316ce"
     },
     {
       "path": "docs/testing/M7_FINAL_VALIDATION_REPORT.md",
@@ -108,8 +108,8 @@
     },
     {
       "path": "tools/build/build.mjs",
-      "bytes": 9186,
-      "sha256": "b35d7723a0e91166d383cc2da2517748ff8986ea295c42f178af27d45d3884c5"
+      "bytes": 9198,
+      "sha256": "58013daf1e4d4895857d283e137bc7623866387d342978f2a8891f005dc72cbf"
     },
     {
       "path": "tools/dev-server.mjs",
@@ -128,8 +128,8 @@
     },
     {
       "path": "tools/verify/handoff.mjs",
-      "bytes": 7424,
-      "sha256": "559d193a15e9e96f9c8531e06146bf9f7af0ee346c7462eaca95764ef4a7358f"
+      "bytes": 7529,
+      "sha256": "98d29405082426a07cd4f2ed4a22e50bae14e2b877a7585b63009734ef453e22"
     },
     {
       "path": "tools/npm-cli.mjs",
@@ -138,8 +138,8 @@
     },
     {
       "path": "tools/verify/update-release-manifests.mjs",
-      "bytes": 5728,
-      "sha256": "0ce77a149bd20027d29c45b0ce804f19e69d3c91e6f3982f47bf9e171d6f53a5"
+      "bytes": 5858,
+      "sha256": "a5e5f9d54f48b753b480cfe2dd1d0ff86d8cec264263f229447222a6272bfc40"
     },
     {
       "path": "docs/decisions/0016-deterministic-tile-variants-and-padded-player-atlases.md",
@@ -153,33 +153,33 @@
     },
     {
       "path": "docs/process/OWNER_FEEDBACK.md",
-      "bytes": 1674,
-      "sha256": "43535b6d6adcd1495d0d2d24eef74e458b9cd12e5afbbc6ba08c270dd724362f"
+      "bytes": 2985,
+      "sha256": "e72e1c762ef458e7ff51e04522598ed1b105ce8dabe6835f0b7cfe8e0a92c12f"
     },
     {
       "path": "docs/process/M8_LAN_CLIENT_VS3.md",
-      "bytes": 1984,
-      "sha256": "da8100f6dd0299510307d145e5a954532318eecc7e0e17436a658ef1853190ff"
+      "bytes": 2158,
+      "sha256": "2c8f6054e9db7cd082c10b3b6d4678c7f56a2ec4b6bce6aad0a9f7fdba50f66c"
     },
     {
       "path": "dist/Coopege_M8_LAN_Client.html",
-      "bytes": 861956,
-      "sha256": "5a103432c254f6238d7ec8d1ea2fae1d856acc038ec26c09f2cf2e53032d9658"
+      "bytes": 863952,
+      "sha256": "e4e658e8bcee7c15b92665c558a013f8e06f602bcdd8047429f8f2c95291b796"
     },
     {
       "path": "apps/runtime/lan-client-template.html",
-      "bytes": 5061,
-      "sha256": "ebc54b244557f5c89484e40f951267c5db642ac64eb9d0da100e65773b1bf673"
+      "bytes": 5071,
+      "sha256": "6012e9a428ce7ae80f258c164448570f6b9ac94aa253bd14fff3f24389f2cafa"
     },
     {
       "path": "apps/runtime/src/lan-client-main.ts",
-      "bytes": 13141,
-      "sha256": "7fae6f8e880edbe776dc0b41419184698f571bb942b216ff27a58282bc74ee56"
+      "bytes": 14582,
+      "sha256": "94803669026c894cb7a0dc43e8f8cf7a6d3320cdc5b523a7083e02c7a839aeb8"
     },
     {
       "path": "apps/runtime/src/lan-input-adapter.ts",
-      "bytes": 3800,
-      "sha256": "dfde1ca2226ea736ab3e4640c314832a1029588fcb8d0dfa49b3be98c90994cb"
+      "bytes": 4027,
+      "sha256": "736902f820fa1dd2ed8e978a7391f555f9b478e812a3382e9d2a1b80339194a6"
     },
     {
       "path": "packages/lan-protocol/src/snapshot-buffer.ts",
@@ -193,8 +193,18 @@
     },
     {
       "path": "tools/test/lan-client-browser-smoke.mjs",
-      "bytes": 7291,
-      "sha256": "7241e7876f0037f6f8d5389466ce6c5f66786a46680fe16f139d126b7939e541"
+      "bytes": 7034,
+      "sha256": "d32ec649b726d04ecaaee6d73da1d8564e70f99fbeabe1248c60e6fc2513d350"
+    },
+    {
+      "path": "PLAY_COOPEGE_LAN.bat",
+      "bytes": 963,
+      "sha256": "fb569d30ce538ca4c204935fa9f7655453ca2ab61467a89ab2faefd3c56afb70"
+    },
+    {
+      "path": "tools/test/lan-launcher-smoke.mjs",
+      "bytes": 2136,
+      "sha256": "189eaefd97d3d593ffcaedfb94fc98dbdccb56b2470f65f387708e6efcc9f45d"
     }
   ]
 }

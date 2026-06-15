@@ -21,22 +21,29 @@ export class LanClientInputAdapter {
   constructor(
     private readonly canvas: HTMLCanvasElement,
     private readonly renderer: RuntimeRenderer,
+    private readonly onInputChanged: () => void = () => undefined,
   ) {
     window.addEventListener("keydown", (event) => {
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(event.code)) event.preventDefault();
       this.pressed.add(event.code);
       if (!event.repeat && (event.code === "Space" || event.code === "KeyF" || event.code === "ControlRight")) this.queuedAttack = true;
+      this.onInputChanged();
     });
-    window.addEventListener("keyup", (event) => this.pressed.delete(event.code));
+    window.addEventListener("keyup", (event) => {
+      this.pressed.delete(event.code);
+      this.onInputChanged();
+    });
     window.addEventListener("blur", () => {
       this.pressed.clear();
       this.queuedAttack = false;
+      this.onInputChanged();
     });
     canvas.addEventListener("pointermove", (event) => { this.pointerClient = { x: event.clientX, y: event.clientY }; });
     canvas.addEventListener("pointerdown", (event) => {
       if (event.button === 0) {
         this.pointerClient = { x: event.clientX, y: event.clientY };
         this.queuedAttack = true;
+        this.onInputChanged();
       }
     });
     canvas.addEventListener("contextmenu", (event) => event.preventDefault());
@@ -44,6 +51,7 @@ export class LanClientInputAdapter {
 
   queueAttack(): void {
     this.queuedAttack = true;
+    this.onInputChanged();
   }
 
   setVirtualCommand(command: PlayerCommand | null): void {

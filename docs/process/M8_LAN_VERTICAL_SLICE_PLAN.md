@@ -32,7 +32,7 @@ Implementacja: `packages/lan-protocol/src/`; testy: `tests/lan-protocol.test.ts`
 
 Implementacja: `apps/lan-host/src/`; uruchomienie: `npm run lan:host`; smoke test: `npm run test:lan-host`. Host ma dwa sloty, reconnect token, snapshoty 10 Hz, autosave i kontrolowane zamknięcie przez `shutdown`.
 
-### VS-3 — klient i interpolacja — COMPLETE 2026-06-14
+### VS-3 — klient i interpolacja — REOPENED / OWNER RETEST REQUIRED
 
 - adapter fizycznego wejścia tworzy `PlayerCommand`, ale nie `InputFrame`;
 - klient wysyła rosnące `inputSeq`;
@@ -41,7 +41,9 @@ Implementacja: `apps/lan-host/src/`; uruchomienie: `npm run lan:host`; smoke tes
 
 Implementacja: `apps/runtime/src/lan-client-main.ts`, `apps/runtime/src/lan-input-adapter.ts`, `packages/lan-protocol/src/snapshot-buffer.ts`; artefakt: `dist/Coopege_M8_LAN_Client.html`; test przeglądarkowy: `tools/test/lan-client-browser-smoke.mjs`.
 
-### VS-4 — awarie i diagnostyka — NEXT
+Pierwsza deklaracja ukończenia została cofnięta po owner teście. Gate VS-3 wymaga startu `PLAY_COOPEGE_LAN.bat`, dwóch prawdziwych kart/urządzeń bez czarnego ekranu oraz płynnego niezależnego ruchu.
+
+### VS-4 — awarie i diagnostyka — BLOCKED BY VS-3 OWNER RETEST
 
 - timeout, rozłączenie, ponowne połączenie lub bezpieczne zwolnienie slotu;
 - kontrolowane 50–250 ms latency, jitter, 1–10% drop, duplikaty i zmiana kolejności;

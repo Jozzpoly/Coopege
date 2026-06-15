@@ -53,16 +53,17 @@ if (state && pkg) {
   if (Number.isInteger(state.expectedBaseline?.nodeTests) && state.expectedBaseline.nodeTests > 0) pass(`oczekiwane testy Node: ${state.expectedBaseline.nodeTests}`);
   else fail("brak oczekiwanej liczby testów Node");
   if (state.nextMilestone?.phase === "IN_PROGRESS" && state.nextMilestone?.implementationStarted === true
-    && state.nextMilestone?.completedSlice === "VS-3" && state.nextMilestone?.nextSlice === "VS-4"
+    && state.nextMilestone?.completedSlice === "VS-2" && state.nextMilestone?.nextSlice === "VS-3"
+    && state.nextMilestone?.ownerRetestRequired === true
     && existsSync(resolve(root, "packages/lan-protocol/src/index.ts"))
     && existsSync(resolve(root, "apps/lan-host/src/server.ts"))
     && existsSync(resolve(root, "tools/test/lan-host-smoke.mjs"))
     && existsSync(resolve(root, "apps/runtime/src/lan-client-main.ts"))
     && existsSync(resolve(root, "tools/test/lan-client-browser-smoke.mjs"))
-    && Array.isArray(state.blockers) && state.blockers.length === 0
-    && Array.isArray(state.mustFixBeforeNext) && state.mustFixBeforeNext.length === 0) {
-    pass("M8 rozpoczęte; VS-3 grywalny klient ukończony, VS-4 awarie i reconnect są następnym krokiem");
-  } else fail("nieprawidłowy stan implementacji M8 po VS-3");
+    && Array.isArray(state.blockers) && state.blockers.some((entry) => String(entry).includes("OF-002"))
+    && Array.isArray(state.mustFixBeforeNext) && state.mustFixBeforeNext.some((entry) => /Owner confirms/i.test(String(entry)))) {
+    pass("M8 rozpoczęte; VS-3 pozostaje w stabilizacji i wymaga owner retestu");
+  } else fail("nieprawidłowy stan stabilizacji M8 VS-3");
 }
 
 if (existsSync(resolve(root, "docs/process/NEXT_AGENT_BRIEF.md"))) {

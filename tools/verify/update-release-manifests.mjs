@@ -52,6 +52,8 @@ for (const path of [
   "packages/lan-protocol/src/snapshot-buffer.ts",
   "tests/lan-client.test.ts",
   "tools/test/lan-client-browser-smoke.mjs",
+  "PLAY_COOPEGE_LAN.bat",
+  "tools/test/lan-launcher-smoke.mjs",
 ]) {
   if (!handoffPaths.includes(path)) handoffPaths.push(path);
 }
@@ -68,7 +70,7 @@ expectedValidation.status = projectState.status.ownerAccepted
   : "M7_FINAL_VALIDATION_CANDIDATE";
 expectedValidation.baseline.doctor = "18 PASS / 0 WARN / 0 FAIL";
 expectedValidation.baseline.handoff = "40 PASS / 0 FAIL";
-expectedValidation.baseline.portability = "21 PASS / 0 WARN / 0 FAIL";
+expectedValidation.baseline.portability = "25 PASS / 0 WARN / 0 FAIL";
 expectedValidation.baseline.node = `${projectState.expectedBaseline.nodeTests}/${projectState.expectedBaseline.nodeTests} PASS`;
 expectedValidation.baseline.chromium = `${projectState.expectedBaseline.chromiumScenarios}/${projectState.expectedBaseline.chromiumScenarios} PASS + Ability Composer`;
 expectedValidation.baseline.lanHostClient = "PASS";
@@ -87,6 +89,8 @@ for (const path of [
   "packages/lan-protocol/src/snapshot-buffer.ts",
   "tests/lan-client.test.ts",
   "tools/test/lan-client-browser-smoke.mjs",
+  "PLAY_COOPEGE_LAN.bat",
+  "tools/test/lan-launcher-smoke.mjs",
 ]) {
   if (!validationPaths.includes(path)) validationPaths.push(path);
 }

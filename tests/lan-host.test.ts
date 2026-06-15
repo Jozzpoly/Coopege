@@ -12,7 +12,7 @@ import {
 import type { ClientHelloPayload, ClientInputPayload } from "../packages/lan-protocol/src/index.js";
 import { prepareRuntimeProject } from "../packages/runtime-core/src/index.js";
 
-const engineVersion = "0.8.0-m8-lan-vs3";
+const engineVersion = "0.8.1-m8-lan-vs3-retest";
 const projectChecksum = "a".repeat(64);
 const sessionToken = "session-token-0123456789abcdef";
 
@@ -74,7 +74,7 @@ test("host VS-2 przydziela dwa równorzędne sloty i odrzuca trzeciego klienta",
   assert.equal(session.diagnostics().connectedPlayers, 2);
 });
 
-test("host egzekwuje ownership, konsumuje input raz i składa neutralny fallback", () => {
+test("host egzekwuje ownership, podtrzymuje ruch przez jitter i bezpiecznie wygasza input", () => {
   const session = host();
   const first = session.connect("connection.1", hello());
   const second = session.connect("connection.2", hello());
@@ -94,9 +94,26 @@ test("host egzekwuje ownership, konsumuje input raz i składa neutralny fallback
   assert.ok(p1AfterInput.x > p1Start.x);
   assert.deepEqual(p2AfterInput, p2Start);
 
+  for (let tick = 0; tick < 5; tick += 1) session.advanceTick();
+  const p1AfterHold = { ...session.world.getPlayer(first.playerId)!.position };
+  assert.ok(p1AfterHold.x > p1AfterInput.x);
   session.advanceTick();
-  assert.deepEqual(session.world.getPlayer(first.playerId)!.position, p1AfterInput);
+  assert.deepEqual(session.world.getPlayer(first.playerId)!.position, p1AfterHold);
   assert.equal(session.diagnostics().rejectedInputs, 1);
+});
+
+test("host nie powtarza jednorazowego ataku podczas podtrzymywania kierunku", () => {
+  const session = host();
+  const first = session.connect("connection.1", hello());
+  assert.ok(first.ok);
+  if (!first.ok) return;
+
+  assert.equal(session.receiveInput("connection.1", input(session, first.playerId, 1, { moveX: 1, usePrimary: true })).ok, true);
+  session.advanceTick();
+  session.advanceTick();
+  const snapshot = session.advanceTick().get("connection.1")?.payload;
+  assert.ok(snapshot);
+  assert.ok(snapshot.events.filter((event) => event.type === "ability.used").length <= 1);
 });
 
 test("snapshot hosta ma ACK per klient i nie serializuje save v3", () => {

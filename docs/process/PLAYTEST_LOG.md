@@ -2,11 +2,30 @@
 
 > Testy automatyczne sprawdzają spójność. Ten plik zachowuje doświadczenie z prawdziwego grania. Najnowsze wpisy są na górze.
 
-## 2026-06-14 - M8 VS-3 grywalny klient LAN
+## 2026-06-15 - M8 VS-3 ponownie otwarte po owner teście
+
+- **Wersja:** `0.8.1-m8-lan-vs3-retest`
+- **Owner wynik poprzedniego kandydata:** FAIL
+- **Objawy:** ręczny build/start, czarny ekran drugiej karty, prawie niedziałający lub skokowy ruch host-playera
+- **Status:** `OF-002 FIXED_NEEDS_RETEST`; VS-4 zablokowane
+
+### Diagnoza i poprawka
+
+- druga karta dziedziczyła wspólny reconnect token i była odrzucana;
+- host zerował input między niesynchronizowanymi pakietami 30 Hz;
+- poprzedni smoke test nie używał drugiej realnej karty;
+- poprawiono izolację tokenu, fallback reconnectu, podtrzymanie inputu i launcher jednym kliknięciem;
+- nowy test dwóch kart: P1 ruch 1,63 pola, P2 ruch 2,44 pola, oba sloty i renderer PASS.
+
+Automatyczny PASS nie zamyka VS-3. Wymagany owner retest `PLAY_COOPEGE_LAN.bat`.
+
+---
+
+## 2026-06-14 - M8 VS-3 pierwotny kandydat (SUPERSEDED)
 
 - **Wersja:** `0.8.0-m8-lan-vs3`
 - **Zakres:** render-only klient WebSocket, wejście jednego gracza, interpolacja snapshotów i diagnostyka sieci
-- **Status:** techniczny slice ukończony; awarie i reconnect należą do VS-4
+- **Status:** automatyczny PASS okazał się niewystarczający; owner test ponownie otworzył VS-3
 
 ### Automatyczne potwierdzenie
 

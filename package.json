@@ -1,6 +1,6 @@
 {
   "name": "coopege",
-  "version": "0.8.0-m8-lan-vs3",
+  "version": "0.8.1-m8-lan-vs3-retest",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -30,10 +30,12 @@
     "play": "node tools/dev-server.mjs --open=runtime",
     "diagnostics": "node tools/diagnostics/collect-diagnostics.mjs",
     "lan:host:build": "tsc -p tsconfig.lan-host.json",
-    "lan:host": "npm run build && npm run lan:host:build && node .build/lan-host/apps/lan-host/src/server.js",
+    "lan:host": "npm run lan:host:build && node .build/lan-host/apps/lan-host/src/server.js",
+    "lan:host:rebuild": "npm run build && npm run lan:host",
     "test:lan-host": "npm run build && npm run lan:host:build && node tools/test/lan-host-smoke.mjs",
+    "test:lan-launcher": "node tools/test/lan-launcher-smoke.mjs",
     "start": "npm run play",
-    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:lan-host && npm run test:gameplay-gate && npm run verify:release-manifests",
+    "release:verify": "npm run doctor && npm run verify:handoff && npm run verify:portability && npm run verify:legacy && npm test && npm run test:server && npm run test:lan-host && npm run test:lan-launcher && npm run test:gameplay-gate && npm run verify:release-manifests",
     "studio": "node tools/dev-server.mjs --open=studio",
     "verify:portability": "node tools/verify/portability.mjs",
     "play:rebuild": "npm run doctor && npm run build && node tools/dev-server.mjs --open=runtime",

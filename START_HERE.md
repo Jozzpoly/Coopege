@@ -1,4 +1,4 @@
-# Coopege M8 LAN VS-3 — START HERE
+# Coopege M8 LAN VS-3 RETEST — START HERE
 
 ## Uruchomienie na Windows
 
@@ -24,10 +24,10 @@ M7 zostało zaakceptowane przez Przemka. Problemy opisuj przede wszystkim w czac
 
 Deweloperska weryfikacja: `npm ci --ignore-scripts`, potem `npm run validate`.
 
-## Grywalny LAN VS-3
+## Test LAN VS-3
 
-Po instalacji zależności uruchom `npm run lan:host`. Komenda buduje klienta, uruchamia host i wypisuje adresy LAN z tokenem. Otwórz ten sam adres na maksymalnie dwóch urządzeniach; każda przeglądarka steruje własnym graczem i renderuje autorytatywne snapshoty hosta. Wpisz `shutdown` w terminalu, aby zapisać świat i bezpiecznie zakończyć proces. Szczegóły: `docs/process/M8_LAN_CLIENT_VS3.md`.
+Kliknij dwukrotnie `PLAY_COOPEGE_LAN.bat`. Launcher sam przygotuje brakujące zależności, uruchomi host i otworzy pierwszego klienta. Drugi gracz otwiera jeden z adresów LAN wypisanych w oknie serwera. Zatrzymanie: `Ctrl+C` w oknie hosta. Szczegóły: `docs/process/M8_LAN_CLIENT_VS3.md`.
 
 ## Status
 
-M7: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**. M8 LAN jest **IN_PROGRESS**: kontrakt VS-1, host VS-2 i grywalny klient VS-3 są ukończone. Następny krok to VS-4: timeouty, awarie i reconnect. Lokalna poprawka wspólnego respawnu P1/P2 oczekuje na ręczny retest.
+M7: **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**. M8 LAN VS-3 jest **IN_PROGRESS / OWNER RETEST REQUIRED**. Nie przechodzimy do VS-4 przed potwierdzeniem działania dwóch klientów przez właściciela.

@@ -133,7 +133,7 @@ const joinButton = requiredElement<HTMLButtonElement>("#joinButton");
 const context = canvas.getContext("2d");
 if (!context) throw new Error("Canvas 2D jest niedostępny.");
 
-const config: RuntimeConfig = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.8.0-m8-lan-vs3" };
+const config: RuntimeConfig = window.__COOPEGE_RUNTIME_CONFIG__ ?? { mode: "standalone", runtimeVersion: "0.8.1-m8-lan-vs3-retest" };
 const host = new AtomicProjectHost();
 const clock = new FixedClock(30);
 const renderer = new RuntimeRenderer(canvas, context);
@@ -365,7 +365,7 @@ function applyProject(inputProject: unknown, studioRevision = 0): ReturnType<Ato
   diagnostics.gameplayExecutionFailures = 0;
   try {
     rebuildGameWorld();
-    setStatus(config.mode === "preview" ? "M8 VS-3 — sandbox Studio gotowy" : "M8 LAN VS-3 ukończone — grywalny klient LAN jest gotowy", "good");
+    setStatus(config.mode === "preview" ? "M8 VS-3 — sandbox Studio gotowy" : "M8 LAN VS-3 — stabilizacja i owner retest", "good");
     diagnostics.ready = true;
   } catch (error) {
     diagnostics.gameplayReady = false;

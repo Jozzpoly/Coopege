@@ -1,4 +1,5 @@
 import { createHash, randomBytes } from "node:crypto";
+import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { networkInterfaces } from "node:os";
@@ -79,7 +80,7 @@ function clientHtml(): string {
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Coopege M8 LAN Host</title><style>
 body{margin:0;background:#111827;color:#e5e7eb;font:16px system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}main{width:min(760px,90vw);background:#1f2937;border:1px solid #374151;border-radius:14px;padding:24px}h1{margin-top:0;color:#f9fafb}.ok{color:#86efac}.bad{color:#fca5a5}code,pre{background:#111827;border-radius:8px;padding:4px 7px}pre{padding:14px;overflow:auto;min-height:130px}small{color:#9ca3af}
-</style></head><body><main><h1>Coopege M8 LAN · VS-3 Client</h1><p id="state">Łączenie z hostem…</p><p><small>Awaryjna diagnostyka transportu; standardowa ścieżka serwuje grywalny klient VS-3.</small></p><pre id="details"></pre><script>
+</style></head><body><main><h1>Coopege M8 LAN · VS-3 Client</h1><p id="state">Łączenie z hostem…</p><p><small>Awaryjna diagnostyka transportu; standardowa ścieżka serwuje klienta do owner retestu VS-3.</small></p><pre id="details"></pre><script>
 const config=${bootstrap};const state=document.querySelector('#state');const details=document.querySelector('#details');
 const socket=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/lan');
 const envelope=(type,payload)=>JSON.stringify({protocol:'coopege-lan',protocolVersion:1,type,payload});
@@ -197,6 +198,16 @@ function addresses(actualPort: number): string[] {
   return [...values];
 }
 
+function openClient(url: string): void {
+  const launch = process.platform === "win32"
+    ? { command: process.env.ComSpec ?? "cmd.exe", args: ["/d", "/s", "/c", "start", "", url] }
+    : process.platform === "darwin"
+      ? { command: "open", args: [url] }
+      : { command: "xdg-open", args: [url] };
+  const opener = spawn(launch.command, launch.args, { detached: true, stdio: "ignore", windowsHide: true });
+  opener.unref();
+}
+
 async function shutdown(reason: "server_shutdown" | "protocol_error", exitCode: number): Promise<void> {
   if (stopping) return;
   stopping = true;
@@ -233,7 +244,9 @@ httpServer.listen(port, bindAddress, () => {
   console.log(`Projekt: ${prepared.project.manifest.projectId}`);
   console.log(`WebSocket: ws://<adres>:${actualPort}/lan`);
   console.log("Adresy grywalnego klienta LAN:");
-  for (const addressValue of addresses(actualPort)) console.log(`  ${addressValue}`);
+  const clientAddresses = addresses(actualPort);
+  for (const addressValue of clientAddresses) console.log(`  ${addressValue}`);
   console.log(`Autosave: ${savePath}`);
-  console.log("Zatrzymanie kontrolowane: wpisz shutdown i naciśnij Enter.");
+  console.log("Zatrzymanie kontrolowane: Ctrl+C albo wpisz shutdown i naciśnij Enter.");
+  if (process.env.COOPEGE_LAN_OPEN === "1") openClient(clientAddresses[0]!);
 });

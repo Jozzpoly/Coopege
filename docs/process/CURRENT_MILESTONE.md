@@ -1,62 +1,36 @@
-# CURRENT MILESTONE - M8 LAN FOUNDATION / VS-4 FAILURES AND RECONNECT
+# CURRENT MILESTONE - M8 LAN FOUNDATION / VS-3 STABILIZATION
 
 ## Status
 
 **M7 TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**
-**M8 IMPLEMENTATION IN_PROGRESS / VS-1, VS-2 AND VS-3 COMPLETE**
 
-Niezależny L2 Inheritance Review zakończył się `PASS` 2026-06-14. Protokół, autorytatywny host i grywalny klient renderujący snapshoty są ukończone. Następny rezultat to odporność połączenia VS-4.
+**M8 IMPLEMENTATION IN_PROGRESS / VS-1 AND VS-2 COMPLETE / VS-3 OWNER RETEST REQUIRED**
 
-## Dokumenty obowiązkowe
+Owner test z 2026-06-14 odrzucił poprzednią deklarację „grywalnego LAN”. Druga karta kończyła z czarnym ekranem przez współdzielony token reconnect, ruch był szarpany przez zerowanie inputu między pakietami, a start wymagał ręcznej komendy i pełnego builda. VS-3 pozostaje otwarte do ręcznego potwierdzenia właściciela.
 
-1. `PROJECT_STATE.json`
-2. `AI_PROJECT_MEMORY.md`
-3. `docs/process/LAST_HANDOFF.md`
-4. `docs/process/OWNER_FEEDBACK.md`
-5. `docs/process/M8_LAN_VERTICAL_SLICE_PLAN.md`
-6. `docs/process/M8_LAN_HOST_VS2.md`
-7. `docs/process/M8_LAN_CLIENT_VS3.md`
-8. `docs/decisions/0018-m8-lan-authoritative-host-and-websocket-protocol.md`
-9. `docs/decisions/0019-party-respawn-anchor-and-save-normalization.md`
+## Naprawy kandydata retestowego
 
-## Ukończone VS-1 i VS-2
+- token reconnect przeniesiony z `localStorage` do izolowanego per karta `sessionStorage`;
+- odrzucony stary token powoduje jedno automatyczne ponowienie jako nowy klient;
+- host podtrzymuje kierunek przez 6 ticków jitteru, ale nie powtarza jednorazowego ataku;
+- keydown/keyup wysyła zmianę natychmiast, niezależnie od interwału 30 Hz;
+- brak snapshotu pokazuje czytelny stan połączenia zamiast pustego canvasu;
+- `PLAY_COOPEGE_LAN.bat` uruchamia host jednym kliknięciem i otwiera pierwszego klienta;
+- zwykły start LAN używa gotowego `dist`; pełny build jest tylko w `lan:host:rebuild`;
+- Chromium gate używa dwóch prawdziwych kart tego samego originu i wymaga płynnego ruchu obu graczy.
 
-- wersjonowany `coopege-lan` v1 z compatibility i input admission;
-- autorytatywny host Node z `GameWorld` 30 Hz, snapshotami 10 Hz i host-only save;
-- dwa stabilne sloty, per-client ACK, reconnect token, ping/pong i neutralny fallback inputu;
-- HTTP i WebSocket `/lan` na jednym porcie, token URL, autosave i kontrolowany `shutdown`.
+## Gate VS-3
 
-## Ukończone VS-3
+1. Właściciel uruchamia `PLAY_COOPEGE_LAN.bat` bez wpisywania komendy.
+2. Pierwsza karta otwiera się automatycznie i reaguje płynnie na wejście.
+3. Druga karta lub urządzenie otwiera ten sam link, dostaje drugi slot i nie ma czarnego ekranu.
+4. Obaj gracze poruszają się niezależnie przez minimum kilka minut.
+5. Dopiero po tym VS-3 może zostać oznaczone jako ukończone; VS-4 nie jest jeszcze aktywne.
 
-- `dist/Coopege_M8_LAN_Client.html` jest budowany i serwowany przez hosta;
-- klient nie tworzy lokalnego `GameWorld` i wysyła tylko `PlayerCommand` przydzielonego gracza;
-- snapshoty zawierają identyfikatory wizualne i promień aktora;
-- bufor odrzuca duplicate/out-of-order, ogranicza pamięć i interpoluje graczy oraz potwory;
-- wspólny renderer obsługuje lokalny runtime i snapshot LAN bez mutowania symulacji;
-- HUD pokazuje connection state, RTT, ACK, input age, tick drift, snapshot rate, bufor i rejected inputs;
-- Chromium potwierdza dwóch klientów, realny ruch klawiaturą, rendering świata i brak lokalnego save/API świata.
+## Potwierdzony baseline techniczny
 
-## Następny rezultat VS-4
-
-1. Timeout nieaktywnego lub zerwanego klienta.
-2. Czytelne powody disconnect/reject i kontrolowana polityka reconnectu lub zwolnienia slotu.
-3. Kontrolowane profile 50-250 ms latency, jitter, 1-10% drop, duplicate i reordering.
-4. Potwierdzenie, że host nadal tickuje i zapisuje świat po utracie klienta.
-
-## Kolejność
-
-1. **VS-1 - COMPLETE:** kontrakt i walidatory.
-2. **VS-2 - COMPLETE:** autorytatywny host HTTP/WebSocket.
-3. **VS-3 - COMPLETE:** grywalny render-only klient z interpolacją.
-4. **VS-4 - NEXT:** awarie, timeout i reconnect.
-5. VS-5: 15-minutowy playtest na dwóch fizycznych urządzeniach.
-
-## Potwierdzony baseline
-
-TypeScript PASS, Node 111/111 PASS, Chromium 10/10 + Ability Composer PASS, host smoke PASS i grywalny LAN browser smoke PASS. Końcowa bramka `npm run validate` musi przejść po aktualizacji manifestów.
+TypeScript PASS, Node 112/112 PASS, Chromium 10/10 + Ability Composer PASS, dwie realne karty LAN PASS, launcher Windows PASS, portability 25/0/0. Automatyczny PASS nie zastępuje owner retestu.
 
 ## Dług przyjęty
 
-`OF-001` lokalnego coopa ma status `FIXED_NEEDS_RETEST` i zgodnie z decyzją właściciela nie blokuje M8. Publiczne serwery, matchmaking, NAT traversal, prediction, rollback i host migration pozostają poza pierwszym zakresem.
-
-Feedback właściciela przyjmuj przez czat i utrwalaj w `OWNER_FEEDBACK.md`, synchronizując dokumentację, kod, testy i gotowy `dist`.
+`OF-001` lokalnego coopa pozostaje `FIXED_NEEDS_RETEST`. `OF-002` jest aktywnym wpisem VS-3 i może zostać zamknięty wyłącznie po pozytywnym teście właściciela.

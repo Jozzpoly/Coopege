@@ -7,7 +7,9 @@ npm ci --ignore-scripts
 npm run lan:host
 ```
 
-Host buduje klienta i kod Node, ładuje pełny zmigrowany projekt, uruchamia `GameWorld` 30 Hz i wypisuje adresy LAN zawierające token sesji. Od VS-3 otwarta strona jest grywalnym klientem renderującym autorytatywne snapshoty.
+Użytkownik uruchamia `PLAY_COOPEGE_LAN.bat`; powyższe komendy są ścieżką deweloperską. Zwykły `lan:host` kompiluje tylko host Node i używa gotowego klienta z `dist`. Pełna przebudowa klienta jest jawna: `npm run lan:host:rebuild`.
+
+Host ładuje pełny zmigrowany projekt, uruchamia `GameWorld` 30 Hz i wypisuje adresy LAN zawierające token sesji. Kandydat VS-3 renderuje autorytatywne snapshoty, ale etap wymaga owner retestu.
 
 Kontrolowane zatrzymanie na Windowsie: wpisz `shutdown` w terminalu hosta i naciśnij Enter. Host zapisze świat przed zamknięciem.
 

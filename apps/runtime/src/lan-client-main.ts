@@ -85,8 +85,9 @@ const prepared = preparedResult.prepared;
 if (prepared.project.manifest.projectId !== config.projectId) throw new Error("Osadzony projekt klienta nie zgadza się z konfiguracją LAN.");
 
 const canvas = requiredElement<HTMLCanvasElement>("#world");
-const context = canvas.getContext("2d");
-if (!context) throw new Error("Canvas 2D jest niedostępny.");
+const canvasContext = canvas.getContext("2d");
+if (!canvasContext) throw new Error("Canvas 2D jest niedostępny.");
+const context: CanvasRenderingContext2D = canvasContext;
 const status = requiredElement<HTMLElement>("#status");
 const identity = requiredElement<HTMLElement>("#identity");
 const floorLabel = requiredElement<HTMLElement>("#floorLabel");
@@ -99,7 +100,7 @@ const attackButton = requiredElement<HTMLButtonElement>("#attackButton");
 
 const renderer = new RuntimeRenderer(canvas, context);
 renderer.setProject(prepared);
-const input = new LanClientInputAdapter(canvas, renderer);
+const input = new LanClientInputAdapter(canvas, renderer, () => sendInput());
 const snapshots = new LanSnapshotBuffer({ interpolationDelayMs: 110, maximumSnapshots: 12 });
 const token = new URLSearchParams(location.search).get("token") ?? "";
 const reconnectStorageKey = `coopege.m8.lan.reconnect.${config.projectId}`;
@@ -132,6 +133,8 @@ let welcome: HostWelcomePayload | null = null;
 let latestSnapshot: HostSnapshotPayload | null = null;
 let recentEvents: string[] = [];
 let pingSequence = 0;
+let retryWithoutReconnectToken = false;
+let reconnectFallbackAttempts = 0;
 
 function setStatus(message: string, state: "good" | "warn" | "bad"): void {
   status.textContent = message;
@@ -139,14 +142,14 @@ function setStatus(message: string, state: "good" | "warn" | "bad"): void {
 }
 
 function reconnectToken(): string | null {
-  try { return localStorage.getItem(reconnectStorageKey); }
+  try { return sessionStorage.getItem(reconnectStorageKey); }
   catch { return null; }
 }
 
 function storeReconnectToken(value: string | null): void {
   try {
-    if (value) localStorage.setItem(reconnectStorageKey, value);
-    else localStorage.removeItem(reconnectStorageKey);
+    if (value) sessionStorage.setItem(reconnectStorageKey, value);
+    else sessionStorage.removeItem(reconnectStorageKey);
   } catch {
     // Private browsing may disable storage. The active connection still works.
   }
@@ -186,6 +189,7 @@ function handleWelcome(payload: HostWelcomePayload): void {
   diagnostics.slotId = payload.slotId;
   diagnostics.sessionId = payload.sessionId;
   diagnostics.hostTick = payload.hostTick;
+  reconnectFallbackAttempts = 0;
   storeReconnectToken(payload.reconnectToken);
   setStatus(`Połączono jako ${payload.playerId}. Oczekiwanie na snapshot świata…`, "good");
 }
@@ -210,9 +214,15 @@ function handleSnapshot(payload: HostSnapshotPayload): void {
 }
 
 function handleReject(payload: HostRejectPayload): void {
-  diagnostics.connectionState = "rejected";
   diagnostics.lastError = `${payload.code}: ${payload.message}`;
-  if (payload.code === "reconnect_rejected") storeReconnectToken(null);
+  if (payload.code === "reconnect_rejected" && reconnectFallbackAttempts < 1) {
+    storeReconnectToken(null);
+    retryWithoutReconnectToken = true;
+    diagnostics.connectionState = "connecting";
+    setStatus("Stary token karty został odrzucony. Ponawianie jako nowy klient…", "warn");
+    return;
+  }
+  diagnostics.connectionState = "rejected";
   setStatus(`Host odrzucił klienta: ${payload.message}`, "bad");
 }
 
@@ -230,8 +240,9 @@ function connect(): void {
     return;
   }
   const scheme = location.protocol === "https:" ? "wss" : "ws";
-  socket = new WebSocket(`${scheme}://${location.host}${config.websocketPath}`);
-  socket.addEventListener("open", () => {
+  const connection = new WebSocket(`${scheme}://${location.host}${config.websocketPath}`);
+  socket = connection;
+  connection.addEventListener("open", () => {
     const hello = createLanEnvelope(LAN_MESSAGE_TYPES.clientHello, {
       engineVersion: config.engineVersion,
       projectId: config.projectId,
@@ -240,9 +251,9 @@ function connect(): void {
       clientNonce: clientNonce(),
       reconnectToken: reconnectToken(),
     });
-    socket?.send(encodeLanMessage(hello));
+    connection.send(encodeLanMessage(hello));
   });
-  socket.addEventListener("message", (event) => {
+  connection.addEventListener("message", (event) => {
     if (typeof event.data !== "string") return;
     const decoded = decodeLanMessage(event.data);
     if (!decoded.ok) {
@@ -256,15 +267,36 @@ function connect(): void {
     else if (message.type === LAN_MESSAGE_TYPES.hostPong) diagnostics.rttMs = Math.max(0, Date.now() - (message.payload as HostPongPayload).clientSentAtMs);
     else if (message.type === LAN_MESSAGE_TYPES.hostDisconnect) handleDisconnect(message.payload as HostDisconnectPayload);
   });
-  socket.addEventListener("close", () => {
+  connection.addEventListener("close", () => {
+    if (socket === connection) socket = null;
+    if (retryWithoutReconnectToken) {
+      retryWithoutReconnectToken = false;
+      reconnectFallbackAttempts += 1;
+      diagnostics.lastError = "";
+      setTimeout(connect, 80);
+      return;
+    }
     if (diagnostics.connectionState !== "rejected") diagnostics.connectionState = "disconnected";
     if (!diagnostics.lastError) setStatus("Połączenie z hostem zostało zamknięte.", "warn");
   });
-  socket.addEventListener("error", () => {
+  connection.addEventListener("error", () => {
     diagnostics.connectionState = "error";
     diagnostics.lastError = "Błąd transportu WebSocket.";
     setStatus(diagnostics.lastError, "bad");
   });
+}
+
+function renderConnectionFallback(): void {
+  context.fillStyle = "#070b12";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillStyle = diagnostics.connectionState === "rejected" || diagnostics.connectionState === "error" ? "#ff7789" : "#70cfff";
+  context.font = "bold 18px Consolas, monospace";
+  context.fillText("COOPEGE LAN", canvas.width / 2, canvas.height / 2 - 18);
+  context.fillStyle = "#d4d8df";
+  context.font = "12px Consolas, monospace";
+  context.fillText(status.textContent || "Łączenie z hostem…", canvas.width / 2, canvas.height / 2 + 18, canvas.width - 80);
 }
 
 function sendInput(): void {
@@ -301,7 +333,7 @@ function animationLoop(now: number): void {
     diagnostics.interpolationAlpha = sample.alpha;
     diagnostics.bufferedSnapshots = sample.bufferedSnapshots;
     diagnostics.tickDrift = latestSnapshot ? latestSnapshot.hostTick - sample.snapshot.hostTick : 0;
-  }
+  } else renderConnectionFallback();
   updateHud();
   requestAnimationFrame(animationLoop);
 }

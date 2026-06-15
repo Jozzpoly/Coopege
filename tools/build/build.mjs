@@ -87,7 +87,7 @@ function createRuntimeHtml(project, config, variant = "m7", projectExpression = 
     html = html
       .replace("Coopege — M8 LAN VS-3", "Coopege — Embedded M8 VS-3 Preview")
       .replace("Coopege Runtime — M8 LAN VS-3", "Coopege Runtime — M8 VS-3 preview Studia")
-      .replace("M7 OWNER ACCEPTED · M8 VS-3 COMPLETE", "M7 OWNER ACCEPTED · M8 sandbox VS-3");
+      .replace("M7 OWNER ACCEPTED · M8 VS-3 OWNER RETEST", "M7 OWNER ACCEPTED · M8 sandbox VS-3");
   }
   return html;
 }
@@ -157,7 +157,7 @@ const lanClient = createLanClientHtml(migratedProject, {
   websocketPath: "/lan",
 });
 const artifacts = [
-  ["grywalny klient LAN M8 VS-3", "Coopege_M8_LAN_Client.html", lanClient],
+  ["klient LAN M8 VS-3 do owner retestu", "Coopege_M8_LAN_Client.html", lanClient],
   ["docelowy grywalny runtime M8 VS-3", "Coopege_v0.01.html", officialRuntime],
   ["docelowe Studio M8 VS-3", "Coopege_Studio_v0.1.html", officialStudio],
   ["M7 arena minimalna", "Coopege_M7_Runtime.html", minimalRuntime],

@@ -1,10 +1,10 @@
 {
   "format": "coopege-project-state",
   "schemaVersion": 1,
-  "projectVersion": "0.8.0-m8-lan-vs3",
-  "releaseCandidateId": "M8-LAN-VS3-2026-06-14",
+  "projectVersion": "0.8.1-m8-lan-vs3-retest",
+  "releaseCandidateId": "M8-LAN-VS3-OWNER-RETEST-2026-06-15",
   "completedMilestone": "M7 Finalization / Owner Validation",
-  "activeMilestone": "M8 LAN Foundation / VS-4 Failures and Reconnect",
+  "activeMilestone": "M8 LAN Foundation / VS-3 Stabilization and Owner Retest",
   "statusScope": "completedMilestone",
   "status": {
     "implemented": true,
@@ -18,13 +18,14 @@
     "id": "M8",
     "phase": "IN_PROGRESS",
     "implementationStarted": true,
-    "completedSlice": "VS-3",
-    "nextSlice": "VS-4"
+    "completedSlice": "VS-2",
+    "nextSlice": "VS-3",
+    "ownerRetestRequired": true
   },
   "releaseHashAuthority": "External .zip.sha256 sidecar; the archive cannot contain its own final hash.",
   "expectedBaseline": {
     "typecheck": "PASS",
-    "nodeTests": 111,
+    "nodeTests": 112,
     "migrationArtifacts": 52,
     "chromiumScenarios": 10,
     "legacyArtifacts": 4,
@@ -50,6 +51,10 @@
     "lanClientGuide": "docs/process/M8_LAN_CLIENT_VS3.md",
     "lanClientBrowserSmoke": "tools/test/lan-client-browser-smoke.mjs"
   },
-  "blockers": [],
-  "mustFixBeforeNext": []
+  "blockers": [
+    "OF-002: M8 VS-3 requires owner retest after two-tab black screen, input jitter and launcher fixes."
+  ],
+  "mustFixBeforeNext": [
+    "Owner confirms one-click LAN start, two clients without a black screen and responsive independent movement."
+  ]
 }

@@ -1,49 +1,36 @@
-# LAST HANDOFF - M8 LAN VS-3 Complete
+# LAST HANDOFF - M8 LAN VS-3 Owner Retest Candidate
 
 ## Tożsamość
 
-- Wersja: `0.8.0-m8-lan-vs3`
-- Zamknięty etap: `M7-OWNER-ACCEPTED-2026-06-13`
-- Aktywny etap: `M8 LAN Foundation / VS-4 Failures and Reconnect`
-- `IMPLEMENTED`: M7 **TAK**, M8 **CZĘŚCIOWO - VS-1, VS-2 I VS-3**
-- `TECH_VERIFIED`: **TAK dla VS-1, VS-2, VS-3 i poprawki respawnu**
-- `SUCCESSOR_REVIEWED`: **TAK - L2 PASS, 2026-06-14**
-- `OWNER_ACCEPTED`: M7 **TAK - ACCEPT_WITH_DEBT**
+- Wersja: `0.8.1-m8-lan-vs3-retest`
+- M7: `TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED`
+- Aktywny etap: `M8 LAN Foundation / VS-3 Stabilization and Owner Retest`
+- VS-1: complete
+- VS-2: complete
+- VS-3: **NOT COMPLETE / FIXED_NEEDS_RETEST**
+- VS-4: not active
 
-## Wykonane
+## Powód ponownego otwarcia
 
-### M8 VS-1 i VS-2
+Właściciel odtworzył czarny ekran drugiej karty, praktycznie niedziałający ruch oraz zbyt techniczne uruchomienie wymagające konsoli i builda. Poprzedni smoke test był niewystarczający, bo drugi klient symulował surowym WebSocketem zamiast drugą kartą przeglądarki.
 
-`@coopege/lan-protocol` definiuje wersjonowany transport, compatibility gate i input admission. `apps/lan-host` jest jedynym właścicielem `GameWorld`, fixed ticka i save'a, publikuje snapshoty 10 Hz i obsługuje dwa stabilne sloty.
+## Zmiany
 
-### M8 VS-3
+- izolacja reconnect tokenu per karta i automatyczny fallback po odrzuceniu starego tokenu;
+- sześciotickowe podtrzymanie ciągłego inputu na hoście z wygaszeniem po braku pakietów;
+- natychmiastowa wysyłka zmian klawiatury i czytelny canvas stanu połączenia;
+- test dwóch prawdziwych kart w jednym profilu Chromium;
+- launcher `PLAY_COOPEGE_LAN.bat`, automatyczne otwarcie klienta i brak pełnego builda przy zwykłym starcie;
+- status dokumentacji cofnięty do owner retestu.
 
-Host serwuje zbudowany `dist/Coopege_M8_LAN_Client.html`. Klient osadza ten sam projekt i checksumę, nie tworzy lokalnego `GameWorld`, wysyła komendy wejścia 30 Hz i renderuje interpolowane snapshoty hosta.
+## Dowody techniczne
 
-`LanSnapshotBuffer` odrzuca duplicate/out-of-order i nie interpoluje przez zmianę piętra. Renderer otrzymał ścieżkę `renderLan`, a snapshoty niosą `classId`/`definitionId` oraz promień aktora. HUD pokazuje RTT, ACK, input age, tick drift, snapshot rate, bufor i odrzucone inputy.
-
-### OF-001
-
-Lokalny coop używa jednej kotwicy respawnu drużyny, wybiera wolne pole i normalizuje historyczne save'y. Status: `FIXED_NEEDS_RETEST`; zgodnie z decyzją właściciela nie blokuje dalszego M8.
-
-## Dowody
-
-- TypeScript: PASS;
-- testy Node: 111/111 PASS;
-- host smoke: HTTP/token, dwa WebSockety, różne sloty, ACK, ping/pong i shutdown save PASS;
-- Chromium LAN: dwóch klientów, natywny ruch `KeyD`, render świata, snapshot rate i brak lokalnego `GameWorld` PASS;
-- screenshot: `.build/browser-smoke/m8-lan-client.png`;
-- pełne `npm run validate`: wymagane po odświeżeniu manifestów.
-
-## Nienaruszalne granice M8
-
-- Node host jest jedynym właścicielem `GameWorld`, ticka i save'a.
-- Obie przeglądarki używają tej samej ścieżki protokołu.
-- Klient wysyła tylko `PlayerCommand`; host składa `InputFrame`.
-- `HostSnapshotPayload` jest prezentacyjny i nie jest save v3.
-- Renderer klienta nie mutuje świata ani nie zatwierdza gameplayu.
-- Disconnect nie może niszczyć świata ani ownershipu save'a.
+- obie realne karty dostały osobne sloty;
+- P1 przesunął się o 1,63 pola, P2 o 2,44 pola podczas 650 ms ciągłego wejścia;
+- obie karty renderują ten sam świat i raportują `connectedPlayers=2`;
+- test regresyjny odtwarzał przed poprawką `reconnect_rejected` na drugiej karcie;
+- pełne `npm run validate` jest wymagane przed push.
 
 ## Następny krok
 
-VS-4: dodać timeouty, czytelne stany zerwania, automatyczny reconnect albo jawne zwolnienie slotu oraz kontrolowane testy latency, jitter, drop, duplicate i reordering. Host ma nadal tickować i zapisywać świat po utracie klienta.
+Owner retest przez dwuklik `PLAY_COOPEGE_LAN.bat`. Nie oznaczać VS-3 jako ukończonego ani nie przechodzić do VS-4 bez potwierdzenia właściciela.
