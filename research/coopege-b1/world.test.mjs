@@ -92,3 +92,18 @@ test("B1 saved state cannot be silently attached to a different authored map",()
  assert.throws(()=>core.restore(changed,snapshot),/authored world changed/,
   "save imported into a different authored world without warning");
 });
+
+test("B1 the same movable cover changes a creature's perception, not only rendering",()=>{
+ const w=make(),rat=w.rats[0];
+ w.player.x=88.5;w.player.y=97.8;
+ rat.x=88.5;rat.y=101.5;rat.alert=0;rat.homeX=rat.x;rat.homeY=rat.y;
+ // Controlled preconditions; decisions below use the untouched in-game sim.
+ assert.equal(core.sight(w,rat,w.player),false);
+ core.step(w,{},1/60);
+ assert.equal(rat.alert,0,"creature detected hero through a solid movable object");
+ w.cart.x=89.5;
+ assert.equal(core.sight(w,rat,w.player),true);
+ core.step(w,{},1/60);
+ assert.ok(rat.alert>2,"after clearing the view the same creature ignores its new perception");
+ console.info("COOPEGE_B1_PERCEPTION",JSON.stringify({coverCleared:true,awareness:rat.alert}));
+});
