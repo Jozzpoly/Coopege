@@ -78,3 +78,17 @@ test("B1 refuses to push cart into authored solid geometry",()=>{
  assert.deepEqual({x:c.x,y:c.y},{x:blocker.x+.5,y:blocker.y+1.5},
   "ciężki przedmiot przenika przez dawną geometrię");
 });
+
+
+test("B1 saved state cannot be silently attached to a different authored map",()=>{
+ const world=make(),snapshot=core.save(world);
+ const unchanged=structuredClone(source);
+ // The live Tibia exporter contains date metadata; it is not game-world identity.
+ unchanged.authored.world.exportedAt="2088-01-01T00:00:00.000Z";
+ assert.deepEqual(core.save(core.restore(unchanged,snapshot)),snapshot,
+  "nonsemantic export timestamp wrongly invalidated the save");
+ const changed=structuredClone(source);
+ changed.authored.npcs[0].x++;
+ assert.throws(()=>core.restore(changed,snapshot),/authored world changed/,
+  "save imported into a different authored world without warning");
+});
