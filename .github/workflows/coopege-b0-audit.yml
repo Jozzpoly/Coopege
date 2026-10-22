@@ -27,6 +27,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coopege-b0-semantic-delta
-          path: .build/coopege-b0/semantic-boundary.json
+          path: |
+            .build/coopege-b0/semantic-boundary.json
+            .build/coopege-b0/source-authored-witness.json
           if-no-files-found: warn
           retention-days: 21
