@@ -24,7 +24,7 @@ jobs:
       - name: Compile tests
         run: npm run test:compile
       - name: Native retreat and return falsifier
-        run: node --test .build/node/tests/rebirth-retreat.test.js
+        run: node --test .build/node/tests/rebirth-retreat.test.js .build/node/tests/rebirth-spatial-combat.test.js
       - name: Existing gameplay regression
         run: node --test .build/node/tests/gameplay-world.test.js .build/node/tests/authored-spawns.test.js
       - name: Build playable classic Coopege
