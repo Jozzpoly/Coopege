@@ -4,8 +4,9 @@ import { readFileSync } from "node:fs";
 import { GameWorld, createInputFrame } from "../packages/gameplay/src/index.js";
 import { prepareRuntimeProject } from "../packages/runtime-core/src/index.js";
 
-function worldWithWall(wall:boolean) {
+function worldWithWall(wall:boolean,range=1.4) {
   const p=JSON.parse(readFileSync("project/project.json","utf8")) as any;
+  p.content.abilities[0].rangeTiles=range;
   const floor=p.world.floors[0];
   const cells:string[]=[];
   for(const [id,count] of floor.tiles as [string,number][]) for(let i=0;i<count;i++)cells.push(id);
@@ -58,4 +59,20 @@ test("R0: potwór w trakcie cooldownu nie przepycha się przez pozycję bohatera
   console.info("COOPEGE_R0_SPACING",JSON.stringify({firstAttackTick,atAttack,after,cooldownUntil:monster.cooldownUntilTick}));
   assert.ok(after>=atAttack-0.12,"wróg zbliża się przez cooldown tak, jakby miał wejść w ciało gracza");
   assert.ok(w.player.alive,"gracz przetrwał pierwszy kontakt");
+});
+
+test("R0: przekątna nie przenika przez zablokowany narożnik kafli",()=>{
+  // Diagonal ray 4.5,3.5 -> 6.5,5.5 passes exactly by the corner
+  // separating cells (5,3) and (4,4). Supercover must consider both.
+  const blocked=worldWithWall(true,3),open=worldWithWall(false,3);
+  for(const w of [blocked,open]){
+    w.world.player.position={x:4.5,y:3.5};
+    w.enemy.position={x:6.5,y:5.5};
+    w.world.step(createInputFrame(1,w.world.playerId,
+      {moveX:0,moveY:0,aimX:1,aimY:1,usePrimary:true}));
+  }
+  const outcome={blockedHp:blocked.enemy.hp,openHp:open.enemy.hp};
+  console.info("COOPEGE_R0_CORNER",JSON.stringify(outcome));
+  assert.equal(outcome.blockedHp,35,"promień minął blokujący narożnik");
+  assert.ok(outcome.openHp<35,"brak ściany nie może blokować ukośnego ataku");
 });
