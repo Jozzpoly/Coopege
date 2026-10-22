@@ -765,7 +765,11 @@ export class GameWorld {
         const proximity = Math.max(0, monster.aggroRangeTiles - targetDistance) * 2;
         return { player, targetDistance, homeDistance, threat, score: threat + proximity };
       })
-      .filter((entry) => entry.homeDistance <= monster.leashRangeTiles && (entry.targetDistance <= monster.aggroRangeTiles || entry.threat > 0))
+      .filter((entry) => entry.homeDistance <= monster.leashRangeTiles &&
+        (entry.targetDistance <= monster.aggroRangeTiles || entry.threat > 0) &&
+        // Initial detection requires a genuine unobstructed witness. Existing
+        // damage threat is a separate, still provisional pursuit mechanism.
+        (entry.threat > 0 || this.collision.projectilePathClear(monster.position,entry.player.position)))
       .sort((left, right) => right.score - left.score || left.targetDistance - right.targetDistance || left.player.playerId.localeCompare(right.player.playerId));
     const target = candidates[0]?.player;
     this.setMonsterTarget(monster, target?.playerId ?? null);
