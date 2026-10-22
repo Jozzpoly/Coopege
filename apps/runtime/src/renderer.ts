@@ -17,6 +17,9 @@ interface VisualEffect {
   floorId: string;
   startedAt: number;
   durationMs: number;
+  /** Gameplay-authoritative amount for in-world combat legibility. */
+  damageAmount?: number;
+  hitPlayer?: boolean;
 }
 
 export interface RuntimeCameraStats {
@@ -127,7 +130,11 @@ export class RuntimeRenderer {
   pushEvent(event: GameplayEvent, world: GameWorld, now: number): void {
     if (event.type === "damage.applied") {
       const target = world.actors.get(event.context.targetEntityId);
-      if (target) this.effects.push({ kind: "hit", x: target.position.x, y: target.position.y, floorId: target.floorId, startedAt: now, durationMs: 210 });
+      if (target) this.effects.push({
+        kind: "hit", x: target.position.x, y: target.position.y,
+        floorId: target.floorId, startedAt: now, durationMs: 540,
+        damageAmount: event.context.amount, hitPlayer: target.kind === "player",
+      });
     } else if (event.type === "actor.died") {
       const target = world.actors.get(event.entityId);
       if (target) this.effects.push({ kind: "death", x: target.position.x, y: target.position.y, floorId: target.floorId, startedAt: now, durationMs: 620 });
@@ -379,6 +386,22 @@ export class RuntimeRenderer {
       this.context.beginPath();
       this.context.arc(screen.x, screen.y, 12 + progress * 42, 0, Math.PI * 2);
       this.context.stroke();
+      if (effect.kind === "hit" && effect.damageAmount !== undefined) {
+        // Consequences appear where contact happened, not in the debugging
+        // sidebar. A restrained pop-up makes a real hit readable while moving.
+        const value = Math.round(effect.damageAmount * 10) / 10;
+        const offset = 18 + 36 * Math.sqrt(Math.max(0,progress));
+        const size = Math.min(24,Math.max(14,Math.floor(this.tilePixels * .28)));
+        this.context.font = `bold ${size}px system-ui, sans-serif`;
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.lineJoin = "round";
+        this.context.lineWidth = 4;
+        this.context.strokeStyle = "#090b0bdd";
+        this.context.fillStyle = effect.hitPlayer ? "#ff9a94" : "#ffe0a0";
+        this.context.strokeText(`−${value}`, screen.x, screen.y - offset);
+        this.context.fillText(`−${value}`, screen.x, screen.y - offset);
+      }
       this.context.restore();
     }
   }
