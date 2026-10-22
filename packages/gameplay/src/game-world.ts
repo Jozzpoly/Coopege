@@ -149,12 +149,44 @@ export interface GameWorldSummary {
 
 class CollisionGrid {
   private readonly walkableByTileId: ReadonlyMap<string, boolean>;
+  private readonly blocksProjectileByTileId: ReadonlyMap<string, boolean>;
 
   constructor(
     readonly floor: PreparedFloor,
-    tileDefinitions: readonly { id: string; walkable: boolean }[],
+    tileDefinitions: readonly { id: string; walkable: boolean; blocksProjectiles: boolean }[],
   ) {
     this.walkableByTileId = new Map(tileDefinitions.map((tile) => [tile.id, tile.walkable]));
+    this.blocksProjectileByTileId = new Map(tileDefinitions.map((tile) => [tile.id, tile.blocksProjectiles]));
+  }
+
+  /** Tile supercover traversal: no melee/projectile hits through a wall or diagonal blocked corner. */
+  projectilePathClear(start: Vec2, end: Vec2): boolean {
+    let x = Math.floor(start.x), y = Math.floor(start.y);
+    const lastX = Math.floor(end.x), lastY = Math.floor(end.y);
+    const clear = (cx: number,cy: number): boolean => {
+      if (cx < 0 || cy < 0 || cx >= this.floor.width || cy >= this.floor.height) return false;
+      const tileId=this.floor.tiles[cy*this.floor.width+cx];
+      return tileId !== undefined && this.blocksProjectileByTileId.get(tileId) === false;
+    };
+    if (!clear(x,y)||!clear(lastX,lastY))return false;
+    if (x===lastX&&y===lastY)return true;
+    const dx=end.x-start.x,dy=end.y-start.y,sx=Math.sign(dx),sy=Math.sign(dy);
+    const tx=Math.abs(dx)>1e-10?1/Math.abs(dx):Infinity;
+    const ty=Math.abs(dy)>1e-10?1/Math.abs(dy):Infinity;
+    let maxX=sx>0?(x+1-start.x)*tx:sx<0?(start.x-x)*tx:Infinity;
+    let maxY=sy>0?(y+1-start.y)*ty:sy<0?(start.y-y)*ty:Infinity;
+    for(let i=0;i<=this.floor.width+this.floor.height+2;i++){
+      if(maxX<maxY-1e-10){x+=sx;maxX+=tx;}
+      else if(maxY<maxX-1e-10){y+=sy;maxY+=ty;}
+      else {
+        // A ray exactly through a corner must not pass between two blocked cells.
+        if(!clear(x+sx,y)||!clear(x,y+sy))return false;
+        x+=sx;y+=sy;maxX+=tx;maxY+=ty;
+      }
+      if(!clear(x,y))return false;
+      if(x===lastX&&y===lastY)return true;
+    }
+    return false;
   }
 
   isWalkableCell(x: number, y: number): boolean {
@@ -250,13 +282,16 @@ export class GameWorld {
       providedTargetIsMonster: (environment) => {
         const targetId = environment.context.providedTargetEntityId;
         const target = targetId ? this.actors.get(targetId) : undefined;
-        return target !== undefined && isMonster(target);
+        return target !== undefined && isMonster(target) &&
+          this.collision.projectilePathClear(this.actors.get(environment.context.sourceEntityId)?.position ?? target.position,target.position);
       },
       selectNearestHostile: (environment, parameters) => this.gameplaySelectNearestHostile(environment, parameters),
       selectSource: (environment) => this.actors.has(environment.context.sourceEntityId) ? [environment.context.sourceEntityId] : [],
       selectProvidedTarget: (environment) => {
         const targetId = environment.context.providedTargetEntityId;
-        return targetId && this.actors.has(targetId) ? [targetId] : [];
+        const target = targetId ? this.actors.get(targetId) : undefined;
+        const source = this.actors.get(environment.context.sourceEntityId);
+        return target && source && this.collision.projectilePathClear(source.position,target.position) ? [target.entityId] : [];
       },
     });
     this.gameplayInterpreter = new GameplayInterpreter(runtimeProject.project.gameplay, gameplayRegistry);
@@ -708,8 +743,10 @@ export class GameWorld {
       return;
     }
     const targetDistance = distance(monster.position, target.position);
-    if (targetDistance <= ability.rangeTiles && this._tick >= monster.cooldownUntilTick) {
-      this.executeAbility(monster, target.entityId, null);
+    if (targetDistance <= ability.rangeTiles) {
+      // Reaching striking distance is a decision to hold ground, not to
+      // phase through the target while the ability is cooling down.
+      if (this._tick >= monster.cooldownUntilTick) this.executeAbility(monster, target.entityId, null);
       return;
     }
     if (targetDistance <= monster.aggroRangeTiles || (monster.threatByPlayer[target.playerId] ?? 0) > 0) {
@@ -830,7 +867,8 @@ export class GameWorld {
         const preferred = target.entityId === environment.context.providedTargetEntityId ? 1 : 0;
         return { target, targetDistance, facingScore, preferred };
       })
-      .filter((entry) => entry.targetDistance <= configuredRange + entry.target.radius + source.radius && entry.facingScore >= minimumFacing)
+      .filter((entry) => entry.targetDistance <= configuredRange + entry.target.radius + source.radius &&
+        entry.facingScore >= minimumFacing && this.collision.projectilePathClear(source.position,entry.target.position))
       .sort((left, right) => right.preferred - left.preferred || right.facingScore - left.facingScore || left.targetDistance - right.targetDistance || left.target.entityId.localeCompare(right.target.entityId));
     return candidates[0] ? [candidates[0].target.entityId] : [];
   }
