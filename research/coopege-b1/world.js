@@ -7,6 +7,17 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const norm=(x,y)=>{const d=Math.hypot(x,y);return d>0?{x:x/d,y:y/d}:{x:0,y:0}};
 const r2=x=>Math.round(x*100)/100;
+function sourceIdentity(source){
+  // Deterministic authored-world identity. Deliberately exclude exportedAt;
+  // an unchanged game should not invalidate its saves every CI execution.
+  const a=source.authored;
+  const stable=JSON.stringify({worldId:a.world.id,size:[a.world.width,a.world.height],
+    floors:a.floors,start:a.start,links:a.links,npcs:a.npcs,entrances:a.entrances,
+    spawnGroups:a.spawnGroups,quests:a.quests,monsters:a.monsters,tilePalette:a.tilePalette});
+  let hash=2166136261;
+  for(let i=0;i<stable.length;i++)hash=Math.imul(hash^stable.charCodeAt(i),16777619);
+  return (hash>>>0).toString(16).padStart(8,"0");
+}
 function expandFloor(authored,z){
   const f=authored.floors[String(z)];
   if(!f)throw Error("Missing authored floor "+z);
@@ -33,7 +44,7 @@ function create(source){
     id:n.id,name:n.name,role:n.type,x:n.x+.5,y:n.y+.5
   }));
   return {
-    sourceFormat:source.format,authored:{start,group:{id:group.id,label:group.label,region:group.region,tier:group.tier,special:group.special},entrances:authored.entrances.filter(e=>e.z===0),npcs},
+    sourceFormat:source.format,sourceIdentity:sourceIdentity(source),authored:{start,group:{id:group.id,label:group.label,region:group.region,tier:group.tier,special:group.special},entrances:authored.entrances.filter(e=>e.z===0),npcs},
     grid,player:{id:"player:1",x:start.x+.5,y:start.y+.5,hp:100,maxHp:100,coins:0,bandages:1,facing:{x:0,y:1},attackCd:0,energy:100,dead:false},
     cart:{id:"crate:roadside",kind:"wooden-cart",x:88.5,y:99.5,radius:.47,mass:1,blocksSight:true},
     rats,clock:0,tick:0,events:[],lastAction:"Wyrusz na południe od Srebrnej Bramy.",kills:0
@@ -195,7 +206,7 @@ function step(world,input={},dt=1/60){
 }
 function save(world){
  return {
-  version:1,source:world.sourceFormat,clock:world.clock,tick:world.tick,
+  version:1,source:world.sourceFormat,identity:world.sourceIdentity,clock:world.clock,tick:world.tick,
   player:JSON.parse(JSON.stringify(world.player)),
   cart:{x:world.cart.x,y:world.cart.y},
   rats:world.rats.map(r=>({id:r.id,x:r.x,y:r.y,hp:r.hp,alive:r.alive,alert:r.alert,cooldown:r.cooldown})),
@@ -203,7 +214,7 @@ function save(world){
  };
 }
 function restore(source,record){
- if(record?.version!==1||record?.source!==source.format)throw Error("Incompatible B1 save");
+ if(record?.version!==1||record?.source!==source.format||record?.identity!==sourceIdentity(source))throw Error("Incompatible B1 save: authored world changed");
  const w=create(source);
  Object.assign(w.player,record.player);
  w.cart.x=record.cart.x;w.cart.y=record.cart.y;
