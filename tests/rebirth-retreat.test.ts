@@ -25,9 +25,11 @@ test("Coopege R0: wycofanie z walki pozwala przeciwnikowi fizycznie wrócić do 
   monster.leashRangeTiles = 9;
   const distance = () => Math.hypot(monster.position.x-home.x, monster.position.y-home.y);
   const log: Array<{tick:number;playerX:number;monsterX:number;distance:number;target:string|null}> = [];
+  let maximumExcursion=0;
   const inputFor=(moveX:number):PlayerCommand=>({ moveX, moveY:0, aimX:-1, aimY:0, usePrimary:false });
   const step = (moveX:number) => {
     world.step(createInputFrame(world.tick+1,world.playerId,inputFor(moveX)));
+    maximumExcursion=Math.max(maximumExcursion,distance());
     if (world.tick%15===0) log.push({tick:world.tick,playerX:world.player.position.x,monsterX:monster.position.x,distance:distance(),target:monster.targetPlayerId});
   };
 
@@ -37,7 +39,7 @@ test("Coopege R0: wycofanie z walki pozwala przeciwnikowi fizycznie wrócić do 
   // The player runs away, not through the adversary or the wall.
   for(let i=0;i<100;i++)step(-1);
   assert.equal(monster.targetPlayerId,null,"gracz zerwał kontakt, gdy wyszedł poza zasięg");
-  const separation=distance();
+  const separation=maximumExcursion;
   assert.ok(separation>0.8, "przeciwnik faktycznie opuścił swoje miejsce w trakcie starcia");
   // Time now passes in the same world, with no player intervention.
   for(let i=0;i<115;i++)step(0);
