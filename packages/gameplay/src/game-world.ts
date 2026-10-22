@@ -697,7 +697,16 @@ export class GameWorld {
     }
 
     const target = this.selectMonsterTarget(monster);
-    if (!target) return;
+    if (!target) {
+      // Losing sight/threat does not freeze an encounter halfway across the map.
+      // Return by the same collision-respecting actor drive, without teleporting
+      // or restoring health. Players can retreat and later find the creature home.
+      if (homeDistance > 0.12) {
+        const towardHome = normalizeVector(monster.homePosition.x - monster.position.x, monster.homePosition.y - monster.position.y);
+        this.moveActor(monster, towardHome.x, towardHome.y);
+      }
+      return;
+    }
     const targetDistance = distance(monster.position, target.position);
     if (targetDistance <= ability.rangeTiles && this._tick >= monster.cooldownUntilTick) {
       this.executeAbility(monster, target.entityId, null);
