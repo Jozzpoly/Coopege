@@ -36,13 +36,28 @@ try{
   if(!opened.flag||opened.aria!=="true"||opened.visibility==="hidden")throw Error("Diagnostics toggle did not open "+JSON.stringify(opened));
   const closed=await page.evaluate(`(()=>{document.getElementById('toggleDiagnostics').click();return document.querySelector('main').classList.contains('diag-open');})()`);
   if(closed)throw Error("Diagnostics toggle did not close");
+  const startActor=await page.evaluate(`(()=>{const p=window.__COOPEGE_GAME_DEBUG__?.save()?.actors?.find(x=>x.kind==='player');return p?{x:p.x,y:p.y,playerId:p.playerId}:null;})()`);
+  if(!startActor)throw Error("Missing player in browser save before input");
   await page.keyDown("KeyD","d",68);
-  await new Promise(r=>setTimeout(r,350));
+  await new Promise(r=>setTimeout(r,450));
   await page.keyUp("KeyD","d",68);
-  const after=await page.evaluate(`(()=>({tick:window.__COOPEGE_RUNTIME_DIAGNOSTICS__?.gameplayTick,errors:window.__COOPEGE_RUNTIME_DIAGNOSTICS__?.lastError,canvas:[document.getElementById('world').width,document.getElementById('world').height]}))()`);
+  const after=await page.evaluate(`(()=>{
+    const debug=window.__COOPEGE_GAME_DEBUG__,snapshot=debug.save(),player=snapshot.actors.find(x=>x.kind==='player');
+    const p0={x:player.x,y:player.y};
+    debug.load(snapshot);
+    const restored=debug.save().actors.find(x=>x.playerId===player.playerId);
+    return {tick:window.__COOPEGE_RUNTIME_DIAGNOSTICS__?.gameplayTick,
+      errors:window.__COOPEGE_RUNTIME_DIAGNOSTICS__?.lastError,
+      canvas:[document.getElementById('world').width,document.getElementById('world').height],
+      actor:{x:player.x,y:player.y},restored:{x:restored?.x,y:restored?.y},
+      sameAfterLoad:restored?.x===p0.x&&restored?.y===p0.y};
+  })()`);
   if(after.errors)throw Error("Runtime error after natural input: "+after.errors);
   if(after.tick<=2)throw Error("Gameplay stopped while testing the shell");
+  const movement=Math.hypot(startActor.x-after.actor.x,startActor.y-after.actor.y);
+  if(movement<0.12)throw Error("Keyboard moved no player in the actual HTML: "+JSON.stringify({startActor,after}));
+  if(!after.sameAfterLoad)throw Error("Immediate save/load changed the physical player's position");
   await page.screenshot(resolve(out,"coopege-r0-after-input.png"));
-  console.info("COOPEGE_R0_BROWSER_PASS",JSON.stringify({before,opened,after}));
+  console.info("COOPEGE_R0_BROWSER_PASS",JSON.stringify({before,opened,after,movement:+movement.toFixed(3)}));
  });
 }finally{await browser.forceClose();}
