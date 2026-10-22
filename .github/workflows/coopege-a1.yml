@@ -1,0 +1,39 @@
+name: Coopege A1 - richer Tibia donor candidate
+on:
+  push:
+    branches:
+      - experiment/coopege-a1-tibia-donor-2026-10-23
+permissions:
+  contents: read
+jobs:
+  a1-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert exact historical donor and generated candidate
+        run: |
+          echo "cd7d0d7527847ebd3f4ddb2c5a8c18d292517815c4989b8f4bd40b0fc5ce900c  legacy/reference/Tibia_Enhanced_v14_1_DevAPI.html" | sha256sum -c -
+          echo "92b35b3271602cdbb5da7349b08066b15c9e45e994c36d2ec7e70f52214892a0  experiments/coopege-a1/Coopege_A1_Tibia_Donor.html" | sha256sum -c -
+      - name: Install real Chrome for Testing
+        uses: browser-actions/setup-chrome@v2
+        id: chrome
+        with:
+          install-dependencies: true
+      - name: Browser gate - three classes, stance and occlusion
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node experiments/coopege-a1/test-browser.mjs
+      - name: Preserve experimental game and visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-a1-experience-donor
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            experiments/coopege-a1/Coopege_A1_Tibia_Donor.html
+            .build/a1-browser/*.png
