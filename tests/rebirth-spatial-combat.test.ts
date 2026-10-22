@@ -76,3 +76,16 @@ test("R0: przekątna nie przenika przez zablokowany narożnik kafli",()=>{
   assert.equal(outcome.blockedHp,35,"promień minął blokujący narożnik");
   assert.ok(outcome.openHp<35,"brak ściany nie może blokować ukośnego ataku");
 });
+
+test("R0: przeciwnik nie wykrywa gracza przez nieprzezroczystą ścianę",()=>{
+  const blocked=worldWithWall(true,3),open=worldWithWall(false,3);
+  for(const scene of [blocked,open]){
+    scene.enemy.aggroRangeTiles=5;
+    scene.enemy.leashRangeTiles=9;
+    scene.world.step(createInputFrame(1,scene.world.playerId,
+      {moveX:0,moveY:0,aimX:-1,aimY:0,usePrimary:false}));
+  }
+  console.info("COOPEGE_R0_WITNESS",JSON.stringify({blockedTarget:blocked.enemy.targetPlayerId,openTarget:open.enemy.targetPlayerId}));
+  assert.equal(blocked.enemy.targetPlayerId,null,"postrzeganie przeciwnika przechodzi przez ścianę");
+  assert.equal(open.enemy.targetPlayerId,open.world.playerId,"otwarta przestrzeń nie wyzwoliła kontaktu");
+});
