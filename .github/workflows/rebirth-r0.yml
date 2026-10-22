@@ -27,5 +27,16 @@ jobs:
         run: node --test .build/node/tests/rebirth-retreat.test.js .build/node/tests/rebirth-spatial-combat.test.js
       - name: Existing gameplay regression
         run: node --test .build/node/tests/gameplay-world.test.js .build/node/tests/authored-spawns.test.js
+      - name: Entire classic gameplay and migration gate
+        run: npm run check
+      - name: Long simulated gameplay regression
+        run: npm run test:gameplay-gate
       - name: Build playable classic Coopege
         run: npm run build
+      - name: Publish playtest build as an isolated CI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-rebirth-r0-playable
+          path: dist/Coopege_v0.01.html
+          if-no-files-found: error
+          retention-days: 14
