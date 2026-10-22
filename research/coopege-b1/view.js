@@ -92,7 +92,7 @@ function attach(source){
     ctx.beginPath();ctx.moveTo(pp.x,pp.y);ctx.lineTo(pp.x+world.player.facing.x*pr*1.65,pp.y+world.player.facing.y*pr*1.65);ctx.stroke();
     // Player-centered compass subtly shows that authorship belongs to a place.
     ctx.fillStyle="rgba(7,19,14,.54)";ctx.fillRect(10,10,scale*3.1,scale*.55);
-    ctx.font=`${Math.max(11,Math.round(scale*.2))}px system-ui`;ctx.fillStyle="#d2deb9";
+    ctx.font=`${Math.max(11,Math.round(scale*.2))}px system-ui`;ctx.fillStyle="#d2deb9";ctx.textAlign="left";ctx.textBaseline="top";
     ctx.fillText("SREBRNA BRAMA",16,10+scale*.35);
     const grad=ctx.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,h*.75);
     grad.addColorStop(0,"rgba(0,0,0,0)");grad.addColorStop(1,"rgba(2,8,7,.58)");
