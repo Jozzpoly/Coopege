@@ -1,0 +1,48 @@
+name: Coopege rebirth R0 (isolated)
+on:
+  push:
+    branches: ['development/coopege-rebirth-r0-2026-10-22']
+jobs:
+  game-mechanics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Compile tests
+        run: npm run test:compile
+      - name: Native retreat and return falsifier
+        run: node --test .build/node/tests/rebirth-retreat.test.js .build/node/tests/rebirth-spatial-combat.test.js
+      - name: Existing gameplay regression
+        run: node --test .build/node/tests/gameplay-world.test.js .build/node/tests/authored-spawns.test.js
+      - name: Entire classic gameplay and migration gate
+        run: npm run check
+      - name: Long simulated gameplay regression
+        run: npm run test:gameplay-gate
+      - name: Build playable classic Coopege
+        run: npm run build
+      - name: Install isolated Chrome for Testing
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+      - name: Real Chromium play-window and diagnostic-toggle evidence
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node tools/test/rebirth-browser.mjs
+      - name: Publish playtest build as an isolated CI artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-rebirth-r0-playable
+          path: |
+            dist/Coopege_v0.01.html
+            .build/rebirth-browser/*.png
+          if-no-files-found: error
+          retention-days: 14

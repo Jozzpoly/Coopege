@@ -17,6 +17,9 @@ interface VisualEffect {
   floorId: string;
   startedAt: number;
   durationMs: number;
+  /** Gameplay-authoritative amount for in-world combat legibility. */
+  damageAmount?: number;
+  hitPlayer?: boolean;
 }
 
 export interface RuntimeCameraStats {
@@ -102,6 +105,10 @@ export class RuntimeRenderer {
     this.resize();
     this.context.imageSmoothingEnabled = false;
     window.addEventListener("resize", () => this.resize());
+    // Jaskinia can resize its play window without resizing the browser itself.
+    if (this.canvas.parentElement && typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(() => this.resize()).observe(this.canvas.parentElement);
+    }
   }
 
   setProject(project: PreparedRuntimeProject): void {
@@ -123,7 +130,11 @@ export class RuntimeRenderer {
   pushEvent(event: GameplayEvent, world: GameWorld, now: number): void {
     if (event.type === "damage.applied") {
       const target = world.actors.get(event.context.targetEntityId);
-      if (target) this.effects.push({ kind: "hit", x: target.position.x, y: target.position.y, floorId: target.floorId, startedAt: now, durationMs: 210 });
+      if (target) this.effects.push({
+        kind: "hit", x: target.position.x, y: target.position.y,
+        floorId: target.floorId, startedAt: now, durationMs: 540,
+        damageAmount: event.context.amount, hitPlayer: target.kind === "player",
+      });
     } else if (event.type === "actor.died") {
       const target = world.actors.get(event.entityId);
       if (target) this.effects.push({ kind: "death", x: target.position.x, y: target.position.y, floorId: target.floorId, startedAt: now, durationMs: 620 });
@@ -375,6 +386,22 @@ export class RuntimeRenderer {
       this.context.beginPath();
       this.context.arc(screen.x, screen.y, 12 + progress * 42, 0, Math.PI * 2);
       this.context.stroke();
+      if (effect.kind === "hit" && effect.damageAmount !== undefined) {
+        // Consequences appear where contact happened, not in the debugging
+        // sidebar. A restrained pop-up makes a real hit readable while moving.
+        const value = Math.round(effect.damageAmount * 10) / 10;
+        const offset = 18 + 36 * Math.sqrt(Math.max(0,progress));
+        const size = Math.min(24,Math.max(14,Math.floor(this.tilePixels * .28)));
+        this.context.font = `bold ${size}px system-ui, sans-serif`;
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.lineJoin = "round";
+        this.context.lineWidth = 4;
+        this.context.strokeStyle = "#090b0bdd";
+        this.context.fillStyle = effect.hitPlayer ? "#ff9a94" : "#ffe0a0";
+        this.context.strokeText(`−${value}`, screen.x, screen.y - offset);
+        this.context.fillText(`−${value}`, screen.x, screen.y - offset);
+      }
       this.context.restore();
     }
   }
@@ -402,12 +429,13 @@ export class RuntimeRenderer {
   }
 
   private resize(): void {
-    const width = Math.max(640, Math.min(1152, Math.floor(window.innerWidth * 0.72)));
-    const height = Math.max(420, Math.min(720, Math.floor(window.innerHeight * 0.78)));
-    this.canvas.width = width;
-    this.canvas.height = height;
+    const stage = this.canvas.parentElement;
+    const width = Math.max(320, Math.min(1920, Math.floor(stage?.clientWidth || window.innerWidth)));
+    const height = Math.max(240, Math.min(1080, Math.floor(stage?.clientHeight || window.innerHeight)));
+    if (this.canvas.width !== width) this.canvas.width = width;
+    if (this.canvas.height !== height) this.canvas.height = height;
     this.context.imageSmoothingEnabled = false;
-    this.maximumTilePixels = Math.max(34, Math.min(56, Math.floor(Math.min(width / 20, height / 13))));
+    this.maximumTilePixels = Math.max(24, Math.min(64, Math.floor(Math.min(width / 20, height / 13))));
     this.tilePixels = this.maximumTilePixels;
   }
 }
