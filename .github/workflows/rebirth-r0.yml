@@ -36,9 +36,17 @@ jobs:
         run: npm run test:gameplay-gate
       - name: Build playable classic Coopege
         run: npm run build
+      - name: Install isolated Chrome for Testing
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
       - name: Real Chromium play-window and diagnostic-toggle evidence
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node tools/test/rebirth-browser.mjs
       - name: Publish playtest build as an isolated CI artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coopege-rebirth-r0-playable
