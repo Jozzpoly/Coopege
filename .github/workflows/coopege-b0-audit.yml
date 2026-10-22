@@ -22,6 +22,8 @@ jobs:
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-b0/audit-boundary.mjs
+      - name: Independently consume the authored witness (no Tibia runtime)
+        run: node research/coopege-b0/validate-witness.mjs
       - name: Preserve evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -30,5 +32,6 @@ jobs:
           path: |
             .build/coopege-b0/semantic-boundary.json
             .build/coopege-b0/source-authored-witness.json
+            .build/coopege-b0/place-network.json
           if-no-files-found: warn
           retention-days: 21
