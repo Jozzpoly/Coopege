@@ -29,7 +29,10 @@ try{
   if(before.canvas[0]<before.viewport[0]*.75)throw Error("Canvas still sized as small debug test: "+JSON.stringify(before));
   if(!(before.actors>=2))throw Error("Native playable world has not been hydrated");
   await page.screenshot(resolve(out,"coopege-r0-desktop.png"));
-  const opened=await page.evaluate(`(()=>{document.getElementById('toggleDiagnostics').click();return {flag:document.querySelector('main').classList.contains('diag-open'),aria:document.getElementById('toggleDiagnostics').getAttribute('aria-expanded'),visibility:getComputedStyle(document.getElementById('diagnosticsPanel')).visibility};})()`);
+  await page.evaluate(`(()=>document.getElementById('toggleDiagnostics').click())()`);
+  // CSS animates visibility over 180ms; the click must be allowed to paint.
+  await new Promise(r=>setTimeout(r,260));
+  const opened=await page.evaluate(`(()=>({flag:document.querySelector('main').classList.contains('diag-open'),aria:document.getElementById('toggleDiagnostics').getAttribute('aria-expanded'),visibility:getComputedStyle(document.getElementById('diagnosticsPanel')).visibility}))()`);
   if(!opened.flag||opened.aria!=="true"||opened.visibility==="hidden")throw Error("Diagnostics toggle did not open "+JSON.stringify(opened));
   const closed=await page.evaluate(`(()=>{document.getElementById('toggleDiagnostics').click();return document.querySelector('main').classList.contains('diag-open');})()`);
   if(closed)throw Error("Diagnostics toggle did not close");
