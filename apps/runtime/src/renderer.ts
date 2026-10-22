@@ -102,6 +102,10 @@ export class RuntimeRenderer {
     this.resize();
     this.context.imageSmoothingEnabled = false;
     window.addEventListener("resize", () => this.resize());
+    // Jaskinia can resize its play window without resizing the browser itself.
+    if (this.canvas.parentElement && typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(() => this.resize()).observe(this.canvas.parentElement);
+    }
   }
 
   setProject(project: PreparedRuntimeProject): void {
@@ -402,12 +406,13 @@ export class RuntimeRenderer {
   }
 
   private resize(): void {
-    const width = Math.max(640, Math.min(1152, Math.floor(window.innerWidth * 0.72)));
-    const height = Math.max(420, Math.min(720, Math.floor(window.innerHeight * 0.78)));
-    this.canvas.width = width;
-    this.canvas.height = height;
+    const stage = this.canvas.parentElement;
+    const width = Math.max(320, Math.min(1920, Math.floor(stage?.clientWidth || window.innerWidth)));
+    const height = Math.max(240, Math.min(1080, Math.floor(stage?.clientHeight || window.innerHeight)));
+    if (this.canvas.width !== width) this.canvas.width = width;
+    if (this.canvas.height !== height) this.canvas.height = height;
     this.context.imageSmoothingEnabled = false;
-    this.maximumTilePixels = Math.max(34, Math.min(56, Math.floor(Math.min(width / 20, height / 13))));
+    this.maximumTilePixels = Math.max(24, Math.min(64, Math.floor(Math.min(width / 20, height / 13))));
     this.tilePixels = this.maximumTilePixels;
   }
 }
