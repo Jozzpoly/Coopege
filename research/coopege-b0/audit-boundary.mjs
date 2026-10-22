@@ -81,6 +81,14 @@ const sourceNpcs=arr(legacy.world.npcs).map(n=>({id:n.id,name:n.name,type:n.type
 const sourceQuests=arr(legacy.content.quests).map(q=>({name:q.name,kind:q.tk,need:q.need,reward:q.reward}));
 const sourceEntrances=arr(legacy.world.entrances).map(x=>({name:x.name,z:x.z,x:x.x,y:x.y}));
 const sourceLinks=arr(legacy.world.links);
+const sourceGroups=arr(legacy.world.spawnGroups);
+const originalMembers=sourceGroups.reduce((sum,g)=>sum+
+  Object.values(g.members??{}).reduce((n,positions)=>n+arr(positions).length,0),0);
+const migratedSpawns=migration.content.spawns??[];
+const targetGroupIds=[...new Set(migratedSpawns.map(sp=>String(sp.id).split(".")[2]))];
+const explicitGroupMetadata=migratedSpawns.filter(sp=>
+  ["label","region","tier","special","anchor","leash","alert"].some(k=>Object.prototype.hasOwnProperty.call(sp,k)));
+
 const converted=migration.content;
 const report={
   scope:"Live Tibia v14.1 export vs Coopege M7 project V2 migration (not feature or feel benchmark)",
@@ -95,6 +103,18 @@ const report={
     topLevelWorldKeys:Object.keys(migration.world).sort(),
     topLevelContentKeys:Object.keys(converted).sort(),
     topLevelGameplayKeys:Object.keys(migration.gameplay??{}).sort()},
+  encounterGrouping:{
+    sourceGroupCount:sourceGroups.length,
+    sourceSpecialGroupCount:sourceGroups.filter(g=>g.special===true).length,
+    sourceMembers:originalMembers,
+    migratedSpawnInstances:migratedSpawns.length,
+    groupIdsEncodedInSpawnId:targetGroupIds.length,
+    spawnInstancesWithExplicitGroupMeaning:explicitGroupMetadata.length,
+    illustration:sourceGroups.filter(g=>g.special===true).map(g=>({
+      id:g.id,label:g.label,region:g.region,tier:g.tier,special:g.special,leash:g.leash,alert:g.alert
+    })),
+    caution:"Group names partly survive as fragments in spawn IDs. Placement equality does NOT mean preserving 45 authored encounter groups and 15 special roles as explicit data."
+  },
   tiles:floorReport,
   semanticBoundary:{
     npcPositionsAndRolesRepresented:
@@ -155,7 +175,10 @@ console.info("COOPEGE_B0_SEMANTIC_BOUNDARY",JSON.stringify({
   entrances:sourceEntrances.length,
   migratedEntrances:report.semanticBoundary.authoredEntranceNamesRepresented,
   sourceLinks:sourceLinks.length,
-  targetTransitions:report.migrated.transitions
+  targetTransitions:report.migrated.transitions,
+  sourceEncounterGroups:sourceGroups.length,sourceSpecialGroups:report.encounterGrouping.sourceSpecialGroupCount,
+  migratedExplicitGroups:explicitGroupMetadata.length,
+  monsterMembers:{source:originalMembers,migrated:migratedSpawns.length}
 }));
 assert.equal(floorReport.length,5,"This authoring donor is no longer the historic five-floor world");
 assert.ok(sourceNpcs.length>0&&sourceQuests.length>0,"The historic game exported no playable social/RPG data");
