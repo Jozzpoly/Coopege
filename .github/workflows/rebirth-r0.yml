@@ -7,6 +7,9 @@ on:
       - 'packages/gameplay/src/**'
       - 'tests/rebirth-*.test.ts'
       - 'next/**'
+      - 'apps/runtime/template.html'
+      - 'apps/runtime/src/renderer.ts'
+      - 'tools/test/rebirth-browser.mjs'
       - '.github/workflows/rebirth-r0.yml'
 jobs:
   game-mechanics:
@@ -33,10 +36,14 @@ jobs:
         run: npm run test:gameplay-gate
       - name: Build playable classic Coopege
         run: npm run build
+      - name: Real Chromium play-window and diagnostic-toggle evidence
+        run: node tools/test/rebirth-browser.mjs
       - name: Publish playtest build as an isolated CI artifact
         uses: actions/upload-artifact@v4
         with:
           name: coopege-rebirth-r0-playable
-          path: dist/Coopege_v0.01.html
+          path: |
+            dist/Coopege_v0.01.html
+            .build/rebirth-browser/*.png
           if-no-files-found: error
           retention-days: 14
