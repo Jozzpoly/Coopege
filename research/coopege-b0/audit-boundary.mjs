@@ -106,12 +106,14 @@ const report={
   encounterGrouping:{
     sourceGroupCount:sourceGroups.length,
     sourceSpecialGroupCount:sourceGroups.filter(g=>g.special===true).length,
+    sourceExplicitEliteSlots:sourceGroups.reduce((n,g)=>n+Math.max(0,Number(g.eliteCount)||0),0),
+    sourceNamedBosses:sourceGroups.filter(g=>g.boss).map(g=>({group:g.id,name:g.boss,tier:g.tier})),
     sourceMembers:originalMembers,
     migratedSpawnInstances:migratedSpawns.length,
     groupIdsEncodedInSpawnId:targetGroupIds.length,
     spawnInstancesWithExplicitGroupMeaning:explicitGroupMetadata.length,
     illustration:sourceGroups.filter(g=>g.special===true).map(g=>({
-      id:g.id,label:g.label,region:g.region,tier:g.tier,special:g.special,leash:g.leash,alert:g.alert
+      id:g.id,label:g.label,region:g.region,tier:g.tier,special:g.special,leash:g.leash,alert:g.alert,eliteCount:g.eliteCount??0,boss:g.boss??null
     })),
     caution:"Group names partly survive as fragments in spawn IDs. Placement equality does NOT mean preserving 45 authored encounter groups and 15 special roles as explicit data."
   },
@@ -178,6 +180,8 @@ console.info("COOPEGE_B0_SEMANTIC_BOUNDARY",JSON.stringify({
   targetTransitions:report.migrated.transitions,
   sourceEncounterGroups:sourceGroups.length,sourceSpecialGroups:report.encounterGrouping.sourceSpecialGroupCount,
   migratedExplicitGroups:explicitGroupMetadata.length,
+  originalEliteSlots:report.encounterGrouping.sourceExplicitEliteSlots,
+  originalNamedBosses:report.encounterGrouping.sourceNamedBosses,
   monsterMembers:{source:originalMembers,migrated:migratedSpawns.length}
 }));
 assert.equal(floorReport.length,5,"This authoring donor is no longer the historic five-floor world");
