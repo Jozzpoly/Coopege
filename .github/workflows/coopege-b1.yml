@@ -1,0 +1,47 @@
+name: Coopege B1 - playable authored material experiment
+on:
+  push:
+    branches: ['experiment/coopege-b1-material-return-2026-10-23']
+permissions:
+  contents: read
+jobs:
+  playable-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser for live witness + real game
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+      - name: Recover authored facts from real original Tibia API
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b0/audit-boundary.mjs
+      - name: Verify historic authored meaning without old runtime
+        run: node research/coopege-b0/validate-witness.mjs
+      - name: Gameplay contracts (terrain, moving cover, combat and persistence)
+        run: node --test research/coopege-b1/world.test.mjs
+      - name: Build standalone new candidate from source facts
+        run: node research/coopege-b1/build.mjs
+      - name: Actual hosted Chromium, natural player input, save and load
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b1/browser.test.mjs
+      - name: Preserve game, screenshots, contracts and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-b1-material-experience
+          if-no-files-found: warn
+          retention-days: 21
+          path: |
+            .build/coopege-b1/*.html
+            .build/coopege-b1/*.png
+            .build/coopege-b0/semantic-boundary.json
+            .build/coopege-b0/source-authored-witness.json
+            .build/coopege-b0/place-network.json
