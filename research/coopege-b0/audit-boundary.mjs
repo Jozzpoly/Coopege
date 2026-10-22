@@ -110,6 +110,40 @@ const report={
 };
 const output=resolve(root,".build/coopege-b0");
 mkdirSync(output,{recursive:true});
+// A *source witness*, not a final schema, game balance or the old executable.
+// Preserve the authored fields exactly; record holes and provenance explicitly.
+const capsule={
+  format:"coopege-authored-source-witness/v0",
+  source:{repository:"Jozzpoly/Coopege",
+    file:"legacy/reference/Tibia_Enhanced_v14_1_DevAPI.html",
+    mapApiFormat:legacy.world.format,mapApiVersion:legacy.world.formatVersion,
+    contentApiFormat:legacy.content.format,contentApiVersion:legacy.content.formatVersion},
+  authored:{
+    world:legacy.world.world,
+    floors:legacy.world.floors,
+    start:legacy.world.start,
+    entrances:legacy.world.entrances,
+    npcs:legacy.world.npcs,
+    links:legacy.world.links,
+    spawnGroups:legacy.world.spawnGroups,
+    spawns:legacy.world.spawns,
+    tilePalette:legacy.world.tilePalette,
+    quests:legacy.content.quests,
+    monsters:legacy.content.monsters,
+  },
+  openGaps:[
+    "Equipment definitions and shop behavior are not part of exported TibiaContentAPI",
+    "NPC dialogue and healing/merchant behavior are not defined by exported NPC markers",
+    "Terrain graphic provenance and all custom PNG bytes are not part of this witness",
+    "Quest wording, rewards and monsters are historical evidence, not final game design",
+    "Runtime movement, combat, AI, progression, save and networking are NOT imported"
+  ],
+  boundary:"Authored source facts only. No implied execution or adopted architecture."
+};
+assert.equal(arr(capsule.authored.npcs).length,sourceNpcs.length);
+assert.equal(arr(capsule.authored.quests).length,sourceQuests.length);
+assert.equal(Object.keys(capsule.authored.floors).length,5);
+writeFileSync(resolve(output,"source-authored-witness.json"),JSON.stringify(capsule,null,2)+"\n");
 writeFileSync(resolve(output,"semantic-boundary.json"),JSON.stringify(report,null,2)+"\n");
 console.info("COOPEGE_B0_SEMANTIC_BOUNDARY",JSON.stringify({
   floorCount:report.original.floorCount,
