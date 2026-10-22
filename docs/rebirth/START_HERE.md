@@ -42,3 +42,23 @@ RED zostają zachowane jako przyczyny i ostrzeżenia. Przejście testów dowodzi
 - Pierwotne HTML i Studia w zachowanym `Tibia_Coopege_Pelen_Handoff_Zimny_Start_2026-10-22.zip` poza repo.
 - [Stary soul](../product/COOPEGE_SOUL.md) i [historyczna roadmapa](../product/COOPEGE_ROADMAP.md) — ważne dla intencji i donorów, nie autorytet późniejszych celów.
 - [Współczesny Multi_World](https://github.com/Jozzpoly/cloudflare-multiplayer-lab), [Jaskinia](https://github.com/Jozzpoly/Jozz-Cave-Workbench/pull/4), [Feniks Studio](https://github.com/Jozzpoly/Feniks-Studio/pull/2).
+
+
+## R0 — realna wyprawa w przeglądarce (22 X, późny wieczór)
+
+Nie poprzestano na testach silnika. Z gotowego standalone `dist/Coopege_v0.01.html`, pobranego jako dokładny artefakt GitHub Actions po pełnych testach, odtworzono realny scenariusz Playwright/Chromium bez teleportu i bez podmieniania zadań NPC:
+
+- Stan startowy: Srebrna Brama, piętro `floor.legacy.z_0`, bohater (88.5,84.5), HP 120, 0 XP, 0 złota. Pierwszy szczur ma authored start (90.5,106.5); na powierzchni jest więcej spawnów.
+- Fizyczny **marsz S na południe ~4,6 s** przez rzeczywisty input przesuwa bohatera na `y≈103`; po drodze otrzymuje obrażenia i widzi szczury.
+- Dwa rozdzielone cooldownem naciśnięcia **F**: pierwszy atak zmniejsza HP szczura 25→10, drugi zabija. Zdobywa XP **30**, złoto **3**, kill **1**, `lootCount=1`. Zwykły odwrót **W** przez ok. 4,7 s wraca do okolic początku z zachowanym HP ~100 i nagrodą.
+- Odrębny przebieg: po walce kliknięcie normalnego przycisku **Zapisz**, następnie fizyczne odejście o ponad 5 pól i kliknięcie **Wczytaj** przywróciło pozycję (`y=103.052129`), HP 110, XP 30, złoto 3, 1 zabicie i 1 `lootCount`, bez resetowania pojedynku na nową grę.
+- Test przeglądarkowy wydania: [CI #39862630618](https://github.com/Jozzpoly/Coopege/actions/runs/39862630618) potwierdził 1.76 pola faktycznego ruchu przez natywne KeyD, `save/load`, pełny canvas 1440×872 i działanie przyrządów. Nowsze CI [#39863056669](https://github.com/Jozzpoly/Coopege/actions/runs/39863056669) przeszło także z in-world damage number popups.
+- Po pierwszym kontakcie potwór widzi człowieka tylko w nieprzesłoniętym kierunku (nowa kontrpróba `COOPEGE_R0_WITNESS` RED→PASS); stare zdarzenia `threat` są nadal bardzo prostą pamięcią/pościgiem, mogą kierować potwora ku aktualnemu celowi bez bieżącego świadka. To **nadal dług AI/percepcji**, nie dowód inteligentnego tropienia.
+
+**Ważne ograniczenia tego dowodu:**
+- Skrypt jest autentyczną drogą sterowania i faktycznym silnikiem w Chromium, ale nie był swobodnym testem Ownera. Nie dowodzi naturalnego odkrycia celu, dobrego combatu ani satysfakcjonującej pętli RPG.
+- Po zabiciu szczura `lootCount` wzrasta, lecz **nie pojawia się materialny przedmiot** ani sensowna nowa decyzja oparta na łupie. To licznik, nie ekwipunek. Również XP i złoto nie mają jeszcze dojrzałego gameplayowego zastosowania.
+- Ogląd zrzutów: ekran desktopowy prawidłowo eksponuje świat, ale pierwsze ujęcie to monotonne duże płaszczyzny podłóg; potrzebne są kompozycja, lokalne czytelne zainteresowania i feedback ryzyka. Na telefonie canvas pasuje do 390×844, lecz postać jest bardzo mała i brak dotykowego ruchu/ataku: **mobile playability FAIL / not implemented**, nie znaczy „mobilna gra jest gotowa”.
+- Na chwilę obecną uczciwy następny przyrost to: **rzeczywista, dająca sprawczość nagroda lub konsekwencja wyprawy**, albo poprawa samych decyzji podczas walki. Nie kolejny dashboard i nie przebudowa LAN. Dalszy materialny loot powinien mieć właściwe miejsce w stanie i zapisie, nie być wizualnym efektem bez pokrycia.
+
+**Przykładowa powtarzalna sekwencja testowa:** w świeżym 1440×1000 standalone, 4,6 s trzymać S, dwukrotnie F z ~1,75 s przerwą; odwrócić W; w osobnym przebiegu zachować po walce stan przez Zapisz → ruszyć W → Wczytaj. Zależna od czasu ściennego i tego, kto zaatakuje; nie traktować konkretnych HP/ticków jako deterministycznego goldenu.
