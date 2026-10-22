@@ -33,8 +33,8 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 <main><canvas id="game" aria-label="Grywalny świat Coopege B1"></canvas></main>
 <footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · E — popchnij / porozmawiaj · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
 <div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
-<script>${core.replace(/<\\/script/gi,"<\\\\/script")}</script>
-<script>${renderer.replace(/<\\/script/gi,"<\\\\/script")}</script>
+<script>${core}</script>
+<script>${renderer}</script>
 <script type="application/json" id="witness">${json}</script>
 <script>
 const source=JSON.parse(document.getElementById("witness").textContent);
