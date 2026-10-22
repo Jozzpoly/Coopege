@@ -2,15 +2,6 @@ name: Coopege rebirth R0 (isolated)
 on:
   push:
     branches: ['development/coopege-rebirth-r0-2026-10-22']
-  pull_request:
-    paths:
-      - 'packages/gameplay/src/**'
-      - 'tests/rebirth-*.test.ts'
-      - 'next/**'
-      - 'apps/runtime/template.html'
-      - 'apps/runtime/src/renderer.ts'
-      - 'tools/test/rebirth-browser.mjs'
-      - '.github/workflows/rebirth-r0.yml'
 jobs:
   game-mechanics:
     runs-on: ubuntu-latest
