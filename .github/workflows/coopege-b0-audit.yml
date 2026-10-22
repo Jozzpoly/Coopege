@@ -1,0 +1,32 @@
+name: Coopege B0 - authored meaning boundary
+on:
+  push:
+    branches: ['research/coopege-b0-semantic-boundary-2026-10-23']
+permissions:
+  contents: read
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real Chrome for source-of-truth export
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+      - name: Compare material and semantic preservation
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b0/audit-boundary.mjs
+      - name: Preserve evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-b0-semantic-delta
+          path: .build/coopege-b0/semantic-boundary.json
+          if-no-files-found: warn
+          retention-days: 21
