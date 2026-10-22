@@ -1,0 +1,31 @@
+name: Coopege rebirth R0 (isolated)
+on:
+  push:
+    branches: ['development/coopege-rebirth-r0-2026-10-22']
+  pull_request:
+    paths:
+      - 'packages/gameplay/src/**'
+      - 'tests/rebirth-*.test.ts'
+      - 'next/**'
+      - '.github/workflows/rebirth-r0.yml'
+jobs:
+  game-mechanics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Compile tests
+        run: npm run test:compile
+      - name: Native retreat and return falsifier
+        run: node --test .build/node/tests/rebirth-retreat.test.js
+      - name: Existing gameplay regression
+        run: node --test .build/node/tests/gameplay-world.test.js .build/node/tests/authored-spawns.test.js
+      - name: Build playable classic Coopege
+        run: npm run build
