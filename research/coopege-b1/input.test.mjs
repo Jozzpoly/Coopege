@@ -11,7 +11,7 @@ test("one-shot keyboard actions survive render-only frames and fire exactly once
   devicePixelRatio:globalThis.devicePixelRatio,
   core:globalThis.CoopegeB1Core};
  const frames=[],listeners={},inputs=[];
- const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}})},{
+ const ctx=new Proxy({createRadialGradient:()=>({addColorStop(){}}),createLinearGradient:()=>({addColorStop(){}})},{
   get:(obj,key)=>key in obj?obj[key]:()=>{},
   set:(obj,key,value)=>{obj[key]=value;return true;}
  });
