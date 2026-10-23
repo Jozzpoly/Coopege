@@ -1,0 +1,45 @@
+name: Coopege B5 - game-first authored expedition
+on:
+  push:
+    branches: ['experiment/coopege-b5-first-expedition-2026-10-23']
+permissions:
+  contents: read
+jobs:
+  authored-expedition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install real Chromium
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+      - name: Regenerate authored world witness from original Tibia read-only API
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b0/audit-boundary.mjs
+      - name: Validate authored semantics
+        run: node research/coopege-b0/validate-witness.mjs
+      - name: Test B5 round-trip and recovered authored groups
+        run: node --test research/coopege-b5/episode.test.mjs
+      - name: Real Chrome — leave city, push cart, recover satchel, return, claim reward
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b5/expedition.browser.mjs
+      - name: Preserve exact runnable artifact, independent witness and actual screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-b5-expedition
+          retention-days: 21
+          if-no-files-found: warn
+          path: |
+            research/coopege-b5/Coopege_B5_Pierwsza_Wyprawa.html
+            .build/coopege-b5/*.png
+            .build/coopege-b5/*.json
+            .build/coopege-b0/source-authored-witness.json
+            .build/coopege-b0/semantic-boundary.json
