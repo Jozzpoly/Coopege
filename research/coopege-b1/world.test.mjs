@@ -48,7 +48,7 @@ test("B1 purposeful interactions persist across authored return and reload",()=>
  const w=make();
  assert.ok(core.mapWalk(w,84.5,83.5),"kupiec z dawnej mapy nie ma przechodniego otoczenia");
  w.player.x=84.5;w.player.y=83.5;w.player.coins=3;
- core.step(w,{push:true},1/60);
+ core.step(w,{interact:true},1/60);
  assert.equal(w.player.coins,0);assert.equal(w.player.bandages,2);
  const saved=core.save(w);
  const another=core.restore(source,saved);
