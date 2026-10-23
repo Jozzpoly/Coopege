@@ -9,16 +9,16 @@ const renderer=readFileSync(resolve(root,"research/coopege-b1/view.js"),"utf8");
 const html=`<!doctype html>
 <html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coopege B3 — Za Bramą</title>
+<title>Coopege B4 — Trakt pod Srebrną Bramą</title>
 <style>
-:root{color-scheme:dark;font:14px system-ui,sans-serif;background:#0b1411;color:#e7e6d5}
+:root{color-scheme:dark;font:14px system-ui,sans-serif;background:#101715;color:#e8dcc2}
 *{box-sizing:border-box}body{margin:0;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:18px;flex:none;background:linear-gradient(95deg,#263b2e,#17251f);border-bottom:1px solid #526348}
-h1{font:normal 25px Georgia,serif;color:#f1deb2;margin:0}h1 small{color:#a6c2ac;font:13px system-ui}header p{font-size:11px;margin:4px 0 0;color:#c0cdbb;max-width:720px}
-#hud{padding:9px 15px;color:#e7e2c3;background:#19291f;font-size:12px;font-weight:650;letter-spacing:.04em}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:18px;flex:none;background:linear-gradient(100deg,#2f382f,#1a2724);border-bottom:1px solid #817559}
+h1{font:normal 22px Georgia,serif;color:#e9d1a0;margin:0}h1 small{color:#a6c2ac;font:13px system-ui}header p{font-size:11px;margin:4px 0 0;color:#c0cdbb;max-width:720px}
+#hud{padding:9px 15px;color:#e7e2c3;background:#202b27;font-size:12px;font-weight:650;letter-spacing:.04em}
 #meterbg{height:3px;background:#3b4236}#meter{height:100%;width:100%;background:#c4a76a;transition:width .1s linear}
 main{flex:1;min-height:0;position:relative;background:#17271f}#game{display:block;width:100%;height:100%;touch-action:none}
-footer{flex:none;background:#19241d;border-top:1px solid #4c614c;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:49px;padding:8px 14px}
+footer{flex:none;background:#1d2825;border-top:1px solid #6f6551;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:49px;padding:8px 14px}
 #message{color:#f0dcab;font-size:12px}#help{color:#acbfb1;font-size:11px;text-align:right}
 #actions{display:flex;gap:6px;flex-wrap:wrap}
 button{border:1px solid #61765d;background:#2b4435;color:#e9eccf;border-radius:7px;padding:7px 10px;font-size:11px;cursor:pointer}
@@ -27,8 +27,8 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 @media(max-width:520px){#hud{font-size:10px}#message{font-size:10px}}
 </style></head>
 <body>
-<header><div><h1>Coopege <small>/ B3 — Żywy kontakt</small></h1><p>Nie remont starych skryptów. Ten sam teren Srebrnej Bramy, nowa możliwość działania.</p></div>
-<div id="hint">Wyprawa: wyjdź południową bramą. Popychaj wózek ruchem postaci lub chwyć i przeciągnij go myszą z bliska. Bez skoków po kratkach.</div></header>
+<header><div><h1>Coopege <small>/ B4 — Oprawa świata</small></h1><p>Nie remont starych skryptów. Ten sam teren Srebrnej Bramy, nowa możliwość działania.</p></div>
+<div id="hint">Wyprawa: wyjdź południową bramą. Ta sama mechanika B3. Kontrpróba świata, postaci i atmosfery. Wózek: napieraj ruchem lub chwyć myszą.</div></header>
 <div id="hud">Ładowanie autorskiego świata…</div><div id="meterbg"><div id="meter"></div></div>
 <main><canvas id="game" aria-label="Grywalny świat Coopege B3"></canvas></main>
 <footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
@@ -42,5 +42,5 @@ window.CoopegeB1View.attach(source);
 </script>
 </body></html>`;
 mkdirSync(out,{recursive:true});
-writeFileSync(resolve(out,"Coopege_B3_Zywy_Kontakt.html"),html);
+writeFileSync(resolve(out,"Coopege_B4_Trakt_Srebrnej_Bramy.html"),html);
 console.info("COOPEGE_B1_BUILD",JSON.stringify({bytes:Buffer.byteLength(html),floors:Object.keys(witness.authored.floors).length,npc:witness.authored.npcs.length,group:witness.authored.spawnGroups.length}));
