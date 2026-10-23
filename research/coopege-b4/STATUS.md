@@ -15,5 +15,12 @@ Oprawa świata i odczucie życia NIE są rozstrzygnięte. Wygenerowane kształty
 ## Dowody
 Wymagany dokładny SHA w workflow B4: autorskie dane, testy świata i inputu, Chromium real player, side-by-side A1/B4 oraz screenshot review. Do czasu PASS i obejrzenia screenshotów: **NIEUDOWODNIONE**.
 
+## Wynik i krytyczna ocena po realnym Chromium
+
+- **TECH PASS**, CI commit `75f9bd5447f70c1ac993525d06198d184deb0d15`: [run #40020853490](https://github.com/Jozzpoly/Coopege/actions/runs/40020853490). Dotychczasowe mechaniki, kontakt z wózkiem, save, A1/B4 comparison i screenshoty zachowane. Ruch południowy: A1 y84.5→99.87, B4 y84.5→98.5 przy zwykłym S (nie benchmark szybkości).
+- **VISUAL FAIL względem ambicji Ownera**, mimo zauważalnej różnicy z B3. Ogląd screenshotów `coopege-b2/B4-01-city.png` i `coopege-b1/B4-03-continuous-body-push.png` w artefakcie Actions: nadal ogromne puste i powtarzalne pola, postać oraz przeciwnicy bardzo małe i niezbyt charakterystyczne, brak atrakcyjnych punktów zainteresowania i życia świata. Proceduralne cegły czy trawa nie wystarczają.
+- **PRODUCT FAIL** bez poprawy: 1 sztuczny trakt, 5 szczurów, symboliczny wózek i brak bogatszej pętli wyprawy. B4 nie przybliża istotnie Coopege do większego, własnego RPG. Nie bronić B4 i nie inwestować dalej w kolejną iterację szumu na Canvas.
+- Następne krytyczne rozstrzygnięcie: wziąć konkretną autorską lokację i mocne doświadczenie z dawnego Tibia/A1 jako donor treści i spójności oraz zbadać odrębny, **asset/scene-driven** kierunek oprawy z własną tożsamością Coopege, nie odziedziczoną ślepo grafiką. Budować najpierw grywalne miejsce z rolami, czytelnymi sprawami, sensownymi affordances oraz wyborem. Pchać tylko systemy, które to wspierają.
+
 ## Następny krok po wizualnym wyniku
 Krytycznie wybrać 1 małą, authored sytuację RPG ze społeczną/materialną konsekwencją, w której człowiek ma powód zostać, eksplorować i wrócić, zamiast ciągłego testowania szczurów i drogi z wózkiem. Bez łączenia projektów, LAN, nowego fundamentu bez evidence.
