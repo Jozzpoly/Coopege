@@ -28,8 +28,8 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 @media(max-width:780px){#journal{top:8px;right:8px;max-width:55vw;width:230px;padding:10px}#journal strong{font-size:16px}#minimap{width:110px;height:110px;left:8px;bottom:8px}}
 </style></head>
 <body>
-<header><div><h1>Coopege <small>/ B5 — Pierwsza wyprawa</small></h1><p>Nie remont starych skryptów. Srebrna Brama · zaginiona dostawa · powrót · konsekwencja.</p></div>
-<div id="hint">Wyprawa: wyjdź południową bramą. Ta sama mechanika B3. Kontrpróba świata, postaci i atmosfery. Wózek: napieraj ruchem lub chwyć myszą.</div></header>
+<header><div><h1>Coopege <small>/ B5 — Pierwsza wyprawa</small></h1><p>Autorskie miejsce, zwykła wyprawa, powrót do ludzi i konsekwencja.</p></div>
+<div id="hint">Cel: odnajdź sakwę kupca za południową bramą. Potem wróć do miasta. Wózek: napieraj ruchem lub chwyć myszą.</div></header>
 <div id="hud">Ładowanie autorskiego świata…</div><div id="meterbg"><div id="meter"></div></div>
 <main><canvas id="game" aria-label="Grywalny świat Coopege B5"></canvas>
 <aside id="journal" aria-label="Dziennik wyprawy"><div class="panel-title">DZIENNIK WYPRAWY <button id="collapse" aria-label="Zwiń dziennik" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button></div>
@@ -372,7 +372,11 @@ root.CoopegeB1Core=Object.freeze({create,step,save,restore,tile,mapWalk,canOccup
     const atMerchant=merchant&&position(p,merchant)<1.55;
     const doAction=!!input.interact;
     const wasAlive=w.rats.filter(r=>r.alive).length;
-    const handled=doAction&&(atCourier||atMerchant);
+    // Returning quests are conversations; completed quests restore the merchant's
+    // normal role (buy a bandage) instead of permanently hijacking commerce.
+    const storyConversation=atMerchant&&(e.hasCourierBag||!e.courierDelivered||
+      (w.kills>=e.legacyBounty.need&&!e.verminBountyPaid));
+    const handled=doAction&&(atCourier||storyConversation);
     base.step(w,handled?{...input,interact:false}:input,dt);
     if(w.player.dead)return w;
     if(doAction&&atCourier){
