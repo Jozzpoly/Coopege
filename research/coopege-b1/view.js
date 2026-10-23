@@ -125,9 +125,13 @@ function attach(source){
     const delta=last?Math.min(.08,(now-last)/1000):0;last=now;acc+=delta;
     const dx=(pressed.has("KeyD")||pressed.has("ArrowRight")?1:0)-(pressed.has("KeyA")||pressed.has("ArrowLeft")?1:0);
     const dy=(pressed.has("KeyS")||pressed.has("ArrowDown")?1:0)-(pressed.has("KeyW")||pressed.has("ArrowUp")?1:0);
-    let once=true;
-    while(acc>=1/60){core.step(world,{dx,dy,hit:once&&pending.hit,push:once&&pending.push,bandage:once&&pending.bandage},1/60);acc-=1/60;once=false;}
-    pending={push:false,hit:false,bandage:false};
+    // Keep edge-triggered actions until a simulation tick actually consumes them.
+    // Clearing on every render frame drops quick presses on high-refresh displays.
+    while(acc>=1/60){
+      core.step(world,{dx,dy,hit:pending.hit,push:pending.push,bandage:pending.bandage},1/60);
+      acc-=1/60;
+      pending={push:false,hit:false,bandage:false};
+    }
     draw(now);animation=requestAnimationFrame(frame);
   }
   animation=requestAnimationFrame(frame);

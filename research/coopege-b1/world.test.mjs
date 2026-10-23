@@ -107,3 +107,43 @@ test("B1 the same movable cover changes a creature's perception, not only render
  assert.ok(rat.alert>2,"after clearing the view the same creature ignores its new perception");
  console.info("COOPEGE_B1_PERCEPTION",JSON.stringify({coverCleared:true,awareness:rat.alert}));
 });
+
+
+test("B2 occluded pursuer follows last witnessed place, not invisible live player",()=>{
+ const w=make(),rat=w.rats[0],p=w.player;
+ for(const other of w.rats)if(other!==rat)other.alive=false;
+ p.x=88.5;p.y=97.8;
+ rat.x=88.5;rat.y=101.5;rat.homeX=rat.x;rat.homeY=rat.y;rat.alert=0;
+ w.cart.x=89.5; // controlled exposure
+ assert.equal(core.sight(w,rat,p),true);
+ core.step(w,{},1/60);
+ assert.equal(rat.lastSeenX,88.5);
+ assert.equal(rat.lastSeenY,97.8);
+ w.cart.x=88.5; // move cover back between player and creature
+ p.x=88.0;
+ assert.equal(core.sight(w,rat,p),false);
+ const observedX=rat.x;
+ core.step(w,{},1/60);
+ assert.equal(rat.lastSeenX,88.5,"AI learned unseen live player position");
+ assert.ok(Math.abs(rat.x-observedX)<1e-7,
+  "AI steered toward a player position learned through cover");
+ const saved=core.save(w),loaded=core.restore(source,saved);
+ assert.equal(loaded.rats[0].lastSeenX,88.5,"last witnessed place was lost on reload");
+ assert.deepEqual(core.save(loaded),saved);
+});
+
+test("B2 current obstruction prevents melee while an enemy remains alerted",()=>{
+ const w=make(),rat=w.rats[0],p=w.player;
+ for(const other of w.rats)if(other!==rat)other.alive=false;
+ // Synthetic instant placement only to isolate the rule that perception
+ // and physical hit adjudication use the same current occlusion.
+ p.x=88.5;p.y=99.15;
+ rat.x=88.5;rat.y=99.82;rat.alert=2;rat.cooldown=0;
+ rat.lastSeenX=p.x;rat.lastSeenY=p.y;
+ w.cart.x=88.5;w.cart.y=99.5;
+ assert.ok(core.dist(p,rat)<.8);
+ assert.equal(core.sight(w,rat,p),false);
+ const hp=p.hp;
+ core.step(w,{},1/60);
+ assert.equal(p.hp,hp,"alerted creature hit through an inserted solid obstacle");
+});
