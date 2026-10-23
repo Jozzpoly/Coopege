@@ -26,9 +26,9 @@ test("one-shot keyboard actions survive render-only frames and fire exactly once
    addEventListener:(kind,fn)=>{listeners[kind]=fn;}};
   globalThis.window={addEventListener:()=>{}};
   globalThis.devicePixelRatio=1;
-  globalThis.requestAnimationFrame=fn=>{frames.interact(fn);return frames.length;};
+  globalThis.requestAnimationFrame=fn=>{frames.push(fn);return frames.length;};
   globalThis.cancelAnimationFrame=()=>{};
-  globalThis.CoopegeB1Core={create:()=>world,step:(_w,input)=>inputs.interact({...input}),
+  globalThis.CoopegeB1Core={create:()=>world,step:(_w,input)=>inputs.push({...input}),
    dist:(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)};
   dispose=globalThis.CoopegeB1View.attach({});
   const render=at=>{const fn=frames.shift();assert.ok(fn,"RAF callback absent");fn(at);};
