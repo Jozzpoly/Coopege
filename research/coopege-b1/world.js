@@ -46,7 +46,7 @@ function create(source){
   return {
     sourceFormat:source.format,sourceIdentity:sourceIdentity(source),authored:{start,group:{id:group.id,label:group.label,region:group.region,tier:group.tier,special:group.special},entrances:authored.entrances.filter(e=>e.z===0),npcs},
     grid,player:{id:"player:1",x:start.x+.5,y:start.y+.5,hp:100,maxHp:100,coins:0,bandages:1,facing:{x:0,y:1},attackCd:0,energy:100,dead:false},
-    cart:{id:"crate:roadside",kind:"wooden-cart",x:88.5,y:99.5,radius:.47,mass:1,blocksSight:true},
+    cart:{id:"crate:roadside",kind:"wooden-cart",x:88.5,y:99.5,radius:.47,mass:2.4,vx:0,vy:0,blocksSight:true},
     rats,clock:0,tick:0,events:[],lastAction:"Wyrusz na południe od Srebrnej Bramy.",kills:0
   };
 }
@@ -100,29 +100,67 @@ function event(world,description,kind="info"){
   if(world.events.length>15)world.events.shift();
   world.lastAction=description;
 }
-function pushCart(world){
-  const p=world.player,c=world.cart;
-  if(p.dead)return false;
-  const d=dist(p,c);
-  if(d>1.35){event(world,"Wózek jest zbyt daleko.");return false;}
-  if(p.energy<12){event(world,"Brakuje siły, by popchnąć wózek.");return false;}
-  const f=p.facing,dir=Math.abs(f.x)>Math.abs(f.y)?{x:Math.sign(f.x),y:0}:{x:0,y:Math.sign(f.y)};
-  if(dir.x===0&&dir.y===0)return false;
-  const alignment=((c.x-p.x)*dir.x+(c.y-p.y)*dir.y);
-  if(alignment<.15){event(world,"Stań za wózkiem, aby go popchnąć.");return false;}
-  const nx=c.x+dir.x,ny=c.y+dir.y;
-  if(!canOccupy(world,nx,ny,c.radius,true)){
-    event(world,"Wózek napiera na twardą przeszkodę.");return false;
+// Contact-driven material motion. A collision with the player's *moving body*
+// transfers a bounded displacement; no object teleports, snaps to a tile or
+// responds to an "advance one grid cell" command.
+function canCartOccupy(world,x,y){
+ const c=world.cart;
+ if(circleHitsMap(world,x,y,c.radius))return false;
+ if(dist({x,y},world.player)<c.radius+.28-.015)return false;
+ for(const r of world.rats)
+  if(r.alive&&dist({x,y},r)<c.radius+.26-.015)return false;
+ for(const n of world.authored.npcs)
+  if(dist({x,y},n)<c.radius+.29-.01)return false;
+ return true;
+}
+function translateCart(world,dx,dy){
+ const c=world.cart,steps=Math.max(1,Math.ceil(Math.hypot(dx,dy)/.035));
+ const sx=dx/steps,sy=dy/steps,fromX=c.x,fromY=c.y;
+ for(let i=0;i<steps;i++){
+  if(sx!==0&&canCartOccupy(world,c.x+sx,c.y))c.x+=sx;
+  else if(sx!==0)c.vx=0;
+  if(sy!==0&&canCartOccupy(world,c.x,c.y+sy))c.y+=sy;
+  else if(sy!==0)c.vy=0;
+ }
+ return {x:c.x-fromX,y:c.y-fromY};
+}
+function movePlayerWithContact(world,dx,dy,dt){
+ const p=world.player,c=world.cart;
+ let pushed=false;
+ const v=norm(dx,dy),distance=3.75*dt;
+ // Split-axis movement retains legacy wall sliding while maintaining circles.
+ for(const [axis,delta] of [["x",v.x*distance],["y",v.y*distance]]){
+  if(!delta)continue;
+  const candidate={x:p.x,y:p.y};candidate[axis]+=delta;
+  if(canOccupy(world,candidate.x,candidate.y,.28,false,"player")){
+   p[axis]+=delta;continue;
   }
-  if(Math.hypot(nx-p.x,ny-p.y)<c.radius+.27)return false;
-  for(const rat of world.rats){
-    if(rat.alive&&Math.hypot(nx-rat.x,ny-rat.y)<c.radius+.26){
-      event(world,"Przeciwnik blokuje przesunięcie wózka.");return false;
-    }
+  // Distinguish actual body/cart contact from a wall or creature collision.
+  if(!canOccupy(world,candidate.x,candidate.y,.28,true,"player"))continue;
+  if((c[axis]-p[axis])*delta<=0)continue;
+  if(dist(p,c)>c.radius+.28+.12)continue;
+  const transfer=delta/(1+c.mass*.17);
+  const moved=translateCart(world,axis==="x"?transfer:0,axis==="y"?transfer:0);
+  const shift=moved[axis];
+  // If the cart is blocked by terrain or another creature, body motion stops.
+  if(Math.abs(shift)<1e-6)continue;
+  const next={x:p.x,y:p.y};next[axis]+=shift;
+  if(canOccupy(world,next.x,next.y,.28,false,"player")){
+   p[axis]+=shift;c["v"+axis]=shift/dt;pushed=true;
   }
-  c.x=nx;c.y=ny;p.energy-=12;
-  event(world,"Przesunięto wózek. Zmieniły się przejście i linia widzenia.","material");
-  return true;
+ }
+ return pushed;
+}
+function coastCart(world,dt){
+ const c=world.cart;
+ if(Math.hypot(c.vx,c.vy)<.035){c.vx=0;c.vy=0;return;}
+ const wantedX=c.vx*dt,wantedY=c.vy*dt;
+ const actual=translateCart(world,wantedX,wantedY);
+ if(Math.abs(actual.x-wantedX)>.004)c.vx=0;
+ if(Math.abs(actual.y-wantedY)>.004)c.vy=0;
+ // High rolling resistance: it coasts a short distance, then stops.
+ const damping=Math.exp(-20*dt);
+ c.vx*=damping;c.vy*=damping;
 }
 function interactNpc(world){
  const p=world.player;
@@ -198,11 +236,10 @@ function step(world,input={},dt=1/60){
  const dx=Number(input.dx)||0,dy=Number(input.dy)||0,v=norm(dx,dy);
  if(v.x||v.y){
    p.facing={x:v.x,y:v.y};
-   move(world,p,v.x*3.75*dt,v.y*3.75*dt,.28,false,"player");
- }
- if(input.push) {
-   if(!interactNpc(world))pushCart(world);
- }
+   const pressedCart=movePlayerWithContact(world,v.x,v.y,dt);
+   if(!pressedCart)coastCart(world,dt);
+ }else coastCart(world,dt);
+ if(input.push)interactNpc(world);
  if(input.hit)attack(world);
  if(input.bandage&&p.bandages>0&&p.hp<p.maxHp){
    p.bandages--;p.hp=Math.min(p.maxHp,p.hp+35);event(world,"Użyto opatrunku.","recovery");
@@ -212,18 +249,19 @@ function step(world,input={},dt=1/60){
 }
 function save(world){
  return {
-  version:1,source:world.sourceFormat,identity:world.sourceIdentity,clock:world.clock,tick:world.tick,
+  version:2,source:world.sourceFormat,identity:world.sourceIdentity,clock:world.clock,tick:world.tick,
   player:JSON.parse(JSON.stringify(world.player)),
-  cart:{x:world.cart.x,y:world.cart.y},
+  cart:{x:world.cart.x,y:world.cart.y,vx:world.cart.vx,vy:world.cart.vy},
   rats:world.rats.map(r=>({id:r.id,x:r.x,y:r.y,hp:r.hp,alive:r.alive,alert:r.alert,cooldown:r.cooldown,lastSeenX:r.lastSeenX,lastSeenY:r.lastSeenY})),
   kills:world.kills,events:world.events.slice(),lastAction:world.lastAction
  };
 }
 function restore(source,record){
- if(record?.version!==1||record?.source!==source.format||record?.identity!==sourceIdentity(source))throw Error("Incompatible B1 save: authored world changed");
+ if(record?.version!==2||record?.source!==source.format||record?.identity!==sourceIdentity(source))throw Error("Incompatible B1 save: authored world changed");
  const w=create(source);
  Object.assign(w.player,record.player);
  w.cart.x=record.cart.x;w.cart.y=record.cart.y;
+ w.cart.vx=record.cart.vx;w.cart.vy=record.cart.vy;
  for(const rat of w.rats){
   const found=record.rats.find(r=>r.id===rat.id);
   if(!found)throw Error("Encounter identity missing in save: "+rat.id);
@@ -233,5 +271,5 @@ function restore(source,record){
  w.events=record.events??[];w.lastAction=record.lastAction??"";
  return w;
 }
-root.CoopegeB1Core=Object.freeze({create,step,save,restore,tile,mapWalk,canOccupy,sight,pushCart,attack,dist});
+root.CoopegeB1Core=Object.freeze({create,step,save,restore,tile,mapWalk,canOccupy,sight,translateCart,attack,dist});
 })(globalThis);
