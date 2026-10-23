@@ -62,3 +62,22 @@ This file is for the next agent. Read FIRST, then read the actual HEAD, tests, O
 - Can the place be authored and presented with a character/world art grammar that beats A1's *lived readability*, not merely random texture detail?
 - Should richer gameplay be built atop A1 as donor, C1 independent world, or a hybrid? Do not select on faith.
 - How can more source-authored 5-floor topology, NPC roles, encounters and narrative significance be used, rather than implementing the world's soul again by hand?
+
+
+## E1 · next bounded *game* experiment (hypothesis, NOT locked canon)
+**Place:** original Srebrna Brama, specifically the authored `Magazyn` (x82,y90), southern gate (x88,y96), merchant (x84,y83) and existing south-vermin encounter around x84–95/y106–114. These locations are *source* facts; the following situation is **new experimental fiction**, not a rediscovered Tibia quest.
+
+**Premise to falsify:** A worker has an ordinary delivery to move physically from storage through the gate. Rats and movable cargo disrupt the route. Instead of introducing another NPC who only gives dialogue or a kill counter, the worker visibly tries their own small task using local observations and shared objects; merchant stock/route access changes only when a material delivery actually happens.
+
+**Five interconnected truths that must be visible in play:**
+1. A legible, composed town→warehouse→gate→road place, with recognisable actors and landmarks at real gameplay zoom, not huge wallpaper or floating quest labels.
+2. A worker has physically located cargo, a place to take it and a modest independently observable routine; no unexplained telepathy or all-knowing quest-state variable.
+3. The player can meaningfully intervene via **continuous body/contact and/or carrying**, or pursue another plausible tactic (route around, distract/handle rats, escort). A menu with two hardcoded buttons is not a substitute.
+4. Success/failure visibly alters a shared fact (cargo location, worker plan, accessible road/merchant supply, danger). Saving/loading, leaving and revisiting preserve it. A false "road safe" message while threats survive is an immediate FAIL.
+5. Movement, encounter, actor presentation and feedback are enjoyable/legible enough to make someone *want to remain* in the space. Machine tests prove rules, not this criterion.
+
+**Falsifiers:** NPC goes through cart or walls; cargo teleports or grid-snaps; story can complete via one remote E press; actor responds to unseen changes it couldn't know; merchant restocks before delivery; world resets on reload; scene remains less inviting than A1's old play loop despite technical advances. If these occur, **no build promotion**, regardless of tests.
+
+**Architecture trial:** Don't automatically add this to C1, don't hack A1's 334k monolith as a sacred codebase. First do a bounded donor-spike: map/scene/gear clarity from A1 and legacy assets/Studio, physical object/perception contracts from B3/C1, local worker/supply behavior informed by MiniFeniks/Companion donors. Choose a minimal independent seam or a temporary A1 host *only with actual evidence of bidirectional authoring and world-state persistence*. The authoring-probe showed old A1 is not directly extensible to non-kill quests or novel role executors. Prefer a **working authored scene over generic engine investment**. Do not lock 2D/2.5D/3D, combat model or future coop format from this test.
+
+**Checkpoints for longer autonomous run:** source & scene exact location → ordinary player/worker interactions and negative paths → source-backed persistence/replay → true Chromium gameplay/screenshots → real A1 contrast → revise/abandon → update `ACTIVE.md` with **exact verified SHA and what is still FAIL**. Avoid dispatching human test until coherent, visible, playable experience, not another cosmetic iteration. Two successive cycles with no meaningful RPG/visual improvement should trigger a deliberate host/art/design reconsideration, not E2 feature churn.
