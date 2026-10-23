@@ -68,6 +68,15 @@
     if(k.phase==='sheltering')k.phase=e.workerCarrying?'returning':'outbound';
     if(k.phase==='searching')return;
     if(e.workerCarrying&&k.phase!=='returning'){k.phase='returning';k.index=0;}
+    // The merchant can receive a bundle from arm's reach, not only by
+    // occupying the merchant's exact solid collision center.
+    const merchant=w.authored.npcs.find(n=>n.role==='merchant');
+    if(e.workerCarrying&&position(k,merchant)<1.3){
+      e.workerCarrying=false;k.carrying=false;e.courierDelivered=true;e.merchantStock+=3;
+      e.courierBag={x:k.x,y:k.y};k.phase='resting';
+      addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.');
+      return;
+    }
     const route=e.workerCarrying?returning:outgoing;
     const target=route[Math.min(k.index,route.length-1)],distance=position(k,target);
     if(distance<.23){
