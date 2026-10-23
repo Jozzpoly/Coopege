@@ -49,7 +49,7 @@
     // Cargo is a physical place in the shared world, not an unrecoverable quest flag.
     // Q puts the carried parcel down near the actor; it persists and can be taken
     // again at any later time, with no virtual bag copy in the inventory.
-    if(drop&&e.hasCourierBag&&!e.courierDelivered){
+    if(drop&&!doAction&&e.hasCourierBag&&!e.courierDelivered){
       const f=p.facing||{x:0,y:1};
       const tentative={x:p.x+f.x*.35,y:p.y+f.y*.35};
       const safe=base.canOccupy(w,tentative.x,tentative.y,.16,true,'player');
