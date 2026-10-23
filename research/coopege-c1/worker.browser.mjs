@@ -23,8 +23,11 @@ try{
   await page.navigate("http://127.0.0.1:"+server.address().port+"/e1");
   await pause(500);
   const first=await inspect(page);
-  assert.equal(first.worker.x,82.5,"worker did not start at source warehouse");
-  assert.equal(first.worker.y,90.5);
+  // This is an actual unpaused game: by the time Chromium renders the first
+  // frame, the worker has already taken ordinary steps out of the warehouse.
+  assert.ok(first.worker.x>=82.5&&first.worker.x<85.5,
+    "worker did not originate at source warehouse: "+JSON.stringify(first.worker));
+  assert.ok(Math.abs(first.worker.y-90.5)<.1);
   assert.equal(first.episode.merchantStock,0,"merchant began magically restocked");
   await pause(6200);
   const leaving=await inspect(page);
