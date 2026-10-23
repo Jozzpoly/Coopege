@@ -1,7 +1,7 @@
-name: Coopege B1 - playable authored material experiment
+name: Coopege B1/B2 - authored world and reliability gates
 on:
   push:
-    branches: ['experiment/coopege-b1-material-return-2026-10-23']
+    branches: ['experiment/coopege-b1-material-return-2026-10-23', 'experiment/coopege-b2-reliability-2026-10-23']
 permissions:
   contents: read
 jobs:
@@ -25,7 +25,7 @@ jobs:
       - name: Verify historic authored meaning without old runtime
         run: node research/coopege-b0/validate-witness.mjs
       - name: Gameplay contracts (terrain, moving cover, combat and persistence)
-        run: node --test research/coopege-b1/world.test.mjs
+        run: node --test research/coopege-b1/world.test.mjs research/coopege-b1/input.test.mjs
       - name: Build standalone new candidate from source facts
         run: node research/coopege-b1/build.mjs
       - name: Actual hosted Chromium, natural player input, save and load
