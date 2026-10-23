@@ -1,7 +1,7 @@
-name: Coopege B1/B2/B3 - authored world and contact gates
+name: Coopege B1/B2/B3/B4 - authored world and contact gates
 on:
   push:
-    branches: ['experiment/coopege-b1-material-return-2026-10-23', 'experiment/coopege-b2-reliability-2026-10-23', 'experiment/coopege-b3-continuous-contact-2026-10-23']
+    branches: ['experiment/coopege-b1-material-return-2026-10-23', 'experiment/coopege-b2-reliability-2026-10-23', 'experiment/coopege-b3-continuous-contact-2026-10-23', 'experiment/coopege-b4-visual-identity-2026-10-23']
 permissions:
   contents: read
 jobs:
@@ -38,7 +38,7 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "c8bc9f1117e32f6db5940a565c905569e95692b9"
           mkdir -p .build/coopege-b2
           git show FETCH_HEAD:experiments/coopege-a1/Coopege_A1_Tibia_Donor.html > .build/coopege-b2/A1_pinned.html
-      - name: Compare same south-gate route in real Chromium (A1 vs B3)
+      - name: Compare same south-gate route in real Chromium (A1 vs B4)
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-b2/compare.browser.mjs
