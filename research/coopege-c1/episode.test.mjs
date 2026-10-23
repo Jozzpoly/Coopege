@@ -95,7 +95,7 @@ test("C1 same authored delivery supports bypass or direct material push without 
  }
  // Both paths obey the same collision geometry, actors and input contract.
  const direct=walk([[{dy:1},310],[{dx:1},31]]);
- const detour=walk([[{dy:1},175],[{dx:1},30],[{dy:1},130],[{dx:1},18],[{dy:1},20]]);
+ const detour=walk([[{dy:1},175],[{dx:1},30],[{dy:1},140]]);
  assert.ok(direct.cart.y>103,"body push route did not change the physical scene");
  assert.equal(detour.cart.y,99.5,"walking around the cart inexplicably moved it");
  assert.equal(direct.kills,0);
@@ -119,13 +119,13 @@ test("C1 simultaneous drop + interact cannot silently discard merchant delivery"
  assert.equal(w.episode.hasCourierBag,false);
 });
 
-test("E1 worker starts at the original south gate, not at a teleporting quest marker",()=>{
+test("E1 worker starts at the original warehouse and walks toward the south gate",()=>{
  const w=core.create(fixture);
- assert.equal(w.worker.x,90.5);assert.equal(w.worker.y,96.5);
+ assert.equal(w.worker.x,82.5);assert.equal(w.worker.y,90.5);
  assert.equal(w.worker.phase,"outbound");
  assert.equal(w.episode.merchantStock,0);
  for(let i=0;i<350;i++)core.step(w,{},1/60);
- assert.ok(w.worker.y>96.8,"worker did not move under normal simulation");
+ assert.ok(w.worker.x>82.5,"worker did not leave the real warehouse");
  assert.equal(w.episode.merchantStock,0,"shop restocked without arriving cargo");
  const record=JSON.parse(JSON.stringify(core.save(w)));
  assert.deepEqual(JSON.stringify(core.save(core.restore(fixture,record))),JSON.stringify(record),

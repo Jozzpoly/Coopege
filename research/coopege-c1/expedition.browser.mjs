@@ -99,12 +99,9 @@ try{
   await page.navigate("http://127.0.0.1:"+server.address().port+"/c1");
   await sleep(550);
   const start=await inspect(page);
-  await hold(page,"KeyS","s",83,2900);
+  await hold(page,"KeyS","s",83,3000);
   await hold(page,"KeyD","d",68,500);
-  await hold(page,"KeyS","s",83,2100);
-  // The porter occupies real space; an ordinary small sidestep clears him.
-  await hold(page,"KeyD","d",68,320);
-  await hold(page,"KeyS","s",83,390);
+  await hold(page,"KeyS","s",83,2250);
   const beside=await inspect(page);
   assert.ok(Math.abs(beside.cart.y-99.5)<.02,
    "walking around the cart changed it: "+JSON.stringify({start,beside}));

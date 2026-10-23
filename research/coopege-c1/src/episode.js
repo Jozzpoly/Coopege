@@ -29,8 +29,9 @@
       notes:['Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie.']
     };
     const gate=authored.entrances.find(n=>n.z===0&&n.name==='Południowa brama twierdzy');
-    if(!gate)throw Error('Missing authored south gate');
-    world.worker={id:'worker:warehouse',name:'Tragarz',role:'worker',x:gate.x+2.5,y:gate.y+.5,
+    const warehouse=authored.entrances.find(n=>n.z===0&&n.name==='Magazyn');
+    if(!gate||!warehouse)throw Error('Missing original gate or warehouse');
+    world.worker={id:'worker:warehouse',name:'Tragarz',role:'worker',x:warehouse.x+.5,y:warehouse.y+.5,
       hp:36,maxHp:36,alive:true,phase:'outbound',index:0,carrying:false,seenThreat:null,attackCd:0};
     return world;
   }
@@ -39,7 +40,7 @@
   // An embodied actor with a real, vulnerable location and a bounded task.
   // The original authored world supplies the gate and merchant. The worker
   // and its cargo-recovery mission are explicitly E1 experimental fiction.
-  const outgoing=[{x:90.5,y:100.5},{x:90.5,y:103.5}];
+  const outgoing=[{x:90.5,y:90.5},{x:90.5,y:100.5},{x:90.5,y:103.5}];
   const returning=[{x:90.5,y:98.5},{x:90.5,y:96.5},{x:90.5,y:83.5},{x:84.5,y:83.5}];
   function updateWorker(w,dt){
     const e=w.episode,k=w.worker,p=w.player;
