@@ -44,6 +44,26 @@ try{
   assert.equal(claimed.episode.hasCourierBag,true,"normal E did not pick up parcel "+JSON.stringify({near,claimed}));
   await page.screenshot(resolve(out,"C1-03-courier-satchel.png"));
 
+  // Ordinary player agency: set the cargo down, persist it at that exact world
+  // location, and take it again without any diagnostic teleport.
+  await page.pressKey("KeyQ","q",81,75);await sleep(100);
+  const dropped=await inspect(page);
+  assert.equal(dropped.episode.hasCourierBag,false,"Q did not put the parcel back in the world");
+  assert.ok(Math.hypot(dropped.episode.courierBag.x-dropped.x,dropped.episode.courierBag.y-dropped.y)<.9,
+    "dropping the parcel sent it somewhere else");
+  await page.screenshot(resolve(out,"C1-03b-parcel-dropped.png"));
+  await page.pressKey("KeyP","p",80,75);
+  await page.pressKey("KeyL","l",76,75);await sleep(100);
+  const droppedLoaded=await inspect(page);
+  assert.equal(droppedLoaded.episode.hasCourierBag,false,"reload recreated carried inventory");
+  assert.ok(Math.hypot(droppedLoaded.episode.courierBag.x-dropped.episode.courierBag.x,
+    droppedLoaded.episode.courierBag.y-dropped.episode.courierBag.y)<.001,
+    "reload lost the parcel location");
+  await page.pressKey("KeyE","e",69,75);await sleep(140);
+  const resumed=await inspect(page);
+  assert.equal(resumed.episode.hasCourierBag,true,"E could not reacquire parcel from world");
+
+
   await page.pressKey("KeyP","p",80,70);
   const saved=await inspect(page);
   await hold(page,"KeyW","w",87,570);
