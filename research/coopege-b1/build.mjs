@@ -28,10 +28,10 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 </style></head>
 <body>
 <header><div><h1>Coopege <small>/ B3 — Żywy kontakt</small></h1><p>Nie remont starych skryptów. Ten sam teren Srebrnej Bramy, nowa możliwość działania.</p></div>
-<div id="hint">Wyprawa: wyjdź południową bramą. Wózek reaguje na napieranie ciałem, blokuje przejście i może dać osłonę. Bez przesuwania o kratkę.</div></header>
+<div id="hint">Wyprawa: wyjdź południową bramą. Popychaj wózek ruchem postaci lub chwyć i przeciągnij go myszą z bliska. Bez skoków po kratkach.</div></header>
 <div id="hud">Ładowanie autorskiego świata…</div><div id="meterbg"><div id="meter"></div></div>
 <main><canvas id="game" aria-label="Grywalny świat Coopege B3"></canvas></main>
-<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · Napieraj WASD — pchaj wózek · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
+<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
 <div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
 <script>${core}</script>
 <script>${renderer}</script>
