@@ -151,6 +151,22 @@ function movePlayerWithContact(world,dx,dy,dt){
  }
  return pushed;
 }
+// Optional close-range pointer grip: hold and guide the object continuously.
+// The pointer proposes a target; the physical cart moves only at bounded speed
+// through collision-tested space and only while it remains within arm's reach.
+function guideCart(world,target,dt){
+ const c=world.cart,p=world.player;
+ if(!target||!Number.isFinite(target.x)||!Number.isFinite(target.y))return false;
+ if(dist(c,p)>1.55||p.energy<.5)return false;
+ const delta={x:target.x-c.x,y:target.y-c.y};
+ const separation=Math.hypot(delta.x,delta.y);
+ if(separation<.008){c.vx=0;c.vy=0;return true;}
+ const speed=3.9/(1+c.mass*.18),amount=Math.min(separation,speed*dt);
+ const shift=translateCart(world,delta.x/separation*amount,delta.y/separation*amount);
+ c.vx=shift.x/dt;c.vy=shift.y/dt;
+ p.energy=Math.max(0,p.energy-Math.hypot(shift.x,shift.y)*6);
+ return true;
+}
 function coastCart(world,dt){
  const c=world.cart;
  if(Math.hypot(c.vx,c.vy)<.035){c.vx=0;c.vy=0;return;}
@@ -237,8 +253,8 @@ function step(world,input={},dt=1/60){
  if(v.x||v.y){
    p.facing={x:v.x,y:v.y};
    const pressedCart=movePlayerWithContact(world,v.x,v.y,dt);
-   if(!pressedCart)coastCart(world,dt);
- }else coastCart(world,dt);
+   if(!pressedCart&&!guideCart(world,input.grab,dt))coastCart(world,dt);
+ }else if(!guideCart(world,input.grab,dt))coastCart(world,dt);
  if(input.interact)interactNpc(world);
  if(input.hit)attack(world);
  if(input.bandage&&p.bandages>0&&p.hp<p.maxHp){
