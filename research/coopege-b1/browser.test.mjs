@@ -4,7 +4,7 @@ import {mkdirSync,readFileSync} from "node:fs";
 import {resolve} from "node:path";
 import {createChromiumHarness,findChromiumExecutable} from "../../tools/browser/chromium-cdp.mjs";
 const root=resolve(import.meta.dirname,"../..");
-const html=readFileSync(resolve(root,".build/coopege-b1/Coopege_B1_Za_Brama.html"),"utf8");
+const html=readFileSync(resolve(root,".build/coopege-b1/Coopege_B3_Zywy_Kontakt.html"),"utf8");
 const out=resolve(root,".build/coopege-b1");
 mkdirSync(out,{recursive:true});
 const server=createServer((req,res)=>{res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store"});res.end(html);});
