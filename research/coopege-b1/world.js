@@ -37,7 +37,7 @@ function create(source){
   const rats=(group.members.rat||[]).map(([x,y],i)=>({
     id:group.id+":rat:"+i,groupId:group.id,name:"Szczur",
     x:x+.5,y:y+.5,homeX:x+.5,homeY:y+.5,
-    hp:30,maxHp:30,alive:true,alert:0,cooldown:0,
+    hp:30,maxHp:30,alive:true,alert:0,cooldown:0,lastSeenX:null,lastSeenY:null,
   }));
   if(rats.length===0)throw Error("Authored southern pack is missing");
   const npcs=authored.npcs.filter(n=>n.z===0).map(n=>({
@@ -161,10 +161,16 @@ function ratThink(world,dt){
   if(!rat.alive)continue;
   rat.cooldown=Math.max(0,rat.cooldown-dt);
   const distance=dist(rat,p);
-  if(!p.dead&&distance<5.8&&sight(world,rat,p))rat.alert=2.7;
-  else rat.alert=Math.max(0,rat.alert-dt);
+  // Perception is not telepathy. Occlusion freezes the last witnessed location;
+  // the creature must reacquire the player rather than chasing live coordinates.
+  const seesPlayer=!p.dead&&distance<5.8&&sight(world,rat,p);
+  if(seesPlayer){
+    rat.alert=2.7;rat.lastSeenX=p.x;rat.lastSeenY=p.y;
+  }else rat.alert=Math.max(0,rat.alert-dt);
   let target=null;
-  if(rat.alert>0&&!p.dead)target=p;
+  if(seesPlayer)target=p;
+  else if(rat.alert>0&&Number.isFinite(rat.lastSeenX)&&Number.isFinite(rat.lastSeenY))
+    target={x:rat.lastSeenX,y:rat.lastSeenY};
   else if(Math.hypot(rat.x-rat.homeX,rat.y-rat.homeY)>.2)target={x:rat.homeX,y:rat.homeY};
   if(!target)continue;
   if(target===p&&distance<.8){
@@ -209,7 +215,7 @@ function save(world){
   version:1,source:world.sourceFormat,identity:world.sourceIdentity,clock:world.clock,tick:world.tick,
   player:JSON.parse(JSON.stringify(world.player)),
   cart:{x:world.cart.x,y:world.cart.y},
-  rats:world.rats.map(r=>({id:r.id,x:r.x,y:r.y,hp:r.hp,alive:r.alive,alert:r.alert,cooldown:r.cooldown})),
+  rats:world.rats.map(r=>({id:r.id,x:r.x,y:r.y,hp:r.hp,alive:r.alive,alert:r.alert,cooldown:r.cooldown,lastSeenX:r.lastSeenX,lastSeenY:r.lastSeenY})),
   kills:world.kills,events:world.events.slice(),lastAction:world.lastAction
  };
 }
