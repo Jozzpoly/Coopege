@@ -70,7 +70,7 @@ function attach(source){
     for(let k=-1;k<=1;k++){ctx.beginPath();ctx.moveTo(-cs*.42,cs*.14*k);ctx.lineTo(cs*.42,cs*.14*k);ctx.stroke();}
     ctx.fillStyle="#272525";ctx.fillRect(-cs*.59,-cs*.30,cs*.18,cs*.2);ctx.fillRect(cs*.41,cs*.17,cs*.18,cs*.2);
     ctx.restore();
-    if(core.dist(world.player,c)<2)label("Napieraj WASD lub przytrzymaj LPM",cp.x,cp.y-scale*.75,"#ffe4aa",Math.round(scale*.19));
+    if(core.dist(world.player,c)<2)label("WASD: pchaj · LPM: chwyć",cp.x+scale*1.45,cp.y-scale*.25,"#ffe4aa",Math.round(scale*.18));
     if(dragTarget){
       const q=loc(dragTarget.x,dragTarget.y);
       ctx.strokeStyle="rgba(255,218,137,.65)";ctx.lineWidth=Math.max(2,scale*.045);
@@ -134,7 +134,10 @@ function attach(source){
     if(core.dist(q,world.cart)>world.cart.radius+.18)return;
     if(core.dist(world.player,world.cart)>1.5)return;
     dragPointerId=e.pointerId;dragTarget=q;
-    canvas.setPointerCapture?.(e.pointerId);e.preventDefault();
+    // Real pointer captures normally; synthetic automation or restricted hosts
+    // may lack an active capture pointer. Keep interaction local in either case.
+    try{canvas.setPointerCapture?.(e.pointerId);}catch{}
+    e.preventDefault();
   });
   canvas.addEventListener("pointermove",e=>{
     if(dragPointerId===e.pointerId)dragTarget=pointerWorld(e);
