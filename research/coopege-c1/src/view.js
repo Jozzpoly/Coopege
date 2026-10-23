@@ -6,9 +6,9 @@ function attach(source){
   const core=root.CoopegeB1Core,canvas=document.getElementById("game"),ctx=canvas.getContext("2d");
   const hud=document.getElementById("hud"),message=document.getElementById("message"),meter=document.getElementById("meter");
   if(!ctx)throw Error("Canvas 2D unavailable");
-  let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false},last=0,acc=0,animation=0;
+  let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false,drop:false},last=0,acc=0,animation=0;
   let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null,zoom=1.28;
-  const saveKey="coopege-b5-first-expedition-v1";
+  const saveKey="coopege-c1-first-expedition-v2";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
     ["#1b5574","#23647d"],["#806e52","#968363"],["#806849","#a08961"],
@@ -232,6 +232,12 @@ function attach(source){
       if(r.hp<r.maxHp||r.alert>0){fill('rgba(18,15,17,.87)',o.x-z,o.y-z*1.55,z*2,z*.26);fill('#c67f5d',o.x-z,o.y-z*1.55,z*2*r.hp/r.maxHp,z*.26);}
     }
     humanoid(world.player,null,null,true);
+    if(story?.hasCourierBag&&!story.courierDelivered){
+      const u=loc(world.player.x,world.player.y),z=scale*.19;
+      fill('rgba(19,12,8,.8)',u.x+z*.32,u.y-z*.32,z*.95,z*.83);
+      fill('#ad8052',u.x+z*.42,u.y-z*.29,z*.73,z*.64);
+      line('#dfc28a',Math.max(2,scale*.032),u.x+z*.42,u.y-z*.28,u.x+z*1.16,u.y-z*.27);
+    }
     // Vignette anchors world mood but never hides gameplay close to the player.
     const grad=ctx.createRadialGradient(w*.5,h*.5,Math.min(w,h)*.20,w*.5,h*.5,Math.max(w,h)*.76);
     grad.addColorStop(0,'rgba(3,12,10,0)');grad.addColorStop(1,'rgba(4,10,11,.42)');fill(grad,0,0,w,h);
@@ -244,7 +250,7 @@ function attach(source){
     if(world.episode){
       const e=world.episode;
       document.getElementById('questTitle').textContent=e.courierDelivered?'Dostawa odzyskana':e.hasCourierBag?'Powrót do Srebrnej Bramy':'Zaginiona sakwa';
-      document.getElementById('questLine').textContent=e.courierDelivered?'Kupiec pamięta Twoją pomoc. Możesz poznać dalszą okolicę.':e.hasCourierBag?'Masz sakwę. Wróć do Kupca, przy zachodniej części głównej ulicy miasta.':'Sakwa czeka za południową bramą, na wschodnim poboczu traktu. Unikaj szczurów lub podejmij walkę.';
+      document.getElementById('questLine').textContent=e.courierDelivered?'Kupiec pamięta Twoją pomoc. Możesz poznać dalszą okolicę.':e.hasCourierBag?'Niesiesz sakwę. Wróć do Kupca albo odłóż ją klawiszem Q i podejmij później.':'Sakwa czeka za południową bramą, na wschodnim poboczu traktu. Unikaj szczurów lub podejmij walkę.';
       document.getElementById('bountyLine').textContent=e.verminBountyPaid?'Plaga pod murami — nagroda odebrana':`Plaga pod murami · ${world.kills}/${e.legacyBounty.need} szczurów · nagroda 60 monet / 2 opatrunki`;
       document.getElementById('questProgress').style.width=Math.min(100,100*world.kills/e.legacyBounty.need)+'%';
       document.getElementById('journalNote').textContent=e.notes[0]||'';
@@ -264,6 +270,7 @@ function attach(source){
    if(down&&k==="KeyE")pending.interact=true;
    if(down&&k==="Space")pending.hit=true;
    if(down&&k==="KeyR")pending.bandage=true;
+   if(down&&k==="KeyQ")pending.drop=true;
    if(down&&k==="KeyP")store();
    if(down&&k==="KeyL")load();
    if(down&&k==="KeyN")reset();
@@ -314,9 +321,9 @@ function attach(source){
     // Keep edge-triggered actions until a simulation tick actually consumes them.
     // Clearing on every render frame drops quick presses on high-refresh displays.
     while(acc>=1/60){
-      core.step(world,{dx,dy,hit:pending.hit,interact:pending.interact,bandage:pending.bandage,grab:dragTarget},1/60);
+      core.step(world,{dx,dy,hit:pending.hit,interact:pending.interact,bandage:pending.bandage,drop:pending.drop,grab:dragTarget},1/60);
       acc-=1/60;
-      pending={interact:false,hit:false,bandage:false};
+      pending={interact:false,hit:false,bandage:false,drop:false};
     }
     draw(now);animation=requestAnimationFrame(frame);
   }
@@ -326,7 +333,7 @@ function attach(source){
     inspect:()=>({tick:world.tick,x:world.player.x,y:world.player.y,hp:world.player.hp,coins:world.player.coins,
       kills:world.kills,cart:{x:world.cart.x,y:world.cart.y,vx:world.cart.vx,vy:world.cart.vy},rats:world.rats.filter(r=>r.alive).length,
       authoredNpcCount:world.authored.npcs.length,authoredEncounter:world.authored.group.label,
-      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
+      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,courierBag:{...world.episode.courierBag},courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
       message:world.lastAction}),
     save:store,load,reset
   });
