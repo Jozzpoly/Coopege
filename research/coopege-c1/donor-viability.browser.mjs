@@ -60,7 +60,11 @@ try{
    function canonicalMap(m){
      const x=pure(m);
      for(const g of x.spawnGroups)if(g.eliteCount===undefined)g.eliteCount=0;
-     return JSON.stringify(x);
+     // Import rewrites map group objects in different field insertion order.
+     // JSON.stringify is order-sensitive even when game facts are the same.
+     const sortRec=v=>Array.isArray(v)?v.map(sortRec):
+       (v&&typeof v==="object")?Object.fromEntries(Object.keys(v).sort().map(k=>[k,sortRec(v[k])])):v;
+     return JSON.stringify(sortRec(x));
    }
    const restoredSemanticExact=canonicalMap(originalMap)===canonicalMap(after);
    return {map:{floorCount:api.map.floors.length,dimensions:[api.map.width,api.map.height],
