@@ -70,7 +70,7 @@ function canOccupy(world,x,y,r,ignoreCart=false,ignoreRatId=null){
   if(!ignoreCart&&Math.hypot(x-world.cart.x,y-world.cart.y)<r+world.cart.radius-.02)return false;
   // Creature-to-creature physical contact is simplified: no interpenetration of player.
   if(ignoreRatId==="player"&&world.worker?.alive&&Math.hypot(x-world.worker.x,y-world.worker.y)<r+.26-.015)return false;
-  if(ignoreRatId==="player"){
+  if(ignoreRatId==="player"||ignoreRatId==="worker"){
     for(const rat of world.rats)if(rat.alive&&Math.hypot(x-rat.x,y-rat.y)<r+.26-.015)return false;
   }
   return true;

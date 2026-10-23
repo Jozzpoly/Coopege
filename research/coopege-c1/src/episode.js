@@ -95,7 +95,7 @@
       return;
     }
     const pace=Math.min(distance,1.3*dt),nx=k.x+(target.x-k.x)/distance*pace,ny=k.y+(target.y-k.y)/distance*pace;
-    const clear=base.canOccupy(w,nx,ny,.25,false,'player')&&position({x:nx,y:ny},p)>.58
+    const clear=base.canOccupy(w,nx,ny,.25,false,'worker')&&position({x:nx,y:ny},p)>.58
       &&w.authored.npcs.every(n=>position({x:nx,y:ny},n)>.50);
     if(clear){k.x=nx;k.y=ny;if(e.workerCarrying)e.courierBag={x:k.x,y:k.y};}
   }
