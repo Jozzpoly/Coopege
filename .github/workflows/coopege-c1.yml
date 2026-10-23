@@ -27,6 +27,8 @@ jobs:
         run: node research/coopege-b0/audit-boundary.mjs
       - name: Validate authored witness
         run: node research/coopege-b0/validate-witness.mjs
+      - name: Ship exact authored data, ignoring only unstable extraction timestamp
+        run: node --test research/coopege-c1/source-integrity.test.mjs
       - name: Build C1 from owned, separately editable source parts
         run: |
           node --check research/coopege-c1/src/core.js
