@@ -94,6 +94,26 @@ try{
    returned:{x:town.x,y:town.y},delivered:delivered.episode.courierDelivered,reward:delivered.coins,
    playerInput:"actual Chromium keyDown/keyUp, no test teleport"}));
  });
+ // Alternate ordinary-key route: bypass the same material cart entirely.
+ await browser.withPage(async page=>{
+  await page.navigate("http://127.0.0.1:"+server.address().port+"/c1");
+  await sleep(550);
+  const start=await inspect(page);
+  await hold(page,"KeyS","s",83,3000);
+  await hold(page,"KeyD","d",68,500);
+  await hold(page,"KeyS","s",83,2250);
+  const beside=await inspect(page);
+  assert.ok(Math.abs(beside.cart.y-99.5)<.02,
+   "walking around the cart changed it: "+JSON.stringify({start,beside}));
+  await page.pressKey("KeyE","e",69,75);await sleep(100);
+  const claimed=await inspect(page);
+  assert.equal(claimed.episode.hasCourierBag,true,
+   "detour cannot collect the same bag: "+JSON.stringify({beside,claimed}));
+  await page.screenshot(resolve(out,"C1-06-optional-detour.png"));
+  console.info("COOPEGE_C1_CHOICE_BROWSER_PASS",JSON.stringify({
+   detour:{x:beside.x,y:beside.y},cartUnmoved:beside.cart.y===99.5,
+   claimed:claimed.episode.hasCourierBag}));
+ });
 }finally{
  await browser.forceClose();
  await new Promise(res=>server.close(()=>res()));
