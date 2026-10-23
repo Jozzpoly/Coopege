@@ -30,8 +30,18 @@ This file is for the next agent. Read FIRST, then read the actual HEAD, tests, O
 **Owner-facing:** lead with product truth, visible difference, evidence, risk, next action; no wall of logs.
 **Reality limit:** no asynchronous/background agent work after the response. Long autonomous runs mean carrying work through the active turn, not promising future invisible execution.
 
-## Current C1 move
-First remove avoidable B5 development friction: its 155 KB generated HTML has the only current gameplay source, with source/witness/atlas/render deeply embedded; this hurts safe autonomous iteration. Create a **byte-identical, deterministic source split** and CI comparison on an isolated C1 branch before changing gameplay. Then apply only one real agency affordance to that same scene and test it through whole-player experience. Don't turn this into a full engine rewrite.
+## Current C1 move — execution status
+**C1 source split: PASS.** Six source-owned modules (`src/core.js`, `episode.js`, `view.js`, `atlas.js`, `witness.json`, `bootstrap.js`), an HTML shell, and deterministic `build.mjs`. Rebuilt artifact was **byte-for-byte identical** with B5 before gameplay changes; initial exact-HEAD [Chrome+Node PASS #40027781864](https://github.com/Jozzpoly/Coopege/actions/runs/40027781864). Gameplay changes follow this known-good fork; do NOT keep asserting byte parity afterward.
+
+**Actual next agency increment, now in C1 source (qualification pending at time of this edit):** Q places the carried courier parcel in the world without grid snapping; the player can leave it, save/load, return and pick it up from its observed location, never remotely. Cargo is drawn on the hero. One-time merchant delivery still pays 24 coins, then ordinary shop trade works again. The merchant no longer claims the rat-infested road is safe because a parcel arrived. Simultaneous E/Q prioritises interaction and does not silently forfeit the delivery. Save schema v4 and C1 localStorage are separate from B5.
+
+**Natural alternate routes verified in exact local JS kernel, Chrome recheck pending:** walking S toward the south gate physically pushes the cart from y99.5 past y103; detouring east first retrieves the same parcel without touching the cart at y99.5. No choice prompt or actor teleport. Different saved world history is the point; no proof of fun or rich adventure follows automatically.
+
+**Evidence gates in C1 workflow:** original Tibia API source recovery, authored witness parity (ignore ONLY volatile exportedAt timestamp), Node quest/parcel/route tests, 1 complete Chrome trip with E/Q/save/load/merchant, 1 Chrome detour, independent SHA-pinned A1 same-place Chrome control, screenshots and source provenance. Cancel redundant in-flight runs for non-head commits. **Do not claim full PASS until exact current SHA completes.**
+
+**Next autonomous move after CI:** read actual run status/logs and screenshots; repair only meaningful reproducible faults. Contrast A1 and C1 visually and functionally. Decide whether further work on C1 total game experience is justified or whether focus should shift toward reclaiming A1 richness in a new execution model. The next substantial stage must address authored world/actors/visual identity; another tiny cart or shader feature is explicitly not a sufficient milestone. Do NOT open yet another draft PR merely to mark a stage.
+
+**Runtime qualification boundary:** locally generated bundled C1 can be checked in Node. This work environment's local Chromium restricts HTTP localhost (`ERR_BLOCKED_BY_ADMINISTRATOR`), so browser proof depends on reproducible GitHub Actions, not imagined local screenshots. Physical Owner playtest is still absent.
 
 ## Next open questions (must be answered by evidence, not slogans)
 - Can a materially grounded decision (e.g. carrying, dropping, hiding, routing, using the cart) change the expedition without scripted success panels, and feel intelligible?
