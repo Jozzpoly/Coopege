@@ -104,3 +104,17 @@ test("C1 same authored delivery supports bypass or direct material push without 
  assert.notEqual(core.save(direct).cart.y,core.save(detour).cart.y,
   "two distinct world histories collapsed onto the same snapshot");
 });
+
+
+test("C1 simultaneous drop + interact cannot silently discard merchant delivery",()=>{
+ const w=core.create(fixture);
+ w.player.x=w.episode.courierBag.x;
+ w.player.y=w.episode.courierBag.y-1;
+ core.step(w,{interact:true},1/60);
+ assert.equal(w.episode.hasCourierBag,true);
+ w.player.x=84.5;w.player.y=83.5;
+ core.step(w,{interact:true,drop:true},1/60);
+ assert.equal(w.episode.courierDelivered,true);
+ assert.equal(w.player.coins,24);
+ assert.equal(w.episode.hasCourierBag,false);
+});
