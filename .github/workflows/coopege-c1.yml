@@ -4,6 +4,9 @@ on:
     branches: ['research/coopege-c1-game-first-continuity-2026-10-23']
 permissions:
   contents: read
+concurrency:
+  group: coopege-c1-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   playable:
     runs-on: ubuntu-latest
@@ -24,14 +27,27 @@ jobs:
         run: node research/coopege-b0/audit-boundary.mjs
       - name: Validate authored witness
         run: node research/coopege-b0/validate-witness.mjs
-      - name: Build C1 from owned source parts; verify initial B5 byte parity
-        run: node research/coopege-c1/build.mjs --verify-baseline
+      - name: Build C1 from owned, separately editable source parts
+        run: |
+          node --check research/coopege-c1/src/core.js
+          node --check research/coopege-c1/src/episode.js
+          node --check research/coopege-c1/src/view.js
+          node research/coopege-c1/build.mjs
       - name: Source-backed gameplay contracts
         run: node --test research/coopege-c1/episode.test.mjs
       - name: Full ordinary keyboard Chrome journey and persistent return
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-c1/expedition.browser.mjs
+      - name: Recover pinned A1 richer playable comparator (read-only)
+        run: |
+          git fetch --no-tags --depth=1 origin experiment/coopege-a1-tibia-donor-2026-10-23
+          test "$(git rev-parse FETCH_HEAD)" = "c8bc9f1117e32f6db5940a565c905569e95692b9"
+          git show FETCH_HEAD:experiments/coopege-a1/Coopege_A1_Tibia_Donor.html > .build/coopege-c1/A1_pinned.html
+      - name: Compare ordinary playable A1 vs C1 journey under real Chrome
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-c1/compare.browser.mjs
       - name: Archive standalone HTML, screenshots and evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,3 +60,4 @@ jobs:
             .build/coopege-c1/*.png
             .build/coopege-c1/*.json
             .build/coopege-b0/source-authored-witness.json
+            research/coopege-c1/ACTIVE.md
