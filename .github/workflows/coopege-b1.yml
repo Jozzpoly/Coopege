@@ -32,6 +32,16 @@ jobs:
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-b1/browser.test.mjs
+      - name: Fetch pinned rich RPG A1 comparator without merging its old engine
+        run: |
+          git fetch --no-tags --depth=1 origin experiment/coopege-a1-tibia-donor-2026-10-23
+          test "$(git rev-parse FETCH_HEAD)" = "c8bc9f1117e32f6db5940a565c905569e95692b9"
+          mkdir -p .build/coopege-b2
+          git show FETCH_HEAD:experiments/coopege-a1/Coopege_A1_Tibia_Donor.html > .build/coopege-b2/A1_pinned.html
+      - name: Compare same south-gate route in real Chromium (A1 vs B2)
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b2/compare.browser.mjs
       - name: Preserve game, screenshots, contracts and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -42,6 +52,8 @@ jobs:
           path: |
             .build/coopege-b1/*.html
             .build/coopege-b1/*.png
+            .build/coopege-b2/*.png
+            .build/coopege-b2/same-place-observations.json
             .build/coopege-b0/semantic-boundary.json
             .build/coopege-b0/source-authored-witness.json
             .build/coopege-b0/place-network.json
