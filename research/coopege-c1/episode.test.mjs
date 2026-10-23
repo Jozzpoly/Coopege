@@ -158,3 +158,27 @@ test("E1 player alternative delivers before worker, then purchases only delivere
  assert.equal(w.episode.merchantStock,2);
  assert.equal(w.player.coins,21);
 });
+
+test("E1 moved material cover changes the worker's fate without any scripted cart quest flag",()=>{
+ function scenario(cover){
+  const w=core.create(fixture);
+  // Controlled A/B: the same single genuine rat, player, original world and
+  // mission. Only a material cart's location changes; no quest-state mutation.
+  const ratId="surface_city_south_vermin:rat:4";
+  for(const r of w.rats)if(r.id!==ratId)r.alive=false;
+  if(cover){w.cart.x=90.5;w.cart.y=104.85;}
+  for(let i=0;i<2400;i++){
+    core.step(w,{},1/60);
+    if(w.episode.courierDelivered)break;
+  }
+  return w;
+ }
+ const exposed=scenario(false),sheltered=scenario(true);
+ assert.equal(exposed.episode.merchantStock,0,
+  "worker overcame the exposed threat without intervention");
+ assert.equal(sheltered.episode.merchantStock,3,
+  "blocking the rat's view and route did not permit physical delivery");
+ assert.equal(sheltered.episode.courierDelivered,true);
+ assert.ok(exposed.rats.some(r=>r.alive));
+ assert.ok(sheltered.rats.some(r=>r.alive));
+});

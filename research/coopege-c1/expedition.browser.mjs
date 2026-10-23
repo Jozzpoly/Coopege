@@ -73,8 +73,12 @@ try{
   assert.equal(restored.episode.hasCourierBag,true,"save/load lost expedition object");
   assert.ok(Math.abs(restored.y-saved.y)<.03,"save/load lost player location");
 
-  await hold(page,"KeyW","w",87,4850);
-  await hold(page,"KeyA","a",65,1470);
+  // Return by a naturally walkable western side of the gate, not through
+  // a rat that may now patrol near the worker. No simulation state mutation.
+  await hold(page,"KeyW","w",87,550);
+  await hold(page,"KeyA","a",65,1050);
+  await hold(page,"KeyW","w",87,4750);
+  await hold(page,"KeyA","a",65,460);
   const town=await inspect(page);
   trace.push({phase:"merchant-approach",...town});
   await page.screenshot(resolve(out,"C1-04-return-to-town.png"));
