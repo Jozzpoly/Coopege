@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coopege B5 — Pierwsza wyprawa</title>
+<style>
+:root{color-scheme:dark;font:14px system-ui,sans-serif;background:#101715;color:#e8dcc2}
+*{box-sizing:border-box}body{margin:0;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;gap:18px;flex:none;background:linear-gradient(100deg,#2f382f,#1a2724);border-bottom:1px solid #817559}
+h1{font:normal 22px Georgia,serif;color:#e9d1a0;margin:0}h1 small{color:#a6c2ac;font:13px system-ui}header p{font-size:11px;margin:4px 0 0;color:#c0cdbb;max-width:720px}
+#hud{padding:9px 15px;color:#e7e2c3;background:#202b27;font-size:12px;font-weight:650;letter-spacing:.04em}
+#meterbg{height:3px;background:#3b4236}#meter{height:100%;width:100%;background:#c4a76a;transition:width .1s linear}
+main{flex:1;min-height:0;position:relative;background:#17271f}#game{display:block;width:100%;height:100%;touch-action:none}
+footer{flex:none;background:#1d2825;border-top:1px solid #6f6551;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:49px;padding:8px 14px}
+#message{color:#f0dcab;font-size:12px}#help{color:#acbfb1;font-size:11px;text-align:right}
+#actions{display:flex;gap:6px;flex-wrap:wrap}
+button{border:1px solid #61765d;background:#2b4435;color:#e9eccf;border-radius:7px;padding:7px 10px;font-size:11px;cursor:pointer}
+button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310px;text-align:right}
+@media(max-width:900px){header{padding:8px 12px}header p{display:none}h1{font-size:19px}#hint{display:none}#help{display:none}footer{min-height:60px;align-items:flex-start;flex-direction:column;gap:5px;padding:6px 12px}}
+@media(max-width:520px){#hud{font-size:10px}#message{font-size:10px}}
+
+#journal{position:absolute;top:18px;right:20px;width:300px;max-width:31vw;padding:16px 18px;background:linear-gradient(150deg,rgba(15,27,23,.95),rgba(14,25,24,.88));border:1px solid #91754e83;box-shadow:0 9px 32px #03070675;border-radius:5px;color:#e3d9b8;backdrop-filter:blur(6px);pointer-events:auto}
+#journal strong{font:20px Georgia,serif;color:#fae5ba;display:block;margin-top:10px}.panel-title{font-size:10px;letter-spacing:.17em;color:#d6ac70;display:flex;justify-content:space-between;align-items:center}
+#collapse{font-size:14px;min-width:26px;padding:2px;background:none;border-color:#746448}
+#journal p{font-size:12px;line-height:1.5;color:#b9c8b9}.quest-progress{height:5px;background:#24382e;border-radius:4px;overflow:hidden}.quest-progress>div{height:100%;width:0;background:#d8ba76;transition:width .3s}
+.journal-note{padding-top:10px;border-top:1px solid #7a674544;font:italic 13px Georgia,serif;color:#cfbd94;min-height:40px}.journal-hint{font-size:10px!important;color:#9cae9d!important}
+#journal.collapsed{width:210px;padding:9px 12px}#journal.collapsed> :not(.panel-title){display:none!important}
+#minimap{position:absolute;left:20px;bottom:19px;border:3px solid #65563b;box-shadow:0 5px 20px #0007;background:#182622;border-radius:50%;opacity:.93;pointer-events:none}
+@media(max-width:780px){#journal{top:8px;right:8px;max-width:55vw;width:230px;padding:10px}#journal strong{font-size:16px}#minimap{width:110px;height:110px;left:8px;bottom:8px}}
+</style></head>
+<body>
+<header><div><h1>Coopege <small>/ B5 — Pierwsza wyprawa</small></h1><p>Autorskie miejsce, zwykła wyprawa, powrót do ludzi i konsekwencja.</p></div>
+<div id="hint">Cel: odnajdź sakwę kupca za południową bramą. Potem wróć do miasta. Wózek: napieraj ruchem lub chwyć myszą.</div></header>
+<div id="hud">Ładowanie autorskiego świata…</div><div id="meterbg"><div id="meter"></div></div>
+<main><canvas id="game" aria-label="Grywalny świat Coopege B5"></canvas>
+<aside id="journal" aria-label="Dziennik wyprawy"><div class="panel-title">DZIENNIK WYPRAWY <button id="collapse" aria-label="Zwiń dziennik" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button></div>
+<strong id="questTitle">Przygotowanie do wyprawy</strong><p id="questLine"></p><div class="quest-progress"><div id="questProgress"></div></div><p id="bountyLine"></p>
+<div class="journal-note" id="journalNote"></div><p class="journal-hint">E — działanie przy sakwie lub kupcu. Spacja — cios. Wózek: napieraj albo chwyć myszą.</p></aside>
+<canvas id="minimap" width="180" height="180" aria-label="Miniaturowa mapa terenu"></canvas>
+</main>
+<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Kółko / +/- — zoom · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
+<div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
+<script>__COOPEGE_SOURCE_core.js__</script>
+<script>__COOPEGE_SOURCE_episode.js__</script>
+<script>__COOPEGE_SOURCE_atlas.js__</script>
+<script>__COOPEGE_SOURCE_view.js__</script>
+<script type="application/json" id="witness">__COOPEGE_SOURCE_witness.json__</script>
+<script>__COOPEGE_SOURCE_bootstrap.js__</script>
+</body></html>
