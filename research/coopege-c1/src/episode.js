@@ -4,7 +4,7 @@
 (function(root){
   'use strict';
   const base=root.CoopegeB1Core;
-  const episodeTag='coopege-c1-first-journey-v2';
+  const episodeTag='coopege-e1-worker-v1';
   const position=(p,q)=>Math.hypot(p.x-q.x,p.y-q.y);
   function makeExtras(source,world){
     const authored=source.authored;
@@ -24,18 +24,78 @@
     if(!originalQuest||originalQuest.need!==8)throw Error('Original authored rat quest changed');
     world.episode={
       id:episodeTag,hasCourierBag:false,courierDelivered:false,verminBountyPaid:false,
-      courierBag:{x:90.5,y:103.5},courierRewardCoins:24,
+      courierBag:{x:90.5,y:103.5},courierRewardCoins:24,workerCarrying:false,merchantStock:0,
       legacyBounty:{name:originalQuest.name,need:originalQuest.need,reward:originalQuest.reward},
       notes:['Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie.']
     };
+    const gate=authored.entrances.find(n=>n.z===0&&n.name==='Południowa brama twierdzy');
+    if(!gate)throw Error('Missing authored south gate');
+    world.worker={id:'worker:warehouse',name:'Tragarz',role:'worker',x:gate.x+2.5,y:gate.y+.5,
+      hp:36,maxHp:36,alive:true,phase:'outbound',index:0,carrying:false,seenThreat:null,attackCd:0};
     return world;
   }
   function create(source){return makeExtras(source,base.create(source));}
+
+  // An embodied actor with a real, vulnerable location and a bounded task.
+  // The original authored world supplies the gate and merchant. The worker
+  // and its cargo-recovery mission are explicitly E1 experimental fiction.
+  const outgoing=[{x:90.5,y:100.5},{x:90.5,y:103.5}];
+  const returning=[{x:90.5,y:98.5},{x:88.5,y:96.5},{x:88.5,y:84.5},{x:84.5,y:83.5}];
+  function updateWorker(w,dt){
+    const e=w.episode,k=w.worker,p=w.player;
+    if(!k.alive||k.phase==='resting')return;
+    k.attackCd=Math.max(0,k.attackCd-dt);
+    // Only physically visible rats may acquire and attack the worker.
+    for(const r of w.rats){
+      if(!r.alive)continue;
+      const d=position(r,k);
+      if(d>5||!base.sight(w,r,k)||position(p,r)<3.2)continue;
+      if(d<.8&&k.attackCd===0){
+        k.hp=Math.max(0,k.hp-6);k.attackCd=1.2;
+        if(k.hp===0){
+          k.alive=false;k.phase='fallen';
+          if(e.workerCarrying){e.workerCarrying=false;e.courierBag={x:k.x,y:k.y};}
+          addNote(w,'Tragarz upadł. Pozostawiona sakwa nadal leży w świecie.');
+          return;
+        }
+      }else if(d>=.8){
+        const dx=(k.x-r.x)/d*.85*dt,dy=(k.y-r.y)/d*.85*dt;
+        if(base.canOccupy(w,r.x+dx,r.y+dy,.25,false,r.id)){r.x+=dx;r.y+=dy;}
+      }
+    }
+    const threat=w.rats.find(r=>r.alive&&position(k,r)<3.5&&base.sight(w,k,r));
+    if(threat){k.phase='sheltering';k.seenThreat={id:threat.id,x:threat.x,y:threat.y};return;}
+    if(k.phase==='sheltering')k.phase=e.workerCarrying?'returning':'outbound';
+    if(k.phase==='searching')return;
+    if(e.workerCarrying&&k.phase!=='returning'){k.phase='returning';k.index=0;}
+    const route=e.workerCarrying?returning:outgoing;
+    const target=route[Math.min(k.index,route.length-1)],distance=position(k,target);
+    if(distance<.23){
+      if(k.index<route.length-1){k.index++;return;}
+      if(e.workerCarrying){
+        const merchant=w.authored.npcs.find(n=>n.role==='merchant');
+        if(position(k,merchant)<1.5){
+          e.workerCarrying=false;k.carrying=false;e.courierDelivered=true;e.merchantStock+=3;
+          e.courierBag={x:k.x,y:k.y};k.phase='resting';
+          addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.');
+        }
+      }else if(!e.hasCourierBag&&!e.courierDelivered&&position(k,e.courierBag)<.85){
+        e.workerCarrying=true;k.carrying=true;k.phase='returning';k.index=0;
+        addNote(w,'Tragarz znalazł sakwę i niesie ją do miasta.');
+      }else k.phase='searching';
+      return;
+    }
+    const pace=Math.min(distance,1.3*dt),nx=k.x+(target.x-k.x)/distance*pace,ny=k.y+(target.y-k.y)/distance*pace;
+    const clear=base.canOccupy(w,nx,ny,.25,false,'player')&&position({x:nx,y:ny},p)>.58
+      &&w.authored.npcs.every(n=>position({x:nx,y:ny},n)>.50);
+    if(clear){k.x=nx;k.y=ny;if(e.workerCarrying)e.courierBag={x:k.x,y:k.y};}
+  }
   function addNote(w,txt){w.episode.notes.unshift(txt);w.episode.notes=w.episode.notes.slice(0,5);w.lastAction=txt;
     w.events.push({at:Math.round(w.clock*10)/10,kind:'story',description:txt});if(w.events.length>20)w.events.shift();}
   function step(w,input={},dt=1/60){
     const p=w.player,e=w.episode,merchant=w.authored.npcs.find(n=>n.role==='merchant');
-    const atCourier= !e.hasCourierBag&&!e.courierDelivered&&position(p,e.courierBag)<1.3;
+    const atCourier=!e.hasCourierBag&&!e.workerCarrying&&!e.courierDelivered&&position(p,e.courierBag)<1.3;
+    const atWorker=w.worker.alive&&position(p,w.worker)<1.3;
     const atMerchant=merchant&&position(p,merchant)<1.55;
     const doAction=!!input.interact,drop=!!input.drop;
     const wasAlive=w.rats.filter(r=>r.alive).length;
@@ -43,7 +103,7 @@
     // normal role (buy a bandage) instead of permanently hijacking commerce.
     const storyConversation=atMerchant&&(e.hasCourierBag||!e.courierDelivered||
       (w.kills>=e.legacyBounty.need&&!e.verminBountyPaid));
-    const handled=doAction&&(atCourier||storyConversation);
+    const handled=doAction&&(atCourier||atMerchant||atWorker);
     base.step(w,handled?{...input,interact:false}:input,dt);
     if(w.player.dead)return w;
     // Cargo is a physical place in the shared world, not an unrecoverable quest flag.
@@ -57,31 +117,43 @@
       e.hasCourierBag=false;
       addNote(w,'Odkładasz sakwę w świecie. Pozostanie w tym miejscu, dopóki jej nie zabierzesz.');
     }
-    if(doAction&&atCourier){
+    if(doAction&&atWorker&&e.workerCarrying){
+      e.workerCarrying=false;w.worker.carrying=false;e.hasCourierBag=true;w.worker.phase='searching';
+      addNote(w,'Tragarz przekazuje Ci sakwę, którą możesz sam dostarczyć.');
+    }else if(doAction&&atWorker){
+      addNote(w,w.worker.phase==='sheltering'?'Tragarz: widziałem szczury. Nie chcę ryzykować ładunku.':
+        'Tragarz: szukam dostawy na południowym trakcie.');
+    }else if(doAction&&atCourier){
       e.hasCourierBag=true;
       addNote(w,'Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.');
     }else if(doAction&&atMerchant){
       if(e.hasCourierBag&&!e.courierDelivered){
-        e.hasCourierBag=false;e.courierDelivered=true;p.coins+=e.courierRewardCoins;p.bandages++;
+        e.hasCourierBag=false;e.courierDelivered=true;e.merchantStock+=3;p.coins+=e.courierRewardCoins;p.bandages++;
         addNote(w,'Kupiec odbiera sakwę, płaci 24 monety i daje opatrunek. Możesz ruszyć ponownie.');
       }else if(w.kills>=e.legacyBounty.need&&!e.verminBountyPaid){
         e.verminBountyPaid=true;p.coins+=e.legacyBounty.reward.gold;p.bandages+=(e.legacyBounty.reward.hpot||0);
         addNote(w,'Plaga pod murami: odebrano autorską nagrodę za 8 szczurów — 60 monet i 2 opatrunki.');
-      }else if(!e.courierDelivered){addNote(w,'Kupiec: zaginęła sakwa z dostawą. Ostatnio widziano ją za południową bramą.');}
+      }else if(!e.courierDelivered){addNote(w,'Kupiec: tragarz szuka dostawy za południową bramą.');}
+      else if(e.merchantStock<=0)addNote(w,'Kupiec: zabrakło opatrunków. Czekam na dostawę.');
+      else if(p.coins<3)addNote(w,'Kupiec: opatrunek kosztuje 3 monety.');
+      else{p.coins-=3;p.bandages++;e.merchantStock--;addNote(w,'Kupiec sprzedał opatrunek z dostarczonych zapasów.');}
     }
     if(w.rats.filter(r=>r.alive).length<wasAlive&&w.kills>0&&w.kills===e.legacyBounty.need)
       addNote(w,'Plaga pod murami: 8 szczurów. Wróć do Kupca po nagrodę z dawnego zadania.');
+    updateWorker(w,dt);
     return w;
   }
-  function save(w){const rec=base.save(w);rec.version=4;rec.episode=JSON.parse(JSON.stringify(w.episode));return rec;}
+  function save(w){const rec=base.save(w);rec.version=5;rec.episode=JSON.parse(JSON.stringify(w.episode));rec.worker=JSON.parse(JSON.stringify(w.worker));return rec;}
   function restore(source,record){
-    if(record?.version!==4||record?.episode?.id!==episodeTag)throw Error('Niezgodny zapis wyprawy C1');
+    if(record?.version!==5||record?.episode?.id!==episodeTag)throw Error('Niezgodny zapis wyprawy C1');
     const snapshot={...record,version:2};
     const w=base.restore(source,snapshot);
     makeExtras(source,w);
     const recorded=new Map(record.rats.map(r=>[r.id,r]));
     for(const rat of w.rats){const found=recorded.get(rat.id);if(!found)throw Error('Brak spotkania '+rat.id);Object.assign(rat,found);}
     w.episode=JSON.parse(JSON.stringify(record.episode));
+    if(!record.worker||!Number.isFinite(record.worker.x)||!Number.isFinite(record.worker.y))throw Error('Brak stanu tragarza');
+    w.worker=JSON.parse(JSON.stringify(record.worker));
     return w;
   }
   root.CoopegeB1Core=Object.freeze({...base,create,step,save,restore});
