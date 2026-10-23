@@ -37,7 +37,7 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 <div class="journal-note" id="journalNote"></div><p class="journal-hint">E — działanie przy sakwie lub kupcu. Spacja — cios. Wózek: napieraj albo chwyć myszą.</p></aside>
 <canvas id="minimap" width="180" height="180" aria-label="Miniaturowa mapa terenu"></canvas>
 </main>
-<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
+<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Kółko / +/- — zoom · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
 <div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
 <script>/* Coopege B1: disposable gameplay hypothesis, not a canonical engine.
    Authored terrain, inhabitants, encounter composition come from B0 source witness.
@@ -431,7 +431,7 @@ function attach(source){
   const hud=document.getElementById("hud"),message=document.getElementById("message"),meter=document.getElementById("meter");
   if(!ctx)throw Error("Canvas 2D unavailable");
   let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false},last=0,acc=0,animation=0;
-  let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null;
+  let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null,zoom=1.28;
   const saveKey="coopege-b5-first-expedition-v1";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
@@ -445,7 +445,7 @@ function attach(source){
   const size=()=>{const box=canvas.parentElement,dpr=Math.min(devicePixelRatio||1,2);
     const w=Math.max(300,Math.floor(box.clientWidth*dpr)),h=Math.max(260,Math.floor(box.clientHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
-    return {w,h,scale:Math.min(60*dpr,Math.max(34*dpr,Math.min(w/19,h/12)))};
+    return {w,h,scale:Math.min(105*dpr,Math.max(28*dpr,Math.min(60*dpr,Math.max(34*dpr,Math.min(w/19,h/12)))*zoom))};
   };
   function colorTile(id,x,y){const i=+id||0,shade=colors[i]??["#566757","#687762"];return shade[hash(x,y)>.46?1:0];}
   function drawMinimap(){
@@ -691,6 +691,8 @@ function attach(source){
    if(down&&k==="KeyP")store();
    if(down&&k==="KeyL")load();
    if(down&&k==="KeyN")reset();
+   if(down&&k==="Equal")zoom=Math.min(1.85,zoom*1.12);
+   if(down&&k==="Minus")zoom=Math.max(.78,zoom/1.12);
    if(down)pressed.add(k);else pressed.delete(k);
   }
   function pointerWorld(e){
@@ -699,6 +701,10 @@ function attach(source){
     const y=(e.clientY-rect.top)*h/rect.height;
     return {x:camera.x+(x-w*.5)/scale,y:camera.y+(y-h*.5)/scale};
   }
+  canvas.addEventListener("wheel",e=>{
+    e.preventDefault();
+    zoom=Math.max(.78,Math.min(1.85,zoom*(e.deltaY>0?.9:1.1)));
+  },{passive:false});
   canvas.addEventListener("pointerdown",e=>{
     if(dragPointerId!==null||e.button!==0)return;
     const q=pointerWorld(e);
