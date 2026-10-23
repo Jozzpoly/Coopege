@@ -182,3 +182,30 @@ test("E1 moved material cover changes the worker's fate without any scripted car
  assert.ok(exposed.rats.some(r=>r.alive));
  assert.ok(sheltered.rats.some(r=>r.alive));
 });
+
+test("E1 unseen porter death does not magically update player knowledge",()=>{
+ const w=core.create(fixture),original=w.lastAction;
+ for(let i=0;i<1800;i++)core.step(w,{},1/60);
+ assert.equal(w.worker.alive,false);
+ assert.notEqual(w.episode.known.workerPhase,"fallen","remote death was communicated");
+ assert.equal(w.episode.known.delivered,false);
+ assert.equal(w.lastAction,original);
+ assert.equal(w.episode.notes.length,1);
+ w.player.x=w.worker.x;w.player.y=w.worker.y-.9;
+ core.step(w,{},1/60);
+ assert.equal(w.episode.known.workerPhase,"fallen","visible consequence did not become known");
+});
+test("E1 delivered supplies are learned by inspecting the actual merchant",()=>{
+ const w=core.create(fixture);for(const r of w.rats)r.alive=false;
+ w.player.x=100.5;w.player.y=84.5;
+ for(let i=0;i<3700;i++)core.step(w,{},1/60);
+ assert.equal(w.episode.merchantStock,3);
+ assert.equal(w.episode.courierDelivered,true);
+ assert.equal(w.episode.known.delivered,false,"remote stock update leaked");
+ w.player.x=84.5;w.player.y=84.5;
+ core.step(w,{},1/60);
+ assert.equal(w.episode.known.delivered,true);
+ assert.equal(w.episode.known.merchantStock,3);
+ const rec=JSON.parse(JSON.stringify(core.save(w)));
+ assert.deepEqual(JSON.stringify(core.save(core.restore(fixture,rec))),JSON.stringify(rec));
+});

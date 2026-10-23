@@ -266,11 +266,12 @@ function attach(source){
       fill('rgba(16,27,23,.69)',16,18,220,30);
       text('TRAKT POD SREBRNĄ BRAMĄ',28,33,'#d9cba8',Math.max(10,Math.round(scale*.18)),'left');
     }
-    hud.textContent=`ŻYCIE ${Math.round(world.player.hp)} / 100    ◆  ${world.player.coins} MONET    ◆  OPATRUNKI ${world.player.bandages}    ◆  ZAPASY KUPCA ${world.episode?.merchantStock??0}    ◆  ZAGROŻENIE ${world.kills}/${world.episode?.legacyBounty.need??8}`;
+    hud.textContent=`ŻYCIE ${Math.round(world.player.hp)} / 100    ◆  ${world.player.coins} MONET    ◆  OPATRUNKI ${world.player.bandages}    ◆  OST. ZAPASY ${world.episode?.known?.merchantStock??'?'}    ◆  ZAGROŻENIE ${world.kills}/${world.episode?.legacyBounty.need??8}`;
     if(world.episode){
       const e=world.episode;
-      document.getElementById('questTitle').textContent=e.courierDelivered?'Dostawa dotarła':e.workerCarrying?'Tragarz wraca z ładunkiem':e.hasCourierBag?'Powrót do Srebrnej Bramy':'Zagubiona dostawa';
-      document.getElementById('questLine').textContent=e.courierDelivered?`Zapasy sklepu: ${e.merchantStock}. Dostawa zmieniła stan świata.`:e.workerCarrying?'Tragarz sam niesie sakwę z powrotem do kupca.':e.hasCourierBag?'Niesiesz sakwę. Odłóż ją (Q) albo dostarcz osobiście.':'Tragarz wyszedł za południową bramę. Może utknąć przez szczury — pomóż albo odzyskaj ładunek sam.';
+      const known=e.known||{},knownDelivered=known.delivered===true,knownCarrying=known.workerCarrying===true;
+      document.getElementById('questTitle').textContent=knownDelivered?'Dostawa dotarła':e.hasCourierBag?'Powrót do Srebrnej Bramy':known.workerPhase==='fallen'?'Znaleziono rannego tragarza':knownCarrying?'Tragarz miał przy sobie ładunek':'Zagubiona dostawa';
+      document.getElementById('questLine').textContent=knownDelivered?`Widziałeś kupca z dostawą. Ostatnio poznane zapasy: ${known.merchantStock}.`:e.hasCourierBag?'Niesiesz sakwę. Odłóż ją (Q) albo dostarcz osobiście.':known.workerPhase==='fallen'?'Znalazłeś tragarza, który upadł pod naporem szczurów. Ładunek trzeba odnaleźć.':knownCarrying?'Ostatnio widziałeś tragarza z sakwą. Nie znasz jego dalszych losów.':'Tragarz wyruszył z magazynu. Dalszy los dostawy poznasz, gdy sam sprawdzisz trakt lub wrócisz do kupca.';
       document.getElementById('bountyLine').textContent=e.verminBountyPaid?'Plaga pod murami — nagroda odebrana':`Plaga pod murami · ${world.kills}/${e.legacyBounty.need} szczurów · nagroda 60 monet / 2 opatrunki`;
       document.getElementById('questProgress').style.width=Math.min(100,100*world.kills/e.legacyBounty.need)+'%';
       document.getElementById('journalNote').textContent=e.notes[0]||'';
@@ -353,7 +354,7 @@ function attach(source){
     inspect:()=>({tick:world.tick,x:world.player.x,y:world.player.y,hp:world.player.hp,coins:world.player.coins,
       kills:world.kills,cart:{x:world.cart.x,y:world.cart.y,vx:world.cart.vx,vy:world.cart.vy},rats:world.rats.filter(r=>r.alive).length,
       authoredNpcCount:world.authored.npcs.length,authoredEncounter:world.authored.group.label,
-      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,workerCarrying:world.episode.workerCarrying,merchantStock:world.episode.merchantStock,courierBag:{...world.episode.courierBag},courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
+      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,workerCarrying:world.episode.workerCarrying,merchantStock:world.episode.merchantStock,known:{...world.episode.known},courierBag:{...world.episode.courierBag},courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
       worker:world.worker?{...world.worker}:null,
       message:world.lastAction}),
     save:store,load,reset

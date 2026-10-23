@@ -25,6 +25,7 @@
     world.episode={
       id:episodeTag,hasCourierBag:false,courierDelivered:false,verminBountyPaid:false,
       courierBag:{x:90.5,y:103.5},courierRewardCoins:24,workerCarrying:false,merchantStock:0,
+      known:{workerPhase:'unknown',workerCarrying:false,delivered:false,merchantStock:null},
       legacyBounty:{name:originalQuest.name,need:originalQuest.need,reward:originalQuest.reward},
       notes:['Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie.']
     };
@@ -56,7 +57,7 @@
         if(k.hp===0){
           k.alive=false;k.phase='fallen';
           if(e.workerCarrying){e.workerCarrying=false;e.courierBag={x:k.x,y:k.y};}
-          addNote(w,'Tragarz upadł. Pozostawiona sakwa nadal leży w świecie.');
+          addNote(w,'Tragarz upadł. Pozostawiona sakwa nadal leży w świecie.',k);
           return;
         }
       }else if(d>=.8){
@@ -75,7 +76,7 @@
     if(e.workerCarrying&&position(k,merchant)<1.3){
       e.workerCarrying=false;k.carrying=false;e.courierDelivered=true;e.merchantStock+=3;
       e.courierBag={x:k.x,y:k.y};k.phase='resting';
-      addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.');
+      addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.',k);
       return;
     }
     const route=e.workerCarrying?returning:outgoing;
@@ -87,11 +88,11 @@
         if(position(k,merchant)<1.5){
           e.workerCarrying=false;k.carrying=false;e.courierDelivered=true;e.merchantStock+=3;
           e.courierBag={x:k.x,y:k.y};k.phase='resting';
-          addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.');
+          addNote(w,'Tragarz dotarł z dostawą. Kupiec otrzymał trzy opatrunki.',k);
         }
       }else if(!e.hasCourierBag&&!e.courierDelivered&&position(k,e.courierBag)<.85){
         e.workerCarrying=true;k.carrying=true;k.phase='returning';k.index=0;
-        addNote(w,'Tragarz znalazł sakwę i niesie ją do miasta.');
+        addNote(w,'Tragarz znalazł sakwę i niesie ją do miasta.',k);
       }else k.phase='searching';
       return;
     }
@@ -100,8 +101,23 @@
       &&w.authored.npcs.every(n=>position({x:nx,y:ny},n)>.50);
     if(clear){k.x=nx;k.y=ny;if(e.workerCarrying)e.courierBag={x:k.x,y:k.y};}
   }
-  function addNote(w,txt){w.episode.notes.unshift(txt);w.episode.notes=w.episode.notes.slice(0,5);w.lastAction=txt;
-    w.events.push({at:Math.round(w.clock*10)/10,kind:'story',description:txt});if(w.events.length>20)w.events.shift();}
+  function addNote(w,txt,location=null){
+    // World truth is recorded separately from witnessed player-facing news.
+    const seen=!location||(position(w.player,location)<6&&base.sight(w,w.player,location));
+    w.events.push({at:Math.round(w.clock*10)/10,kind:'world',description:txt,witnessed:seen});
+    if(w.events.length>20)w.events.shift();
+    if(!seen)return;
+    w.episode.notes.unshift(txt);w.episode.notes=w.episode.notes.slice(0,5);w.lastAction=txt;
+  }
+  function updateKnowledge(w){
+    const p=w.player,e=w.episode,k=w.worker,merchant=w.authored.npcs.find(n=>n.role==='merchant');
+    if(position(p,k)<6&&base.sight(w,p,k)){
+      e.known.workerPhase=k.phase;e.known.workerCarrying=e.workerCarrying;
+    }
+    if(position(p,merchant)<5&&base.sight(w,p,merchant)){
+      e.known.merchantStock=e.merchantStock;e.known.delivered=e.courierDelivered;
+    }
+  }
   function step(w,input={},dt=1/60){
     const p=w.player,e=w.episode,merchant=w.authored.npcs.find(n=>n.role==='merchant');
     const atCourier=!e.hasCourierBag&&!e.workerCarrying&&!e.courierDelivered&&position(p,e.courierBag)<1.3;
@@ -156,6 +172,7 @@
     if(w.rats.filter(r=>r.alive).length<wasAlive&&w.kills>0&&w.kills===e.legacyBounty.need)
       addNote(w,'Plaga pod murami: 8 szczurów. Wróć do Kupca po nagrodę z dawnego zadania.');
     updateWorker(w,dt);
+    updateKnowledge(w);
     return w;
   }
   function save(w){const rec=base.save(w);rec.version=5;rec.episode=JSON.parse(JSON.stringify(w.episode));rec.worker=JSON.parse(JSON.stringify(w.worker));return rec;}

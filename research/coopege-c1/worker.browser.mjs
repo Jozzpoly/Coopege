@@ -49,6 +49,11 @@ try{
   assert.equal(final.episode.merchantStock,0,"cargo teleported to merchant during attack");
   assert.equal(final.episode.courierDelivered,false);
   assert.equal(final.episode.workerCarrying,false,"worker duplicated cargo while injured");
+  assert.notEqual(final.episode.known.workerPhase,"fallen",
+    "remote death was telepathically added to the player's knowledge");
+  assert.equal(final.episode.known.delivered,false);
+  assert.ok(!final.episode.notes.some(n=>n.includes("Tragarz upadł")),
+    "unseen worker death leaked into the visible journal");
   await page.screenshot(resolve(out,"E1-worker-03-unassisted-consequence.png"));
   const evidence={first,leaving,danger,final};
   writeFileSync(resolve(out,"e1-live-worker-evidence.json"),JSON.stringify(evidence,null,2));
