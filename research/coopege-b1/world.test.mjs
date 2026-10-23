@@ -138,3 +138,18 @@ test("B2 current obstruction prevents melee while an enemy remains alerted",()=>
  core.step(w,{},1/60);
  assert.equal(p.hp,hp,"alerted creature hit through an inserted solid obstacle");
 });
+
+test("B3 near-hand pointer drag moves continuously, not remotely, and persists",()=>{
+ const w=make(),c=w.cart;
+ const y=c.y;
+ // The player starts in the city, out of reach. Remote cursor control must fail.
+ for(let i=0;i<40;i++)core.step(w,{grab:{x:88.5,y:105}},1/60);
+ assert.equal(c.y,y,"cursor teleported an unattended cart");
+ w.player.x=88.5;w.player.y=98.75;
+ for(let i=0;i<60;i++)core.step(w,{grab:{x:88.5,y:101.25}},1/60);
+ assert.ok(c.y>y+.12,"reachable cursor did not move the cart");
+ assert.ok(c.y<100.5,"pointer moved cart beyond physical reach");
+ assert.ok(Math.abs(c.y-Math.round(c.y))>.01,"pointer motion snapped to a tile");
+ const saved=core.save(w);
+ assert.deepEqual(core.save(core.restore(source,saved)),saved);
+});
