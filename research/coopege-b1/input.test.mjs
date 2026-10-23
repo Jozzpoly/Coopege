@@ -26,9 +26,9 @@ test("one-shot keyboard actions survive render-only frames and fire exactly once
    addEventListener:(kind,fn)=>{listeners[kind]=fn;}};
   globalThis.window={addEventListener:()=>{}};
   globalThis.devicePixelRatio=1;
-  globalThis.requestAnimationFrame=fn=>{frames.push(fn);return frames.length;};
+  globalThis.requestAnimationFrame=fn=>{frames.interact(fn);return frames.length;};
   globalThis.cancelAnimationFrame=()=>{};
-  globalThis.CoopegeB1Core={create:()=>world,step:(_w,input)=>inputs.push({...input}),
+  globalThis.CoopegeB1Core={create:()=>world,step:(_w,input)=>inputs.interact({...input}),
    dist:(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)};
   dispose=globalThis.CoopegeB1View.attach({});
   const render=at=>{const fn=frames.shift();assert.ok(fn,"RAF callback absent");fn(at);};
@@ -42,10 +42,10 @@ test("one-shot keyboard actions survive render-only frames and fire exactly once
   assert.equal(inputs.length,0,"action consumed before a fixed tick");
   render(1021);
   assert.equal(inputs.length,1);
-  assert.deepEqual([inputs[0].push,inputs[0].hit,inputs[0].bandage],[true,true,true]);
+  assert.deepEqual([inputs[0].interact,inputs[0].hit,inputs[0].bandage],[true,true,true]);
   render(1042);
   assert.ok(inputs.length>=2);
-  assert.ok(inputs.slice(1).every(x=>!x.push&&!x.hit&&!x.bandage),
+  assert.ok(inputs.slice(1).every(x=>!x.interact&&!x.hit&&!x.bandage),
    "one-shot action was replayed on later ticks");
  }finally{
   dispose?.();
