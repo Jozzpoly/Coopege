@@ -8,7 +8,7 @@ function attach(source){
   if(!ctx)throw Error("Canvas 2D unavailable");
   let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false,drop:false},last=0,acc=0,animation=0;
   let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null,zoom=1.28;
-  const saveKey="coopege-c1-first-expedition-v2";
+  const saveKey="coopege-e1-live-delivery-v1";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
     ["#1b5574","#23647d"],["#806e52","#968363"],["#806849","#a08961"],
@@ -171,8 +171,8 @@ function attach(source){
           return;
         }
       }
-      const tunic=isPlayer?'#c1af77':role==='healer'?'#69aca2':'#ae8251';
-      const coat=isPlayer?'#77634b':role==='healer'?'#37786d':'#7f573e';
+      const tunic=isPlayer?'#c1af77':role==='healer'?'#69aca2':role==='worker'?'#d0aa64':'#ae8251';
+      const coat=isPlayer?'#77634b':role==='healer'?'#37786d':role==='worker'?'#6e5444':'#7f573e';
       // Boots, cloak silhouette, tunic, distinct head and carried prop.
       fill('#443c35',u.x-z*.51,u.y+z*.49,z*.40,z*.48);fill('#443c35',u.x+z*.13,u.y+z*.49,z*.40,z*.48);
       ctx.fillStyle=coat;ctx.beginPath();ctx.moveTo(u.x-z*.87,u.y-z*.32);ctx.lineTo(u.x+z*.87,u.y-z*.32);ctx.lineTo(u.x+z*.67,u.y+z*.65);ctx.lineTo(u.x-z*.68,u.y+z*.65);ctx.fill();
@@ -192,12 +192,32 @@ function attach(source){
           ctx.beginPath();ctx.arc(u.x,u.y,z*1.65,-Math.PI*.32,Math.PI*.24);ctx.stroke();
         }
       }else{
+        if(role==='worker')fill('#e8c27f',u.x-z*.4,u.y-z*.23,z*.8,z*.2);
         if(role==='healer'){fill('#e3e5cb',u.x-z*.08,u.y-z*.22,z*.17,z*.62);fill('#e3e5cb',u.x-z*.33,u.y+z*.03,z*.66,z*.17);}
         else ellipse('#e0be71',u.x+z*.64,u.y+z*.22,z*.23,z*.33);
         if(core.dist(world.player,p)<7)text(name,u.x,u.y-z*2.04,role==='healer'?'#a6e0d8':'#f1d297',Math.max(11,Math.round(scale*.21)));
       }
     }
     for(const n of world.authored.npcs)humanoid(n,n.role,n.name,false);
+    const worker=world.worker;
+    if(worker?.alive){
+      humanoid(worker,'worker',worker.name,false);
+      const q=loc(worker.x,worker.y);
+      if(world.episode?.workerCarrying){
+        fill('#a78249',q.x+scale*.11,q.y-scale*.32,scale*.32,scale*.24);
+        line('#f2d395',Math.max(1,scale*.021),q.x+scale*.12,q.y-scale*.30,q.x+scale*.4,q.y-scale*.30);
+      }
+      if(worker.phase==='sheltering')
+        label('Szczury — czekam!',q.x,q.y-scale*.85,'#f0ac90',Math.max(10,Math.round(scale*.17)));
+      if(worker.hp<worker.maxHp){
+        fill('#4a2620',q.x-scale*.35,q.y-scale*.70,scale*.70,scale*.07);
+        fill('#e0a184',q.x-scale*.35,q.y-scale*.70,scale*.70*worker.hp/worker.maxHp,scale*.07);
+      }
+    }else if(worker){
+      const q=loc(worker.x,worker.y);
+      fill('#694c42',q.x-scale*.27,q.y-scale*.14,scale*.54,scale*.24);
+      label('Tragarz upadł',q.x,q.y-scale*.5,'#e4b1a1',Math.max(10,Math.round(scale*.18)));
+    }
     const c=world.cart,cp=loc(c.x,c.y),z=scale*.4;
     ellipse('rgba(5,12,9,.52)',cp.x,cp.y+z*.70,z*1.4,z*.55);
     fill('#3b3026',cp.x-z*1.07,cp.y-z*.70,z*2.14,z*1.68);
@@ -246,11 +266,11 @@ function attach(source){
       fill('rgba(16,27,23,.69)',16,18,220,30);
       text('TRAKT POD SREBRNĄ BRAMĄ',28,33,'#d9cba8',Math.max(10,Math.round(scale*.18)),'left');
     }
-    hud.textContent=`ŻYCIE ${Math.round(world.player.hp)} / 100    ◆  ${world.player.coins} MONET    ◆  OPATRUNKI ${world.player.bandages}    ◆  ZAGROŻENIE ${world.kills}/${world.episode?.legacyBounty.need??8}`;
+    hud.textContent=`ŻYCIE ${Math.round(world.player.hp)} / 100    ◆  ${world.player.coins} MONET    ◆  OPATRUNKI ${world.player.bandages}    ◆  ZAPASY KUPCA ${world.episode?.merchantStock??0}    ◆  ZAGROŻENIE ${world.kills}/${world.episode?.legacyBounty.need??8}`;
     if(world.episode){
       const e=world.episode;
-      document.getElementById('questTitle').textContent=e.courierDelivered?'Dostawa odzyskana':e.hasCourierBag?'Powrót do Srebrnej Bramy':'Zaginiona sakwa';
-      document.getElementById('questLine').textContent=e.courierDelivered?'Kupiec pamięta Twoją pomoc. Możesz poznać dalszą okolicę.':e.hasCourierBag?'Niesiesz sakwę. Wróć do Kupca albo odłóż ją klawiszem Q i podejmij później.':'Sakwa czeka za południową bramą, na wschodnim poboczu traktu. Unikaj szczurów lub podejmij walkę.';
+      document.getElementById('questTitle').textContent=e.courierDelivered?'Dostawa dotarła':e.workerCarrying?'Tragarz wraca z ładunkiem':e.hasCourierBag?'Powrót do Srebrnej Bramy':'Zagubiona dostawa';
+      document.getElementById('questLine').textContent=e.courierDelivered?`Zapasy sklepu: ${e.merchantStock}. Dostawa zmieniła stan świata.`:e.workerCarrying?'Tragarz sam niesie sakwę z powrotem do kupca.':e.hasCourierBag?'Niesiesz sakwę. Odłóż ją (Q) albo dostarcz osobiście.':'Tragarz wyszedł za południową bramę. Może utknąć przez szczury — pomóż albo odzyskaj ładunek sam.';
       document.getElementById('bountyLine').textContent=e.verminBountyPaid?'Plaga pod murami — nagroda odebrana':`Plaga pod murami · ${world.kills}/${e.legacyBounty.need} szczurów · nagroda 60 monet / 2 opatrunki`;
       document.getElementById('questProgress').style.width=Math.min(100,100*world.kills/e.legacyBounty.need)+'%';
       document.getElementById('journalNote').textContent=e.notes[0]||'';
@@ -333,7 +353,8 @@ function attach(source){
     inspect:()=>({tick:world.tick,x:world.player.x,y:world.player.y,hp:world.player.hp,coins:world.player.coins,
       kills:world.kills,cart:{x:world.cart.x,y:world.cart.y,vx:world.cart.vx,vy:world.cart.vy},rats:world.rats.filter(r=>r.alive).length,
       authoredNpcCount:world.authored.npcs.length,authoredEncounter:world.authored.group.label,
-      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,courierBag:{...world.episode.courierBag},courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
+      episode:world.episode?{hasCourierBag:world.episode.hasCourierBag,workerCarrying:world.episode.workerCarrying,merchantStock:world.episode.merchantStock,courierBag:{...world.episode.courierBag},courierDelivered:world.episode.courierDelivered,bountyPaid:world.episode.verminBountyPaid,notes:world.episode.notes.slice()}:null,
+      worker:world.worker?{...world.worker}:null,
       message:world.lastAction}),
     save:store,load,reset
   });
