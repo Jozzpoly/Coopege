@@ -6,9 +6,9 @@ function attach(source){
   const core=root.CoopegeB1Core,canvas=document.getElementById("game"),ctx=canvas.getContext("2d");
   const hud=document.getElementById("hud"),message=document.getElementById("message"),meter=document.getElementById("meter");
   if(!ctx)throw Error("Canvas 2D unavailable");
-  let world=core.create(source),pressed=new Set(),pending={push:false,hit:false,bandage:false},last=0,acc=0,animation=0;
+  let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false},last=0,acc=0,animation=0;
   let camera={x:world.player.x,y:world.player.y},stopped=false;
-  const saveKey="coopege-b1-material-return-v1";
+  const saveKey="coopege-b3-contact-v2";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
     ["#1b5574","#23647d"],["#806e52","#968363"],["#806849","#a08961"],
@@ -70,7 +70,7 @@ function attach(source){
     for(let k=-1;k<=1;k++){ctx.beginPath();ctx.moveTo(-cs*.42,cs*.14*k);ctx.lineTo(cs*.42,cs*.14*k);ctx.stroke();}
     ctx.fillStyle="#272525";ctx.fillRect(-cs*.59,-cs*.30,cs*.18,cs*.2);ctx.fillRect(cs*.41,cs*.17,cs*.18,cs*.2);
     ctx.restore();
-    if(core.dist(world.player,c)<2)label("E · pchnij",cp.x,cp.y-scale*.75,"#ffe4aa",Math.round(scale*.25));
+    if(core.dist(world.player,c)<2)label("Napieraj ruchem · WASD",cp.x,cp.y-scale*.75,"#ffe4aa",Math.round(scale*.20));
     for(const r of world.rats){
       if(!r.alive)continue;
       const p=loc(r.x,r.y),rad=scale*.26;
@@ -109,7 +109,7 @@ function attach(source){
    const k=e.code;
    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].includes(k))e.preventDefault();
    if(down&&e.repeat)return;
-   if(down&&k==="KeyE")pending.push=true;
+   if(down&&k==="KeyE")pending.interact=true;
    if(down&&k==="Space")pending.hit=true;
    if(down&&k==="KeyR")pending.bandage=true;
    if(down&&k==="KeyP")store();
@@ -128,9 +128,9 @@ function attach(source){
     // Keep edge-triggered actions until a simulation tick actually consumes them.
     // Clearing on every render frame drops quick presses on high-refresh displays.
     while(acc>=1/60){
-      core.step(world,{dx,dy,hit:pending.hit,push:pending.push,bandage:pending.bandage},1/60);
+      core.step(world,{dx,dy,hit:pending.hit,interact:pending.interact,bandage:pending.bandage},1/60);
       acc-=1/60;
-      pending={push:false,hit:false,bandage:false};
+      pending={interact:false,hit:false,bandage:false};
     }
     draw(now);animation=requestAnimationFrame(frame);
   }
@@ -138,7 +138,7 @@ function attach(source){
   // Inspection is read-only and not an alternate method of moving the player.
   root.CoopegeB1Evidence=Object.freeze({
     inspect:()=>({tick:world.tick,x:world.player.x,y:world.player.y,hp:world.player.hp,coins:world.player.coins,
-      kills:world.kills,cart:{x:world.cart.x,y:world.cart.y},rats:world.rats.filter(r=>r.alive).length,
+      kills:world.kills,cart:{x:world.cart.x,y:world.cart.y,vx:world.cart.vx,vy:world.cart.vy},rats:world.rats.filter(r=>r.alive).length,
       authoredNpcCount:world.authored.npcs.length,authoredEncounter:world.authored.group.label,
       message:world.lastAction}),
     save:store,load,reset
