@@ -50,6 +50,10 @@ jobs:
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-c1/compare.browser.mjs
+      - name: Test A1's actual live map authoring roundtrip and new quest boundary
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-c1/donor-viability.browser.mjs
       - name: Archive standalone HTML, screenshots and evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -62,4 +66,4 @@ jobs:
             .build/coopege-c1/*.png
             .build/coopege-c1/*.json
             .build/coopege-b0/source-authored-witness.json
-            research/coopege-c1/ACTIVE.md
+            research/coopege-c1/ACTIVE.md\n            research/coopege-c1/PRODUCT_RESCUE_2026-10-24.md
