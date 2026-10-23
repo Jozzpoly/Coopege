@@ -45,10 +45,10 @@ test("B5 collectible delivery, one-time payment, bounty and save/restore",()=>{
  assert.equal(t.episode.courierDelivered,true);
  assert.equal(t.player.coins,gold+24);
  core.step(t,{interact:true},1/60);
- assert.equal(t.player.coins,gold+24,"duplicate courier reward");
+ assert.equal(t.player.coins,gold+21,"merchant should return to ordinary 3-coin bandage trade after delivery");
  t.kills=8;core.step(t,{interact:true},1/60);
- assert.equal(t.player.coins,gold+84);
+ assert.equal(t.player.coins,gold+81);
  assert.equal(t.episode.verminBountyPaid,true);
  core.step(t,{interact:true},1/60);
- assert.equal(t.player.coins,gold+84,"duplicate bounty reward");
+ assert.equal(t.player.coins,gold+78,"bounty must not repay; merchant sells a bandage instead");
 });
