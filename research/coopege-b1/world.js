@@ -239,7 +239,7 @@ function step(world,input={},dt=1/60){
    const pressedCart=movePlayerWithContact(world,v.x,v.y,dt);
    if(!pressedCart)coastCart(world,dt);
  }else coastCart(world,dt);
- if(input.push)interactNpc(world);
+ if(input.interact)interactNpc(world);
  if(input.hit)attack(world);
  if(input.bandage&&p.bandages>0&&p.hp<p.maxHp){
    p.bandages--;p.hp=Math.min(p.maxHp,p.hp+35);event(world,"Użyto opatrunku.","recovery");
