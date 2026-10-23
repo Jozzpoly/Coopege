@@ -36,7 +36,7 @@ test("B5 collectible delivery, one-time payment, bounty and save/restore",()=>{
  w.player.x=90.5;w.player.y=102.5;core.step(w,{interact:true},1/60);
  assert.equal(w.episode.hasCourierBag,true);
  const snap=JSON.parse(JSON.stringify(core.save(w)));
- assert.equal(snap.version,4);
+ assert.equal(snap.version,5);
  const t=core.restore(fixture,snap);
  assert.equal(t.rats.length,13);assert.deepEqual(JSON.stringify(core.save(t)),JSON.stringify(snap));
  t.player.x=84.5;t.player.y=83.5;
@@ -65,7 +65,7 @@ test("C1 parcel can be placed in the world, left behind, recovered, saved and de
  assert.ok(core.dist(e.courierBag,origin)>1,"parcel returned to scripted pickup spot");
  const dropped={...e.courierBag};
  const rec=JSON.parse(JSON.stringify(core.save(w)));
- assert.equal(rec.version,4);
+ assert.equal(rec.version,5);
  const loaded=core.restore(fixture,rec);
  assert.deepEqual(JSON.stringify(core.save(loaded)),JSON.stringify(rec));
  loaded.player.x=82.5;loaded.player.y=82.5;
@@ -117,4 +117,44 @@ test("C1 simultaneous drop + interact cannot silently discard merchant delivery"
  assert.equal(w.episode.courierDelivered,true);
  assert.equal(w.player.coins,24);
  assert.equal(w.episode.hasCourierBag,false);
+});
+
+test("E1 worker starts at the original south gate, not at a teleporting quest marker",()=>{
+ const w=core.create(fixture);
+ assert.equal(w.worker.x,90.5);assert.equal(w.worker.y,96.5);
+ assert.equal(w.worker.phase,"outbound");
+ assert.equal(w.episode.merchantStock,0);
+ for(let i=0;i<350;i++)core.step(w,{},1/60);
+ assert.ok(w.worker.y>96.8,"worker did not move under normal simulation");
+ assert.equal(w.episode.merchantStock,0,"shop restocked without arriving cargo");
+ const record=JSON.parse(JSON.stringify(core.save(w)));
+ assert.deepEqual(JSON.stringify(core.save(core.restore(fixture,record))),JSON.stringify(record),
+   "worker position/knowledge and quest cargo state do not survive save");
+});
+test("E1 autonomous worker retrieves real ground cargo and stocks the shop after walking it home",()=>{
+ const w=core.create(fixture);for(const r of w.rats)r.alive=false;
+ let took=false;
+ for(let i=0;i<4200;i++){
+   core.step(w,{},1/60);
+   if(w.episode.workerCarrying)took=true;
+   if(w.episode.courierDelivered)break;
+ }
+ assert.equal(took,true,"worker never physically retrieved the cargo");
+ assert.equal(w.episode.courierDelivered,true,JSON.stringify(w.worker));
+ assert.equal(w.episode.merchantStock,3);
+ assert.equal(w.player.coins,0,"worker must not award an uninvolved player");
+});
+test("E1 player alternative delivers before worker, then purchases only delivered stock",()=>{
+ const w=core.create(fixture);
+ w.player.x=w.episode.courierBag.x;w.player.y=w.episode.courierBag.y-1;
+ core.step(w,{interact:true},1/60);assert.equal(w.episode.hasCourierBag,true);
+ assert.equal(w.episode.workerCarrying,false);
+ w.player.x=84.5;w.player.y=83.5;
+ core.step(w,{interact:true},1/60);
+ assert.equal(w.episode.courierDelivered,true);
+ assert.equal(w.episode.merchantStock,3);
+ assert.equal(w.player.coins,24);
+ core.step(w,{interact:true},1/60);
+ assert.equal(w.episode.merchantStock,2);
+ assert.equal(w.player.coins,21);
 });
