@@ -1,0 +1,46 @@
+name: Coopege C1 - ongoing game-first campaign
+on:
+  push:
+    branches: ['research/coopege-c1-game-first-continuity-2026-10-23']
+permissions:
+  contents: read
+jobs:
+  playable:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
+      - name: Recover source facts from untouched original game
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-b0/audit-boundary.mjs
+      - name: Validate authored witness
+        run: node research/coopege-b0/validate-witness.mjs
+      - name: Build C1 from owned source parts; verify initial B5 byte parity
+        run: node research/coopege-c1/build.mjs --verify-baseline
+      - name: Source-backed gameplay contracts
+        run: node --test research/coopege-c1/episode.test.mjs
+      - name: Full ordinary keyboard Chrome journey and persistent return
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-c1/expedition.browser.mjs
+      - name: Archive standalone HTML, screenshots and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coopege-c1-proof
+          retention-days: 21
+          if-no-files-found: warn
+          path: |
+            .build/coopege-c1/Coopege_C1_Expedition.html
+            .build/coopege-c1/*.png
+            .build/coopege-c1/*.json
+            .build/coopege-b0/source-authored-witness.json
