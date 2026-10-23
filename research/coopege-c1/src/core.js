@@ -69,6 +69,7 @@ function canOccupy(world,x,y,r,ignoreCart=false,ignoreRatId=null){
   if(circleHitsMap(world,x,y,r))return false;
   if(!ignoreCart&&Math.hypot(x-world.cart.x,y-world.cart.y)<r+world.cart.radius-.02)return false;
   // Creature-to-creature physical contact is simplified: no interpenetration of player.
+  if(ignoreRatId==="player"&&world.worker?.alive&&Math.hypot(x-world.worker.x,y-world.worker.y)<r+.26-.015)return false;
   if(ignoreRatId==="player"){
     for(const rat of world.rats)if(rat.alive&&Math.hypot(x-rat.x,y-rat.y)<r+.26-.015)return false;
   }
@@ -111,6 +112,7 @@ function canCartOccupy(world,x,y){
   if(r.alive&&dist({x,y},r)<c.radius+.26-.015)return false;
  for(const n of world.authored.npcs)
   if(dist({x,y},n)<c.radius+.29-.01)return false;
+ if(world.worker?.alive&&dist({x,y},world.worker)<c.radius+.29-.01)return false;
  return true;
 }
 function translateCart(world,dx,dy){
