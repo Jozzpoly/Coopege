@@ -34,10 +34,10 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 <main><canvas id="game" aria-label="Grywalny świat Coopege B5"></canvas>
 <aside id="journal" aria-label="Dziennik wyprawy"><div class="panel-title">DZIENNIK WYPRAWY <button id="collapse" aria-label="Zwiń dziennik" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button></div>
 <strong id="questTitle">Przygotowanie do wyprawy</strong><p id="questLine"></p><div class="quest-progress"><div id="questProgress"></div></div><p id="bountyLine"></p>
-<div class="journal-note" id="journalNote"></div><p class="journal-hint">E — działanie przy sakwie lub kupcu. Spacja — cios. Wózek: napieraj albo chwyć myszą.</p></aside>
+<div class="journal-note" id="journalNote"></div><p class="journal-hint">E — podnieś lub rozmawiaj · Q — odłóż niesioną sakwę · Spacja — cios. Wózek: napieraj albo chwyć myszą.</p></aside>
 <canvas id="minimap" width="180" height="180" aria-label="Miniaturowa mapa terenu"></canvas>
 </main>
-<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Kółko / +/- — zoom · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
+<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Kółko / +/- — zoom · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — interakcja · Q — odłóż sakwę · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
 <div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
 <script>__COOPEGE_SOURCE_core.js__</script>
 <script>__COOPEGE_SOURCE_episode.js__</script>
