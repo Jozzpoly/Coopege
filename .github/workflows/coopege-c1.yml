@@ -49,6 +49,10 @@ jobs:
         env:
           COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
         run: node research/coopege-c1/expedition.browser.mjs
+      - name: Unassisted vulnerable worker — live Chrome through visible threat and consequence
+        env:
+          COOPEGE_BROWSER: ${{ steps.chrome.outputs.chrome-path }}
+        run: node research/coopege-c1/worker.browser.mjs
       - name: Recover pinned A1 richer playable comparator (read-only)
         run: |
           git fetch --no-tags --depth=1 origin experiment/coopege-a1-tibia-donor-2026-10-23
