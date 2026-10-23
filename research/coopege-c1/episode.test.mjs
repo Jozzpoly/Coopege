@@ -82,3 +82,25 @@ test("C1 parcel can be placed in the world, left behind, recovered, saved and de
  assert.equal(loaded.player.coins,21,"merchant sale after story reward");
  assert.ok(!loaded.lastAction.includes("Trakt znowu"),"merchant claimed rat danger is gone while rats survive");
 });
+
+
+test("C1 same authored delivery supports bypass or direct material push without menu gates",()=>{
+ function walk(sequence){
+   const w=core.create(fixture);
+   for(const [input,frames] of sequence)for(let i=0;i<frames;i++)core.step(w,input,1/60);
+   core.step(w,{interact:true},1/60);
+   assert.equal(w.episode.hasCourierBag,true,"natural route did not reach the same parcel");
+   assert.equal(w.player.dead,false);
+   return w;
+ }
+ // Both paths obey the same collision geometry, actors and input contract.
+ const direct=walk([[{dy:1},310],[{dx:1},31]]);
+ const detour=walk([[{dy:1},175],[{dx:1},30],[{dy:1},140]]);
+ assert.ok(direct.cart.y>103,"body push route did not change the physical scene");
+ assert.equal(detour.cart.y,99.5,"walking around the cart inexplicably moved it");
+ assert.equal(direct.kills,0);
+ assert.equal(detour.kills,0);
+ assert.ok(direct.player.hp>0&&detour.player.hp>0);
+ assert.notEqual(core.save(direct).cart.y,core.save(detour).cart.y,
+  "two distinct world histories collapsed onto the same snapshot");
+});
