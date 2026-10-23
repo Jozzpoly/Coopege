@@ -16,22 +16,20 @@ test("B1 inherits actual authored place, group, NPCs rather than fixed legacy sc
  assert.ok(w.authored.entrances.some(n=>n.name.includes("Południowa")));
  assert.equal(w.grid.tiles.length,40000);
 });
-test("B1 cart is a physical shared fact for locomotion AND sight",()=>{
+test("B3 moving through cart contact creates continuous motion and persistent shared cover",()=>{
  const w=make();
- const before=core.sight(w,{x:88.5,y:98.1},{x:88.5,y:101.5});
- assert.equal(before,false,"obiekt nie zasłania");
- assert.equal(core.canOccupy(w,88.5,99.5,.28),false,"gracz przenika wózek");
- // Diagnostic placement only: no claim this part is a real player journey.
- w.player.x=87.5;w.player.y=99.5;w.player.facing={x:1,y:0};
- core.step(w,{push:true},1/60);
- assert.equal(w.cart.x,89.5);
- assert.equal(w.cart.y,99.5);
- assert.equal(core.canOccupy(w,88.5,99.5,.28),true,"dawny obszar nie został otwarty");
- assert.equal(core.sight(w,{x:88.5,y:98.1},{x:88.5,y:101.5}),true,
-   "przesunięcie przedmiotu nie odblokowało widzenia");
- const snapshot=core.save(w),restored=core.restore(source,snapshot);
- assert.deepEqual(core.save(restored),snapshot,"nie utrwaliły się materialne następstwa");
- console.info("COOPEGE_B1_MATERIAL",JSON.stringify({before,after:core.sight(w,{x:88.5,y:98.1},{x:88.5,y:101.5}),cart:snapshot.cart}));
+ assert.equal(core.canOccupy(w,88.5,99.5,.28),false);
+ const initial=core.sight(w,{x:88.5,y:98.1},{x:88.5,y:99.6});
+ assert.equal(initial,false,"original cart must block sight");
+ w.player.x=88.5;w.player.y=98.75;w.player.facing={x:0,y:1};
+ for(let i=0;i<58;i++)core.step(w,{dy:1},1/60);
+ assert.ok(w.cart.y>100.4,JSON.stringify(w.cart));
+ assert.ok(Math.abs(w.cart.y-Math.round(w.cart.y))>.015,
+  "cart snapped to an integral grid cell");
+ assert.equal(core.sight(w,{x:88.5,y:98.1},{x:88.5,y:99.6}),true,
+  "material displacement did not change the same visibility query");
+ const saved=core.save(w),loaded=core.restore(source,saved);
+ assert.deepEqual(core.save(loaded),saved,"smooth cart state lost on reload");
 });
 test("B1 basic contact uses same cover as perception and combat; no wall-hits",()=>{
  const w=make(),rat=w.rats[0];rat.x=88.5;rat.y=100.5;
@@ -58,28 +56,21 @@ test("B1 purposeful interactions persist across authored return and reload",()=>
  assert.equal(another.player.coins,0);
  assert.equal(another.authored.npcs.find(n=>n.role==="merchant").name,"Kupiec");
 });
-test("B1 refuses to push cart into authored solid geometry",()=>{
+test("B3 pressed cart stops at solid authored terrain without tunneling",()=>{
  const w=make(),c=w.cart;
- // The authored city walls remain authoritative, even for material objects.
- c.x=88.5;c.y=96.5;w.player.x=88.5;w.player.y=97.5;w.player.facing={x:0,y:-1};
- const old={x:c.x,y:c.y};
- // At y95 x88 is walkable, so this particular move may succeed; seek a wall.
  let blocker=null;
  for(let y=80;y<112&&!blocker;y++)for(let x=78;x<102;x++){
   if(!core.mapWalk(w,x+.5,y+.5)&&core.mapWalk(w,x+.5,y+1.5)){
-    blocker={x,y};break;
+   blocker={x,y};break;
   }
  }
- assert.ok(blocker,"there must be walls near the city");
- c.x=blocker.x+.5;c.y=blocker.y+1.5;
- w.player.x=c.x;w.player.y=c.y+1;
- w.player.facing={x:0,y:-1};
- core.step(w,{push:true},1/60);
- assert.deepEqual({x:c.x,y:c.y},{x:blocker.x+.5,y:blocker.y+1.5},
-  "ciężki przedmiot przenika przez dawną geometrię");
+ assert.ok(blocker,"no wall witness beside Srebrna Brama");
+ c.x=blocker.x+.5;c.y=blocker.y+1.5;c.vx=c.vy=0;
+ w.player.x=c.x;w.player.y=c.y+.75;w.player.facing={x:0,y:-1};
+ const startY=c.y;
+ for(let i=0;i<90;i++)core.step(w,{dy:-1},1/60);
+ assert.ok(c.y>=startY-.06,"object passed through solid wall: "+JSON.stringify({startY,y:c.y}));
 });
-
-
 test("B1 saved state cannot be silently attached to a different authored map",()=>{
  const world=make(),snapshot=core.save(world);
  const unchanged=structuredClone(source);
