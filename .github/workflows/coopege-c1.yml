@@ -2,6 +2,14 @@ name: Coopege C1 - ongoing game-first campaign
 on:
   push:
     branches: ['research/coopege-c1-game-first-continuity-2026-10-23']
+    paths:
+      - '.github/workflows/coopege-c1.yml'
+      - 'research/coopege-c1/src/**'
+      - 'research/coopege-c1/template.html'
+      - 'research/coopege-c1/build.mjs'
+      - 'research/coopege-c1/*.mjs'
+      - 'research/coopege-b0/**'
+      - 'tools/browser/**'
 permissions:
   contents: read
 concurrency:

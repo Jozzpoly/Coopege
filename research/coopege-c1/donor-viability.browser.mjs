@@ -39,12 +39,26 @@ try{
    const observed=changed.entrances.find(x=>x.x===gate.x&&x.y===gate.y)?.name;
    const restored=api.map.importWorld(originalMap);
    const after=api.map.exportWorld();
+   const changedKeys=Object.keys(pure(originalMap)).filter(k=>
+     JSON.stringify(pure(originalMap)[k])!==JSON.stringify(pure(after)[k]));
+   const differences=[];
+   function compare(a,b,path="",depth=0){
+     if(differences.length>=30||depth>8||JSON.stringify(a)===JSON.stringify(b))return;
+     if(Array.isArray(a)&&Array.isArray(b)){
+       if(a.length!==b.length)differences.push({path:path+".length",before:a.length,after:b.length});
+       for(let i=0;i<Math.min(a.length,b.length);i++)compare(a[i],b[i],path+"["+i+"]",depth+1);
+     }else if(a&&b&&typeof a==="object"&&typeof b==="object"){
+       for(const k of new Set([...Object.keys(a),...Object.keys(b)]))
+         compare(a[k],b[k],path+"."+k,depth+1);
+     }else differences.push({path,before:String(a).slice(0,140),after:String(b).slice(0,140)});
+   }
+   compare(pure(originalMap),pure(after));
    return {map:{floorCount:api.map.floors.length,dimensions:[api.map.width,api.map.height],
      entrances:originalMap.entrances.length,npcs:originalMap.npcs.length,
      spawnGroups:originalMap.spawnGroups.length,links:originalMap.links.length,
      editAccepted:validation.ok,importWorldOk:imported.ok,editObserved:observed===
        "PRÓBA C1 — podpis autorskiej bramy",restoreOk:restored.ok,
-     restoredExact:JSON.stringify(pure(after))===JSON.stringify(pure(originalMap))},
+     restoredExact:JSON.stringify(pure(after))===JSON.stringify(pure(originalMap)),changedKeys,differences},
     content:{quests:originalContent.quests.map(q=>({name:q.name,kind:q.tk})),
       classes:Object.keys(originalContent.classes),monsters:Object.keys(originalContent.monsters),
       proposedCourierQuestAccepted:questValidation.ok,courierQuestErrors:questValidation.errors,
@@ -52,6 +66,8 @@ try{
     actorRole:{courierSchemaAccepted:roleValidation.ok,
       warnings:roleValidation.issues||[]},capabilities:api.project.getCapabilities()};
   })()`);
+  writeFileSync(resolve(out,"a1-authoring-feasibility.json"),JSON.stringify(analysis,null,2)+"\n");
+  console.info("COOPEGE_C1_A1_AUTHORING_DIAGNOSTICS",JSON.stringify(analysis));
   assert.deepEqual(analysis.map.dimensions,[200,200]);
   assert.equal(analysis.map.floorCount,5);
   assert.equal(analysis.map.editAccepted,true);
