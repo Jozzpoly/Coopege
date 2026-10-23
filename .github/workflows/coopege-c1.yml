@@ -1,7 +1,7 @@
-name: Coopege C1 - ongoing game-first campaign
+name: Coopege E1 - independent worker and delivered supplies
 on:
   push:
-    branches: ['research/coopege-c1-game-first-continuity-2026-10-23']
+    branches: ['experiment/coopege-e1-worker-cargo-2026-10-24']
     paths:
       - '.github/workflows/coopege-c1.yml'
       - 'research/coopege-c1/src/**'
@@ -13,7 +13,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: coopege-c1-${{ github.ref }}
+  group: coopege-e1-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   playable:
