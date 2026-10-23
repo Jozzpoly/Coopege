@@ -8,7 +8,7 @@ const root=resolve(import.meta.dirname,"../..");
 const html=readFileSync(resolve(root,"research/coopege-b5/Coopege_B5_Pierwsza_Wyprawa.html"),"utf8");
 const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
 const fixture=JSON.parse(readFileSync(resolve(root,".build/coopege-b0/source-authored-witness.json"),"utf8"));
-assert.ok(scripts.length===4);
+assert.ok(scripts.length>=4&&scripts.length<=5,'Expected core, episode, view, bootstrap and optional atlas');
 const context={console,Math,JSON,Number,Date};context.globalThis=context;vm.createContext(context);
 vm.runInContext(scripts[0],context);vm.runInContext(scripts[1],context);
 const core=context.CoopegeB1Core;
