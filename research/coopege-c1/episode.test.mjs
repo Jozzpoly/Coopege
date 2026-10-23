@@ -95,7 +95,7 @@ test("C1 same authored delivery supports bypass or direct material push without 
  }
  // Both paths obey the same collision geometry, actors and input contract.
  const direct=walk([[{dy:1},310],[{dx:1},31]]);
- const detour=walk([[{dy:1},175],[{dx:1},30],[{dy:1},140]]);
+ const detour=walk([[{dy:1},175],[{dx:1},30],[{dy:1},130],[{dx:1},18],[{dy:1},20]]);
  assert.ok(direct.cart.y>103,"body push route did not change the physical scene");
  assert.equal(detour.cart.y,99.5,"walking around the cart inexplicably moved it");
  assert.equal(direct.kills,0);

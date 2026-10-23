@@ -49,7 +49,7 @@
     for(const r of w.rats){
       if(!r.alive)continue;
       const d=position(r,k);
-      if(d>5||!base.sight(w,r,k)||position(p,r)<3.2)continue;
+      if(d>5||!base.sight(w,r,k)||(position(p,r)<5.8&&base.sight(w,r,p)))continue;
       if(d<.8&&k.attackCd===0){
         k.hp=Math.max(0,k.hp-6);k.attackCd=1.2;
         if(k.hp===0){
@@ -59,7 +59,7 @@
           return;
         }
       }else if(d>=.8){
-        const dx=(k.x-r.x)/d*.85*dt,dy=(k.y-r.y)/d*.85*dt;
+        const dx=(k.x-r.x)/d*1.85*dt,dy=(k.y-r.y)/d*1.85*dt;
         if(base.canOccupy(w,r.x+dx,r.y+dy,.25,false,r.id)){r.x+=dx;r.y+=dy;}
       }
     }
@@ -114,7 +114,10 @@
       (w.kills>=e.legacyBounty.need&&!e.verminBountyPaid));
     const handled=doAction&&(atCourier||atMerchant||atWorker);
     base.step(w,handled?{...input,interact:false}:input,dt);
-    if(w.player.dead)return w;
+    if(w.player.dead){
+      if(e.hasCourierBag&&!e.courierDelivered){e.hasCourierBag=false;e.courierBag={x:p.x,y:p.y};addNote(w,'Upuszczona sakwa pozostaje przy miejscu upadku gracza.');}
+      return w;
+    }
     // Cargo is a physical place in the shared world, not an unrecoverable quest flag.
     // Q puts the carried parcel down near the actor; it persists and can be taken
     // again at any later time, with no virtual bag copy in the inventory.
@@ -126,15 +129,17 @@
       e.hasCourierBag=false;
       addNote(w,'Odkładasz sakwę w świecie. Pozostanie w tym miejscu, dopóki jej nie zabierzesz.');
     }
-    if(doAction&&atWorker&&e.workerCarrying){
+    // A visible, reachable ground parcel takes precedence over talking to
+    // an actor who happens to be standing near the same object.
+    if(doAction&&atCourier){
+      e.hasCourierBag=true;
+      addNote(w,'Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.');
+    }else if(doAction&&atWorker&&e.workerCarrying){
       e.workerCarrying=false;w.worker.carrying=false;e.hasCourierBag=true;w.worker.phase='searching';
       addNote(w,'Tragarz przekazuje Ci sakwę, którą możesz sam dostarczyć.');
     }else if(doAction&&atWorker){
       addNote(w,w.worker.phase==='sheltering'?'Tragarz: widziałem szczury. Nie chcę ryzykować ładunku.':
         'Tragarz: szukam dostawy na południowym trakcie.');
-    }else if(doAction&&atCourier){
-      e.hasCourierBag=true;
-      addNote(w,'Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.');
     }else if(doAction&&atMerchant){
       if(e.hasCourierBag&&!e.courierDelivered){
         e.hasCourierBag=false;e.courierDelivered=true;e.merchantStock+=3;p.coins+=e.courierRewardCoins;p.bandages++;
