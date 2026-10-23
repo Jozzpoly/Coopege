@@ -38,7 +38,7 @@ function attach(source){
     const dot=(at,col,r=2.9)=>{const x=(at.x-p.x+rad)*cell,y=(at.y-p.y+rad)*cell;g.fillStyle=col;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();};
     for(const n of world.authored.npcs)dot(n,'#92d7c9',3.2);
     for(const r of world.rats)if(r.alive&&core.dist(r,p)<10)dot(r,'#e58d7b',2.2);
-    if(!world.episode.courierDelivered&&!world.episode.hasCourierBag)dot(world.episode.courierBag,'#f3d28e',4);
+    if(!world.episode.courierDelivered&&!world.episode.hasCourierBag&&!world.episode.workerCarrying)dot(world.episode.courierBag,'#f3d28e',4);
     dot(world.cart,'#c3985a',3.2);dot(p,'#fff3bc',4);
     g.strokeStyle='#e4d6ab';g.globalAlpha=.65;g.lineWidth=1;g.strokeRect(1.5,1.5,w-3,h-3);g.globalAlpha=1;
   }
