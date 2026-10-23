@@ -15,6 +15,19 @@
 - Workflow B1 na tej gałęzi obsługuje B2 i uruchamia pełny Node + Chromium browser gate. **Nie uznawać CI za PASS bez odczytania dokładnego SHA.** Historyczny PASS z 22 X dotyczył wcześniejszej rewizji B1.
 - Brak Owner-playtestu B2. Jakość walki, responsywność w rzeczywistej przeglądarce 144 Hz, art direction, użyteczność ekonomii i wartość drugiej wyprawy są **NIEUDOWODNIONE**.
 
+## Weryfikacja po porównaniu — 23 X, exact browser artifact
+
+**PASS:** [GitHub Actions #40004631012](https://github.com/Jozzpoly/Coopege/actions/runs/40004631012), dokładny commit `6ed9c78b7737b96e82776c69ecbf4ec82864672c`. Workflow odtworzył autorskie świadectwo B0, wykonał pełne testy Node, zbudował HTML B2, przeszedł zwykłe sterowanie w Chromium i pobrał **SHA-pinned A1** (commit `c8bc9f1117e32f6db5940a565c905569e95692b9`) wyłącznie jako oddzielny comparator bez merge jego starego kodu.
+
+**Wspólna fizyczna droga:** start x88.5/y84.5, 3.7 s naturalnego `S` w Chrome. A1 osiągnął y99.60 (piksele podzielone przez 32), B2 y98.31. **Nie jest to uczciwy benchmark szybkości ani feelingu.** Obydwa potwierdzają dotarcie ku południowej bramie. Dowód [same-place-observations.json w artefakcie CI](https://github.com/Jozzpoly/Coopege/actions/runs/40004631012).
+
+**Ogląd obydwu rzeczywistych screenshotów:**
+- A1 pokazuje autorską atmosferę drogi, podpis regionu, przeciwników widocznych przy trakcie, quest, minimapę, wieloelementowy HUD i wyraźną postać. UI jest ciężkie i zajmuje znaczną część ekranu.
+- B2 lepiej oddaje powierzchnię widokowi, lecz ma bardzo surowe materiały, uproszczoną postać, brak czytelnej przygody/nagrody, i przy bramie gracz napotyka wózek przed samymi przeciwnikami. Ta materialna możliwość nie została jeszcze wykazana jako **atrakcyjny wybór** ani jako zmiana sensu drugiej wyprawy.
+- A1 raportuje 110 przeciwników aktywnych na powierzchni; B2 pokazuje pięć szczurów wybranej grupy. Te liczniki mierzą **inny zakres** i nie mogą być porównane jako wskaźnik jakości AI czy zagęszczenia spotkania.
+
+**Werdykt:** B2 pokazuje wybrane nowe systemowe możliwości, ale nadal **PRODUCT FAIL** wobec bogactwa doświadczenia A1. Zdecydowanym następnym celem jest sensowna sytuacja z konsekwencją i powrotem, nie dalsza infrastruktura. Docelowej architektury ani czystej ścieżki migracji nie wybrano. Pełne oceny minute-to-minute przez Ownera nadal brak.
+
 ## Następny priorytet produktowy
 
 Nie zaczynać reanimacji M8 LAN, wielkiej fizyki ani nowego dashboardu. Porównać przy tym samym authored miejscu A1 (bogatsze RPG z legacy) oraz B2 (swobodniejsza materialna interakcja). Szukać jednego powodu do drugiej wyprawy: świat reaguje, gracz ma sensowny wybór, a nagroda lub wiedza zmienia kolejne podejście. Jeśli B2 pozostaje tylko technicznie elegancką i ubogą w doświadczenie Tibią, trzeba wybrać inną drogę, nie bronić własnej implementacji.
