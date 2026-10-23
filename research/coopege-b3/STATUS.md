@@ -19,5 +19,13 @@ Owner stanowczo odrzucił sterowanie polegające na wciśnięciu klawisza, aby p
 ## Autonomia zmian
 B3 jest izolowaną eksperymentalną gałęzią nad B2 [PR #5](https://github.com/Jozzpoly/Coopege/pull/5). Nie scalać do main, nie wypuszczać do Jaskini. Nie przepisywać A1 ani M7. B3 może zostać zastąpione, jeśli dalszy test nie obroni UX.
 
-## Weryfikacja
-Wypełnić po exact-HEAD CI, nie na podstawie starszego SHA.
+## Dowody dokładnej rewizji (23.10.2026)
+
+- **PASS:** [CI #40008460037](https://github.com/Jozzpoly/Coopege/actions/runs/40008460037), exact HEAD `731a373f542e14e6c5291f472c84fae46a150cdc`. Automatyczny export rzeczywistych danych Tibii B0, wszystkie testy Node (włącznie z osiągalnością chwytu), generacja samodzielnego HTML, normalny ruch i kontakt w Chromium, syntetyczne zdarzenia pointer skierowane do rzeczywistych handlerów canvasu, zapis/odczyt, A1 vs B3 i screenshoty.
+- **Prawdziwa droga klawiaturą:** wyjście z Srebrnej Bramy, kontakt i ruchomy wózek o ułamkowym położeniu, bez klawisza E do przesunięcia i bez `one-cell` akcji. To naturalne wejście użytkownika w automatycznym browser-run.
+- **Chwyt pointerem:** w Chromium zdarzenia `PointerEvent` dostarczono syntetycznie do produkcyjnego canvasu; mechanizm faktycznie zmienił położenie wózka. To dowód handlerów, **nie** test płynności prawdziwą myszą ani dotykiem Ownera.
+- **A1 porównane nadal:** oba otwierają autorski teren, lecz B3 wciąż istotnie uboższe od A1 jako gra. Nie używać testu kontaktu do ogłaszania wyboru docelowego silnika.
+- Gotowy HTML (wyjściowy artefakt workflow): `coopege-b1/Coopege_B3_Zywy_Kontakt.html`. Weryfikacja odbyła się przez HTTP localhost Chromium; otwarcie standalone przez `file://` nie zostało rozstrzygnięte na tej platformie.
+
+**Granice:** stopniowane kolizje i prosty drag to nadal prowizoryczny model — brak rotacji, wielobryłowych obiektów, reakcji siły zwrotnej, autentycznej fizyki chwytu dłoni, interakcji na wielu poziomach i prawdziwego Owner feel test. Niczego z tego nie nazywać zakończonym.
+
