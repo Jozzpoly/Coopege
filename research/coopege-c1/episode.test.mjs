@@ -36,7 +36,7 @@ test("B5 collectible delivery, one-time payment, bounty and save/restore",()=>{
  w.player.x=90.5;w.player.y=102.5;core.step(w,{interact:true},1/60);
  assert.equal(w.episode.hasCourierBag,true);
  const snap=JSON.parse(JSON.stringify(core.save(w)));
- assert.equal(snap.version,3);
+ assert.equal(snap.version,4);
  const t=core.restore(fixture,snap);
  assert.equal(t.rats.length,13);assert.deepEqual(JSON.stringify(core.save(t)),JSON.stringify(snap));
  t.player.x=84.5;t.player.y=83.5;
@@ -51,4 +51,34 @@ test("B5 collectible delivery, one-time payment, bounty and save/restore",()=>{
  assert.equal(t.episode.verminBountyPaid,true);
  core.step(t,{interact:true},1/60);
  assert.equal(t.player.coins,gold+78,"bounty must not repay; merchant sells a bandage instead");
+});
+
+test("C1 parcel can be placed in the world, left behind, recovered, saved and delivered once",()=>{
+ const w=core.create(fixture),p=w.player,e=w.episode;
+ p.x=e.courierBag.x;p.y=e.courierBag.y-1;p.facing={x:0,y:1};
+ core.step(w,{interact:true},1/60);
+ assert.equal(e.hasCourierBag,true);
+ const origin={...e.courierBag};
+ p.x-=1.5;p.y-=1.5;
+ core.step(w,{drop:true},1/60);
+ assert.equal(e.hasCourierBag,false);
+ assert.ok(core.dist(e.courierBag,origin)>1,"parcel returned to scripted pickup spot");
+ const dropped={...e.courierBag};
+ const rec=JSON.parse(JSON.stringify(core.save(w)));
+ assert.equal(rec.version,4);
+ const loaded=core.restore(fixture,rec);
+ assert.deepEqual(JSON.stringify(core.save(loaded)),JSON.stringify(rec));
+ loaded.player.x=82.5;loaded.player.y=82.5;
+ core.step(loaded,{interact:true},1/60);
+ assert.equal(loaded.episode.hasCourierBag,false,"remote pickup");
+ loaded.player.x=dropped.x;loaded.player.y=dropped.y-.65;
+ core.step(loaded,{interact:true},1/60);
+ assert.equal(loaded.episode.hasCourierBag,true,"local pickup after loading");
+ loaded.player.x=84.5;loaded.player.y=83.5;
+ core.step(loaded,{interact:true},1/60);
+ assert.equal(loaded.episode.courierDelivered,true);
+ assert.equal(loaded.player.coins,24);
+ core.step(loaded,{interact:true},1/60);
+ assert.equal(loaded.player.coins,21,"merchant sale after story reward");
+ assert.ok(!loaded.lastAction.includes("Trakt znowu"),"merchant claimed rat danger is gone while rats survive");
 });
