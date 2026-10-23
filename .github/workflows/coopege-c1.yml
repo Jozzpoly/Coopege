@@ -66,4 +66,5 @@ jobs:
             .build/coopege-c1/*.png
             .build/coopege-c1/*.json
             .build/coopege-b0/source-authored-witness.json
-            research/coopege-c1/ACTIVE.md\n            research/coopege-c1/PRODUCT_RESCUE_2026-10-24.md
+            research/coopege-c1/ACTIVE.md
+            research/coopege-c1/PRODUCT_RESCUE_2026-10-24.md
