@@ -45,6 +45,27 @@ try{
   assert.ok(moved.y>atRoad.y+.35,
     "player did not advance with the material object: "+JSON.stringify({atRoad,moved}));
   await page.screenshot(resolve(out,"B3-03-continuous-body-push.png"));
+  // Exercise the actual canvas pointer handlers inside Chromium. These are
+  // labelled synthetic DOM pointer events, not a human mouse-feel playtest.
+  await page.evaluate(`(()=>{
+   const canvas=document.getElementById("game"),rect=canvas.getBoundingClientRect();
+   const current=CoopegeB1Evidence.inspect();
+   const pxRatio=canvas.width/rect.width,pyRatio=canvas.height/rect.height;
+   const scale=Math.min(60,Math.max(34,Math.min(canvas.width/19,canvas.height/12)));
+   const cx=rect.left+rect.width/2+(current.cart.x-current.x)*scale/pxRatio;
+   const cy=rect.top+rect.height/2+(current.cart.y-current.y)*scale/pyRatio;
+   const props=(y)=>({bubbles:true,cancelable:true,clientX:cx,clientY:y,pointerId:417,button:0});
+   canvas.dispatchEvent(new PointerEvent("pointerdown",props(cy)));
+   canvas.dispatchEvent(new PointerEvent("pointermove",props(cy+35)));
+  })()`);
+  await sleep(430);
+  const gripped=await inspect(page);
+  assert.ok(gripped.cart.y>moved.cart.y+.08,
+    "close-range pointer grip failed to move the real world state: "+JSON.stringify({moved,gripped}));
+  await page.evaluate(`document.getElementById("game").dispatchEvent(
+   new PointerEvent("pointerup",{bubbles:true,clientX:0,clientY:0,pointerId:417,button:0}))`);
+  await sleep(220);
+  await page.screenshot(resolve(out,"B3-03b-close-range-pointer-grip.png"));
   await page.pressKey("KeyP","p",80,80);
   const saved=await inspect(page);
   await page.keyDown("KeyW","w",87);await sleep(650);await page.keyUp("KeyW","w",87);
