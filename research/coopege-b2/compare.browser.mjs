@@ -5,14 +5,14 @@ import {resolve} from "node:path";
 import {createChromiumHarness,findChromiumExecutable} from "../../tools/browser/chromium-cdp.mjs";
 
 // Both files are exact standalone game artifacts, no mocked world or test teleport.
-// A1 is pinned separately by the workflow; B2 is built from this commit.
+// A1 is pinned separately by the workflow; B3 is built from this commit.
 const root=resolve(import.meta.dirname,"../..");
 const output=resolve(root,".build/coopege-b2");
 mkdirSync(output,{recursive:true});
 const a1=readFileSync(resolve(output,"A1_pinned.html"),"utf8");
-const b2=readFileSync(resolve(root,".build/coopege-b1/Coopege_B1_Za_Brama.html"),"utf8");
+const b2=readFileSync(resolve(root,".build/coopege-b1/Coopege_B3_Zywy_Kontakt.html"),"utf8");
 const server=createServer((req,res)=>{
- const html=req.url==="/a1"?a1:req.url==="/b2"?b2:null;
+ const html=req.url==="/a1"?a1:req.url==="/b3"?b2:null;
  res.writeHead(html?200:404,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store"});
  res.end(html??"Not found");
 });
@@ -22,7 +22,7 @@ const executable=findChromiumExecutable();
 if(!executable)throw Error("Real Chromium is required for same-place comparison");
 const browser=await createChromiumHarness({executable});
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const observations={test:"Same authored southern approach, natural keyboard input",units:"tiles",a1:null,b2:null,
+const observations={test:"Same authored southern approach, natural keyboard input",units:"tiles",a1:null,b3:null,
  disclaimer:"Technical/visual comparison only; neither enjoyment nor player-choice value is automatically demonstrated"};
 try{
  await browser.withPage(async page=>{
@@ -45,16 +45,16 @@ try{
    sourceScale:"A1 world coordinates / 32"};
  });
  await browser.withPage(async page=>{
-  await page.navigate(origin+"/b2");
+  await page.navigate(origin+"/b3");
   await sleep(500);
   const start=await page.evaluate("window.CoopegeB1Evidence.inspect()");
   assert.ok(start.authoredNpcCount===2&&start.rats>0,"B2 lost authored characters or threats");
-  await page.screenshot(resolve(output,"B2-01-city.png"));
+  await page.screenshot(resolve(output,"B3-01-city.png"));
   await page.keyDown("KeyS","s",83);await sleep(3700);await page.keyUp("KeyS","s",83);
   const south=await page.evaluate("window.CoopegeB1Evidence.inspect()");
   assert.ok(south.y>start.y+5,"B2 did not travel south with normal keyboard");
-  await page.screenshot(resolve(output,"B2-02-south.png"));
-  observations.b2={source:"B2 independent authored runtime",threats:start.rats,
+  await page.screenshot(resolve(output,"B3-02-south.png"));
+  observations.b3={source:"B3 independent authored contact runtime",threats:start.rats,
    authoredNpcCount:start.authoredNpcCount,authoredEncounter:start.authoredEncounter,
    start:{x:+start.x.toFixed(2),y:+start.y.toFixed(2)},
    south:{x:+south.x.toFixed(2),y:+south.y.toFixed(2)},cart:south.cart};

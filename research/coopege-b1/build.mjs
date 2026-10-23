@@ -9,7 +9,7 @@ const renderer=readFileSync(resolve(root,"research/coopege-b1/view.js"),"utf8");
 const html=`<!doctype html>
 <html lang="pl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coopege B1 — Za Bramą</title>
+<title>Coopege B3 — Za Bramą</title>
 <style>
 :root{color-scheme:dark;font:14px system-ui,sans-serif;background:#0b1411;color:#e7e6d5}
 *{box-sizing:border-box}body{margin:0;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
@@ -27,11 +27,11 @@ button:hover{background:#426149}#hint{font-size:11px;color:#d5c9a7;max-width:310
 @media(max-width:520px){#hud{font-size:10px}#message{font-size:10px}}
 </style></head>
 <body>
-<header><div><h1>Coopege <small>/ B1 — Za Bramą</small></h1><p>Nie remont starych skryptów. Ten sam teren Srebrnej Bramy, nowa możliwość działania.</p></div>
-<div id="hint">Wyprawa: wyjdź południową bramą. Wózek może zatrzymać przejście lub osłonić Cię przed dostrzeżeniem.</div></header>
+<header><div><h1>Coopege <small>/ B3 — Żywy kontakt</small></h1><p>Nie remont starych skryptów. Ten sam teren Srebrnej Bramy, nowa możliwość działania.</p></div>
+<div id="hint">Wyprawa: wyjdź południową bramą. Popychaj wózek ruchem postaci lub chwyć i przeciągnij go myszą z bliska. Bez skoków po kratkach.</div></header>
 <div id="hud">Ładowanie autorskiego świata…</div><div id="meterbg"><div id="meter"></div></div>
-<main><canvas id="game" aria-label="Grywalny świat Coopege B1"></canvas></main>
-<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · E — popchnij / porozmawiaj · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
+<main><canvas id="game" aria-label="Grywalny świat Coopege B3"></canvas></main>
+<footer><div><div id="message">Otwieranie Srebrnej Bramy…</div><div id="help">WASD — ruch · Spacja — cios · Kontakt WASD — pchanie · LPM przy wózku — chwytaj/przeciągaj · E — rozmowa · R — opatrunek · P — zapisz · L — wczytaj · N — nowa próba</div></div>
 <div id="actions"><button onclick="CoopegeB1Evidence.save()">Zapisz</button><button onclick="CoopegeB1Evidence.load()">Wczytaj</button><button onclick="CoopegeB1Evidence.reset()">Nowy świat</button></div></footer>
 <script>${core}</script>
 <script>${renderer}</script>
@@ -42,5 +42,5 @@ window.CoopegeB1View.attach(source);
 </script>
 </body></html>`;
 mkdirSync(out,{recursive:true});
-writeFileSync(resolve(out,"Coopege_B1_Za_Brama.html"),html);
+writeFileSync(resolve(out,"Coopege_B3_Zywy_Kontakt.html"),html);
 console.info("COOPEGE_B1_BUILD",JSON.stringify({bytes:Buffer.byteLength(html),floors:Object.keys(witness.authored.floors).length,npc:witness.authored.npcs.length,group:witness.authored.spawnGroups.length}));
