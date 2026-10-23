@@ -7,7 +7,7 @@ function attach(source){
   const hud=document.getElementById("hud"),message=document.getElementById("message"),meter=document.getElementById("meter");
   if(!ctx)throw Error("Canvas 2D unavailable");
   let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false},last=0,acc=0,animation=0;
-  let camera={x:world.player.x,y:world.player.y},stopped=false;
+  let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null;
   const saveKey="coopege-b3-contact-v2";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
@@ -70,7 +70,12 @@ function attach(source){
     for(let k=-1;k<=1;k++){ctx.beginPath();ctx.moveTo(-cs*.42,cs*.14*k);ctx.lineTo(cs*.42,cs*.14*k);ctx.stroke();}
     ctx.fillStyle="#272525";ctx.fillRect(-cs*.59,-cs*.30,cs*.18,cs*.2);ctx.fillRect(cs*.41,cs*.17,cs*.18,cs*.2);
     ctx.restore();
-    if(core.dist(world.player,c)<2)label("Napieraj ruchem · WASD",cp.x,cp.y-scale*.75,"#ffe4aa",Math.round(scale*.20));
+    if(core.dist(world.player,c)<2)label("Napieraj WASD lub przytrzymaj LPM",cp.x,cp.y-scale*.75,"#ffe4aa",Math.round(scale*.19));
+    if(dragTarget){
+      const q=loc(dragTarget.x,dragTarget.y);
+      ctx.strokeStyle="rgba(255,218,137,.65)";ctx.lineWidth=Math.max(2,scale*.045);
+      ctx.setLineDash([6,5]);ctx.beginPath();ctx.moveTo(cp.x,cp.y);ctx.lineTo(q.x,q.y);ctx.stroke();ctx.setLineDash([]);
+    }
     for(const r of world.rats){
       if(!r.alive)continue;
       const p=loc(r.x,r.y),rad=scale*.26;
@@ -103,8 +108,8 @@ function attach(source){
   }
   function label(text,x,y,color,font){ctx.font=`600 ${Math.max(10,font)}px system-ui`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineWidth=3;ctx.strokeStyle="rgba(2,9,8,.88)";ctx.strokeText(text,x,y);ctx.fillStyle=color;ctx.fillText(text,x,y);}
   function store(){try{localStorage.setItem(saveKey,JSON.stringify(core.save(world)));world.lastAction="Zapisano ten stan świata i pozycję wózka.";}catch(e){world.lastAction="Zapis niedostępny w tej przeglądarce."}}
-  function load(){try{const raw=localStorage.getItem(saveKey);if(!raw){world.lastAction="Brak zapisu w tym oknie.";return;}world=core.restore(source,JSON.parse(raw));camera={x:world.player.x,y:world.player.y};world.lastAction="Przywrócono świat wraz z przesuniętymi przedmiotami.";}catch(e){world.lastAction="Zapis jest niezgodny: "+e.message;}}
-  function reset(){world=core.create(source);camera={x:world.player.x,y:world.player.y};}
+  function load(){dragTarget=null;dragPointerId=null;try{const raw=localStorage.getItem(saveKey);if(!raw){world.lastAction="Brak zapisu w tym oknie.";return;}world=core.restore(source,JSON.parse(raw));camera={x:world.player.x,y:world.player.y};world.lastAction="Przywrócono świat wraz z przesuniętymi przedmiotami.";}catch(e){world.lastAction="Zapis jest niezgodny: "+e.message;}}
+  function reset(){dragTarget=null;dragPointerId=null;world=core.create(source);camera={x:world.player.x,y:world.player.y};}
   function key(e,down){
    const k=e.code;
    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].includes(k))e.preventDefault();
@@ -117,9 +122,34 @@ function attach(source){
    if(down&&k==="KeyN")reset();
    if(down)pressed.add(k);else pressed.delete(k);
   }
+  function pointerWorld(e){
+    const rect=canvas.getBoundingClientRect(),{w,h,scale}=size();
+    const x=(e.clientX-rect.left)*w/rect.width;
+    const y=(e.clientY-rect.top)*h/rect.height;
+    return {x:camera.x+(x-w*.5)/scale,y:camera.y+(y-h*.5)/scale};
+  }
+  canvas.addEventListener("pointerdown",e=>{
+    if(dragPointerId!==null||e.button!==0)return;
+    const q=pointerWorld(e);
+    if(core.dist(q,world.cart)>world.cart.radius+.18)return;
+    if(core.dist(world.player,world.cart)>1.5)return;
+    dragPointerId=e.pointerId;dragTarget=q;
+    canvas.setPointerCapture?.(e.pointerId);e.preventDefault();
+  });
+  canvas.addEventListener("pointermove",e=>{
+    if(dragPointerId===e.pointerId)dragTarget=pointerWorld(e);
+  });
+  function releaseDrag(e){
+    if(dragPointerId!==e.pointerId)return;
+    dragPointerId=null;dragTarget=null;
+    if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId);
+  }
+  canvas.addEventListener("pointerup",releaseDrag);
+  canvas.addEventListener("pointercancel",releaseDrag);
+  canvas.addEventListener("lostpointercapture",releaseDrag);
   document.addEventListener("keydown",e=>key(e,true));
   document.addEventListener("keyup",e=>key(e,false));
-  window.addEventListener("blur",()=>pressed.clear());
+  window.addEventListener("blur",()=>{pressed.clear();dragTarget=null;dragPointerId=null;});
   function frame(now){
     if(stopped)return;
     const delta=last?Math.min(.08,(now-last)/1000):0;last=now;acc+=delta;
@@ -128,7 +158,7 @@ function attach(source){
     // Keep edge-triggered actions until a simulation tick actually consumes them.
     // Clearing on every render frame drops quick presses on high-refresh displays.
     while(acc>=1/60){
-      core.step(world,{dx,dy,hit:pending.hit,interact:pending.interact,bandage:pending.bandage},1/60);
+      core.step(world,{dx,dy,hit:pending.hit,interact:pending.interact,bandage:pending.bandage,grab:dragTarget},1/60);
       acc-=1/60;
       pending={interact:false,hit:false,bandage:false};
     }
