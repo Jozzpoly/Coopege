@@ -67,7 +67,7 @@ try{
   await page.screenshot(resolve(out,"B5-05-delivered.png"));
   await page.pressKey("KeyE","e",69,70);await sleep(100);
   const repeat=await inspect(page);
-  assert.equal(repeat.coins,delivered.coins,"repeat delivery paid twice");
+  assert.equal(repeat.coins,delivered.coins-3,"merchant must sell a bandage, not repay the delivery");
   writeFileSync(resolve(out,"expedition-trace.json"),JSON.stringify(trace,null,2));
   console.info("COOPEGE_B5_EXPEDITION_BROWSER_PASS",JSON.stringify({start:{x:start.x,y:start.y},
    trail:{x:trail.x,y:trail.y,cart:trail.cart},claim:claimed.episode.hasCourierBag,
