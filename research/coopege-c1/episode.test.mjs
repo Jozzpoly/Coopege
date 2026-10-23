@@ -89,7 +89,7 @@ test("C1 same authored delivery supports bypass or direct material push without 
    const w=core.create(fixture);
    for(const [input,frames] of sequence)for(let i=0;i<frames;i++)core.step(w,input,1/60);
    core.step(w,{interact:true},1/60);
-   assert.equal(w.episode.hasCourierBag,true,"natural route did not reach the same parcel");
+   assert.equal(w.episode.hasCourierBag,true,"natural route did not reach parcel: "+JSON.stringify({player:w.player,worker:w.worker,cart:w.cart,bag:w.episode.courierBag,carriedByWorker:w.episode.workerCarrying,nearRats:w.rats.filter(r=>r.alive&&core.dist(r,w.player)<3).map(r=>({x:r.x,y:r.y}))}));
    assert.equal(w.player.dead,false);
    return w;
  }

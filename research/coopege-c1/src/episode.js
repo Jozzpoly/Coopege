@@ -40,7 +40,7 @@
   // The original authored world supplies the gate and merchant. The worker
   // and its cargo-recovery mission are explicitly E1 experimental fiction.
   const outgoing=[{x:90.5,y:100.5},{x:90.5,y:103.5}];
-  const returning=[{x:90.5,y:98.5},{x:88.5,y:96.5},{x:88.5,y:84.5},{x:84.5,y:83.5}];
+  const returning=[{x:90.5,y:98.5},{x:90.5,y:96.5},{x:90.5,y:83.5},{x:84.5,y:83.5}];
   function updateWorker(w,dt){
     const e=w.episode,k=w.worker,p=w.player;
     if(!k.alive||k.phase==='resting')return;
