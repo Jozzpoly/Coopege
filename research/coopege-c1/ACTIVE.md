@@ -30,6 +30,9 @@ This file is for the next agent. Read FIRST, then read the actual HEAD, tests, O
 **Owner-facing:** lead with product truth, visible difference, evidence, risk, next action; no wall of logs.
 **Reality limit:** no asynchronous/background agent work after the response. Long autonomous runs mean carrying work through the active turn, not promising future invisible execution.
 
+## Product-level redirection after Owner doubt · 24.10.2026
+**Owner concern is grounded.** The team repeated incremental isolated mechanism building 8 PRs, still played/looked worse than original Tibia. Do not infer C1 is the final runtime. The concrete next priority is a single coherent, authored RPG situation with local actor, visible place, material agency, legible action/combat and lasting consequence. Maintain A1 as richer playable comparator. One isolated decision-changing authoring probe has now been added (see `PRODUCT_RESCUE_2026-10-24.md`). Its result shows A1 map import is semantically reversible BUT not raw structurally identical: absent `eliteCount` defaults normalize to zero. Also A1 quest/talent authoring is executor-constrained and accepts unsupported NPC roles. **Do not overstate A1's Studio capabilities.** Avoid another shallow C2 build. Next address the actor/world/content semantics barrier before promising a better game.
+
 ## Current C1 move — execution status
 **C1 source split: PASS.** Six source-owned modules (`src/core.js`, `episode.js`, `view.js`, `atlas.js`, `witness.json`, `bootstrap.js`), an HTML shell, and deterministic `build.mjs`. Rebuilt artifact was **byte-for-byte identical** with B5 before gameplay changes; initial exact-HEAD [Chrome+Node PASS #40027781864](https://github.com/Jozzpoly/Coopege/actions/runs/40027781864). Gameplay changes follow this known-good fork; do NOT keep asserting byte parity afterward.
 

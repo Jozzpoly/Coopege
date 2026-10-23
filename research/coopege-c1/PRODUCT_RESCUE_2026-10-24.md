@@ -30,6 +30,15 @@ No need to freeze target length, combat math, final art style, 2D/2.5D/3D or que
 - The 45 atlas assets are historical placeholders, not final art. B4 noise and B5 re-embedding do not constitute art direction.
 - Experience alternatives from [Necesse](https://www.necessegame.com/), [Secrets of Grindea](https://www.secretsofgrindea.com/), [Stoneshard](https://stoneshard.com/) demonstrate distinct coherent relationships between visible world, meaningful actions and reasons to return. Inspirations, **not architecture or feature checklists**, and not evidence of what Owner will like.
 
+## First executed A1 host viability experiment
+Exact source code and original Chrome host were tested, not inferred from roadmap:
+- Original 5-floor / 200×200 world, 45 groups, 13 entrances, 2 NPC roles are preserved; a south-gate label edit validates, imports and reverses.
+- **Structural roundtrip FAIL:** `importMapPackage` normalizes absent group `eliteCount` into explicit `0`. This affects group metadata representation, not authored geometry or observed spawn semantics. Compare with a **scoped semantic canonicalization**, but keep a raw structural drift signal and original export copy. Do not call the format byte-stable.
+- A courier/retrieval quest with `tk: 'courier_parcel'` is rejected: quest validator only allows a known monster type. The 5 original quests are kill-count contracts.
+- A brand-new warrior talent `carry_strength` validates with a warning that it has NO executor. New labels/metadata are not new gameplay.
+- Custom NPC role `courier` passes the map schema, although old `drawNPCWindow` dispatches only healer vs everything-else-merchant. This is a **semantic validation gap**, not credible extensibility.
+**Interpretation:** A1 can rapidly host authored *map* trials and old RPG context; it is **not an adequate system for genuinely new NPC/quest/skill behaviors without targeted runtime modification**. Crucial difference between authoring place and authoring gameplay. Detailed probe evidence: `research/coopege-c1/donor-viability.browser.mjs`, `.build/coopege-c1/a1-authoring-feasibility.json` in exact-HEAD CI artifact.
+
 ## High-value tests before any more game system production
 1. **This repo's executable A1 donor-authoring viability test:** import + restore a benign authored label via original map API, recover same baseline; inspect existing content validation for a non-kill retrieval quest and unimplemented new talent behavior. Evidence reveals whether A1 can be used as a quick source-rich experimental host *and* where it is semantically closed.
 2. **Content-authoring boundary, not another renderer:** demonstrate one isolated authored place using original authoring/project formats, with real NPC or world state that can do something beyond healer/merchant and kill counters. If impossible without hacking monolithic globals, **stop A1-hosting** and select a minimal hybrid seam; do not accumulate patches.

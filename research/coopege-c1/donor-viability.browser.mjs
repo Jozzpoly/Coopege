@@ -53,12 +53,22 @@ try{
      }else differences.push({path,before:String(a).slice(0,140),after:String(b).slice(0,140)});
    }
    compare(pure(originalMap),pure(after));
+   // The historical importer's normalizeSpawnGroup adds explicit eliteCount:0
+   // where absence had identical runtime meaning (g.eliteCount||0).
+   // Strict structural drift remains visible, while semantically equivalent
+   // no-elite groups are compared by an explicit, audited normalization.
+   function canonicalMap(m){
+     const x=pure(m);
+     for(const g of x.spawnGroups)if(g.eliteCount===undefined)g.eliteCount=0;
+     return JSON.stringify(x);
+   }
+   const restoredSemanticExact=canonicalMap(originalMap)===canonicalMap(after);
    return {map:{floorCount:api.map.floors.length,dimensions:[api.map.width,api.map.height],
      entrances:originalMap.entrances.length,npcs:originalMap.npcs.length,
      spawnGroups:originalMap.spawnGroups.length,links:originalMap.links.length,
      editAccepted:validation.ok,importWorldOk:imported.ok,editObserved:observed===
        "PRÓBA C1 — podpis autorskiej bramy",restoreOk:restored.ok,
-     restoredExact:JSON.stringify(pure(after))===JSON.stringify(pure(originalMap)),changedKeys,differences},
+     restoredExact:JSON.stringify(pure(after))===JSON.stringify(pure(originalMap)),restoredSemanticExact,changedKeys,differences},
     content:{quests:originalContent.quests.map(q=>({name:q.name,kind:q.tk})),
       classes:Object.keys(originalContent.classes),monsters:Object.keys(originalContent.monsters),
       proposedCourierQuestAccepted:questValidation.ok,courierQuestErrors:questValidation.errors,
@@ -74,7 +84,17 @@ try{
   assert.equal(analysis.map.importWorldOk,true,"authoring edit import failed");
   assert.equal(analysis.map.editObserved,true,"authored label not visible in exported state");
   assert.equal(analysis.map.restoreOk,true);
-  assert.equal(analysis.map.restoredExact,true,"authoring trial changed the historical control");
+  assert.equal(analysis.map.restoredSemanticExact,true,
+   "authoring altered meaningful world data beyond normalized missing eliteCount");
+  if(!analysis.map.restoredExact){
+   assert.deepEqual(analysis.map.changedKeys,["spawnGroups"],
+    "unexpected old authoring structural drift");
+   assert.ok(analysis.map.differences.length>0&&analysis.map.differences.every(d=>
+    d.path.endsWith(".eliteCount")&&d.before==="undefined"&&d.after==="0"),
+    "old importer changed more than explicit absent eliteCount defaults");
+  }
+  assert.equal(analysis.actorRole.courierSchemaAccepted,true,
+   "old map validator began rejecting unsupported courier role; inspect semantic contract");
   assert.equal(analysis.content.proposedCourierQuestAccepted,false,
    "A1 unexpectedly gained a non-kill quest executor; inspect API");
   assert.ok(analysis.content.courierQuestErrors.some(e=>e.includes("potwora")),
