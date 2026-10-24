@@ -8,6 +8,8 @@ on:
       - 'research/coopege-c1/template.html'
       - 'research/coopege-c1/build.mjs'
       - 'research/coopege-c1/*.mjs'
+      - 'research/coopege-e1/contact_deadlock.audit.mjs'
+      - 'research/coopege-f1/**'
       - 'research/coopege-b0/**'
       - 'tools/browser/**'
 permissions:
@@ -74,7 +76,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coopege-c1-proof
+          name: coopege-f1-contact-proof
           retention-days: 21
           if-no-files-found: warn
           path: |
