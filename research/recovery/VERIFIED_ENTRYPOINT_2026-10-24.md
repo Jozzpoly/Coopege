@@ -1,5 +1,15 @@
 # Coopege: independent recovery checkpoint — 2026-10-24
 
+## SECOND SESSION 2026-10-24 — execution supersedes yesterday's plan
+
+Isolated playable source now exists **outside main**, at [experiments/coopege-one-world/Coopege_One_World_Trial.html](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-trial-2026-10-24/experiments/coopege-one-world/Coopege_One_World_Trial.html), branch `experiment/coopege-one-world-trial-2026-10-24`. This is the exact byte-identical tested standalone HTML: 347851 B, SHA-256 `c825eabcf2df1b202fb2d70780bf0d1e2ed786c7ffcc6313c028d33109e08f81`, Git blob `4b01df77d42d7a0cf042d4e40a29b3d1cb309355`. [README & limits](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-trial-2026-10-24/experiments/coopege-one-world/README.md).
+
+This is a **single-runtime feasibility witness**, not a gameplay acceptance nor an architecture endorsement: original Tibia 3 classes, authored world, existing rats/combat/merchant remain; original map courier can be attacked, rescued or left to die; merchant gains limited stock from delivered crate or recovered bag. Original browser save/roster/settings/asset keys are isolated. Chromium class and core save tests pass; K/L browser-origin save and full-floor transitions UNTESTED. Separate archive `COOPEGE_ONE_WORLD_TRIAL_2026-10-24.zip` (4,523,541 B, SHA-256 `4f2fbaea2b32adc2ac8d91473b489c84b32d5403a752a62166f0cc2ac8a4ebe1`) carries source generator and reproducible tests in the authoring conversation, but the archive **is not in GitHub**.
+
+**NEXT:** Owner-facing real A/B game feel and gameplay richness vs original Tibia; investigate assistance value (in 15 simulated unattended runs courier arrived 13 times, died twice); verify browser storage, test map/floor/quest regressions; then decide whether this mechanic deserves adoption or redesign. Avoid promoting current tech proof to canonical game, avoid expanding original monolith by inertia, keep optional one-world world dynamics in service of exciting RPG. Nothing merged into main, preexisting PRs preserved.
+
+---
+
 This is an agent-facing EVIDENCE ENTRYPOINT, not an architecture freeze, a promise of gameplay quality, or an endorsement of the previous agent.
 
 ## Owner intent and safety
