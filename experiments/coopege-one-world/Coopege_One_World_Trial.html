@@ -59,11 +59,11 @@ let isMob = HAS_TOUCH && HAS_COARSE;  // telefon/tablet — przełączalne przyc
 //  SKALOWANIE ROZDZIELCZOŚCI
 // ═══════════════════════════════════════════════════════════
 let cssFS=false,autoTarget=false,paused=false,screenShake=0,lastSaveT=0,settingsOpen=false,dragMoveActive=false,mapOpen=false,mapViewZ=0;
-const SAVE_KEY='tibia_classic_enhanced_v11_last_save';
-const LEGACY_SAVE_KEYS=['tibia_classic_enhanced_v10_last_save','tibia_classic_enhanced_v9_last_save','tibia_classic_enhanced_v8_last_save','tibia_classic_enhanced_v7_last_save','tibia_classic_enhanced_v6_last_save','tibia_classic_enhanced_v5_save'];
-const ROSTER_KEY='tibia_classic_enhanced_v11_roster';
-const LEGACY_ROSTER_KEYS=['tibia_classic_enhanced_v9_roster','tibia_classic_enhanced_v8_roster','tibia_classic_enhanced_v7_roster','tibia_classic_enhanced_v6_roster'];
-const SETTINGS_KEY='tibia_classic_enhanced_v11_settings';
+const SAVE_KEY='coopege_one_world_trial_2026_10_24_save';
+const LEGACY_SAVE_KEYS=[];
+const ROSTER_KEY='coopege_one_world_trial_2026_10_24_roster';
+const LEGACY_ROSTER_KEYS=[];
+const SETTINGS_KEY='coopege_one_world_trial_2026_10_24_settings';
 const DEFAULT_SETTINGS={hideBottomPanel:false,dragMove:true,showMinimap:true,showHints:true};
 function readSettings(){try{return Object.assign({},DEFAULT_SETTINGS,JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}'));}catch(e){return Object.assign({},DEFAULT_SETTINGS);}}
 let SETTINGS=readSettings();
@@ -2157,7 +2157,7 @@ if(isMob){IFTB.style.borderColor='#c84040';IFTB.style.color='#ffaaaa';IFTB.title
 const VISUAL_ENGINE_VERSION='14.1.0';
 const VISUAL_PACKAGE_FORMAT='jozz-tibia-assets';
 const VISUAL_PACKAGE_VERSION=1;
-const VISUAL_STORAGE_KEY='tibia_classic_enhanced_v12_assets';
+const VISUAL_STORAGE_KEY='coopege_one_world_trial_2026_10_24_assets';
 const DIR_ORDER=['s','w','e','n'];
 const DIR_ROW={s:0,w:1,e:2,n:3};
 const TILE_NAMES=['grass','stone_floor','stone_wall','water','earth','wood','tree','cave','sand','swamp','snow','cliff','stairs_up','stairs_down','lava','void','rock_floor','dark_wall'];
