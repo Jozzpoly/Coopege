@@ -8,7 +8,7 @@ function attach(source){
   if(!ctx)throw Error("Canvas 2D unavailable");
   let world=core.create(source),pressed=new Set(),pending={interact:false,hit:false,bandage:false,drop:false},last=0,acc=0,animation=0;
   let camera={x:world.player.x,y:world.player.y},stopped=false,dragPointerId=null,dragTarget=null,zoom=1.28;
-  const saveKey="coopege-e1-live-delivery-v1";
+  const saveKey="coopege-f1-contact-recovery-v1";
   const colors=[
     ["#547f40","#688e4c"],["#707774","#868981"],["#3d4a4d","#576164"],
     ["#1b5574","#23647d"],["#806e52","#968363"],["#806849","#a08961"],

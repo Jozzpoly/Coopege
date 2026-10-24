@@ -1,7 +1,7 @@
-name: Coopege E1 - independent worker and delivered supplies
+name: Coopege F1 - contact recovery against owner blocker
 on:
   push:
-    branches: ['experiment/coopege-e1-worker-cargo-2026-10-24']
+    branches: ['experiment/coopege-f1-contact-recovery-2026-10-24']
     paths:
       - '.github/workflows/coopege-c1.yml'
       - 'research/coopege-c1/src/**'
@@ -13,7 +13,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: coopege-e1-${{ github.ref }}
+  group: coopege-f1-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   playable:
@@ -43,6 +43,10 @@ jobs:
           node --check research/coopege-c1/src/episode.js
           node --check research/coopege-c1/src/view.js
           node research/coopege-c1/build.mjs
+      - name: Existing Owner contact blockade is now a required green gate
+        run: node research/coopege-e1/contact_deadlock.audit.mjs --gate
+      - name: Six-angle recovery, inward blocking and detour regression
+        run: node --test research/coopege-f1/contact-recovery.test.mjs
       - name: Source-backed gameplay contracts
         run: node --test research/coopege-c1/episode.test.mjs
       - name: Full ordinary keyboard Chrome journey and persistent return

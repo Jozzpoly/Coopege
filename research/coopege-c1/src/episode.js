@@ -4,7 +4,7 @@
 (function(root){
   'use strict';
   const base=root.CoopegeB1Core;
-  const episodeTag='coopege-e1-worker-v1';
+  const episodeTag='coopege-f1-contact-recovery-v1';
   const position=(p,q)=>Math.hypot(p.x-q.x,p.y-q.y);
   function makeExtras(source,world){
     const authored=source.authored;
@@ -80,8 +80,13 @@
       return;
     }
     const route=e.workerCarrying?returning:outgoing;
-    const target=route[Math.min(k.index,route.length-1)],distance=position(k,target);
+    const missionTarget=route[Math.min(k.index,route.length-1)];
+    // Locally observed blockade, not a perfect global route solver. Persist
+    // an attempted sidestep, but never cross walls or occupied contacts.
+    if(!Array.isArray(k.detour))k.detour=[];
+    const target=k.detour[0]||missionTarget,distance=position(k,target);
     if(distance<.23){
+      if(k.detour.length){k.detour.shift();k.stalledFor=0;return;}
       if(k.index<route.length-1){k.index++;return;}
       if(e.workerCarrying){
         const merchant=w.authored.npcs.find(n=>n.role==='merchant');
@@ -99,7 +104,33 @@
     const pace=Math.min(distance,1.3*dt),nx=k.x+(target.x-k.x)/distance*pace,ny=k.y+(target.y-k.y)/distance*pace;
     const clear=base.canOccupy(w,nx,ny,.25,false,'worker')&&position({x:nx,y:ny},p)>.58
       &&w.authored.npcs.every(n=>position({x:nx,y:ny},n)>.50);
-    if(clear){k.x=nx;k.y=ny;if(e.workerCarrying)e.courierBag={x:k.x,y:k.y};}
+    if(clear){
+      k.x=nx;k.y=ny;k.stalledFor=0;k.blockedNotice=false;
+      if(e.workerCarrying)e.courierBag={x:k.x,y:k.y};
+    }else{
+      k.stalledFor=(k.stalledFor||0)+dt;
+      if(k.stalledFor>.25&&!k.detour.length&&position(k,w.cart)<1.4){
+        const d=position(k,missionTarget)||1;
+        const ux=(missionTarget.x-k.x)/d,uy=(missionTarget.y-k.y)/d;
+        const perp={x:-uy,y:ux};
+        const clearance=w.cart.radius+.25+.30;
+        for(const side of [1,-1]){
+          const first={x:k.x+perp.x*clearance*side,y:k.y+perp.y*clearance*side};
+          const beyond={x:first.x+ux*1.45,y:first.y+uy*1.45};
+          const safe=q=>base.canOccupy(w,q.x,q.y,.25,false,'worker')&&position(q,p)>.58
+            &&w.authored.npcs.every(n=>position(q,n)>.5);
+          if(safe(first)&&safe(beyond)){
+            k.detour=[first,beyond];k.stalledFor=0;
+            addNote(w,'Tragarz próbuje obejść zablokowany wózkiem trakt.',k);
+            break;
+          }
+        }
+      }
+      if(k.stalledFor>1.1&&!k.blockedNotice){
+        k.blockedNotice=true;
+        addNote(w,'Tragarz nie może przejść. Zatrzymuje się przed przeszkodą.',k);
+      }
+    }
   }
   function addNote(w,txt,location=null){
     // World truth is recorded separately from witnessed player-facing news.

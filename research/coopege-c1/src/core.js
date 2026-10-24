@@ -104,15 +104,24 @@ function event(world,description,kind="info"){
 // Contact-driven material motion. A collision with the player's *moving body*
 // transfers a bounded displacement; no object teleports, snaps to a tile or
 // responds to an "advance one grid cell" command.
+// Shared body/cart clearance. Both bodies use the same radius and tolerance.
+// A legal preceding contact is never allowed to trap outward movement when
+// loading older states that already violate a stricter inverse clearance.
+const CONTACT_SLOP=.02;
+function cartClearance(cart,bodyRadius){return cart.radius+bodyRadius-CONTACT_SLOP;}
+function cartBodyPermits(cart,x,y,body,bodyRadius){
+ const old=dist(cart,body),next=dist({x,y},body),boundary=cartClearance(cart,bodyRadius);
+ return next>=boundary-1e-8 || (old<boundary-1e-8&&next>old+1e-9);
+}
 function canCartOccupy(world,x,y){
  const c=world.cart;
  if(circleHitsMap(world,x,y,c.radius))return false;
- if(dist({x,y},world.player)<c.radius+.28-.015)return false;
+ if(!cartBodyPermits(c,x,y,world.player,.28))return false;
  for(const r of world.rats)
-  if(r.alive&&dist({x,y},r)<c.radius+.26-.015)return false;
+  if(r.alive&&!cartBodyPermits(c,x,y,r,.26))return false;
  for(const n of world.authored.npcs)
-  if(dist({x,y},n)<c.radius+.29-.01)return false;
- if(world.worker?.alive&&dist({x,y},world.worker)<c.radius+.29-.01)return false;
+  if(!cartBodyPermits(c,x,y,n,.29))return false;
+ if(world.worker?.alive&&!cartBodyPermits(c,x,y,world.worker,.25))return false;
  return true;
 }
 function translateCart(world,dx,dy){
