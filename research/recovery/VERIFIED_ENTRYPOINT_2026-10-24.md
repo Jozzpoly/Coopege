@@ -13,7 +13,7 @@ Build ONE independent Coopege game/world fulfilling the original Tibia x Coopege
 - C1, E1, F1 were found in ChatGPT Library dated 2026-10-23/24, AFTER B5, and are not the GitHub PR sequence. F1 Library file Coopege_F1_Naprawa_Zakleszczenia.html, 166727 B SHA-256 4a5371533fe9d88fa5d6b27e2aa188c30f816eec4a1d640a53caeead2617d448. Quarantined donor, not canonical source.
 
 ## Repeated browser and simulation evidence (2026-10-24)
-- Original Tibia plays all three classes; natural Warrior movement and Space combat works. One run: initial 338 monsters, later 337, quest shows 2/8 and EXP30. DISCREPANCY NOT EXPLAINED: test of gameplay breadth, not proof all kill accounting is correct.
+- Original Tibia plays all three classes; natural Warrior movement and Space combat works. An older checkpoint asserted 338→337 while the quest showed 2/8 and EXP30; a fresh repeated natural route gave **338→337, quest 1/8, EXP15** (consistent). The asserted discrepancy was NOT REPRODUCED; don't call it a confirmed bug or infer broad combat correctness.
 - F1 control (no input, 40s virtual Chromium time): porter outbound at 10s, HP24 and sheltering at 20s, dead at 30s; merchant stock remains zero.
 - F1 intervention with actual natural keys (S ~5s, D 570ms, S 1250ms, Space 4 times 650ms apart): one rat killed, player HP 100→76, porter arrives and deposits cargo, merchant stock 0→3. Repeated in Chromium; no injected NPC teleport/stock mutation.
 - F1 player knowledge of merchant stock stayed old until physical return to merchant. This is a *local authored knowledge gate*, not generalized agent cognition.
@@ -22,13 +22,13 @@ Build ONE independent Coopege game/world fulfilling the original Tibia x Coopege
 
 ## Interpretation
 DEFENDED: original authored game is retrievable and runs; A1 retains original authored content export; F1 has one contingent material/player-knowledge consequence; the C1/E1/F1 artifacts exist beyond the last public PR.
-NOT DEFENDED: a better new game; rich AI; combat accounting correctness; complete architectural reuse; real-origin persistence; full 5-floor/quest semantic restoration in F1; external independent backup.
+NOT DEFENDED: a better new game; rich AI; comprehensive combat accounting correctness; complete architectural reuse; real-origin persistence; full 5-floor/quest semantic restoration in F1; external independent backup.
 
 ## Tomorrow: execution, not report proliferation
-1. Open actual Tibia and F1 and diagnose kill-count-vs-quest-progress mismatch before calling combat healthy. Compare what the *player* experiences, not only DOM/schema/test passes.
+1. Open actual Tibia and F1 and recheck combat accounting beyond a single randomly varying route; investigate the older inconsistent observation without presenting it as a verified bug. Compare what the *player* experiences, not only DOM/schema/test passes.
 2. Investigate one-world integration seam with minimal regression to authored place, classes, skills, NPC trade, gear, inventory and floor topology. Reject iframe/sidecar game worlds and rushed stuffing F1 into fragile monolith. Evaluate alternatives on evidence.
 3. Build ONLY an isolated, falsifiable playable vertical slice after feasibility check; test natural complete routes, state recovery and side-by-side Owner-feel quality. A better RPG is the output, not more labs.
 4. Keep provenance, hashes, explicit FAIL/UNPROVEN and reversible changes. Do not merge #1–#8, revive June M8 LAN as today's direction, or delete historical data.
 
 ## Portable evidence rescue capsule
-Originating conversation artifact: COOPEGE_RESCUE_EVIDENCE_2026-10-24.zip, SHA-256 e73c46745b932dab7f0e7f3a58540fa2d68df48a17bec037dc5e267d769a6d70, size 1,990,386 B. Contains original Tibia, A1, F1 (quarantined), screenshots/JSON, test script, MANIFEST.sha256 and longer START_HERE.md. This GitHub branch contains documentation only, not active gameplay code. Nothing here verifies a backup truly stored outside ChatGPT/GitHub.
+Originating conversation artifact: COOPEGE_RESCUE_EVIDENCE_2026-10-24.zip, SHA-256 c71e1004d2e862ae00c3676a0a3274acc368abbfe0c7984df4c3b4be9e66b8b5, size 2,685,581 B. Contains original Tibia, A1, F1 (quarantined), screenshots/JSON, test script, MANIFEST.sha256 and longer START_HERE.md. This GitHub branch contains documentation only, not active gameplay code. Nothing here verifies a backup truly stored outside ChatGPT/GitHub.
