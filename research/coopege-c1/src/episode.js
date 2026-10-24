@@ -102,7 +102,7 @@
       return;
     }
     const pace=Math.min(distance,1.3*dt),nx=k.x+(target.x-k.x)/distance*pace,ny=k.y+(target.y-k.y)/distance*pace;
-    const clear=base.canOccupy(w,nx,ny,.25,false,'worker')&&position({x:nx,y:ny},p)>.58
+    const clear=base.canOccupy(w,nx,ny,.25,false,'worker')&&position({x:nx,y:ny},p)>.28+.25-.02
       &&w.authored.npcs.every(n=>position({x:nx,y:ny},n)>.50);
     if(clear){
       k.x=nx;k.y=ny;k.stalledFor=0;k.blockedNotice=false;
@@ -117,7 +117,7 @@
         for(const side of [1,-1]){
           const first={x:k.x+perp.x*clearance*side,y:k.y+perp.y*clearance*side};
           const beyond={x:first.x+ux*1.45,y:first.y+uy*1.45};
-          const safe=q=>base.canOccupy(w,q.x,q.y,.25,false,'worker')&&position(q,p)>.58
+          const safe=q=>base.canOccupy(w,q.x,q.y,.25,false,'worker')&&position(q,p)>.28+.25-.02
             &&w.authored.npcs.every(n=>position(q,n)>.5);
           if(safe(first)&&safe(beyond)){
             k.detour=[first,beyond];k.stalledFor=0;

@@ -97,3 +97,35 @@ test("Without rats, worker still independently collects cargo and physically del
  assert.equal(w.episode.merchantStock,3);
  assert.equal(w.episode.courierDelivered,true);
 });
+
+test("Player and porter share symmetric clearance; neither can cross the other's body",()=>{
+ const w=setup();
+ Object.assign(w.cart,{x:88.5,y:99.5,vx:0,vy:0});
+ Object.assign(w.worker,{x:90.5,y:101.565,phase:"searching"});
+ Object.assign(w.player,{x:90.5,y:102.20});
+ const minimum=.28+.25-.02;
+ advance(w,{dy:-1},90);
+ assert.ok(api.dist(w.player,w.worker)>=minimum-1e-7,
+   "player passed through the worker's body");
+ const near=api.dist(w.player,w.worker);
+ advance(w,{dy:1},60);
+ assert.ok(api.dist(w.player,w.worker)>near+.1,
+   "player could not disengage from contact");
+});
+test("When no bypass exists, blocked worker stops meaningfully instead of ghosting",()=>{
+ const w=setup();
+ Object.assign(w.worker,{x:90.5,y:101.565,phase:"outbound",index:2,detour:[]});
+ Object.assign(w.cart,{x:90.5,y:102.27,vx:0,vy:0});
+ Object.assign(w.player,{x:100.5,y:95.5});
+ w.authored.npcs.push({id:"blocker:left",name:"Left",role:"merchant",x:89.48,y:101.565},
+                      {id:"blocker:right",name:"Right",role:"merchant",x:91.52,y:101.565});
+ const start={...w.worker};
+ advance(w,{},180);
+ assert.ok(w.worker.blockedNotice,
+   "worker kept retrying a blocked path without acknowledging failure");
+ assert.equal(w.worker.detour.length,0,
+   "worker invented an impossible sidestep through occupied space");
+ assert.ok(api.dist(start,w.worker)<.1,
+   "worker ghosted through the cart/actor configuration");
+ assert.equal(w.episode.courierDelivered,false);
+});
