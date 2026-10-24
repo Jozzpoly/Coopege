@@ -9,7 +9,7 @@ on:
       - 'research/coopege-c1/build.mjs'
       - 'research/coopege-c1/*.mjs'
       - 'research/coopege-e1/contact_deadlock.audit.mjs'
-      - 'research/coopege-f1/**'
+      - 'research/coopege-f1/*.test.mjs'
       - 'research/coopege-b0/**'
       - 'tools/browser/**'
 permissions:
