@@ -1,5 +1,14 @@
 # Coopege — jedna mapa, edycja i przyczynowość (próba 25.10.2026)
 
+## Owner intent correction — source recheck, 2026-10-25
+
+**Do not canonize the historical game structures.** The Owner said in September 2026 that the original Tibia was his most complete game and that he had genuinely played it for 30–120 minutes, but its exact three classes, talent trees, monster roster, quests, consumables, combat and map were in many respects *production constraints rather than desired fixed end-state*. The task is to protect authored provenance, accumulated playable RPG richness, adventure/feel and future possibilities while challenging obsolete gameplay and architecture. Three classes / five floor IDs are valuable **recovery and regression witnesses only**, NOT unchangeable product requirements.
+
+**Jaskinia as shared creator vision:** the Owner confirmed on 2026-10-25 that historical Tibia Studio and Jaskinia are parts of one enduring authoring ambition, yet explicitly requested NOT to abruptly redirect the current gameplay campaign into large-scale integration. [Owner-approved Jaskinia Compass](https://github.com/Jozzpoly/Jozz-Cave-Workbench/issues/5): one user-facing experience, not necessarily one codebase; creator control and safe return are more important than technology stack. Jaskinia v6 material identity/versioning and windows are *technical candidate donors*, NOT proven universal authoring UX. The Owner has **negatively judged Jaskinia's Ruch** as practically useless for his creative needs; DO NOT describe it as a qualified, Owner-approved feature donor. The user's direct manipulation should be evaluated on real creative freedom, not green synthetic tests.
+
+**Experience gap and coordination:** At this checkpoint no Owner-accepted playtest demonstrates that the new Coopege candidates are better games than original Tibia. Technical courier/terrain test passes do not close this gap. The Jaskinia public v6.4.1 preview is a 2026-10-19 snapshot covering 26 public projects and has no Coopege entry; it is NOT a verified one-click route to the latest playable Coopege candidates. Do not silently assume public preview equals the Owner's private artifact. Build and host are separate evidence; avoid sharing browser save/storage across an untrusted origin. Before additional authoring-platform work, establish a genuinely accessible **single RPG candidate** and compare the player experience with original Tibia, without overburdening the Owner with QA for basic bugs.
+
+
 **To grywalny, odwracalny eksperyment, NIE nowe kanoniczne Coopege.** Cel: sprawdzić, czy twórca i aktorzy faktycznie korzystają z tej samej mapy, gdy zmieniamy ją podczas rozgrywki. Nie zamrażamy architektury, systemu walki, klas, stylu graficznego ani rozwoju gry.
 
 ## Uruchomienie
