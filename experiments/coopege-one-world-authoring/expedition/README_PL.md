@@ -19,3 +19,12 @@ To zasadniczo stary silnik Tibii, małe ręcznie osadzone miejsce i prosty gwara
 
 ### Reproducible checks
 W paczce: `build.py`, `test_expedition.py`, `test_fast_flow.py`, `test_authoring_consistency.py`, `test_choices.py`; browser tests wymagają lokalnego Chromium i Playwright. Opisy sposobu testowania w README paczki. Po kilku próbach wcześniejsze wspólne wielostopniowe testy potrafiły przekraczać limit bez GPU; nie należy tego raportować jako usterki gry. Testy nie kwalifikują całości gry ani jej jakości.
+
+## Dodatkowe próby krytyczne na tym samym, niezmienionym HTML
+
+- **Ekwipunek:** po zabraniu skrzyni otwarto kartę postaci (`C`, dwukrotnie `Tab`) i **kliknięto rzeczywisty przedmiot w plecaku**. `armor_leather` stał się wyposażoną `Sk. Zbroja`, więc nie jest jedynie tekstem w logu. Dopiero potem gracz wrócił do kupca i wykonał normalny zakup myszą.
+- **Zaniechanie:** wojownik doszedł do posterunku, zobaczył go, lecz odszedł bez walki i bez otwierania skrzyni. Wrócił do miasta z `0g`, `5` miksturami i pustym plecakiem; mechanika nie nagradza samej bliskości.
+- **Regresja tragarza:** po dodaniu posterunku oryginalna procedura F2 nadal zmusza tragarza do zmiany drogi po wstawieniu ściany na `(86,110)`. W izolowanym scenariuszu z prawdziwą logiką świata: `repaths=1`, x=85.5, y≈106.66. Nie twierdzi to nic o pełnym AI.
+- W dłuższym powrocie, jak wyżej, test wykonuje tę samą logikę `update()` w krokach QA bez renderowania każdej klatki. Nie mieszać go z naturalnym realtime E2E dojścia/otwarcia. Losowe szczury mogą zmieniać HP, złoto z ziemi, liczbę zabójstw oraz moment dostawy; **nie traktować tych wartości jako stałych oczekiwanych liczb**.
+
+Dodatkowe skrypty `test_ignore_outpost.py` i `test_courier_regression.py` powstały po zamknięciu podstawowego ZIP-a; w chwili tego checkpointu są wynikami wykonywanymi w rozmowie, **nie częściami wcześniej opublikowanej paczki ani tej gałęzi**. Produktowy HTML pozostał niezmieniony.
