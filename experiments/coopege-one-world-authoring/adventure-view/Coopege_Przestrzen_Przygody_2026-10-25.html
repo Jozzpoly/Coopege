@@ -2076,7 +2076,7 @@ C.addEventListener('pointerdown',e=>{
         if(!inRect(cx,cy,charWindowRect()))charOpen=false;
         return;
     }
-    if(SETTINGS.showMinimap&&!SETTINGS.hideBottomPanel){const cy0=UIT+GH,mmX=CW-115,mmY=cy0+10;if(cx>=mmX-2&&cx<=mmX+109&&cy>=mmY-2&&cy<=mmY+84){mapOpen=true;mapViewZ=PL.z;return;}}
+    if(SETTINGS.showMinimap&&!SETTINGS.hideBottomPanel&&!adventureView){const cy0=UIT+GH,mmX=CW-115,mmY=cy0+10;if(cx>=mmX-2&&cx<=mmX+109&&cy>=mmY-2&&cy<=mmY+84){mapOpen=true;mapViewZ=PL.z;return;}}
     // Przyciski akcji
     if(cy>=UIT&&cy<bottomY()){
         for(const btn of (adventureView&&!isMob?[]:ABTNS)){if(cx>=btn.x&&cx<btn.x+btn.w&&cy>=btn.y&&cy<btn.y+btn.h){pressedBtn=btn.id;pressT=.25;ripple(cx,cy);handleBtn(btn.id);return;}}
