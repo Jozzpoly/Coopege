@@ -1,5 +1,18 @@
 # Coopege: independent recovery checkpoint — 2026-10-24
 
+## 2026-10-25 — authoring and actor topology consistency, isolated result
+
+**Exact verified build** [Coopege_One_World_Studio_Trial.html](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-authoring-2026-10-25/experiments/coopege-one-world-authoring/Coopege_One_World_Studio_Trial.html), on isolated `experiment/coopege-one-world-authoring-2026-10-25`. Git blob `e94a46e03fa8b60a5402523d06dc0e6f9f956133`, SHA-256 `6b1487182105e1ec973dbd20de56912c405eb9413abd3266954c0f3543a7ba6d`, 361206 bytes. [Polish README/limits](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-authoring-2026-10-25/experiments/coopege-one-world-authoring/README_PL.md). This branch is descended from the October 24 one-world trial; `main` remains untouched.
+
+**Why:** the previous [issue #9](https://github.com/Jozzpoly/Coopege/issues/9) demonstrated that courier could walk through a wall placed *after* path planning. This successor trial keeps original RPG classes, map and enemies and adds a tiny in-game editor (F2, mouse tile painting, Ctrl+Z/Y, export/import verified terrain patch), plus courier walkability checks and route recalculation/blocked waiting. Browser tests: 21 assertions PASS; real-player wall collision y≈86.5 vs y≈95.7 after undo, exact tile type undo, invalid patch import refused before mutation, three classes and five floor IDs still available. Bounded Node VM: five routing cases PASS, including obstacle mid-route, blocked destination and reopening; these are not a full in-browser AI/restart proof. Stubbed-localStorage rehydration PASS; **real-origin persistence remains UNTESTED** because localhost navigation was administrator-blocked. No Owner game-feel verdict, no full combat/floor transition/quest/asset regression.
+
+**Reproducibility:** authoring conversation created `COOPEGE_ONE_WORLD_AUTHORING_TRIAL_2026-10-25.zip` (14 members, 1751627 B, SHA-256 `fb6cf1a27ac2e0962260bd78f49dc2bf67466d894de104161d31d6bb770c619a`) with base HTML, editor source, generator, Chromium tests, Node VM witness and MANIFEST. The self-contained playable HTML is committed byte-exact in GitHub, package is a conversation artifact not a verified independent backup.
+
+**Honest verdict:** better editor and shared topology **are proven only in tested scope**, but an exciting and visually distinctive new Coopege is not. Do not mistake tile editor for the historically requested Studio (sprites/animation/content/quests/skills/AI graph). Next meaningful move is a side-by-side Owner-visible RPG playtest and selective architecture research, not inexorable expansion of the old monolith.
+
+---
+
+
 ## SECOND SESSION 2026-10-24 — execution supersedes yesterday's plan
 
 Isolated playable source now exists **outside main**, at [experiments/coopege-one-world/Coopege_One_World_Trial.html](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-trial-2026-10-24/experiments/coopege-one-world/Coopege_One_World_Trial.html), branch `experiment/coopege-one-world-trial-2026-10-24`. This is the exact byte-identical tested standalone HTML: 347851 B, SHA-256 `c825eabcf2df1b202fb2d70780bf0d1e2ed786c7ffcc6313c028d33109e08f81`, Git blob `4b01df77d42d7a0cf042d4e40a29b3d1cb309355`. [README & limits](https://github.com/Jozzpoly/Coopege/blob/experiment/coopege-one-world-trial-2026-10-24/experiments/coopege-one-world/README.md).
