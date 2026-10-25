@@ -31,3 +31,14 @@ Oparte na dużym, historycznym HTML-u Tibii v14.1. Nie ma kompleksowych testów 
 5. `python test_rehydrate.py` — dodatkowa kontrola przy użyciu symulowanego `localStorage`.
 
 **Następny rozsądny ruch:** zanim cokolwiek trafi do głównej linii Coopege, przeprowadzić Owner feel-test nowego egzemplarza oraz porównać go bezpośrednio z oryginalną Tibią. Następnie krytycznie wybrać, które granice authoringu/gameplayu warto przenieść do solidniejszej architektury, zamiast dalej powiększać monolit.
+
+## Dodatkowy dowód po odzyskaniu szerszej wizji — 25.10.2026
+
+- [test_live_route.py](./test_live_route.py) sprawdza **pełne Chromium** (a nie tylko moduł Node VM): wybór wojownika, naturalny marsz WASD, aktywacja tragarza, otwarcie F2 w tym samym świecie, import jednej ściany na trasę NPC, powrót do gry i rzeczywiste ominięcie przeszkody. Zaobserwowano tragarza w kolumnie x=85.5 zamiast zablokowanej x=86.5, jedno ponowne trasowanie, brak błędów JS; PASS na dokładnym HTML SHA-256 `6b1487182105e1ec973dbd20de56912c405eb9413abd3266954c0f3543a7ba6d`.
+- Próba uruchomienia testu zapisu na prawdziwym HTTP localhost skończyła się `ERR_BLOCKED_BY_ADMINISTRATOR`. **Nie dowodzi usterki gry ani nie ustanawia PASS trwałości przeglądarkowej**; istniejący test `localStorage` pozostaje tylko symulowany.
+
+### Tibia Studio + Jaskinia: jedna wizja, nie dzisiejszy zakres integracji
+
+Owner potwierdził 25.10, że ambicje historycznego Tibia Studio i Jaskini należą do **tej samej wizji tworzenia, uruchamiania i doświadczania własnych światów**. Należy przy dalszym projektowaniu odwoływać się do realnych donorów w [Jozz-Cave-Workbench v6](https://github.com/Jozzpoly/Jozz-Cave-Workbench/tree/v6-materialy), m.in. Materiały (import, tożsamość, rewizje, odzyskiwanie), Ruch (własne manipulacje i opis dla agentów), okna Przyrząd/Gra i ich ograniczenia, oraz do oryginalnych API Tibia Developer Studio v3.1. **To eksperymentalna gałąź Jaskini, a nie automatycznie zatwierdzony wspólny fundament.**
+
+Granica: żywy świat Coopege nie może zostać zredukowany do iframe z osobnym stanem; 3D/Blockbench materiały Jaskini nie są bezpośrednio 2D sprite'ami ani definicjami RPG, a każde wejście przez inny origin może mieć odrębny magazyn. Reuse oceniamy po faktycznej zdolności autora: stwórz/zmień → graj → zobacz konsekwencję → popraw, **bez utraty oryginalnego dorobku**, a nie po liczbie wspólnych paneli. Dalszy priorytet tej linii to nadal **lepsze Coopege jako gra RPG**, nie nagła przebudowa Jaskini.
