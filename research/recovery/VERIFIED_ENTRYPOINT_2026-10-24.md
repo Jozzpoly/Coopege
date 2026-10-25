@@ -12,6 +12,10 @@ This is a **single-runtime feasibility witness**, not a gameplay acceptance nor 
 
 This is an agent-facing EVIDENCE ENTRYPOINT, not an architecture freeze, a promise of gameplay quality, or an endorsement of the previous agent.
 
+## Fresh independent witness (25 Oct 2026) — conditional, not a new roadmap
+
+- [Issue #9: courier movement across a tile blocked **after** route planning](https://github.com/Jozzpoly/Coopege/issues/9) contains an independent, three-condition Node VM counterexample against **unchanged One World Trial source**: open path → passes; obstacle before planning → detours; obstacle introduced during movement → courier traverses newly blocked tile. **Scope:** old trial module under bounded `walkable` stub, *not* proven against later live terrain-authoring builds. If working on dynamic world topology, check the exact current build before deciding whether this witness applies; otherwise leave it alone. Neither issue creation nor this pointer is a confirmed read receipt from the local agent. No Owner action implied.
+
 ## Owner intent and safety
 Build ONE independent Coopege game/world fulfilling the original Tibia x Coopege dream: authored RPG richness, accessible exploration, three-class combat/gear/quests/trade, its own identity and more credible physical/social causality; later cooperative play and accessible creation. Historical Tibia is a gameplay-content donor, not a mandate to keep its old engine/feel. F1 is an idea donor, not an excuse to reduce the whole game to a tiny laboratory. Never turn Coopege into a subsidiary of Feniks, or introduce separate player-facing realities. Owner reports prior agent breach of trust; nature of misconduct unknown: don't assert guilt beyond the Owner's statement. Preserve legacy; avoid destructive or default-branch changes until justified.
 
