@@ -59,11 +59,11 @@ let isMob = HAS_TOUCH && HAS_COARSE;  // telefon/tablet — przełączalne przyc
 //  SKALOWANIE ROZDZIELCZOŚCI
 // ═══════════════════════════════════════════════════════════
 let cssFS=false,autoTarget=false,paused=false,screenShake=0,lastSaveT=0,settingsOpen=false,dragMoveActive=false,mapOpen=false,mapViewZ=0;
-const SAVE_KEY='coopege_material_choice_2026_10_25_save';
+const SAVE_KEY='coopege_adventure_view_2026_10_25_save';
 const LEGACY_SAVE_KEYS=[];
-const ROSTER_KEY='coopege_material_choice_2026_10_25_roster';
+const ROSTER_KEY='coopege_adventure_view_2026_10_25_roster';
 const LEGACY_ROSTER_KEYS=[];
-const SETTINGS_KEY='coopege_material_choice_2026_10_25_settings';
+const SETTINGS_KEY='coopege_adventure_view_2026_10_25_settings';
 const DEFAULT_SETTINGS={hideBottomPanel:false,dragMove:true,showMinimap:true,showHints:true};
 function readSettings(){try{return Object.assign({},DEFAULT_SETTINGS,JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}'));}catch(e){return Object.assign({},DEFAULT_SETTINGS);}}
 let SETTINGS=readSettings();
@@ -2205,7 +2205,7 @@ if(isMob){IFTB.style.borderColor='#c84040';IFTB.style.color='#ffaaaa';IFTB.title
 const VISUAL_ENGINE_VERSION='14.1.0';
 const VISUAL_PACKAGE_FORMAT='jozz-tibia-assets';
 const VISUAL_PACKAGE_VERSION=1;
-const VISUAL_STORAGE_KEY='coopege_material_choice_2026_10_25_assets';
+const VISUAL_STORAGE_KEY='coopege_adventure_view_2026_10_25_assets';
 const DIR_ORDER=['s','w','e','n'];
 const DIR_ROW={s:0,w:1,e:2,n:3};
 const TILE_NAMES=['grass','stone_floor','stone_wall','water','earth','wood','tree','cave','sand','swamp','snow','cliff','stairs_up','stairs_down','lava','void','rock_floor','dark_wall'];
@@ -3330,7 +3330,7 @@ const Courier=(()=>{
 })();
 // Isolated, limited world-authoring experiment. Same map and collision truth as the active RPG.
 const StudioLite=(()=>{
-  const STORAGE='coopege_material_choice_2026_10_25_terrain_patch';
+  const STORAGE='coopege_adventure_view_2026_10_25_terrain_patch';
   const FORMAT='coopege-authored-tiles-v1';
   const PALETTE=[{id:0,label:'Trawa'},{id:1,label:'Kamień'},{id:2,label:'Mur'},{id:5,label:'Ścieżka'},{id:6,label:'Woda'}];
   const ORIGINAL=new Map(), changes=new Map();
