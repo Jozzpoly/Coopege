@@ -34,6 +34,14 @@
 
 **Open product question:** Does B+T turn the hero when idle in an annoying way? Does hold-Space help in dense dungeons? Does maintaining bodily contact across A/B and other classes preserve good play feel? Owner's actual A/B human verdict is more valuable here than more arbitrary thresholds.
 
+## 3a. MATERIAL CONTINUITY GAP — cold-return witness, 26 Oct
+
+**Exact source + isolated Chromium observation:** The preceding contact-timed B and current hybrid use five distinct browser-local keys: character save, class roster, settings, custom art/assets, and authored terrain. In both, `LEGACY_SAVE_KEYS=[]` and `LEGACY_ROSTER_KEYS=[]`; no full player-save import/export workflow is exposed. An isolated browser test seeded a sample prior-build save: **prior build `hasSave()=true`; hybrid `hasSave()=false`; hybrid's own-key save `hasSave()=true`** (no JS page errors). This is an intentional **cross-version non-read**, not deletion or a normal-origin browser-persistence verdict. The same key isolation also prevents automatic reuse of authored terrain and asset changes. A source-only backup of an executable does **not** preserve the Owner's lived session or authored edits.
+
+**Three independent meanings of return:** (1) return to the *right tested build* — proven by Git blob/build; (2) return to *your character, edited environment, and place* — **not yet proven across builds**; (3) return to *what you were trying and why* — partially retained by Owner feedback and a private recording, but no automatic in-game context recovery. Do not conflate them. A stable, low-friction workshop should eventually let the Owner **choose** whether to resume, import a portable snapshot with a preview, or start clean. Because worlds/mechanics evolve, do not silently read an old build's storage, overwrite it, make save compatibility a permanent architecture constraint, or expose local/private data publicly.
+
+**Next-day consequence:** Before generating another candidate after hybrid feedback, ask internally whether it is acceptable to reset progress and edits. If not, scope and falsify a **small opt-in recoverability seam** (explicit export, validated import, source/version identification, reversible failure) with safe negative tests, rather than proliferating version-local saves. This is a future experiment hypothesis, not an authorization to redesign all save formats tonight or force Owner to migrate by hand.
+
 ## 4. Lineage: witnesses, not competing "latest versions"
 
 All below are intentionally distinct test specimens on the **same isolated experiment branch**, not seven things to merge or maintain as separate products:
