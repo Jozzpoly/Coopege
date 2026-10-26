@@ -1,5 +1,18 @@
 # Coopege — jedna mapa, edycja i przyczynowość (próba 25.10.2026)
 
+## TERAZ — wejście do aktualnej linii gry, 26.10.2026
+
+**To nie jest już punkt startowy aktualnego eksperymentu.** Ta strona zachowuje historię próby mapy i tragarza z 25.10, razem z jej ograniczeniami. Nie oznacza, że `Coopege_One_World_Studio_Trial.html` jest najlepszą lub najnowszą wersją gry.
+
+**Graj / weryfikuj teraz:** [Walka Hybrydowa A/B — dokładny HTML](./combat-hybrid-2026-10-26/Coopege_Walka_Hybrydowa_AB_2026-10-26.html) i [jej krótka instrukcja, dowody i źródła](./combat-hybrid-2026-10-26/README_PL.md). Domyślny historyczny atak A; dla wojownika `B` = przestrzenna walka, `Space` pojedynczy cios, przytrzymanie `Space` = seria, `T` = AUTO bliskich przeciwników. Kolizja ciał jest niezależna od A/B.
+
+**Jedyny bieżący checkpoint agentów:** [Coopege CURRENT](https://github.com/Jozzpoly/Coopege/blob/recovery/verified-truth-2026-10-24/research/recovery/VERIFIED_ENTRYPOINT_2026-10-24.md). Zawiera aktualny feedback Ownera, zakres dowodów i ścieżkę starszych eksperymentów. Nie uruchamiaj kampanii z dawnych nagłówków `NEXT` poniżej.
+
+**Bezpieczna interpretacja:** najnowsza hybryda ma technicznie sprawdzone krótkie `Space`, hold i `T`; **Owner polubił nieprzenikanie postaci, ale NIE testował jeszcze tej hybrydy**. Zachowaj starsze egzemplarze A/B jako kontrpróby, nie kasuj ich. Nie ma PR-a, merge'a ani promocji do `main`. Prywatne nagranie nie jest częścią repozytorium ani ZIP-a.
+
+---
+
+
 ## Owner intent correction — source recheck, 2026-10-25
 
 **Do not canonize the historical game structures.** The Owner said in September 2026 that the original Tibia was his most complete game and that he had genuinely played it for 30–120 minutes, but its exact three classes, talent trees, monster roster, quests, consumables, combat and map were in many respects *production constraints rather than desired fixed end-state*. The task is to protect authored provenance, accumulated playable RPG richness, adventure/feel and future possibilities while challenging obsolete gameplay and architecture. Three classes / five floor IDs are valuable **recovery and regression witnesses only**, NOT unchangeable product requirements.
