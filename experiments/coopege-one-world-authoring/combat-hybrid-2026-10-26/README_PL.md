@@ -18,5 +18,11 @@
 - Cała odziedziczona wyprawa RPG z realnym lootem, ubraniem zdobytej zbroi i rzeczywistym zakupem u kupca przeszła ponownie. Początkowy test starej kolizji wymagał przenikania w trybie A i stał się celowo nieaktualny — zastąpił go pozytywny świadek kontaktu w A i B.
 - **NIEUDOWODNIONE:** czy takie AUTO jest optymalnie wygodne w zatłoczonych podziemiach, balans, animacyjne wygładzenie, wszystkie przejścia pięter, sieciowy co-op, trwałość real-origin localStorage, Owner werdykt nowego feelu. Nie promować domyślnie na main ani nie rozszerzać na klasy bez dowodu.
 
+## Ważne przed powrotem po kolejnej aktualizacji
+
+**Zapis postaci, lista postaci, ustawienia, własne assety oraz edycje mapy mają oddzielne klucze w każdej wersji eksperymentalnej.** To chroni wcześniejsze dane przed nadpisaniem, ale najnowsza Hybryda **nie wczytuje automatycznie** zapisów z wariantu „Kontakt Zamachu” ani jego własnych zmian terenu i grafik. Test w izolowanej przeglądarce: stara wersja rozpoznaje przykładowy stary zapis, nowa nie; nowa rozpoznaje swój własny zapis. Nie jest to dowód usunięcia danych ani pełnego zachowania na zwykłym `file://` lub HTTPS. Własnych zapisów i assetów nie wolno kopiować między formatami ani czytać automatycznie bez jawnego wyboru, walidacji i możliwości wycofania.
+
+**Nie myl trzech powrotów:** do właściwej wersji gry, do swojej rozpoczętej postaci/zmienionej mapy i do własnego zamiaru sprzed przerwy. Dokładny kod mamy odzyskiwalny; przenoszenie drugiej warstwy między eksperymentami nadal wymaga świadomego rozwiązania. Nie obiecujemy migracji w obecnym buildzie.
+
 ## Odtworzenie
 [Adapter](./spatial-hybrid.js), przypięty [donor widoku przygody](../adventure-view/Coopege_Przestrzen_Przygody_2026-10-25.html) i [builder](./build_from_repo.py) odtwarzają byte-identical standalone HTML. [Minimalny test Playwright](./smoke_hybrid.py). W rozmowie pełna paczka `COOPEGE_WALKA_HYBRYDOWA_2026-10-26.zip` zawiera bardziej szczegółowe scenariusze, screenshot tylko z nowego builda i manifest; 17 plików, 928366 B, SHA-256 `36fc568d3eda4871d949ee31dae9c2d83c2b0ecd7beb44cd03d3e1c0a711581b`, CRC/manifest i cold rebuild PASS. ZIP jako załącznik ChatGPT nie jest niezależnym off-platform backupem. Bez zmiany main, bez PR-a.
