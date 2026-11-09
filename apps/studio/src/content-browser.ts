@@ -233,6 +233,9 @@ export class ContentBrowser {
       });
 
       const spawns = this.project.content.spawns.filter((spawn) => spawn.monsterId === monster.id);
+      const scopeNote = document.createElement("p");
+      scopeNote.className = "content-scope-note";
+      scopeNote.textContent = "Zmieniasz definicję potwora — statystyki i grafika dotyczą wszystkich jego wystąpień (" + spawns.length + "), nie tylko wybranego spawnu.";
       const label = document.createElement("label");
       label.className = "field";
       label.textContent = "Lokalizacje potwora w świecie (" + spawns.length + ")";
@@ -260,7 +263,7 @@ export class ContentBrowser {
         }
       });
 
-      actions.append(assetButton, label, locateButton);
+      actions.append(scopeNote, assetButton, label, locateButton);
       this.form.append(actions);
     }
 
