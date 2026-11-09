@@ -520,7 +520,7 @@ export class MapEditor {
       button.textContent = "Edytuj potwora";
       button.disabled = !monster;
       button.addEventListener("click", () => {
-        if (!this.project || !this.project.content.monsters.some((entry) => entry.id === spawn.monsterId)) return;
+        if (!this.project || !spawnById(this.project.content.spawns, spawn.id) || !this.project.content.monsters.some((entry) => entry.id === spawn.monsterId)) return;
         this.focusedSpawnId = spawn.id;
         this.render();
         this.onInspectMonster(spawn.monsterId);
