@@ -347,8 +347,14 @@ function executeEdit(label: string, mutate: (draft: CoopegeProject) => void): bo
 }
 
 const assetBrowser = new AssetBrowser(executeEdit, window.__COOPEGE_ASSET_VAULT_BASELINE__);
-const mapEditor = new MapEditor(executeCommand);
-const contentBrowser = new ContentBrowser(executeCommand);
+const mapEditor = new MapEditor(executeCommand, (monsterId) => {
+  if (contentBrowser.selectMonster(monsterId)) activatePage("content");
+});
+const contentBrowser = new ContentBrowser(
+  executeCommand,
+  (assetId) => { if (assetBrowser.selectAsset(assetId)) activatePage("assets"); },
+  (spawnId) => { if (mapEditor.focusSpawn(spawnId)) activatePage("map"); },
+);
 const abilityComposer = new AbilityComposer(executeCommand, async (graphId, playerId) => {
   if (!bridge || !diagnostics.bridgeReady) throw new Error("Preview runtime nie jest połączony.");
   return bridge.testGameplay(graphId, playerId);
@@ -568,14 +574,15 @@ store.subscribe((change) => {
   queuePreview();
 });
 
-pageButtons.forEach((button) => button.addEventListener("click", () => {
-  const page = button.dataset.page ?? "project";
+function activatePage(page: string): void {
+  if (!pageButtons.some((button) => button.dataset.page === page)) return;
   diagnostics.activePage = page;
-  pageButtons.forEach((candidate) => candidate.classList.toggle("active", candidate === button));
+  pageButtons.forEach((button) => button.classList.toggle("active", button.dataset.page === page));
   pagePanels.forEach((panel) => panel.classList.toggle("active", panel.dataset.pagePanel === page));
-  if (page === "map") {
-    window.setTimeout(() => mapEditor.render(), 0);
-  }
+  if (page === "map") window.setTimeout(() => mapEditor.render(), 0);
+}
+pageButtons.forEach((button) => button.addEventListener("click", () => {
+  activatePage(button.dataset.page ?? "project");
 }));
 
 projectNameInput.addEventListener("change", () => {
