@@ -1,0 +1,18 @@
+import {readFileSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import assert from 'node:assert/strict';
+import {inspectRaw} from './raw-core.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
+const raw=JSON.parse(readFileSync(resolve(root,'project/migration/legacy-v14.1/raw/legacy-export.normalized.json'),'utf8'));
+const before=JSON.stringify(raw);
+const canal=inspectRaw(raw,{x:75,y:86,w:10,h:10});
+const temple=inspectRaw(raw,{x:88,y:69,w:18,h:15});
+const start=inspectRaw(raw,{x:84,y:80,w:10,h:9});
+assert.ok(canal.entrances.some(x=>x.name==='Magazyn'));
+assert.ok(canal.links.some(x=>x.name==='Kanały miasta'));
+assert.ok(temple.entrances.some(x=>x.name==='Świątynia'));
+assert.ok(temple.gates.some(x=>x.partial));
+assert.ok(start.npcs.some(x=>x.id==='merchant_silver_gate'));
+assert.equal(JSON.stringify(raw),before);
+console.log('PASS: historical entrances, canal link, partial traversal gates, merchant NPC, source unchanged');
