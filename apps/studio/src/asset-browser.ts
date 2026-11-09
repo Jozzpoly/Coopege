@@ -73,6 +73,16 @@ export class AssetBrowser {
 
   get selectedId(): string { return this.selectedAssetId; }
 
+  /** Navigate to an existing texture, clearing filters that would hide it. */
+  selectAsset(assetId: string): boolean {
+    if (!this.project?.assets.entries.some((entry) => entry.id === assetId && entry.kind === "texture")) return false;
+    this.selectedAssetId = assetId;
+    this.search.value = "";
+    this.renderList();
+    this.renderSelected();
+    return true;
+  }
+
   get diagnostics(): { baselineCount: number; legacyPlaceholderCount: number; customCount: number; exportReady: boolean } {
     const entries = this.project?.assets.entries.filter((entry) => entry.kind === "texture") ?? [];
     const legacyPlaceholderCount = entries.filter((entry) => this.baselineById.get(entry.id)?.sha256 === entry.sha256).length;
