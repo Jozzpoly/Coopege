@@ -7,6 +7,14 @@
 **Tech Stack:** TypeScript 5.8, Canvas/DOM, istniejące ProjectStore/CommandBus, Node Test, Chromium.
 **Spec:** docs/superpowers/specs/2026-11-10-coopege-authoring-thread-design.md
 
+## Execution state — 10 XI (do not confuse with task completion)
+
+- **Source implemented in this isolated branch:** pure lookup and 3 source-layer tests, map inspector/focus, Content/Asset navigation, main wiring, responsive research CSS, new browser smoke. No merge/deploy.
+- **EXECUTED:** locally isolated Node test for lookup RED→GREEN, 3/3 PASS; the exact branch helper re-evaluated on real migrated Coopege project (338 spawns). Separately an actual compiled *M7 donor copy* passed native Chromium authoring loop (Smok: HP 290→297→undo and linked asset), and independent PNG + HP 303 export/cold-runtime test.
+- **NOT EXECUTED ON BRANCH:** TypeScript full compilation; `npm run check`; `npm run test:browser`; `npm run build`. Current browser smoke is code awaiting execution, not PASS. Source errors may remain.
+- **UX NOT APPROVED:** the existing tabbed M7 UI is not a mature Jaskinia workbench; at 1024px the left inspector works by scrolling, at <=760px layout is still poor.
+- [Raport i blockers](../../research/2026-11-10-coopege-authoring-thread-report.md). [Draft PR #12](https://github.com/Jozzpoly/Coopege/pull/12).
+
 ## Global Constraints
 - Branch experiment/coopege-authoring-workbench-2026-11-10 od Coopege/main; bez zmian Jaskini, Commons, LAN i PR #11.
 - Bez nowego schematu RPG, nowego iframe runtime czy fikcyjnego world demo.
