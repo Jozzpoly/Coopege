@@ -200,12 +200,23 @@ await inspect(
     afterClick.click();
     if(window.__COOPEGE_STUDIO_DIAGNOSTICS__.activePage!=='content')throw Error('Did not navigate to Content');
     const selectedMonster=document.querySelector('#contentForm .content-heading code')?.textContent;
+    const navigationRevision=window.__COOPEGE_STUDIO_DIAGNOSTICS__.storeRevision;
+    if(navigationRevision!==initialRevision)throw Error('Navigation incorrectly changed authoring revision');
+    const hpInput=[...document.querySelectorAll('#contentForm label')].find(x=>x.textContent.includes('Maksymalne HP'))?.querySelector('input');
+    if(!hpInput)throw Error('Missing actual monster HP field');
+    const originalHp=Number(hpInput.value),changedHp=originalHp+7;
+    hpInput.value=String(changedHp);
+    hpInput.dispatchEvent(new Event('change',{bubbles:true}));
+    const wait=async(predicate)=>{const end=Date.now()+18000;while(Date.now()<end){if(predicate())return;await new Promise(resolve=>setTimeout(resolve,40));}throw Error('Timeout authoring cross-instrument revision/preview');};
+    await wait(()=>debug.project().content.monsters.find(m=>m.id===actor.id)?.maxHp===changedHp&&window.__COOPEGE_STUDIO_DIAGNOSTICS__.previewStudioRevision>=initialRevision+1);
+    document.querySelector('#undoButton').click();
+    await wait(()=>debug.project().content.monsters.find(m=>m.id===actor.id)?.maxHp===originalHp&&window.__COOPEGE_STUDIO_DIAGNOSTICS__.previewStudioRevision>=initialRevision+2);
     const assetLink=document.querySelector('#monsterOpenAsset');
     if(!assetLink || assetLink.disabled)throw Error('Monster asset link unavailable');
     assetLink.click();
     const assetSelection=document.querySelector('#assetList .asset-row.active')?.textContent;
-    const actualRevision=window.__COOPEGE_STUDIO_DIAGNOSTICS__.storeRevision;
-    return{ready:true,ok:activeOnMap&&selectedMonster===actor.id&&assetSelection?.includes(actor.assetId)&&actualRevision===initialRevision,summary:'map spawn → monster '+actor.id+' → asset '+actor.assetId+'; rev '+actualRevision+' unchanged'};
+    const endRevision=window.__COOPEGE_STUDIO_DIAGNOSTICS__.storeRevision;
+    return{ready:true,ok:activeOnMap&&selectedMonster===actor.id&&assetSelection?.includes(actor.assetId)&&endRevision===initialRevision+2,summary:'map → monster '+actor.id+' → asset '+actor.assetId+'; HP '+originalHp+'→'+changedHp+'→undo; preview rev '+endRevision};
   })()`,
 );
 
