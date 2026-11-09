@@ -40,7 +40,7 @@ function validateRect(rect, floor) {
 export function simulateMove(input, choice) {
   // choice: {floorId, rect:{x,y,w,h}, dx,dy, clearTileId, policy:"terrain"|"relations"}.
   // This never alters input; explicit destructive source fill is visible in the report.
-  const p=structuredClone(input), floor=p.world.floors.find(f=>f.id===choice.floorId);
+  const originalSnapshot=JSON.stringify(input), p=structuredClone(input), floor=p.world.floors.find(f=>f.id===choice.floorId);
   if(!floor) throw Error("Unknown floor");
   const r=choice.rect, dx=choice.dx,dy=choice.dy;
   validateRect(r,floor);
@@ -112,10 +112,8 @@ export function simulateMove(input, choice) {
     sources:{transitions:sourceTransitions.map(t=>t.id),spawns:sourceSpawns.map(s=>s.id),playerStart:startSource},
     destination:{transitions:targetTransitions.map(t=>t.id),spawns:targetSpawns.map(s=>s.id),playerStart:startTarget},
     counterparts:paired,unpaired,reciprocityErrors,warnings,
-    oldProjectUntouched:!same(input,p),
+    oldProjectUntouched:JSON.stringify(input)===originalSnapshot,
     note:"No game, world state, route guarantees, quests or exact Owner UX tested; in-memory copy only."
   };
-  // oldProjectUntouched means the simulation result differs, not that we verified mutation.
-  report.oldProjectUntouched=same(input,structuredClone(input));
   return {project:p,report};
 }
