@@ -22,6 +22,22 @@
 .content-object-actions button{font-size:11px;min-height:32px;text-align:left}
 .content-object-actions label{font-size:11px;line-height:1.5;color:#d2c2d9}
 .content-object-actions select{font-size:11px;min-height:32px;max-width:100%;padding:7px;border-radius:5px;border:1px solid #65556e;color:#eee;background:#0b0d13}
+
+/* Research: a narrower Jaskinia-sized viewport must not let header and
+   instrument tabs cover the document; left inspector remains scrollable. */
+@media (min-width:761px) and (max-width:1200px) {
+  body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+  .top{height:auto;min-height:58px;flex:none;flex-wrap:wrap;gap:6px;align-content:center;padding-top:7px;padding-bottom:7px}
+  .top .actions{flex-wrap:wrap}
+  .tabs{height:auto;min-height:40px;flex:none;flex-wrap:wrap;gap:2px;padding-bottom:5px}
+  .tabs .tab{white-space:nowrap;padding:7px 10px}
+  .pages{height:auto;min-height:0;flex:1}
+  .page{height:100%}
+  .map-left{display:block;overflow-y:auto;overflow-x:hidden;min-height:0;scrollbar-width:thin}
+  .map-left>.panel{margin-bottom:8px;overflow:visible}
+  .map-left>.panel .body{height:auto;overflow:visible}
+  .map-left .tile-palette{max-height:180px;overflow:auto}
+}
 </style>
 </head>
 <body>
