@@ -47,7 +47,11 @@ export class ContentBrowser {
   private readonly duplicateButton = requiredElement<HTMLButtonElement>("#contentDuplicateButton");
   private readonly deleteButton = requiredElement<HTMLButtonElement>("#contentDeleteButton");
 
-  constructor(private readonly execute: StudioCommandExecutor) {
+  constructor(
+    private readonly execute: StudioCommandExecutor,
+    private readonly onOpenAsset: (assetId: string) => void,
+    private readonly onLocateSpawn: (spawnId: string) => void,
+  ) {
     this.kindButtons.forEach((button) => button.addEventListener("click", () => {
       this.kind = button.dataset.contentKind as ContentKind;
       this.selectedId = "";
@@ -64,6 +68,16 @@ export class ContentBrowser {
       this.selectedId = this.entries()[0]?.id ?? "";
     }
     this.render();
+  }
+
+  /** Navigation is not an authoring command; don't change ProjectStore/revision. */
+  selectMonster(monsterId: string): boolean {
+    if (!this.project?.content.monsters.some((entry) => entry.id === monsterId)) return false;
+    this.kind = "monsters";
+    this.selectedId = monsterId;
+    this.search.value = "";
+    this.render();
+    return true;
   }
 
   get diagnostics(): { kind: ContentKind; selectedId: string } {
@@ -198,6 +212,59 @@ export class ContentBrowser {
           else delete target.assetId;
         }), assets),
       );
+    }
+
+
+    if (this.kind === "monsters") {
+      const monster = entry as MonsterDefinition;
+      const actions = document.createElement("section");
+      actions.className = "content-object-actions";
+
+      const assetButton = document.createElement("button");
+      assetButton.type = "button";
+      assetButton.id = "monsterOpenAsset";
+      assetButton.className = "btn";
+      assetButton.textContent = monster.assetId ? "Pokaż grafikę w bibliotece" : "Ten potwór nie ma assetu";
+      assetButton.disabled = !monster.assetId || !this.project.assets.entries.some((asset) => asset.id === monster.assetId && asset.kind === "texture");
+      assetButton.addEventListener("click", () => {
+        if (monster.assetId && this.project?.assets.entries.some((asset) => asset.id === monster.assetId && asset.kind === "texture")) {
+          this.onOpenAsset(monster.assetId);
+        }
+      });
+
+      const spawns = this.project.content.spawns.filter((spawn) => spawn.monsterId === monster.id);
+      const scopeNote = document.createElement("p");
+      scopeNote.className = "content-scope-note";
+      scopeNote.textContent = "Zmieniasz definicję potwora — statystyki i grafika dotyczą wszystkich jego wystąpień (" + spawns.length + "), nie tylko wybranego spawnu.";
+      const label = document.createElement("label");
+      label.className = "field";
+      label.textContent = "Lokalizacje potwora w świecie (" + spawns.length + ")";
+      const select = document.createElement("select");
+      select.id = "monsterSpawnLocation";
+      for (const spawn of spawns) {
+        const option = document.createElement("option");
+        option.value = spawn.id;
+        option.textContent = spawn.floorId + " · X " + spawn.x + " Y " + spawn.y + " · " + spawn.id;
+        select.append(option);
+      }
+      select.disabled = spawns.length === 0;
+      label.append(select);
+
+      const locateButton = document.createElement("button");
+      locateButton.type = "button";
+      locateButton.id = "monsterLocateSpawn";
+      locateButton.className = "btn";
+      locateButton.textContent = "Pokaż na mapie";
+      locateButton.disabled = spawns.length === 0;
+      locateButton.addEventListener("click", () => {
+        const chosen = select.value;
+        if (this.project?.content.spawns.some((spawn) => spawn.id === chosen && spawn.monsterId === monster.id)) {
+          this.onLocateSpawn(chosen);
+        }
+      });
+
+      actions.append(scopeNote, assetButton, label, locateButton);
+      this.form.append(actions);
     }
 
     const note = document.createElement("p");

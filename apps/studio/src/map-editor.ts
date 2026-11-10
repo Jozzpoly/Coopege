@@ -1,9 +1,10 @@
 import { AssetResolver } from "../../../packages/asset-system/src/index.js";
+import { spawnsAtCell, spawnById } from "./spawn-inspection.js";
 import { applyTileChanges, decodeRleTiles, type TileChange } from "../../../packages/map-core/src/index.js";
 import { createProjectCommand, createReversibleProjectCommand, type ProjectCommand } from "../../../packages/project-store/src/index.js";
 import type { CoopegeProject, FloorDefinition, SpawnDefinition, TileDefinition } from "../../../packages/schema/src/types.js";
 
-export type MapTool = "brush" | "eraser" | "picker" | "start" | "spawn" | "delete-spawn" | "pan";
+export type MapTool = "brush" | "eraser" | "picker" | "start" | "spawn" | "delete-spawn" | "inspect" | "pan";
 export type StudioCommandExecutor = (command: ProjectCommand<CoopegeProject>) => boolean;
 
 function requiredElement<T extends Element>(selector: string): T {
@@ -46,6 +47,8 @@ export class MapEditor {
   private strokeChanges = new Map<number, TileChange>();
   private pointerDown = false;
   private lastPointerTile = { x: -1, y: -1 };
+  private inspectedCell: { floorId: string; x: number; y: number } | undefined;
+  private focusedSpawnId: string | undefined;
 
   private readonly floorSelect = requiredElement<HTMLSelectElement>("#mapFloorSelect");
   private readonly eraseSelect = requiredElement<HTMLSelectElement>("#mapEraseTileSelect");
@@ -57,15 +60,21 @@ export class MapEditor {
   private readonly zoomLabel = requiredElement<HTMLElement>("#mapZoomLabel");
   private readonly status = requiredElement<HTMLElement>("#mapStatus");
   private readonly selection = requiredElement<HTMLElement>("#mapSelection");
+  private readonly objectInspector = requiredElement<HTMLElement>("#mapObjectInspector");
   private readonly toolButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-map-tool]")];
 
-  constructor(private readonly execute: StudioCommandExecutor) {
+  constructor(
+    private readonly execute: StudioCommandExecutor,
+    private readonly onInspectMonster: (monsterId: string) => void,
+  ) {
     const context = this.canvas.getContext("2d");
     if (!context) throw new Error("Canvas 2D mapy jest niedostępny.");
     this.context = context;
     this.context.imageSmoothingEnabled = false;
     this.floorSelect.addEventListener("change", () => {
       this.selectedFloorId = this.floorSelect.value;
+      this.inspectedCell = undefined;
+      this.focusedSpawnId = undefined;
       this.focusStart(false);
       this.render();
     });
@@ -86,6 +95,8 @@ export class MapEditor {
   setProject(project: CoopegeProject): void {
     const previousProjectId = this.project?.manifest.projectId;
     this.project = project;
+    if (this.focusedSpawnId && !spawnById(project.content.spawns, this.focusedSpawnId)) this.focusedSpawnId = undefined;
+    if (this.inspectedCell && !project.world.floors.some((floor) => floor.id === this.inspectedCell?.floorId)) this.inspectedCell = undefined;
     this.assets.setEntries(project.assets.entries);
     void this.assets.preloadAll().then(() => {
       this.renderPalette();
@@ -168,7 +179,7 @@ export class MapEditor {
   private setTool(tool: MapTool): void {
     this.tool = tool;
     this.toolButtons.forEach((button) => button.classList.toggle("active", button.dataset.mapTool === tool));
-    this.canvas.style.cursor = tool === "pan" ? "grab" : tool === "picker" ? "copy" : "crosshair";
+    this.canvas.style.cursor = tool === "pan" ? "grab" : tool === "picker" ? "copy" : tool === "inspect" ? "pointer" : "crosshair";
     this.renderSelection();
   }
 
@@ -239,6 +250,10 @@ export class MapEditor {
     }
     const tile = this.pointerTile(event);
     if (!tile) return;
+    if (this.tool === "inspect") {
+      this.inspectCell(tile.x, tile.y);
+      return;
+    }
     if (this.tool === "picker") {
       const id = this.tileAt(tile.x, tile.y);
       if (id) {
@@ -267,6 +282,31 @@ export class MapEditor {
       this.strokeChanges.clear();
       this.paintTile(tile.x, tile.y);
     }
+  }
+
+
+  /** Purely navigational inspection: no ProjectStore command is issued. */
+  private inspectCell(x: number, y: number): void {
+    if (!this.currentFloor()) return;
+    this.inspectedCell = { floorId: this.selectedFloorId, x, y };
+    this.focusedSpawnId = undefined;
+    this.renderSelection();
+    this.render();
+  }
+
+  /** Navigate to an exact authored occurrence, even when it lives on another floor. */
+  focusSpawn(spawnId: string): boolean {
+    const project = this.project;
+    const spawn = project && spawnById(project.content.spawns, spawnId);
+    if (!spawn || !project?.world.floors.some((floor) => floor.id === spawn.floorId)) return false;
+    this.selectedFloorId = spawn.floorId;
+    this.floorSelect.value = spawn.floorId;
+    this.center = { x: spawn.x + 0.5, y: spawn.y + 0.5 };
+    this.focusedSpawnId = spawn.id;
+    this.inspectedCell = { floorId: spawn.floorId, x: spawn.x, y: spawn.y };
+    this.renderSelection();
+    this.render();
+    return true;
   }
 
   private pointerMove(event: PointerEvent): void {
@@ -445,6 +485,51 @@ export class MapEditor {
     this.render();
   }
 
+
+  private renderObjectInspector(): void {
+    this.objectInspector.replaceChildren();
+    const cell = this.inspectedCell;
+    const project = this.project;
+    if (!cell || !project || cell.floorId !== this.selectedFloorId) return;
+
+    const title = document.createElement("p");
+    title.className = "map-object-heading";
+    title.textContent = "Obiekty · " + cell.floorId + " · (" + cell.x + ", " + cell.y + ")";
+    this.objectInspector.append(title);
+
+    const spawns = spawnsAtCell(project.content.spawns, cell.floorId, cell.x, cell.y);
+    if (spawns.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "map-object-empty";
+      empty.textContent = "Brak spawnu na tym polu. Możesz wybrać inne pole bez zmiany świata.";
+      this.objectInspector.append(empty);
+      return;
+    }
+    for (const spawn of spawns) {
+      const monster = project.content.monsters.find((entry) => entry.id === spawn.monsterId);
+      const row = document.createElement("div");
+      row.className = "spawn-row";
+      if (this.focusedSpawnId === spawn.id) row.classList.add("active");
+      const name = document.createElement("strong");
+      name.textContent = monster?.name ?? "Nieznany potwór (" + spawn.monsterId + ")";
+      const details = document.createElement("p");
+      details.textContent = spawn.id + " · liczba: " + spawn.count + " · odnowienie: " + spawn.respawnTicks + " ticków";
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn";
+      button.textContent = "Edytuj potwora";
+      button.disabled = !monster;
+      button.addEventListener("click", () => {
+        if (!this.project || !spawnById(this.project.content.spawns, spawn.id) || !this.project.content.monsters.some((entry) => entry.id === spawn.monsterId)) return;
+        this.focusedSpawnId = spawn.id;
+        this.render();
+        this.onInspectMonster(spawn.monsterId);
+      });
+      row.append(name, details, button);
+      this.objectInspector.append(row);
+    }
+  }
+
   private renderSelection(): void {
     const tile = this.project?.world.tiles.find((entry) => entry.id === this.selectedTileId);
     this.selection.textContent = [
@@ -455,6 +540,7 @@ export class MapEditor {
       `gumka: ${this.eraseSelect.selectedOptions[0]?.textContent ?? "—"}`,
       `przejścia na piętrze: ${this.project?.world.transitions?.filter((entry) => entry.source.floorId === this.selectedFloorId).length ?? 0}`,
     ].join("\n");
+    this.renderObjectInspector();
   }
 
   render(): void {
@@ -558,6 +644,11 @@ export class MapEditor {
         ctx.beginPath();
         ctx.arc(sx, sy, size * 0.35, 0, Math.PI * 2);
         ctx.fill();
+      }
+      if (this.focusedSpawnId === spawn.id) {
+        ctx.strokeStyle = "#ffe49c";
+        ctx.lineWidth = Math.max(2, Math.min(4, this.zoom * 0.12));
+        ctx.strokeRect(sx - size * 0.62, sy - size * 0.62, size * 1.24, size * 1.24);
       }
       if (this.zoom >= 18) {
         ctx.fillStyle = "#0a0b0ddd";

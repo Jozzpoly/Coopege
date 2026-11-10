@@ -168,6 +168,59 @@ await inspect(
 );
 
 await inspect(
+  "studio-authoring-thread",
+  "dist/Coopege_Studio_v0.1.html",
+  `(async()=>{
+    const d=window.__COOPEGE_STUDIO_DIAGNOSTICS__,debug=window.__COOPEGE_STUDIO_DEBUG__;
+    if(!d?.bridgeReady || !debug?.project)return{ready:false};
+    const p=debug.project();
+    const actor=p.content.monsters.find(m=>m.assetId && p.content.spawns.some(s=>s.monsterId===m.id));
+    if(!actor)throw Error('No monster with both authored spawn and asset');
+    const spawn=p.content.spawns.find(s=>s.monsterId===actor.id);
+    const initialRevision=d.storeRevision;
+    document.querySelector('[data-page="content"]').click();
+    document.querySelector('[data-content-kind="monsters"]').click();
+    const row=[...document.querySelectorAll('#contentList .content-row')].find(x=>x.textContent.includes(actor.id));
+    if(!row)throw Error('Missing monster row');row.click();
+    const locations=document.querySelector('#monsterSpawnLocation');
+    const locate=document.querySelector('#monsterLocateSpawn');
+    if(!locations||!locate)throw Error('No map location navigation');
+    locations.value=spawn.id;locate.click();
+    await new Promise(resolve=>setTimeout(resolve,70));
+    const inspector=document.querySelector('#mapObjectInspector');
+    const go=[...inspector.querySelectorAll('button')].find(x=>x.textContent.includes('Edytuj potwora'));
+    if(!go)throw Error('No inspected spawn action');
+    const activeOnMap=window.__COOPEGE_STUDIO_DIAGNOSTICS__.activePage==='map';
+    document.querySelector('[data-map-tool="inspect"]').click();
+    const canvas=document.querySelector('#mapCanvas'),rect=canvas.getBoundingClientRect();
+    canvas.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerId:21,button:0,clientX:rect.left+rect.width/2,clientY:rect.top+rect.height/2}));
+    canvas.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:21,button:0,clientX:rect.left+rect.width/2,clientY:rect.top+rect.height/2}));
+    const afterClick=[...document.querySelectorAll('#mapObjectInspector button')].find(x=>x.textContent.includes('Edytuj potwora'));
+    if(!afterClick)throw Error('Canvas click did not inspect a spawn');
+    afterClick.click();
+    if(window.__COOPEGE_STUDIO_DIAGNOSTICS__.activePage!=='content')throw Error('Did not navigate to Content');
+    const selectedMonster=document.querySelector('#contentForm .content-heading code')?.textContent;
+    const navigationRevision=window.__COOPEGE_STUDIO_DIAGNOSTICS__.storeRevision;
+    if(navigationRevision!==initialRevision)throw Error('Navigation incorrectly changed authoring revision');
+    const hpInput=[...document.querySelectorAll('#contentForm label')].find(x=>x.textContent.includes('Maksymalne HP'))?.querySelector('input');
+    if(!hpInput)throw Error('Missing actual monster HP field');
+    const originalHp=Number(hpInput.value),changedHp=originalHp+7;
+    hpInput.value=String(changedHp);
+    hpInput.dispatchEvent(new Event('change',{bubbles:true}));
+    const wait=async(predicate)=>{const end=Date.now()+18000;while(Date.now()<end){if(predicate())return;await new Promise(resolve=>setTimeout(resolve,40));}throw Error('Timeout authoring cross-instrument revision/preview');};
+    await wait(()=>debug.project().content.monsters.find(m=>m.id===actor.id)?.maxHp===changedHp&&window.__COOPEGE_STUDIO_DIAGNOSTICS__.previewStudioRevision>=initialRevision+1);
+    document.querySelector('#undoButton').click();
+    await wait(()=>debug.project().content.monsters.find(m=>m.id===actor.id)?.maxHp===originalHp&&window.__COOPEGE_STUDIO_DIAGNOSTICS__.previewStudioRevision>=initialRevision+2);
+    const assetLink=document.querySelector('#monsterOpenAsset');
+    if(!assetLink || assetLink.disabled)throw Error('Monster asset link unavailable');
+    assetLink.click();
+    const assetSelection=document.querySelector('#assetList .asset-row.active')?.textContent;
+    const endRevision=window.__COOPEGE_STUDIO_DIAGNOSTICS__.storeRevision;
+    return{ready:true,ok:activeOnMap&&selectedMonster===actor.id&&assetSelection?.includes(actor.assetId)&&endRevision===initialRevision+2,summary:'map → monster '+actor.id+' → asset '+actor.assetId+'; HP '+originalHp+'→'+changedHp+'→undo; preview rev '+endRevision};
+  })()`,
+);
+
+await inspect(
   "m3-runtime-assets",
   "dist/Coopege_v0.01.html",
   `(async()=>{const d=window.__COOPEGE_RUNTIME_DIAGNOSTICS__;return{ready:d?.ready===true&&d?.gameplayTick>=2&&d?.assetReady===d?.assetTotal,ok:d?.gameplayReady===true&&d.assetTotal===45&&d.assetReady===45&&d.assetFailed===0,summary:'M3 assets='+d?.assetReady+'/'+d?.assetTotal+' · failed='+d?.assetFailed+' · '+d?.gameplayChecksum};})()`,
