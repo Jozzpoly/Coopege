@@ -43,6 +43,19 @@ test("concurrent imports reject second request without destroying first",async()
  assert.equal(h.read().content.monsters.rat.hp,5);assert.equal(h.imports,1);
  assert.equal((await h.api.capture()).project.content.monsters.rat.hp,5);
 });
+test("stale preview cannot overwrite a second instrument's newer content",async()=>{
+ const h=rig(),base=await h.api.capture(),proposal=copy(base);
+ proposal.project.content.monsters.rat.hp=5;
+ const first=await h.api.preview(proposal);
+ const outside=h.read();outside.content.monsters.rat.hp=10;h.set(outside);
+ await assert.rejects(h.api.apply(proposal,{mode:"cold-rebuild",proposalId:first.proposalId}),/changed since preview/);
+ assert.equal(h.imports,0);assert.equal(h.read().content.monsters.rat.hp,10);
+ const fresh=await h.api.preview(proposal);
+ const accepted=await h.api.apply(proposal,{mode:"cold-rebuild",proposalId:fresh.proposalId});
+ assert.equal(accepted.verified,true);assert.equal(h.imports,1);
+ assert.equal(h.read().content.monsters.rat.hp,5);
+ await assert.rejects(h.api.apply(proposal,{mode:"cold-rebuild",proposalId:fresh.proposalId}),/Missing or mismatched preview/);
+});
 test("undo refuses to overwrite later edits",async()=>{
  const h=rig(),c=await h.api.capture();c.project.content.monsters.rat.hp=5;
  const plan=await h.api.preview(c);await h.api.apply(c,{mode:"cold-rebuild",proposalId:plan.proposalId});
