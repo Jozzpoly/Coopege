@@ -28,7 +28,7 @@ test("no-op does not reconstruct defeated actors",async()=>{
 test("cold rebuild explicit; full comparator catches overlooked fields",async()=>{
  const h=rig(),c=await h.api.capture();c.project.content.monsters.rat.hp=5;
  await assert.rejects(h.api.apply(c),/cold-rebuild/);assert.equal(h.imports,0);
- const r=await h.api.apply(c,{mode:"cold-rebuild"});
+ const plan=await h.api.preview(c);const r=await h.api.apply(c,{mode:"cold-rebuild",proposalId:plan.proposalId});
  assert.equal(r.verified,true);assert.equal(h.read().content.monsters.rat.hp,5);
  const changed=h.read();changed.map.entrances[0].name="South";
  assert.deepEqual(Array.from(h.api.compareAuthoring(h.read(),changed).errors),["Authored map differs"]);
@@ -36,7 +36,7 @@ test("cold rebuild explicit; full comparator catches overlooked fields",async()=
 test("concurrent imports reject second request without destroying first",async()=>{
  const h=rig(),base=await h.api.capture(),x=copy(base),y=copy(base);
  x.project.content.monsters.rat.hp=5;y.project.content.monsters.rat.hp=10;
- const first=h.api.apply(x,{mode:"cold-rebuild"}),second=h.api.apply(y,{mode:"cold-rebuild"});
+ const p1=await h.api.preview(x),p2=await h.api.preview(y);const first=h.api.apply(x,{mode:"cold-rebuild",proposalId:p1.proposalId}),second=h.api.apply(y,{mode:"cold-rebuild",proposalId:p2.proposalId});
  await assert.rejects(second,/mutation already in progress/);
  await assert.rejects(h.api.capture(),/mutation in progress/);
  await first;
@@ -45,7 +45,7 @@ test("concurrent imports reject second request without destroying first",async()
 });
 test("undo refuses to overwrite later edits",async()=>{
  const h=rig(),c=await h.api.capture();c.project.content.monsters.rat.hp=5;
- await h.api.apply(c,{mode:"cold-rebuild"});
+ const plan=await h.api.preview(c);await h.api.apply(c,{mode:"cold-rebuild",proposalId:plan.proposalId});
  const edited=h.read();edited.map.entrances[0].name="New";h.set(edited);
  const undo1=await h.api.undoLastApply();assert.equal(undo1.conflict,true);assert.equal(h.imports,1);
  edited.map.entrances[0].name="North";h.set(edited);
