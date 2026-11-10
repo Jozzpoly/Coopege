@@ -18,8 +18,8 @@
     const p={format:a.project.format,formatVersion:a.project.formatVersion,
       content:a.content.exportPackage(),map:a.map.exportWorld(),
       assets:await a.asset.exportPackage({includeProcedural:false})};
-    const v=a.project.validateProject(p);
-    if(!v.ok)throw Error('Current authoring state invalid: '+v.errors.slice(0,3).join('; '));
+    // Even a deliberately invalid draft must remain exportable for later editing.
+    // Live import has stricter preconditions than saving the author's source.
     return p;
   }
   async function capture() {
@@ -140,12 +140,14 @@
   }
   async function download(capsule=null,name='Coopege_Authoring_Project.json'){
     const data=capsule||await capture(),check=validate(data);
-    if(!check.ok)throw Error('Cannot export invalid capsule: '+check.problems.join('; '));
+    if(data?.capsuleFormat!==FORMAT||data?.capsuleVersion!==VERSION||!data.project)
+      throw Error('Cannot save malformed capsule envelope');
+    // Preserve invalid creative drafts; only live apply is blocked by native limits.
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob),el=document.createElement('a');
     el.href=url;el.download=name;document.body.appendChild(el);el.click();el.remove();
     setTimeout(()=>URL.revokeObjectURL(url),4000);
-    return{bytes:blob.size,fileName:name};
+    return{bytes:blob.size,fileName:name,liveImportValid:check.ok,issues:check.problems};
   }
   if(root.CoopegeAuthoringDocument)throw Error('Authoring adapter already installed');
   Object.defineProperty(root,'CoopegeAuthoringDocument',{value:Object.freeze({
