@@ -23,9 +23,9 @@
    return Object.freeze({monsterId,base,next,check,
       preview:Object.freeze({fields:Object.keys(changes),
         definitionScope:'ALL authored occurrences of this monster kind',
-        livingActors:'PRESERVED with previous stats',
-        futureActors:'USE NEW definition at next spawn',
-        persistent:false,undoScope:'Definition only; actor history is NOT restored'})});
+        livingActors:'Existing identities preserved; only HP behavior empirically tested',
+        futureActors:'New respawn reads updated HP; other fields unverified',
+        persistent:false,undoScope:'Definition only; already spawned actors/combat history are NOT restored'})});
  }
  function apply(plan){
    if(!plan||!plan.monsterId||!plan.base||!plan.next)throw Error('Expected plan from prepare');
