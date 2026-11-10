@@ -101,6 +101,18 @@ with sync_playwright() as pw:
     }""",doc)
     assert bad=={'world':False,'incomplete':False,'extreme':False},bad
     print('PASS: foreign world, incomplete authoring, unsupported numeric range rejected')
+    # Deliberately invalid drafts must still be exportable for later authoring.
+    with dst.expect_download() as draft_download:
+        draft=dst.evaluate("""async doc => {
+          const d=JSON.parse(JSON.stringify(doc));
+          d.project.content.monsters.rat.hp=5555555;
+          const validation=CoopegeAuthoringDocument.validate(d);
+          const save=await CoopegeAuthoringDocument.download(d,'Coopege_Invalid_Draft.json');
+          return {valid:validation.ok,reportedValid:save.liveImportValid,bytes:save.bytes};
+        }""",doc)
+    assert draft_download.value.suggested_filename=='Coopege_Invalid_Draft.json'
+    assert draft['valid'] is False and draft['reportedValid'] is False and draft['bytes']>1000
+    print('PASS: invalid experiment saved as draft; import remains disallowed')
 
     corrupt=dst.evaluate("""async doc => {
       const broken=JSON.parse(JSON.stringify(doc));
