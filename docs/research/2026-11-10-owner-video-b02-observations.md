@@ -1,5 +1,8 @@
 # Owner session 10 XI 2026: naturalna twórczość w B01 → falsyfikator układu B02
 
+> **AUTHORITATIVE OWNER CORRECTION, 10 XI 2026**
+> The owner directly corrected our interpretation after watching B01: (1) HP `5 555 555` tested **immediate game effect** (new rats invulnerable), followed by **HP 5** (one-hit rats), **not** a return to 25 as previously inferred; (2) Dragon asset was **deliberately chosen by name** as a humorous rat-in-dragon-disguise, not a blind selection; (3) floating ChatGPT overlay is **not** a Coopege UX finding — owner deliberately ignored it; (4) pixel-change peaks are **not** a privileged indicator of meaningful moments; sample pauses, quiet and random intervals as well; (5) the B01/B02 M7 donor is **obsolete**, not the next implementation basis; (6) the owner uses Jaskinia as daily Home and expects freely configurable window layouts/presets **better than current Jaskinia**. **Owner's interpretation supersedes our speculative notes below**; retain them only as historical audit of error. Canonical [corrected research brief](https://github.com/Jozzpoly/Jozz-Commons/blob/main/wplywy/2026-11-09-coopege-studio-kampania/RESEARCH_BRIEF.md).
+
 **Status:** OWNER-OBSERVED (nagranie ekranu) / B02 LAB TECH PASS (izolowany Chromium) / OWNER UX B02 OPEN. **Nie** nowe wymaganie całego Jaskinia API, nie akceptacja gotowego Studia, nie źródłowy build Coopege PR #12. **Nie publikować prywatnego nagrania** ani jego kopii w repo; materiał źródłowy pozostał w rozmowie z Ownerem.
 
 
