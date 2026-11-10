@@ -2,6 +2,15 @@
 
 **10 XI 2026 · status: isolated R&D donor, NOT Jaskinia, NOT Owner UX PASS, NOT READY FOR MERGE.**
 
+## Current shared handoff — 10 XI 2026, after independent successor review
+
+Owner opened a successor Coopege conversation and handed it the complete previous-line ZIP; the successor **independently executed exact-source Node tests** on the then current PR head `e4cb691...`: **5 PASS / 1 FAIL**. The failure was a used `proposalId` on an identical no-op reimport being silently accepted, contradicting the *single-use* contract. Previous agent corrected the exact GitHub JS to reject reuse of an explicitly supplied token even on a no-op; ordinary no-token identical reimport stays a harmless no-op. Added 7th regression test. **Current head is no longer the independently tested SHA**. Re-run the full exact-source Node/Chromium suites before reporting green.
+
+Two other independent findings remain **OPEN**: `preview.changes` can omit changes to spawn groups and map entrances; cross-instrument `capture` can mix domain versions across an async asset export because A0's lock covers only A0. Do not promote A0 as a globally transactional project document. The successor owns independent QA and its own choice of the first meaningful player/creator experiment, while the old conversation limits itself to maintenance and evidence handoff. Ownership of the branch must be checked before either party writes.
+
+**Separate, equal priority:** [COOPEGE_SOUL.md](https://github.com/Jozzpoly/Coopege/blob/main/docs/product/COOPEGE_SOUL.md) expects a compelling actual RPG: exploration, meaningful encounters, equipment/loot, distinctly different P1/P2 roles, local co-op, and Owner-authored content becoming playable. Successful authoring JSON and more adapters are not in themselves gameplay progress. First player-facing experiment must have a genuine visible/felt result in the Oct26 world, not a new form or generic Jaskinia host schema. **Jaskinia remains the daily Home**, with Opus/Astra owning its foundation.
+
+
 ## Owner intent / relevance
 
 Jaskinia has been the Owner's everyday *Home* for launching and using projects since its inception. Coopege must remain a distinct RPG and domain owner, but its future authoring **workspace** should be composed using Jaskinia's freely arranged windows and presets — with better ergonomics than today's host. No need to rebuild a duplicate launcher, window shell, or Studio inside the game. October's F2 mini-editor is an explicit anti-pattern. The June M7 Studio/PR #12 is historical UX evidence only, **not** the implementation base.
