@@ -50,6 +50,10 @@ The bundled `smoke_authoring.py` is designed to reproduce these observations on 
 
 Separate [`runtime_reset_probe.py`](./runtime_reset_probe.py) performs a **test-only, read-only actor-reference instrumentation** (does not edit the donor on GitHub). Actual game start with warrior key `1`: **338 alive**; simulate one defeated actor by setting test-only actor HP to 0: **337 alive**; import a freshly exported **identical** authored project: **338 alive**, and the old actor reference is gone. Native reports `applied:true`, playability `ok:true`. No page errors. This is strong evidence that the existing importer is a **cold reconstruction**, not suitable as an unnoticed hot update during combat. Do **not** use it every time a designer drags a parameter. Hot patch requires a deliberately different semantics or safe simulation pause/commit boundary. The test did not perform natural player combat; the defeated-actor condition was imposed through a contained test hook.
 
+### Native definition-only update — another distinct semantics
+
+A second [reproducible hot-definition probe](./hot_definition_probe.py) used the playable Oct26 runtime with the warrior started: a live Rat had 25/25 HP and the authored Rat definition was 25 HP. Calling native `TibiaContentAPI.importPackage(...,{respawn:false})` with definition HP **5** yielded **new definition 5**, while the SAME live Rat instance remained 25/25 HP and 338 actors remained alive. No JS errors. Therefore we have TWO different outcomes, each meaningful: `respawn:false` updates future authoring definitions but leaves active actor stats as-is; full `importProject` reconstructs actors (even on identical data). The experiment does not yet prove what happens when a naturally new Rat spawns. **Never call both behaviors simply 'instant apply'** without explicit policy about scope and time.
+
 ## Run/reproduce (agent-facing)
 
 Install Python Playwright and a Chromium binary, adjust the executable path in `smoke_authoring.py` if needed, then from any directory:
