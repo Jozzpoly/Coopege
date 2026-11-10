@@ -40,7 +40,7 @@ with sync_playwright() as pw:
       let blocked='';
       try{await a.apply(changed);}catch(e){blocked=e.message;}
       const afterBlocked=TibiaContentAPI.getRuntimeSnapshot().alive;
-      const committed=await a.apply(changed,{mode:'cold-rebuild'});
+      const proposal=await a.preview(changed);const committed=await a.apply(changed,{mode:'cold-rebuild',proposalId:proposal.proposalId});
       const afterCold=TibiaContentAPI.getRuntimeSnapshot().alive;
       // An independent authored tile edit after import must block blind undo.
       const edited=TibiaMapAPI.setTile(0,118,95,2);
