@@ -56,6 +56,15 @@ test("stale preview cannot overwrite a second instrument's newer content",async(
  assert.equal(h.read().content.monsters.rat.hp,5);
  await assert.rejects(h.api.apply(proposal,{mode:"cold-rebuild",proposalId:fresh.proposalId}),/Missing or mismatched preview/);
 });
+test("explicit no-op preview is one-use but plain no-op is idempotent",async()=>{
+ const h=rig(),capsule=await h.api.capture();
+ const plan=await h.api.preview(capsule);
+ const first=await h.api.apply(capsule,{mode:"cold-rebuild",proposalId:plan.proposalId});
+ assert.equal(first.unchanged,true);assert.equal(h.imports,0);
+ await assert.rejects(h.api.apply(capsule,{mode:"cold-rebuild",proposalId:plan.proposalId}),/Missing or mismatched preview/);
+ const safe=await h.api.apply(capsule);
+ assert.equal(safe.unchanged,true);assert.equal(h.imports,0);
+});
 test("undo refuses to overwrite later edits",async()=>{
  const h=rig(),c=await h.api.capture();c.project.content.monsters.rat.hp=5;
  const plan=await h.api.preview(c);await h.api.apply(c,{mode:"cold-rebuild",proposalId:plan.proposalId});
