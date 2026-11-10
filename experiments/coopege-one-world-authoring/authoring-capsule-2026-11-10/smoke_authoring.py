@@ -65,7 +65,7 @@ with sync_playwright() as pw:
     report=dst.evaluate("""async doc => {
       const api=CoopegeAuthoringDocument;
       const preview=await api.preview(doc);
-      const applied=await api.apply(doc,{mode:'cold-rebuild'});
+      const applied=await api.apply(doc,{mode:'cold-rebuild',proposalId:preview.proposalId});
       const result={
         hp:TibiaContentAPI.exportPackage().monsters.rat.hp,
         name:TibiaContentAPI.exportPackage().monsters.rat.name,
@@ -119,7 +119,7 @@ with sync_playwright() as pw:
       broken.project.assets.assets['monster.rat'].data='data:image/png;base64,AAAA';
       const nativePreflight=CoopegeAuthoringDocument.validate(broken);
       let error='';
-      try{await CoopegeAuthoringDocument.apply(broken,{mode:'cold-rebuild'});}catch(e){error=e.message;}
+      try{const proposal=await CoopegeAuthoringDocument.preview(broken);await CoopegeAuthoringDocument.apply(broken,{mode:'cold-rebuild',proposalId:proposal.proposalId});}catch(e){error=e.message;}
       return {nativePreflight:nativePreflight.ok,error,
         hp:TibiaContentAPI.exportPackage().monsters.rat.hp,
         tile:TibiaMapAPI.getTile(0,118,95),
