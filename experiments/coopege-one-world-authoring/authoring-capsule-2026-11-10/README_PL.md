@@ -41,6 +41,11 @@ The bundled `smoke_authoring.py` is designed to reproduce these observations on 
 
 **Important provenance:** the local research version of this adapter ran the full Playwright scenario and passed. The checked-in Python scenario reproduces the same fixtures against the checked-in JS; **GitHub Actions has not yet executed this particular branch**. No claims of live Opera, actual authoring UX, network co-op or durable browser-origin persistence.
 
+
+### Negative witness: no-op import is NOT neutral to living actors
+
+Separate [`runtime_reset_probe.py`](./runtime_reset_probe.py) performs a **test-only, read-only actor-reference instrumentation** (does not edit the donor on GitHub). Actual game start with warrior key `1`: **338 alive**; simulate one defeated actor by setting test-only actor HP to 0: **337 alive**; import a freshly exported **identical** authored project: **338 alive**, and the old actor reference is gone. Native reports `applied:true`, playability `ok:true`. No page errors. This is strong evidence that the existing importer is a **cold reconstruction**, not suitable as an unnoticed hot update during combat. Do **not** use it every time a designer drags a parameter. Hot patch requires a deliberately different semantics or safe simulation pause/commit boundary. The test did not perform natural player combat; the defeated-actor condition was imposed through a contained test hook.
+
 ## Run/reproduce (agent-facing)
 
 Install Python Playwright and a Chromium binary, adjust the executable path in `smoke_authoring.py` if needed, then from any directory:
