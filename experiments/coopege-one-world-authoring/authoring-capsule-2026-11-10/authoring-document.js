@@ -4,7 +4,7 @@
   'use strict';
   const FORMAT='coopege-authoring-capsule', VERSION=1;
   const SOURCE='Coopege_Powrot_Do_Swiata_2026-10-26', MAX=32*1024*1024;
-  let rollback=null;
+  let rollback=null,mutationBusy=false;
   const own=(obj,k)=>Object.prototype.hasOwnProperty.call(obj,k);
   const clone=obj=>JSON.parse(JSON.stringify(obj));
   function host() {
@@ -23,6 +23,7 @@
     return p;
   }
   async function capture() {
+    if(mutationBusy)throw Error('Authoring mutation in progress; capture is not a consistent snapshot');
     const p=await snapshot(),a=host();
     return {capsuleFormat:FORMAT,capsuleVersion:VERSION,capturedAt:new Date().toISOString(),
       source:SOURCE,worldId:p.map.world.id,engineVersion:a.project.engineVersion,project:p};
@@ -82,6 +83,7 @@
     return{ok:errors.length===0,errors};
   }
   async function preview(input){
+    if(mutationBusy)throw Error('Authoring mutation in progress; preview requires a stable snapshot');
     const c=parse(input),check=validate(c);
     if(!check.ok)return{ok:false,check};
     const current=await snapshot(),next=c.project;
@@ -111,6 +113,9 @@
       });
   }
   async function apply(input,options={}){
+    if(mutationBusy)throw Error('Authoring mutation already in progress');
+    mutationBusy=true;
+    try{
     const c=parse(input),check=validate(c);
     if(!check.ok)throw Error('Capsule preflight rejected: '+check.problems.slice(0,4).join('; '));
     await decodeCustomImages(c.project.assets);
@@ -134,8 +139,12 @@
     rollback={before,after};
     return{applied:true,unchanged:false,verified:true,playability:imported.ok,
       warnings:check.warnings.concat(imported.warnings||[]),summary:check.summary};
+    } finally {mutationBusy=false;}
   }
   async function undoLastApply(){
+    if(mutationBusy)throw Error('Authoring mutation already in progress');
+    mutationBusy=true;
+    try{
     if(!rollback)return{restored:false,reason:'Nothing to undo'};
     const current=await snapshot(),check=compareAuthoring(rollback.after,current);
     if(!check.ok)return{restored:false,conflict:true,
@@ -146,8 +155,10 @@
     if(!verified.ok)throw Error('Undo inconsistent: '+verified.errors.join('; '));
     rollback=null;
     return{restored:true,verified:true,playability:imported.ok};
+    } finally {mutationBusy=false;}
   }
   async function download(capsule=null,name='Coopege_Authoring_Project.json'){
+    if(mutationBusy)throw Error('Authoring mutation in progress; cannot save inconsistent state');
     const data=capsule||await capture(),check=validate(data);
     if(data?.capsuleFormat!==FORMAT||data?.capsuleVersion!==VERSION||!data.project||
       !['content','map','assets'].every(k=>own(data.project,k)))
