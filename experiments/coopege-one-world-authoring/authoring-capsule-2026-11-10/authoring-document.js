@@ -4,7 +4,8 @@
   'use strict';
   const FORMAT='coopege-authoring-capsule', VERSION=1;
   const SOURCE='Coopege_Powrot_Do_Swiata_2026-10-26', MAX=32*1024*1024;
-  let rollback=null,mutationBusy=false;
+  let rollback=null,mutationBusy=false,proposalCounter=0;
+  const proposals=new Map(); // bounded one-use previews, never persisted
   const own=(obj,k)=>Object.prototype.hasOwnProperty.call(obj,k);
   const clone=obj=>JSON.parse(JSON.stringify(obj));
   function host() {
@@ -87,10 +88,13 @@
     const c=parse(input),check=validate(c);
     if(!check.ok)return{ok:false,check};
     const current=await snapshot(),next=c.project;
+    const proposalId=++proposalCounter;
+    proposals.set(proposalId,{before:current,target:clone(next)});
+    if(proposals.size>8)proposals.delete(proposals.keys().next().value);
     const diff=(a,b)=>[...new Set([...Object.keys(a),...Object.keys(b)])]
       .filter(k=>!same(a[k],b[k]));
     const x=current.assets.assets||{},y=next.assets.assets||{};
-    return{ok:true,check,changes:{
+    return{ok:true,check,proposalId,changes:{
       monsterIds:diff(current.content.monsters,next.content.monsters),
       floorIds:diff(current.map.floors,next.map.floors),
       classIds:diff(current.content.classes,next.content.classes),
@@ -128,6 +132,12 @@
     // Deliberate boundary: this rebuilds actors, it is not live editing.
     if(options.mode!=='cold-rebuild')
       throw Error('Nontrivial change requires explicit cold-rebuild (reconstructs living actors)');
+    const proposal=proposals.get(options.proposalId);
+    if(!proposal||!compareAuthoring(proposal.target,c.project).ok)
+      throw Error('Missing or mismatched preview; re-preview before cold rebuild');
+    if(!compareAuthoring(proposal.before,before).ok)
+      throw Error('Authored world changed since preview; re-preview before cold rebuild');
+    proposals.delete(options.proposalId); // one-use authoring decision
     const imported=await host().project.importProject(clone(c.project));
     if(!imported.applied)throw Error('Native import not applied');
     const after=await snapshot(),verified=compareAuthoring(c.project,after);
@@ -137,6 +147,7 @@
       throw Error('Import inconsistent, rolled back: '+verified.errors.join('; '));
     }
     rollback={before,after};
+    proposals.clear(); // old previews cannot authorize future replacements
     return{applied:true,unchanged:false,verified:true,playability:imported.ok,
       warnings:check.warnings.concat(imported.warnings||[]),summary:check.summary};
     } finally {mutationBusy=false;}
@@ -154,6 +165,7 @@
     const verified=compareAuthoring(before,await snapshot());
     if(!verified.ok)throw Error('Undo inconsistent: '+verified.errors.join('; '));
     rollback=null;
+    proposals.clear();
     return{restored:true,verified:true,playability:imported.ok};
     } finally {mutationBusy=false;}
   }
