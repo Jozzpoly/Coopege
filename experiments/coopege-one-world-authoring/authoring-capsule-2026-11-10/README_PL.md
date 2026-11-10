@@ -29,6 +29,10 @@ Use the existing donor: `../continuity-2026-10-26/Coopege_Powrot_Do_Swiata_2026-
 
 **Warning:** `importProject` replaces content/map/assets, reconstructs spawn actors, may reposition the player and can remove custom textures omitted from the file. It is **not** a merge with a running adventure. Preview and backup must remain mandatory concepts in any future real UX. The current adapter is not safety-qualified for valuable Owner data.
 
+## Critical distinction: save ANY draft, apply only a validated one
+
+A first review found a dangerous paternalistic regression in the initial adapter: it rejected exporting a designer's invalid/absurd draft because the game cannot run it. **Corrected:** `capture()` and `download()` now preserve a structurally complete authored document even if `TibiaProjectAPI.validateProject` rejects numerical values or playability; download returns `liveImportValid:false` and issues. Only `apply()` to the living game retains the existing native limits. Thus **5 555 555 HP can be preserved as authoring data** even though the Oct26 runtime currently rejects it. This is not a promise that combat supports the value, nor a final stance on safe validation. It is the distinction between **creating/saving** and **executing** a draft.
+
 ## Evidence (isolated Chromium)
 
 The bundled `smoke_authoring.py` is designed to reproduce these observations on the EXACT donor file, in separate Chromium documents using `page.set_content` (normal `file://` navigation was blocked by the research environment):
