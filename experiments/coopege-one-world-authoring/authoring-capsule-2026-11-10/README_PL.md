@@ -89,6 +89,23 @@ No Studio panels, no launch-in-game F2, no host-level API contract, no telemetri
 (a) store as editable draft, (b) change future instances while keeping current actors, (c) rebuild a fresh test scene. Do **not** silently add a policy “mutate all currently alive creatures” without a separate valid runtime mechanism and falsification campaign. Jaskinia host composition and presets remain Opus/Astra's domain and Owner intent.
 
 
+## Checkpoint A0.2 / A1 — conflict prevention, live definition continuity (10 XI)
+
+**OWNER SIGNAL:** „kontynuuj” = kredyt zaufania do kierunku i upoważnienie do samodzielnej kontynuacji, nie akceptacja każdej technicznej decyzji. Jaskinia pozostaje jednym Domem; grywalne październikowe Coopege i jego domenowe operacje to punkt wyjścia. Nie wracać do M7/B02.
+
+**Krytyczna kontrpróba wykryta na dokładnym źródle PR #13:** dwie równoczesne operacje `apply` (Rat HP 5 i 10) były w stanie jednocześnie wejść w import. Jeden request zgłaszał sukces, a równoległy rollback przywracał 25 HP. To **prawdziwy false success / lost update**. Naprawa: adapter ma per-instance single-flight guard; import i undo nie nakładają się, a capture/preview nie czyta nieustalonego stanu. **Exact-source mock PASS:** pierwszy import skuteczny, drugi jawnie odrzucony, końcowe HP 5. **Nie jest to globalny lock wszystkich narzędzi, a tym bardziej transakcja distributed.**
+
+**Drugi fałszywy sukces:** A0 może pokazać preview pakietu HP 5, potem A1 w innym instrumencie zapisze HP 10; stary import A0 zastępuje HP 10 → 5 mimo że podgląd nie odpowiada już aktualnemu dziełu. **Na realnym Oct26 Chromium sprawdzono tę porażkę.** Naprawa: `preview(input)` wydaje niepersistowany `proposalId` powiązany z pełnym snapshotem autorskiego projektu oraz docelowym pakietem. Aby wykonać **zmieniony** cold import, należy przekazać `apply(input,{mode:'cold-rebuild',proposalId})`. Jeśli autorskie dane zmieniły się od podglądu, operacja odmawia nadpisania i wymaga świeżego podglądu. Token jest jednokrotny, lista ograniczona do 8. Niezmieniony dokument wciąż pozostaje bezpiecznym no-op. W testach realnego Chromium po nowej regule: stary preview → A1 HP 10 → odrzucony import (HP nadal 10) → świeży preview i świadomy cold import do 5 HP **PASS**. To zabezpieczenie jednego adaptera, **nie** wspólny silnik transakcji Jaskini.
+
+**A1 — osobny eksperyment domenowy, bez nowego UI:** [`hot-monster-a1.js`](./hot-monster-a1.js) z `prepare / apply / undo`. Przygotowanie wskazuje zasięg „definicja wszystkich przyszłych wystąpień”, plan jest sprawdzany przeciw bieżącej wersji contentu; `TibiaContentAPI.importPackage(...,{respawn:false,syncPlayer:false})` aktualizuje definicję Szczura z HP 25 → 5, **istniejący Szczur zachowuje 25/25**, a kolejny odrodzony ma **5/5**. Lokalny real-Chromium **PASS**: aktualizacja, odrodzenie, konflikt cofania po innej zmianie, poprawne cofnięcie definicji, bez JS errors. [Reproduktor](./test_hot_monster_a1.py). A1 nie zmienia aktualnie żyjących aktorów, nie gwarantuje atomowości trzech domen, nie zapisuje gry automatycznie.
+
+**Połączona pętla A1→A0:** na żywym świecie zmieniono HP i nazwę Szczura, pozostawiono istniejącego aktora bez zmiany; A0 wyeksportowało **rzeczywisty plik JSON**, w drugiej świeżej instancji gra odczytała nową definicję i nowo zespawnowany Szczur miał HP 5. Testował również odrzucanie nieaktualnego planu A1. **PASS w lokalnym Chromium**, [reproduktor](./test_a0_a1_composition.py).
+
+**Stop/quality gate:** pliki testowe są zapisane w tej samej gałęzi, ale w tej rundzie **nie uruchomiono dokładnej źródłowej gałęzi jako checkout w lokalnym Chromium ani GitHub Actions**. Użyto tego samego przypiętego HTML z 26 X oraz *lokalnie modyfikowanego odpowiednika JS*, a dokładny aktualny kod GitHuba osobno przeszedł zestaw testów na izolowanym symulowanym hoście JavaScript (stale preview, lock, no-op, undo, preview single-use). Nie podnosić tego do `FULL CI PASS`. PR pozostaje DRAFT / DO NOT MERGE. `file://`, zwykły origin Opery i Jaskinia-host nie były testowane.
+
+**Najbliższa rzeczywista bramka:** doprowadzić do uruchomienia `node --test .../adapter_regression.test.cjs` oraz testów Playwright **na dokładnym checkout PR #13**, z pełną ścieżką i zapisanymi wynikami. Dopiero potem przejść od API-labu do jakościowego eksperymentu ze wskazanym obiektem RPG w Jaskini (pod przyszły host), nie tworzyć kolejnej powłoki M7.
+
+
 ## Next meaningful questions, not a forced roadmap
 
 1. *Hot apply vs cold apply*: what must survive a domain edit in a living simulation? Differentiate document revision, actor instance, spawn lifecycle, selected world object and adventure save. Do not silently invoke `spawnAll` on every slider tick.
