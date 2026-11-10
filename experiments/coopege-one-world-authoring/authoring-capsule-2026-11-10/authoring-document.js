@@ -140,8 +140,9 @@
   }
   async function download(capsule=null,name='Coopege_Authoring_Project.json'){
     const data=capsule||await capture(),check=validate(data);
-    if(data?.capsuleFormat!==FORMAT||data?.capsuleVersion!==VERSION||!data.project)
-      throw Error('Cannot save malformed capsule envelope');
+    if(data?.capsuleFormat!==FORMAT||data?.capsuleVersion!==VERSION||!data.project||
+      !['content','map','assets'].every(k=>own(data.project,k)))
+      throw Error('Cannot save incomplete capsule envelope');
     // Preserve invalid creative drafts; only live apply is blocked by native limits.
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob),el=document.createElement('a');
