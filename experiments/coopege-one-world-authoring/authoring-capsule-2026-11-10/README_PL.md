@@ -106,6 +106,15 @@ No Studio panels, no launch-in-game F2, no host-level API contract, no telemetri
 **Najbliższa rzeczywista bramka:** doprowadzić do uruchomienia `node --test .../adapter_regression.test.cjs` oraz testów Playwright **na dokładnym checkout PR #13**, z pełną ścieżką i zapisanymi wynikami. Dopiero potem przejść od API-labu do jakościowego eksperymentu ze wskazanym obiektem RPG w Jaskini (pod przyszły host), nie tworzyć kolejnej powłoki M7.
 
 
+### A1 identity gap — temporary actors are not authored occurrences
+
+A **different** issue surfaced when testing the Owner's imagined **one exceptional Rat** rather than changing the global Rat definition. October's map exports **45 named spawn groups and 338 anonymous member points** (e.g. `members.rat=[[88,52],[84,53],...]`), whereas June M7's [`SpawnDefinition`](https://github.com/Jozzpoly/Coopege/blob/main/packages/schema/src/types.ts) includes a stable authored `id: StableId` per spawn. October's live `Monster` instances likewise lack an exposed stable `id` field, although they carry `spawnGroupId` and their current/home positions.
+
+**Actual Oct26 browser negative witness:** selected one Rat among many; changed that actor alone into `Szczurzyca lokalna` with HP **5/5**, while another Rat and the authoring definition remained **25 HP**. After that actor was test-defeated and a native respawn was invoked, the new Rat had **25/25 HP** and ordinary name; the unique local variant was gone. This experiment **does not mean** runtime per-instance mutation is ready for authoring or that group/coordinate can safely substitute for stable authored occurrence IDs. [`instance_identity_limit_probe.py`](./instance_identity_limit_probe.py).
+
+**Consequence:** do not assume M7's click-selected stable `spawn.id` can simply be transplanted into the October game. We need an explicit distinction among (1) monster *type definition*, (2) authored *placement/variant*, (3) living runtime *instance*. Not a mandate to freeze a universal schema or implement full per-occurrence variants now. Better game feel and richer authored RPG remain parallel priorities.
+
+
 ## Next meaningful questions, not a forced roadmap
 
 1. *Hot apply vs cold apply*: what must survive a domain edit in a living simulation? Differentiate document revision, actor instance, spawn lifecycle, selected world object and adventure save. Do not silently invoke `spawnAll` on every slider tick.
