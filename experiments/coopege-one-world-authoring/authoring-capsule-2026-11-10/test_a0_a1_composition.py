@@ -47,7 +47,7 @@ with sync_playwright() as pw:
   imported=p2.evaluate("""async cap=>{
      const before=TibiaContentAPI.exportPackage().monsters.rat.hp;
      const preview=await CoopegeAuthoringDocument.preview(cap);
-     const result=await CoopegeAuthoringDocument.apply(cap,{mode:'cold-rebuild'});
+     const result=await CoopegeAuthoringDocument.apply(cap,{mode:'cold-rebuild',proposalId:preview.proposalId});
      const rat=TibiaContentAPI.exportPackage().monsters.rat;
      const actor=window.__getActors().find(a=>a.alive&&a.tk==='rat');
      return{before,changed:preview.changes.monsterIds,verified:result.verified,
