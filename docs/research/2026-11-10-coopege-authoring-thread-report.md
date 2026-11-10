@@ -1,6 +1,6 @@
 # Coopege Studio B01 — raport pierwszej kampanii authoringu
 
-**Data:** 10 XI 2026. **Status:** SOURCE BRANCH WIP / kompaktowe doświadczenie działające na osobnej, dawnej paczce M7 / OWNER UX UNTESTED / **DO NOT MERGE**.
+**Data:** 10 XI 2026. **Status:** SOURCE BRANCH WIP / kompaktowe doświadczenie działające na osobnej, dawnej paczce M7 / B01 OWNER FEEDBACK: „działa, ale chujowe” (UX niezaakceptowane) / B02 OWNER UX OPEN / **DO NOT MERGE**.
 
 ## Intencja
 
@@ -40,11 +40,19 @@ W izolowanym Chromium + Python Playwright:
 
 Wyniki te potwierdzają **możliwość domenowego obiegu na istniejącym silniku M7**, nie ukończenie jego źródłowego portu ani ergonomii hosta Jaskini.
 
+## Nowa rzeczywista sesja Ownera i falsyfikator B02 (10 XI)
+
+Owner uruchomił dostarczony B01 i przekazał **„działa xD chujowe”**. Jego 2m40 nagranie (prywatne, nie kopiować do repo) dokumentuje **nieprzygotowane** twórcze działania: malowanie mapy, wybór Szkieleta i Szczura, modyfikacje HP, nazwę „Szczurzyca, bo czemu nie xD”, zmianę assetu Szczura na grafikę Smoka i obserwację rezultatu w grywalnym runtime. **54 spawn definitions**, wspólna definicja, nie 54 niezależne klasy. Końcowy stan `rev 12 / niezapisane` przy zsynchronizowanym preview wskazuje nierozstrzygnięty problem trwałości autorskiej pracy; nie dowodzi utraty danych.
+
+W reakcji powstał **osobny B02 HTML: eksperyment wieloinstrumentowej aranżacji**, nie nowy produkt. Przy 1658 px prawdziwa mapa, Content/Asset i runtime wyświetlają się równocześnie, granice można przeciągać, Undo i preview korzystają z tego samego projektu. Przy 1024px prawa strefa przełącza się Content ⇄ Runtime, unikając nieużywalnego mini-podglądu. W odrębnym Chromium `rat: nazwa + HP 25→29 + asset rat→dragon` dało 3 rewizje i zsynchronizowane preview; Undo asset → rewizja 4, brak `pageerror`. **B02 NIE jest skompilowanym źródłem PR #12, nie był jeszcze oceniony przez Ownera w Operze, nie działa w Jaskini.**
+
+[Pełne evidence, kontrargumenty, granice i następny ruch](./2026-11-10-owner-video-b02-observations.md).
+
 ## Granice oraz niespełnione bramki
 
 - **SOURCE BUILD UNVERIFIED:** nie wykonano `npm run typecheck`, `npm run check`, `npm run test:browser`, `npm run build` na nowym branchu. W obecnym środowisku GitHub był dostępny przez connector, lecz brak poświadczeń pozwalających sklonować prywatne repo do procesu Node/tsc. Zmodyfikowany `browser-smoke.mjs` przeszedł kontrolę składni (po zastąpieniu importów na potrzeby izolowanego parsera), ale nie przeprowadził e2e źródłowej gałęzi.
 - Różnica testowanej paczki M7 i rozwijanej gałęzi M8 **jest rzeczywista**. Sukces prototypu HTML nie rozstrzyga, czy źródłowa integracja kompiluje się i zachowuje w najnowszym buildzie.
-- **USER UX UNVERIFIED:** atrakcyjność i wygoda ocenia Owner; lista paneli nadal jest sztywna, drobna i oparta na zakładkach. Przy 1024 części trzeba scrollować; przy 760 pionowy stack jest uciążliwy. To nie jest „dojrzała pracownia w Jaskini”.
+- **B01 UX odrzucony przez Ownera jako słaby:** potwierdził działanie, lecz nie wygodę; lista paneli nadal jest sztywna, drobna i oparta na zakładkach. **B02 UX jeszcze nieoceniony**. Przy 1024 części trzeba scrollować; przy 760 pionowy stack jest uciążliwy. To nie jest „dojrzała pracownia w Jaskini”.
 - Nie sprawdzono kilku nakładających się spawnów poprzez realny klik ani recency konfliktów pomiędzy dwoma sesjami i originami.
 - Klikanie spawnu wskazuje **wystąpienie** definicji potwora, a edycja HP tej definicji dotyka **wszystkich jej wystąpień**. W UI musi być to z czasem jednoznaczne dla twórcy; B01 jeszcze nie wprowadza pełnego wyjaśnienia zasięgu zmian.
 - Nie odtworzono pełnych NPC, questów ani semantyki regionów z historycznej Tibii. Wariant B **nie może ich zapomnieć tylko dlatego, że bieżący schema M7 ich nie obejmuje**.
