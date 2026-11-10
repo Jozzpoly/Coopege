@@ -59,30 +59,27 @@
         questCount:Array.isArray(c.project?.content?.quests)?c.project.content.quests.length:0,
         customTextureCount:Object.keys(c.project?.assets?.assets||{}).length,bytes}};
   }
+  // Native Oct26 changes only these known serialisation details on reimport.
+  // Every other authored field must compare, including entrances, spawns,
+  // playability, classes, quests and exact custom asset metadata.
+  function authoredCanonical(p){
+    const x=clone(p);
+    if(x.content)delete x.content.exportedAt;
+    if(x.map?.world)delete x.map.world.exportedAt;
+    if(x.assets)delete x.assets.createdAt;
+    if(Array.isArray(x.map?.spawnGroups))
+      x.map.spawnGroups.forEach(g=>{g.eliteCount=g.eliteCount??0;});
+    return x;
+  }
   const stable=v=>Array.isArray(v)?v.map(stable):
     v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v;
   const same=(a,b)=>JSON.stringify(stable(a))===JSON.stringify(stable(b));
-  const normalizedGroups=groups=>(groups||[]).map(g=>({...g,eliteCount:g.eliteCount??0}));
   function compareAuthoring(a,b){
-    const errors=[];
-    if(!same(a.content.monsters,b.content.monsters))errors.push('Monsters differ');
-    if(!same(a.content.classes,b.content.classes))errors.push('Classes differ');
-    if(!same(a.content.skills,b.content.skills))errors.push('Skills differ');
-    if(!same(a.content.quests,b.content.quests))errors.push('Quests differ');
-    if(!same(a.map.floors,b.map.floors))errors.push('Map floors differ');
-    // Known native normalization: optional eliteCount -> 0.
-    if(!same(normalizedGroups(a.map.spawnGroups),normalizedGroups(b.map.spawnGroups)))
-      errors.push('Spawn groups differ');
-    if(!same(a.map.start,b.map.start))errors.push('Start differs');
-    if(!same(a.map.links,b.map.links))errors.push('Links differ');
-    if(!same(a.map.npcs,b.map.npcs))errors.push('NPCs differ');
-    const x=a.assets.assets||{},y=b.assets.assets||{},ka=Object.keys(x).sort(),kb=Object.keys(y).sort();
-    if(!same(ka,kb))errors.push('Texture IDs differ');
-    for(const k of ka){
-      if(x[k]?.data!==y[k]?.data)errors.push('PNG bytes differ: '+k);
-      if(!same(x[k]?.meta||{},y[k]?.meta||{}))errors.push('PNG metadata differ: '+k);
+    const before=authoredCanonical(a),after=authoredCanonical(b),errors=[];
+    for(const section of ['format','formatVersion','content','map','assets']){
+      if(!same(before[section],after[section]))errors.push('Authored '+section+' differs');
     }
-    return {ok:!errors.length,errors};
+    return{ok:errors.length===0,errors};
   }
   async function preview(input){
     const c=parse(input),check=validate(c);
@@ -113,28 +110,40 @@
         img.src=value.data;
       });
   }
-  async function apply(input){
+  async function apply(input,options={}){
     const c=parse(input),check=validate(c);
     if(!check.ok)throw Error('Capsule preflight rejected: '+check.problems.slice(0,4).join('; '));
     await decodeCustomImages(c.project.assets);
     const before=await snapshot();
+    // An unchanged document MUST NOT reconstruct a live world.
+    if(compareAuthoring(c.project,before).ok){
+      return{applied:false,unchanged:true,verified:true,playability:true,
+        warnings:check.warnings,summary:check.summary};
+    }
+    // Deliberate boundary: this rebuilds actors, it is not live editing.
+    if(options.mode!=='cold-rebuild')
+      throw Error('Nontrivial change requires explicit cold-rebuild (reconstructs living actors)');
     const imported=await host().project.importProject(clone(c.project));
     if(!imported.applied)throw Error('Native import not applied');
-    const verified=compareAuthoring(c.project,await snapshot());
+    const after=await snapshot(),verified=compareAuthoring(c.project,after);
     if(!verified.ok){
       try{await host().project.importProject(before);}
       catch(e){throw Error('Import verification and rollback failed: '+verified.errors.join('; ')+' | '+e.message);}
       throw Error('Import inconsistent, rolled back: '+verified.errors.join('; '));
     }
-    rollback=before;
-    return{applied:true,verified:true,playability:imported.ok,
+    rollback={before,after};
+    return{applied:true,unchanged:false,verified:true,playability:imported.ok,
       warnings:check.warnings.concat(imported.warnings||[]),summary:check.summary};
   }
   async function undoLastApply(){
     if(!rollback)return{restored:false,reason:'Nothing to undo'};
-    const before=rollback,imported=await host().project.importProject(before);
-    const check=compareAuthoring(before,await snapshot());
-    if(!check.ok)throw Error('Undo inconsistent: '+check.errors.join('; '));
+    const current=await snapshot(),check=compareAuthoring(rollback.after,current);
+    if(!check.ok)return{restored:false,conflict:true,
+      reason:'Authored project changed after import',differences:check.errors};
+    const before=rollback.before,imported=await host().project.importProject(before);
+    if(!imported.applied)throw Error('Native undo import failed');
+    const verified=compareAuthoring(before,await snapshot());
+    if(!verified.ok)throw Error('Undo inconsistent: '+verified.errors.join('; '));
     rollback=null;
     return{restored:true,verified:true,playability:imported.ok};
   }
