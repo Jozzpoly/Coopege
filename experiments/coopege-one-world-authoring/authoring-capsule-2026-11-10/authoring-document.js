@@ -124,20 +124,27 @@
     if(!check.ok)throw Error('Capsule preflight rejected: '+check.problems.slice(0,4).join('; '));
     await decodeCustomImages(c.project.assets);
     const before=await snapshot();
-    // An unchanged document MUST NOT reconstruct a live world.
-    if(compareAuthoring(c.project,before).ok){
+    const unchanged=compareAuthoring(c.project,before).ok;
+    // An unchanged request never reconstructs actors, even without a preview.
+    // But an EXPLICIT proposalId is a one-use decision: its reuse cannot
+    // silently be reported as an authorized successful operation.
+    if(!unchanged&&options.mode!=='cold-rebuild')
+      throw Error('Nontrivial change requires explicit cold-rebuild (reconstructs living actors)');
+    const explicitProposal=own(options,'proposalId');
+    if(explicitProposal){
+      const proposal=proposals.get(options.proposalId);
+      if(!proposal||!compareAuthoring(proposal.target,c.project).ok)
+        throw Error('Missing or mismatched preview; re-preview before cold rebuild');
+      if(!compareAuthoring(proposal.before,before).ok)
+        throw Error('Authored world changed since preview; re-preview before cold rebuild');
+      proposals.delete(options.proposalId); // one-use even on legitimate no-op
+    }else if(!unchanged){
+      throw Error('Missing preview; re-preview before cold rebuild');
+    }
+    if(unchanged){
       return{applied:false,unchanged:true,verified:true,playability:true,
         warnings:check.warnings,summary:check.summary};
     }
-    // Deliberate boundary: this rebuilds actors, it is not live editing.
-    if(options.mode!=='cold-rebuild')
-      throw Error('Nontrivial change requires explicit cold-rebuild (reconstructs living actors)');
-    const proposal=proposals.get(options.proposalId);
-    if(!proposal||!compareAuthoring(proposal.target,c.project).ok)
-      throw Error('Missing or mismatched preview; re-preview before cold rebuild');
-    if(!compareAuthoring(proposal.before,before).ok)
-      throw Error('Authored world changed since preview; re-preview before cold rebuild');
-    proposals.delete(options.proposalId); // one-use authoring decision
     const imported=await host().project.importProject(clone(c.project));
     if(!imported.applied)throw Error('Native import not applied');
     const after=await snapshot(),verified=compareAuthoring(c.project,after);
