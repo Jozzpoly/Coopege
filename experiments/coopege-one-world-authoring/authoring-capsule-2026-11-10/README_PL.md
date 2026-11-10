@@ -66,6 +66,27 @@ No Owner profile, site data or project storage is used. Do not run against valua
 
 No Studio panels, no launch-in-game F2, no host-level API contract, no telemetric recorder, no global Jaskinia schema, no migration of old saves and no canonical gameplay. B01/B02 remain archived in [PR #12](https://github.com/Jozzpoly/Coopege/pull/12); the new evidence belongs to the October playable line.
 
+## Checkpoint A0.1 — no-op, konflikty, selektywna zmiana (10 XI)
+
+**CURRENT STATUS: WIP / DRAFT PR #13 / NO MERGE.** Design-level behavior observed in *disposable* Chromium with pinned Oct26 game HTML. The branch's exact Playwright scripts still need independent execution on a checked-out source; GitHub Actions run count 0 at this checkpoint. Local packaged smoke test PASSED, but the packaged adapter and the GitHub branch's JS had been divergent; source-branch JS logic was separately exercised with mock host including new no-op/conflict semantics. Do **not** report CI green.
+
+**Critical new safeguards in branch source:**
+- Strict authoring equivalence now compares **all** project sections, not just selected fields (the old verifier omitted entrances/spawns/playability). Only empirically generated timestamps (`content.exportedAt`, `map.world.exportedAt`, `assets.createdAt`) and omitted `spawnGroup.eliteCount→0` are normalized.
+- `apply(unchangedCapsule)` returns `{unchanged:true,applied:false}`, does **not** invoke native import and therefore **does not respawn a defeated actor**.
+- Changed authoring document requires explicit `apply(capsule,{mode:'cold-rebuild'})`; otherwise rejected **before** a native world rebuild. This is not a full interactive UI consent mechanism.
+- After importing, `undoLastApply()` first checks whether the authored world has changed. On a conflict it refuses to overwrite newer authoring. Undo, when allowed, is still a **cold reconstruction of actor instances**, not normal gameplay Ctrl+Z.
+- Save of a structurally complete but unexecutable creative draft remains allowed. Native execution validation remains separate.
+
+**Concrete browser counterexample:** warrior runtime 338 actors; mark one Rat defeated in disposable test (337); `apply` with exactly the same authoring snapshot leaves **337 and the same live actor reference**. A *changed* capsule without explicit cold-rebuild is rejected without restoring the Rat. With explicit cold-rebuild the game reconstructs 338. Change a tile after that: undo reports conflict and retains both newly authored HP and tile. Restore just the tile to its imported value: undo can restore the previous authoring world. Test also detects changes to `map.entrances`, which the earlier comparator missed. [Reproducer `noop_conflict_probe.py`](./noop_conflict_probe.py).
+
+**Selective HOT probe:** `TibiaContentAPI.importPackage(modified,{respawn:false,syncPlayer:false})` changes the authored Rat definition from HP 25→5 while an existing rat actor **retains HP 25/25**. A single `TibiaMapAPI.setTile` change and a separate `TibiaAssetAPI.registerTexture` PNG override can be made without replacing any of the 338 actor objects or disturbing the observed player position/HP/MP and quest counter; the test then reverses each change. This is **not** an atomic three-domain commit or a test that all gameplay systems are unaffected. [Reproducer `selective_hot_probe.py`](./selective_hot_probe.py).
+
+**Important future test:** verify snapshot/trace consistency when a change arrives during a live encounter, when it changes collision beneath an actor or a quest-relevant tile, and after save-close-reopen on the actual target origin. Tests done by agents must not be promoted to an Owner UX result.
+
+**Next intentional campaign A1:** design one *domain-scoped* authoring operation with a visible impact preview and an explicit selected execution policy:
+(a) store as editable draft, (b) change future instances while keeping current actors, (c) rebuild a fresh test scene. Do **not** silently add a policy “mutate all currently alive creatures” without a separate valid runtime mechanism and falsification campaign. Jaskinia host composition and presets remain Opus/Astra's domain and Owner intent.
+
+
 ## Next meaningful questions, not a forced roadmap
 
 1. *Hot apply vs cold apply*: what must survive a domain edit in a living simulation? Differentiate document revision, actor instance, spawn lifecycle, selected world object and adventure save. Do not silently invoke `spawnAll` on every slider tick.
