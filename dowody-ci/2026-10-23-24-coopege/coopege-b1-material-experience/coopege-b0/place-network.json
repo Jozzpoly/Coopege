@@ -1,0 +1,403 @@
+{
+  "origin": "Independently consumed generated authored-source witness; no original executable used",
+  "start": {
+    "x": 88,
+    "y": 84,
+    "z": 0
+  },
+  "reachableCells": 26832,
+  "totalCells": 40000,
+  "namedPlaces": [
+    {
+      "kind": "npc",
+      "id": "healer_silver_gate",
+      "name": "Uzdrowiciel",
+      "role": "healer",
+      "x": 84,
+      "y": 76,
+      "reachable": true,
+      "steps": 12
+    },
+    {
+      "kind": "npc",
+      "id": "merchant_silver_gate",
+      "name": "Kupiec",
+      "role": "merchant",
+      "x": 84,
+      "y": 83,
+      "reachable": true,
+      "steps": 5
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Północna brama twierdzy",
+      "role": null,
+      "x": 88,
+      "y": 68,
+      "reachable": true,
+      "steps": 16
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Południowa brama twierdzy",
+      "role": null,
+      "x": 88,
+      "y": 96,
+      "reachable": true,
+      "steps": 12
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Zachodnia brama twierdzy",
+      "role": null,
+      "x": 73,
+      "y": 82,
+      "reachable": true,
+      "steps": 17
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Wschodnia brama twierdzy",
+      "role": null,
+      "x": 105,
+      "y": 82,
+      "reachable": true,
+      "steps": 19
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Świątynia",
+      "role": null,
+      "x": 89,
+      "y": 81,
+      "reachable": true,
+      "steps": 4
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Kuźnia",
+      "role": null,
+      "x": 82,
+      "y": 75,
+      "reachable": true,
+      "steps": 15
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Magazyn",
+      "role": null,
+      "x": 82,
+      "y": 90,
+      "reachable": true,
+      "steps": 12
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Karczma",
+      "role": null,
+      "x": 96,
+      "y": 90,
+      "reachable": true,
+      "steps": 14
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Wieża",
+      "role": null,
+      "x": 97,
+      "y": 78,
+      "reachable": true,
+      "steps": 15
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Brama cmentarza",
+      "role": null,
+      "x": 93,
+      "y": 150,
+      "reachable": true,
+      "steps": 71
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Ruiny zachodnie",
+      "role": null,
+      "x": 30,
+      "y": 28,
+      "reachable": true,
+      "steps": 114
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Pustynna świątynia",
+      "role": null,
+      "x": 154,
+      "y": 91,
+      "reachable": true,
+      "steps": 73
+    },
+    {
+      "kind": "entrance",
+      "id": null,
+      "name": "Dom farmera",
+      "role": null,
+      "x": 20,
+      "y": 93,
+      "reachable": true,
+      "steps": 77
+    }
+  ],
+  "sampleRoutes": [
+    {
+      "name": "Uzdrowiciel",
+      "steps": 12,
+      "first": [
+        [
+          88,
+          84
+        ],
+        [
+          87,
+          84
+        ],
+        [
+          86,
+          84
+        ],
+        [
+          85,
+          84
+        ],
+        [
+          85,
+          83
+        ],
+        [
+          85,
+          82
+        ],
+        [
+          85,
+          81
+        ],
+        [
+          85,
+          80
+        ],
+        [
+          85,
+          79
+        ],
+        [
+          85,
+          78
+        ]
+      ],
+      "last": [
+        [
+          85,
+          84
+        ],
+        [
+          85,
+          83
+        ],
+        [
+          85,
+          82
+        ],
+        [
+          85,
+          81
+        ],
+        [
+          85,
+          80
+        ],
+        [
+          85,
+          79
+        ],
+        [
+          85,
+          78
+        ],
+        [
+          85,
+          77
+        ],
+        [
+          84,
+          77
+        ],
+        [
+          84,
+          76
+        ]
+      ]
+    },
+    {
+      "name": "Kupiec",
+      "steps": 5,
+      "first": [
+        [
+          88,
+          84
+        ],
+        [
+          87,
+          84
+        ],
+        [
+          86,
+          84
+        ],
+        [
+          85,
+          84
+        ],
+        [
+          84,
+          84
+        ],
+        [
+          84,
+          83
+        ]
+      ],
+      "last": [
+        [
+          88,
+          84
+        ],
+        [
+          87,
+          84
+        ],
+        [
+          86,
+          84
+        ],
+        [
+          85,
+          84
+        ],
+        [
+          84,
+          84
+        ],
+        [
+          84,
+          83
+        ]
+      ]
+    },
+    {
+      "name": "Południowa brama twierdzy",
+      "steps": 12,
+      "first": [
+        [
+          88,
+          84
+        ],
+        [
+          88,
+          85
+        ],
+        [
+          88,
+          86
+        ],
+        [
+          88,
+          87
+        ],
+        [
+          88,
+          88
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          88,
+          90
+        ],
+        [
+          88,
+          91
+        ],
+        [
+          88,
+          92
+        ],
+        [
+          88,
+          93
+        ]
+      ],
+      "last": [
+        [
+          88,
+          87
+        ],
+        [
+          88,
+          88
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          88,
+          90
+        ],
+        [
+          88,
+          91
+        ],
+        [
+          88,
+          92
+        ],
+        [
+          88,
+          93
+        ],
+        [
+          88,
+          94
+        ],
+        [
+          88,
+          95
+        ],
+        [
+          88,
+          96
+        ]
+      ]
+    }
+  ],
+  "inaccessible": [],
+  "limitations": [
+    "Grid accessibility is not equivalent to collision-aware body traversability",
+    "Actor occupancy and dynamic world changes are not modeled",
+    "Destination roles are original source meaning, not a commitment to preserve NPC behavior",
+    "The UI, combat, narrative, sound and game-feel have not been implemented"
+  ]
+}
