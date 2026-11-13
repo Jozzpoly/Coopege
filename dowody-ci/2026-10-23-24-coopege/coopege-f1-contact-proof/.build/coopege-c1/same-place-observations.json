@@ -1,0 +1,39 @@
+{
+  "test": "Same authored southern approach, natural keyboard input",
+  "units": "tiles",
+  "a1": {
+    "source": "A1 Tibia-derived",
+    "classKey": "warrior",
+    "threats": 110,
+    "start": {
+      "x": 88.5,
+      "y": 84.5
+    },
+    "south": {
+      "x": 88.5,
+      "y": 99.6
+    },
+    "sourceScale": "A1 world coordinates / 32"
+  },
+  "c1": {
+    "source": "C1 experimental continuation of B5 RPG",
+    "threats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "start": {
+      "x": 88.5,
+      "y": 84.5
+    },
+    "south": {
+      "x": 88.5,
+      "y": 98.44
+    },
+    "cart": {
+      "x": 88.5,
+      "y": 99.5,
+      "vx": 0,
+      "vy": 0
+    }
+  },
+  "disclaimer": "Technical/visual comparison only; neither enjoyment nor player-choice value is automatically demonstrated"
+}

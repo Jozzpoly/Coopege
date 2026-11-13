@@ -1,0 +1,420 @@
+[
+  {
+    "phase": "start",
+    "tick": 43,
+    "x": 88.5,
+    "y": 84.5,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 99.5,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "unknown",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.5,
+        "y": 103.5
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 83.43166666666643,
+      "y": 90.5,
+      "hp": 36,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "outbound",
+      "index": 0,
+      "carrying": false,
+      "seenThreat": null,
+      "attackCd": 0,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "trail",
+    "tick": 390,
+    "x": 88.5,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42567260190854,
+      "vx": 0,
+      "vy": 0.06807936755996494
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "outbound",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.5,
+        "y": 103.5
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.29273812812151,
+      "y": 91.14984036646464,
+      "hp": 36,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "outbound",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": null,
+      "attackCd": 0,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "near-satchel",
+    "tick": 455,
+    "x": 90.4375,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "outbound",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.5,
+        "y": 103.5
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.32394851683351,
+      "y": 92.55782782713804,
+      "hp": 36,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "outbound",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": null,
+      "attackCd": 0,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "claimed",
+    "tick": 467,
+    "x": 90.4375,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "outbound",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.5,
+        "y": 103.5
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.32971043474957,
+      "y": 92.8177639737239,
+      "hp": 36,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "outbound",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": null,
+      "attackCd": 0,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście."
+  },
+  {
+    "phase": "save-load",
+    "tick": 564,
+    "x": 90.4375,
+    "y": 102.52308238636473,
+    "hp": 88,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "outbound",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.7875,
+        "y": 102.52308238636473
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Odkładasz sakwę w świecie. Pozostanie w tym miejscu, dopóki jej nie zabierzesz.",
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.3762859379044,
+      "y": 94.91891449195958,
+      "hp": 36,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "outbound",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": null,
+      "attackCd": 0,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Przywrócono świat wraz z przesuniętymi przedmiotami."
+  },
+  {
+    "phase": "merchant-approach",
+    "tick": 1017,
+    "x": 84.75,
+    "y": 83.33558238636473,
+    "hp": 88,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "workerCarrying": false,
+      "merchantStock": 0,
+      "known": {
+        "workerPhase": "sheltering",
+        "workerCarrying": false,
+        "delivered": false,
+        "merchantStock": 0
+      },
+      "courierBag": {
+        "x": 90.7875,
+        "y": 102.52308238636473
+      },
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Odkładasz sakwę w świecie. Pozostanie w tym miejscu, dopóki jej nie zabierzesz.",
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.44350831359174,
+      "y": 97.95150286879459,
+      "hp": 24,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "sheltering",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": {
+        "id": "surface_city_south_vermin:rat:4",
+        "x": 89.98311687147503,
+        "y": 98.29258589758793
+      },
+      "attackCd": 0.6999999999999997,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Przywrócono świat wraz z przesuniętymi przedmiotami."
+  },
+  {
+    "phase": "delivered",
+    "tick": 1053,
+    "x": 84.75,
+    "y": 83.33558238636473,
+    "hp": 88,
+    "coins": 24,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "workerCarrying": false,
+      "merchantStock": 3,
+      "known": {
+        "workerPhase": "sheltering",
+        "workerCarrying": false,
+        "delivered": true,
+        "merchantStock": 3
+      },
+      "courierBag": {
+        "x": 90.7875,
+        "y": 102.52308238636473
+      },
+      "courierDelivered": true,
+      "bountyPaid": false,
+      "notes": [
+        "Kupiec odbiera sakwę, płaci 24 monety i daje opatrunek. Możesz ruszyć ponownie.",
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Odkładasz sakwę w świecie. Pozostanie w tym miejscu, dopóki jej nie zabierzesz.",
+        "Podnosisz sakwę kupca. Możesz dostarczyć ją osobiście.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "worker": {
+      "id": "worker:warehouse",
+      "name": "Tragarz",
+      "role": "worker",
+      "x": 90.44350831359174,
+      "y": 97.95150286879459,
+      "hp": 24,
+      "maxHp": 36,
+      "alive": true,
+      "phase": "sheltering",
+      "index": 1,
+      "carrying": false,
+      "seenThreat": {
+        "id": "surface_city_south_vermin:rat:4",
+        "x": 90.16044950346809,
+        "y": 98.67717730830314
+      },
+      "attackCd": 0.09999999999999926,
+      "detour": [],
+      "stalledFor": 0,
+      "blockedNotice": false
+    },
+    "message": "Kupiec odbiera sakwę, płaci 24 monety i daje opatrunek. Możesz ruszyć ponownie."
+  }
+]

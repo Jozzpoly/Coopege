@@ -1,0 +1,196 @@
+[
+  {
+    "phase": "start",
+    "tick": 37,
+    "x": 88.5,
+    "y": 84.5,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 99.5,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "trail",
+    "tick": 426,
+    "x": 88.5,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42567260190854,
+      "vx": 0,
+      "vy": 0.06807936755996494
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "near-satchel",
+    "tick": 510,
+    "x": 90.5625,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Wyrusz na południe od Srebrnej Bramy."
+  },
+  {
+    "phase": "claimed",
+    "tick": 523,
+    "x": 90.5625,
+    "y": 102.52308238636473,
+    "hp": 100,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt."
+  },
+  {
+    "phase": "save-load",
+    "tick": 611,
+    "x": 90.5625,
+    "y": 102.52308238636473,
+    "hp": 88,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Przywrócono świat wraz z przesuniętymi przedmiotami."
+  },
+  {
+    "phase": "merchant-approach",
+    "tick": 1017,
+    "x": 84.9375,
+    "y": 84.27308238636473,
+    "hp": 88,
+    "coins": 0,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": true,
+      "courierDelivered": false,
+      "bountyPaid": false,
+      "notes": [
+        "Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Przywrócono świat wraz z przesuniętymi przedmiotami."
+  },
+  {
+    "phase": "delivered",
+    "tick": 1085,
+    "x": 84.9375,
+    "y": 84.27308238636473,
+    "hp": 88,
+    "coins": 24,
+    "kills": 0,
+    "cart": {
+      "x": 88.5,
+      "y": 103.42762027467556,
+      "vx": 0,
+      "vy": 0
+    },
+    "rats": 13,
+    "authoredNpcCount": 2,
+    "authoredEncounter": "Szczury przy południowym trakcie",
+    "episode": {
+      "hasCourierBag": false,
+      "courierDelivered": true,
+      "bountyPaid": false,
+      "notes": [
+        "Kupiec odbiera sakwę, płaci 24 monety i daje opatrunek. Możesz ruszyć ponownie.",
+        "Podnosisz sakwę kupca. Wróć do Srebrnej Bramy albo zbadaj dalszy trakt.",
+        "Srebrna Brama: Kupiec wspomina o zaginionej sakwie na południowym trakcie."
+      ]
+    },
+    "message": "Kupiec odbiera sakwę, płaci 24 monety i daje opatrunek. Możesz ruszyć ponownie."
+  }
+]

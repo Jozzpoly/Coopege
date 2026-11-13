@@ -1,0 +1,445 @@
+{
+  "scope": "Live Tibia v14.1 export vs Coopege M7 project V2 migration (not feature or feel benchmark)",
+  "original": {
+    "floorCount": 5,
+    "monsterDefinitions": 6,
+    "quests": [
+      {
+        "name": "Plaga pod murami",
+        "kind": "rat",
+        "need": 8,
+        "reward": {
+          "gold": 60,
+          "hpot": 2
+        }
+      },
+      {
+        "name": "Zielona zasadzka",
+        "kind": "troll",
+        "need": 5,
+        "reward": {
+          "gold": 110,
+          "item": "ring_guard"
+        }
+      },
+      {
+        "name": "Kości nie kłamią",
+        "kind": "skeleton",
+        "need": 6,
+        "reward": {
+          "gold": 150,
+          "talent": 1,
+          "mpot": 2
+        }
+      },
+      {
+        "name": "Serce zimy",
+        "kind": "yeti",
+        "need": 3,
+        "reward": {
+          "gold": 220,
+          "item": "armor_yeti"
+        }
+      },
+      {
+        "name": "Smocza próba",
+        "kind": "dragon",
+        "need": 2,
+        "reward": {
+          "gold": 400,
+          "talent": 2,
+          "classReward": true
+        }
+      }
+    ],
+    "npcs": [
+      {
+        "id": "healer_silver_gate",
+        "name": "Uzdrowiciel",
+        "type": "healer",
+        "floor": 0
+      },
+      {
+        "id": "merchant_silver_gate",
+        "name": "Kupiec",
+        "type": "merchant",
+        "floor": 0
+      }
+    ],
+    "entrances": [
+      {
+        "name": "Północna brama twierdzy",
+        "z": 0,
+        "x": 88,
+        "y": 68
+      },
+      {
+        "name": "Południowa brama twierdzy",
+        "z": 0,
+        "x": 88,
+        "y": 96
+      },
+      {
+        "name": "Zachodnia brama twierdzy",
+        "z": 0,
+        "x": 73,
+        "y": 82
+      },
+      {
+        "name": "Wschodnia brama twierdzy",
+        "z": 0,
+        "x": 105,
+        "y": 82
+      },
+      {
+        "name": "Świątynia",
+        "z": 0,
+        "x": 89,
+        "y": 81
+      },
+      {
+        "name": "Kuźnia",
+        "z": 0,
+        "x": 82,
+        "y": 75
+      },
+      {
+        "name": "Magazyn",
+        "z": 0,
+        "x": 82,
+        "y": 90
+      },
+      {
+        "name": "Karczma",
+        "z": 0,
+        "x": 96,
+        "y": 90
+      },
+      {
+        "name": "Wieża",
+        "z": 0,
+        "x": 97,
+        "y": 78
+      },
+      {
+        "name": "Brama cmentarza",
+        "z": 0,
+        "x": 93,
+        "y": 150
+      },
+      {
+        "name": "Ruiny zachodnie",
+        "z": 0,
+        "x": 30,
+        "y": 28
+      },
+      {
+        "name": "Pustynna świątynia",
+        "z": 0,
+        "x": 154,
+        "y": 91
+      },
+      {
+        "name": "Dom farmera",
+        "z": 0,
+        "x": 20,
+        "y": 93
+      }
+    ],
+    "links": 12,
+    "mapCapabilities": {
+      "editableStart": true,
+      "linkMetadata": true,
+      "schemaValidation": true,
+      "maxTile": 17
+    },
+    "contentCapabilities": {
+      "newMonsters": true,
+      "newQuests": true,
+      "newClasses": false,
+      "editableClasses": [
+        "warrior",
+        "archer",
+        "mage"
+      ],
+      "newActiveSkills": false,
+      "editableActiveSkills": true,
+      "newTalentLogic": false,
+      "editableExistingTalents": true,
+      "skillExecutors": [
+        "whirlwind",
+        "arrowRain",
+        "fireball"
+      ],
+      "monsterSpecialExecutors": [
+        "bone",
+        "breath",
+        "slam"
+      ],
+      "proceduralMonsterFallback": true,
+      "transactionalProjectAPI": true
+    }
+  },
+  "migrated": {
+    "floorCount": 5,
+    "monsterDefinitions": 6,
+    "spawns": 338,
+    "transitions": 24,
+    "topLevelWorldKeys": [
+      "floors",
+      "tileSize",
+      "tiles",
+      "transitions"
+    ],
+    "topLevelContentKeys": [
+      "abilities",
+      "classes",
+      "monsters",
+      "spawns"
+    ],
+    "topLevelGameplayKeys": [
+      "bindings",
+      "executionBudget",
+      "graphs",
+      "schemaVersion",
+      "triggers"
+    ]
+  },
+  "encounterGrouping": {
+    "sourceGroupCount": 45,
+    "sourceSpecialGroupCount": 15,
+    "sourceExplicitEliteSlots": 23,
+    "sourceNamedBosses": [
+      {
+        "group": "deep_crypt_throne_host",
+        "name": "Pradawny Smok Głębin",
+        "tier": 5
+      }
+    ],
+    "sourceMembers": 338,
+    "migratedSpawnInstances": 338,
+    "groupIdsEncodedInSpawnId": 45,
+    "spawnInstancesWithExplicitGroupMeaning": 0,
+    "illustration": [
+      {
+        "id": "surface_western_ruins_host",
+        "label": "Strażnicy zachodnich ruin",
+        "region": "Ruiny Zachodniej Strażnicy",
+        "tier": 3,
+        "special": true,
+        "leash": 9,
+        "alert": 5,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "surface_graveyard_host",
+        "label": "Procesja umarłych",
+        "region": "Cmentarz Umarłych",
+        "tier": 3,
+        "special": true,
+        "leash": 13,
+        "alert": 5.5,
+        "eliteCount": 2,
+        "boss": null
+      },
+      {
+        "id": "surface_desert_temple_guard",
+        "label": "Gwardia pustynnej świątyni",
+        "region": "Pustynna Świątynia",
+        "tier": 4,
+        "special": true,
+        "leash": 10,
+        "alert": 5.5,
+        "eliteCount": 2,
+        "boss": null
+      },
+      {
+        "id": "surface_dragon_glade",
+        "label": "Smocza polana",
+        "region": "Smocze Pustkowie",
+        "tier": 5,
+        "special": true,
+        "leash": 11,
+        "alert": 6,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "upper_tower_guard",
+        "label": "Straż górnej wieży",
+        "region": "Górne Piętra Twierdzy",
+        "tier": 4,
+        "special": true,
+        "leash": 8,
+        "alert": 5,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "apex_observatory_guard",
+        "label": "Umarli obserwatorium",
+        "region": "Obserwatorium Wieży",
+        "tier": 4,
+        "special": true,
+        "leash": 7,
+        "alert": 5,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "apex_dragon_nest",
+        "label": "Gniazdo na koronie szczytu",
+        "region": "Korona Lodowego Szczytu",
+        "tier": 5,
+        "special": true,
+        "leash": 8,
+        "alert": 6,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "underground_sewer_cistern_nest",
+        "label": "Gniazdo w dolnej cysternie",
+        "region": "Kanały Twierdzy",
+        "tier": 2,
+        "special": true,
+        "leash": 10,
+        "alert": 4.5,
+        "eliteCount": 0,
+        "boss": null
+      },
+      {
+        "id": "underground_mine_deep_guard",
+        "label": "Straż zapomnianego szybu",
+        "region": "Stare Kopalnie",
+        "tier": 3,
+        "special": true,
+        "leash": 11,
+        "alert": 5,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "underground_catacomb_ossuary",
+        "label": "Wielkie ossuarium",
+        "region": "Katakumby Umarłych",
+        "tier": 4,
+        "special": true,
+        "leash": 11,
+        "alert": 5.5,
+        "eliteCount": 2,
+        "boss": null
+      },
+      {
+        "id": "underground_tomb_royal_hall",
+        "label": "Gwardia sali królewskiej",
+        "region": "Grobowiec Pustynnego Króla",
+        "tier": 4,
+        "special": true,
+        "leash": 12,
+        "alert": 5.5,
+        "eliteCount": 2,
+        "boss": null
+      },
+      {
+        "id": "deep_shaft_warband",
+        "label": "Orcza kompania szybu",
+        "region": "Zapomniany Szyb",
+        "tier": 4,
+        "special": true,
+        "leash": 13,
+        "alert": 5.5,
+        "eliteCount": 2,
+        "boss": null
+      },
+      {
+        "id": "deep_sanctuary_lava_host",
+        "label": "Legion Smoczego Ognia",
+        "region": "Sanktuarium Smoczego Ognia",
+        "tier": 5,
+        "special": true,
+        "leash": 15,
+        "alert": 6,
+        "eliteCount": 3,
+        "boss": null
+      },
+      {
+        "id": "deep_sanctuary_dragon_lair",
+        "label": "Wewnętrzne legowisko smoków",
+        "region": "Sanktuarium Smoczego Ognia",
+        "tier": 5,
+        "special": true,
+        "leash": 10,
+        "alert": 6,
+        "eliteCount": 1,
+        "boss": null
+      },
+      {
+        "id": "deep_crypt_throne_host",
+        "label": "Dwór martwego króla",
+        "region": "Królewska Krypta",
+        "tier": 5,
+        "special": true,
+        "leash": 10,
+        "alert": 6,
+        "eliteCount": 3,
+        "boss": "Pradawny Smok Głębin"
+      }
+    ],
+    "caution": "Group names partly survive as fragments in spawn IDs. Placement equality does NOT mean preserving 45 authored encounter groups and 15 special roles as explicit data."
+  },
+  "tiles": [
+    {
+      "z": "0",
+      "found": true,
+      "before": 40000,
+      "after": 40000,
+      "differences": 0,
+      "firstDifferences": []
+    },
+    {
+      "z": "1",
+      "found": true,
+      "before": 40000,
+      "after": 40000,
+      "differences": 0,
+      "firstDifferences": []
+    },
+    {
+      "z": "2",
+      "found": true,
+      "before": 40000,
+      "after": 40000,
+      "differences": 0,
+      "firstDifferences": []
+    },
+    {
+      "z": "-2",
+      "found": true,
+      "before": 40000,
+      "after": 40000,
+      "differences": 0,
+      "firstDifferences": []
+    },
+    {
+      "z": "-1",
+      "found": true,
+      "before": 40000,
+      "after": 40000,
+      "differences": 0,
+      "firstDifferences": []
+    }
+  ],
+  "semanticBoundary": {
+    "npcPositionsAndRolesRepresented": false,
+    "questDefinitionsRepresented": false,
+    "authoredEntranceNamesRepresented": false,
+    "note": "Absent as named authored data is not equivalent to deleted from all game behavior. These are distinct capability losses in this migrated project schema."
+  },
+  "caveats": [
+    "Structural map equality is NOT proof of preserving authored difficulty, boss roles, atmosphere or meaning",
+    "Original game has legacy hard-coded interactions not necessarily exposed by current APIs",
+    "No new playable game, no architecture decision, no portability claim for original NPC code"
+  ]
+}

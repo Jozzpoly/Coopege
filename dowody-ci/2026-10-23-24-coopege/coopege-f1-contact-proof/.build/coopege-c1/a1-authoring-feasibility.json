@@ -1,0 +1,230 @@
+{
+  "map": {
+    "floorCount": 5,
+    "dimensions": [
+      200,
+      200
+    ],
+    "entrances": 13,
+    "npcs": 2,
+    "spawnGroups": 45,
+    "links": 12,
+    "editAccepted": true,
+    "importWorldOk": true,
+    "editObserved": true,
+    "restoreOk": true,
+    "restoredExact": false,
+    "restoredSemanticExact": true,
+    "changedKeys": [
+      "spawnGroups"
+    ],
+    "differences": [
+      {
+        "path": ".spawnGroups[0].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[1].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[2].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[3].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[4].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[6].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[7].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[9].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[10].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[11].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[13].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[14].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[15].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[17].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[18].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[19].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[20].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[21].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[23].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[24].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[26].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[28].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[29].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[31].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[32].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[34].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[36].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[38].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[40].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      },
+      {
+        "path": ".spawnGroups[43].eliteCount",
+        "before": "undefined",
+        "after": "0"
+      }
+    ]
+  },
+  "content": {
+    "quests": [
+      {
+        "name": "Plaga pod murami",
+        "kind": "rat"
+      },
+      {
+        "name": "Zielona zasadzka",
+        "kind": "troll"
+      },
+      {
+        "name": "Kości nie kłamią",
+        "kind": "skeleton"
+      },
+      {
+        "name": "Serce zimy",
+        "kind": "yeti"
+      },
+      {
+        "name": "Smocza próba",
+        "kind": "dragon"
+      }
+    ],
+    "classes": [
+      "warrior",
+      "archer",
+      "mage"
+    ],
+    "monsters": [
+      "rat",
+      "troll",
+      "orc",
+      "skeleton",
+      "dragon",
+      "yeti"
+    ],
+    "proposedCourierQuestAccepted": false,
+    "courierQuestErrors": [
+      "Quest 5 wskazuje nieznanego potwora courier_parcel."
+    ],
+    "proposedNewTalentAccepted": true,
+    "talentWarnings": [
+      "Talent warrior.carry_strength pojawi się w UI, ale Content API v1.1 nie nadaje nowym ID własnej logiki."
+    ]
+  },
+  "actorRole": {
+    "courierSchemaAccepted": true,
+    "warnings": []
+  },
+  "capabilities": {
+    "atomicRollback": true,
+    "content": true,
+    "assets": true,
+    "map": true,
+    "crossReferenceValidation": true
+  }
+}
