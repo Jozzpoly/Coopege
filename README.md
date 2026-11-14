@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **Stan na 14 XI 2026 (Opus czatu, tylko dokumentacja).** `main` opisuje stan z **15 VI 2026** (M8 VS-3, „owner retest”). Nowsza praca nigdy nie trafiła na `main`: łańcuch B1–B5 i odrodzenie R0 z 22–23 X (PR #1–#8), dokument autorski A0/A1 i dwa eksperymenty edytora z 9–10 XI (PR #11–#13). Ostatnia rzecz, do której wraca właściciel: `experiments/coopege-one-world-authoring/continuity-2026-10-26/Coopege_Powrot_Do_Swiata_2026-10-26.html` na gałęzi `experiment/coopege-portable-return-2026-10-26` (otwierana lokalnie, bez żywego adresu). Dowody CI z 23–24 X: gałąź `dowody/ci-2026-10-23-24`. Żadna z tych gałęzi nie jest zakwalifikowana przez właściciela; nie czytaj `main` jako najnowszego stanu.
+
 # Coopege — LAN-first coop action RPG
 
 Aktualna wersja: **0.8.1-m8-lan-vs3-retest**. M7 pozostaje **TECH_VERIFIED / OWNER_ACCEPTED_WITH_DEBT / SUCCESSOR_REVIEWED**. M8 VS-3 jest **otwarte: stabilizacja i owner retest wymagane**.
